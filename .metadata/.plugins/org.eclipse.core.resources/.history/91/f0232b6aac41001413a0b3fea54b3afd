@@ -206,15 +206,12 @@ public class registerAlloc {
           allocationActions.get(i).setPROp1(registerVMapped.get(virtualRegister));
 
         }
-        
-        
         allocationActions.get(i).setPROp1(allocationActions.get(i).getVROp1());
       }
       
       //Perform concatenation for operation 1 because opCode 2 will change it
       operation1 += allocationActions.get(i).getPROp1();
       //System.out.println(">>>>>>>>>>> \t" + operation1);
-      
       // opCode2
       if (allocationActions.get(i).getVROp2().contains("r")) {
 
@@ -224,10 +221,8 @@ public class registerAlloc {
       } else {
         if (allocationActions.get(i).getVROp2().contains("Empty")) {
           allocationActions.get(i).setPROp2("");
-          operation2 += allocationActions.get(i).getPROp2();
         } else {
           allocationActions.get(i).setPROp2(allocationActions.get(i).getVROp2());
-          operation2 += allocationActions.get(i).getPROp2();
         }
       }
 
@@ -397,11 +392,7 @@ public class registerAlloc {
        
       // write the PR to opcode1 location
       allocationActions.get(index).setPROp2(registerVMapped.get(registerName));
-      
-      //Save the phyiscal register for operation 2 for output if not already done
-      if(operation2.equals("")){
-        operation2 += allocationActions.get(index).getPROp2();
-      }
+
       // update the next use for the register in the hashmap
       registerNextU.put(registerVMapped.get(registerName), allocationActions.get(index).getNUOp2());
 
@@ -444,8 +435,6 @@ public class registerAlloc {
         registerVMapped.put(registerName, registerChange);
         allocationActions.get(index).setPROp2(registerVMapped.get(registerName));
 
-        //Save the physical register for output
-        operation2 += allocationActions.get(index).getPROp2();
       } else {
         String assignRegister = registerAvail.pop();
         registerInUse.push(assignRegister);
@@ -457,10 +446,7 @@ public class registerAlloc {
         // update the next use for the register in the hashmap
         registerNextU.put(registerVMapped.get(registerName), allocationActions.get(index)
             .getNUOp2());
-        
-        //Save the physical register for output
-        operation2 += allocationActions.get(index).getPROp2();
-        
+
         if (allocationActions.get(index).getNUOp2().contains("Empty")) {
           // remove from the mapping
           String freedRegister1 = registerVMapped.remove(registerName);
