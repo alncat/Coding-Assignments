@@ -15,9 +15,6 @@ import java.util.Stack;
  */
 public class registerAlloc {
 
-  //Holds the value for Operation 2 to keep it from getting overwritten
-  private static String operation2 = "";
-  
   // Mapping to Register's furtherest next use
   private static HashMap<String, String> registerNextU = new HashMap<String, String>();
 
@@ -132,12 +129,10 @@ public class registerAlloc {
     while (it.hasNext()) {
       Map.Entry<String, String> pairs = (Map.Entry) it.next();
       // If a register currently does not have a next use, return that register.
-      if (pairs.getValue().contains("Empty")&& pairs.getKey().contains("r") ) {
+      if (pairs.getValue().contains("Empty") && pairs.getKey().contains("r")) {
         // System.out.println(pairs.getKey() + " = " + pairs.getValue());
         return pairs.getKey();
       }
-      //Cannot enumerate an "Empty", just skip to the next iteration.
-      if(!pairs.getValue().contains("Empty")){
       // Keep track of the furtherest register
       compareNum = Integer.parseInt(pairs.getValue());
       if (compareNum > furtherestUse && pairs.getKey().contains("r")) {
@@ -145,7 +140,7 @@ public class registerAlloc {
         furtherestReg = pairs.getKey();
         // System.out.println(pairs.getKey() + " = " + pairs.getValue());
       }
-}
+
     }
     return furtherestReg;
   }
@@ -155,7 +150,7 @@ public class registerAlloc {
    * registers, and prints to console.
    */
   public static void assignPhyRegAndPrintVector() {
-    String physicalRegister = "", virtualRegister = "",operation1 ="";
+    String physicalRegister = "", virtualRegister = "";
     int numberOfLines = allocationActions.size();
     for (int i = 0; i < numberOfLines; i++) {
       // If there is no opcode skip the line
@@ -208,10 +203,7 @@ public class registerAlloc {
         }
         allocationActions.get(i).setPROp1(allocationActions.get(i).getVROp1());
       }
-      
-      //Perform concatenation for operation 1 because opCode 2 will change it
-      operation1 += allocationActions.get(i).getPROp1();
-      //System.out.println(">>>>>>>>>>> \t" + operation1);
+
       // opCode2
       if (allocationActions.get(i).getVROp2().contains("r")) {
 
@@ -271,13 +263,12 @@ public class registerAlloc {
 
       }
 
-      // Prints out the lines for the standard output 
+      // Prints out the lines for the standard output
       System.out.println(allocationActions.get(i).getTheOpcode() + "\t "
           + allocationActions.get(i).getPROp1() + "\t " + allocationActions.get(i).getPROp2()
           + " =>" + "\t" + allocationActions.get(i).getPROp3());
 
-      operation1 = "";
-      operation2 = "";
+
       // Test check the values in registerNextU
       // System.out.println("Line number: \t" + i);
       // printMap(registerNextU);
@@ -343,53 +334,10 @@ public class registerAlloc {
 
 
   public static void performAllocationOP2(String registerName, int index) {
-    String registerChange = "MoveRegister", physicalRegister = "", virtualRegister = allocationActions.get(index).getVROp2();
+    String registerChange = "MoveRegister";
     // check to see if the virtual register is assigned to physical register
     if (registerVMapped.containsKey(allocationActions.get(index).getVROp2())) {
-      /**
-       * THIS SHOULD BE CORRECT, I BELIEVE THAT SINCE THE MAPPINGS ARE CHANGING, THAT IS WHY OPERATION 1 IS BEING MODIFIED. TO FIX THIS CREATE A STRING FOR OPERATION1 AND CONCATE THE RESULTS FROM 
-       * PERFORM ALLOCATION OP1 TO OPERATION1 AND BE SURE TO SET OPERATION1 BACK TO THE EMPTY STRING.
-       * */
-       if(!registerVMapped.get(allocationActions.get(index).getVROp2()).contains("pr")){
 
-          //Pick the register with the furtherest next use
-            physicalRegister = iterateRegisterNextU(registerNextU);
-            
-            //Change the mapping for register Change
-            changeVRegisterMappings(registerVMapped, physicalRegister,Integer.toString(dataMemoryLoc));
-            
-            
-            //Spill the contents of the furtherest register to memory
-            System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister + "\t //Spill (k is minimal)");
-            dataMemoryLoc += 4;
-            
-          //Change the mappings for the virtual and physical register
-            registerVMapped.put(virtualRegister, physicalRegister);
-            //allocationActions.get(i).setPROp2(registerVMapped.get(virtualRegister));
-            /**TRY CREATING A GLOBAL VARIABLE ##############################*/
-            operation2 += physicalRegister;
-            //System.out.println("Operation 2 >>>>>>>>>>>>>> \t "+ operation2);
-            
-            if(!registerVMapped.get(allocationActions.get(index).getVROp1()).contains("pr")){
-              virtualRegister = allocationActions.get(index).getVROp1();
-              //Pick the register with the furtherest next use
-                physicalRegister = iterateRegisterNextU(registerNextU);
-                
-                //Change the mapping for register Change
-                changeVRegisterMappings(registerVMapped, physicalRegister,Integer.toString(dataMemoryLoc));
-                
-                
-                //Spill the contents of the furtherest register to memory
-                System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister + "\t //Spill (k is minimal)");
-                dataMemoryLoc += 4;
-                
-              //Change the mappings for the virtual and physical register
-                registerVMapped.put(virtualRegister, physicalRegister);
-                allocationActions.get(index).setPROp1(registerVMapped.get(virtualRegister));
-            }
-          
-        }
-       
       // write the PR to opcode1 location
       allocationActions.get(index).setPROp2(registerVMapped.get(registerName));
 
@@ -460,6 +408,7 @@ public class registerAlloc {
     }
 
   }
+
 
   /**
    * @param registerName: Virtual Register for Operation 1 is passed in.

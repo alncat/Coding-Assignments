@@ -15,9 +15,6 @@ import java.util.Stack;
  */
 public class registerAlloc {
 
-  //Holds the value for Operation 2 to keep it from getting overwritten
-  private static String operation2 = "";
-  
   // Mapping to Register's furtherest next use
   private static HashMap<String, String> registerNextU = new HashMap<String, String>();
 
@@ -132,12 +129,10 @@ public class registerAlloc {
     while (it.hasNext()) {
       Map.Entry<String, String> pairs = (Map.Entry) it.next();
       // If a register currently does not have a next use, return that register.
-      if (pairs.getValue().contains("Empty")&& pairs.getKey().contains("r") ) {
+      if (pairs.getValue().contains("Empty") && pairs.getKey().contains("r")) {
         // System.out.println(pairs.getKey() + " = " + pairs.getValue());
         return pairs.getKey();
       }
-      //Cannot enumerate an "Empty", just skip to the next iteration.
-      if(!pairs.getValue().contains("Empty")){
       // Keep track of the furtherest register
       compareNum = Integer.parseInt(pairs.getValue());
       if (compareNum > furtherestUse && pairs.getKey().contains("r")) {
@@ -145,7 +140,7 @@ public class registerAlloc {
         furtherestReg = pairs.getKey();
         // System.out.println(pairs.getKey() + " = " + pairs.getValue());
       }
-}
+
     }
     return furtherestReg;
   }
@@ -271,13 +266,12 @@ public class registerAlloc {
 
       }
 
-      // Prints out the lines for the standard output 
+      // Prints out the lines for the standard output
       System.out.println(allocationActions.get(i).getTheOpcode() + "\t "
           + allocationActions.get(i).getPROp1() + "\t " + allocationActions.get(i).getPROp2()
           + " =>" + "\t" + allocationActions.get(i).getPROp3());
 
       operation1 = "";
-      operation2 = "";
       // Test check the values in registerNextU
       // System.out.println("Line number: \t" + i);
       // printMap(registerNextU);
@@ -366,9 +360,6 @@ public class registerAlloc {
           //Change the mappings for the virtual and physical register
             registerVMapped.put(virtualRegister, physicalRegister);
             //allocationActions.get(i).setPROp2(registerVMapped.get(virtualRegister));
-            /**TRY CREATING A GLOBAL VARIABLE ##############################*/
-            operation2 += physicalRegister;
-            //System.out.println("Operation 2 >>>>>>>>>>>>>> \t "+ operation2);
             
             if(!registerVMapped.get(allocationActions.get(index).getVROp1()).contains("pr")){
               virtualRegister = allocationActions.get(index).getVROp1();

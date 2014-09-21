@@ -132,12 +132,10 @@ public class registerAlloc {
     while (it.hasNext()) {
       Map.Entry<String, String> pairs = (Map.Entry) it.next();
       // If a register currently does not have a next use, return that register.
-      if (pairs.getValue().contains("Empty")&& pairs.getKey().contains("r") ) {
+      if (pairs.getValue().contains("Empty")&& pairs.getKey().contains("r") ) {//THIS SHOULD ONLY HAVE R'S AS THE KEY
         // System.out.println(pairs.getKey() + " = " + pairs.getValue());
         return pairs.getKey();
       }
-      //Cannot enumerate an "Empty", just skip to the next iteration.
-      if(!pairs.getValue().contains("Empty")){
       // Keep track of the furtherest register
       compareNum = Integer.parseInt(pairs.getValue());
       if (compareNum > furtherestUse && pairs.getKey().contains("r")) {
@@ -145,7 +143,7 @@ public class registerAlloc {
         furtherestReg = pairs.getKey();
         // System.out.println(pairs.getKey() + " = " + pairs.getValue());
       }
-}
+
     }
     return furtherestReg;
   }
@@ -271,7 +269,7 @@ public class registerAlloc {
 
       }
 
-      // Prints out the lines for the standard output 
+      // Prints out the lines for the standard output
       System.out.println(allocationActions.get(i).getTheOpcode() + "\t "
           + allocationActions.get(i).getPROp1() + "\t " + allocationActions.get(i).getPROp2()
           + " =>" + "\t" + allocationActions.get(i).getPROp3());
@@ -368,7 +366,7 @@ public class registerAlloc {
             //allocationActions.get(i).setPROp2(registerVMapped.get(virtualRegister));
             /**TRY CREATING A GLOBAL VARIABLE ##############################*/
             operation2 += physicalRegister;
-            //System.out.println("Operation 2 >>>>>>>>>>>>>> \t "+ operation2);
+            System.out.println("Operation 2 >>>>>>>>>>>>>> \t "+ operation2);
             
             if(!registerVMapped.get(allocationActions.get(index).getVROp1()).contains("pr")){
               virtualRegister = allocationActions.get(index).getVROp1();
