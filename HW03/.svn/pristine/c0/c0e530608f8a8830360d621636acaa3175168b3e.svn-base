@@ -1,0 +1,26 @@
+package strategies;
+
+import util.Randomizer;
+import balls.Ball;
+
+public class ColorChangingStrategy implements IUpdateStrategy{
+	
+	private int frameCounter = 0;
+	@Override
+	/**
+	 * Updates the ball's state by changing its
+	 * color after a fixed interval
+	 */
+	public void updateState(Ball context) {
+		
+		if(frameCounter >= 30){
+			context.setColor(Randomizer.Singleton.randomColor());
+			frameCounter = 0;
+		} else {
+			frameCounter++;
+		}
+	}
+
+
+
+}

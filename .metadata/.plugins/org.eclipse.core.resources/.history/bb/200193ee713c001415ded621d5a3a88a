@@ -1,0 +1,9 @@
+package balls;
+
+public class CurveBall {
+
+  public CurveBall() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

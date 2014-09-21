@@ -1,0 +1,17 @@
+Saturday at 2pm at Brown Commons
+Factory for making balls
+	list of ABalls
+	addBall (string ClassType)
+	clear balls (clears the list and calls repaint of the graphic)
+
+ABall
+	radius
+	color
+	paint thing that takes care of it's random actions
+
+Balls
+	standard ball
+	radius-changing ball
+		go to 2x the initial radius, then decrement by one each time
+	spinning-ball
+		messes with directions (changes a little)

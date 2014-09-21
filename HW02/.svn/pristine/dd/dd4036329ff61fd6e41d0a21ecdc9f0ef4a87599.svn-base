@@ -1,0 +1,97 @@
+package controller;
+
+import java.awt.EventQueue;
+import java.awt.Graphics;
+
+import view.BallGUI;
+import balls.ABall;
+import balls.BallModel;
+
+/**
+ * MVC Controller for the system
+ */
+public class Controller {
+
+	// Fields for the adapters to close over:
+	private BallModel model; // starts off null but will be fine when the
+								// constructor is finished.
+	private BallGUI view; // starts off null but will be fine when the
+							// constructor is finished.
+
+	/**
+	 * Controller constructor builds the system
+	 */
+	public Controller() {
+
+		// Here the model is shown being constructed first then the view but it
+		// could easily be the other way around if needs dictated it.
+
+		// set the model field
+		model = new BallModel(new IModel2ViewAdapter() {
+
+			// In the adapter code, one can reference the view field above
+			// because it is in scope.
+			// It's ok that the view field is currently null because it will be
+			// set below. Just don't start the model yet!
+
+			// adapter methods elided
+			public void update() {
+				view.update();
+			}
+
+		});
+
+		// set the view field
+		view = new BallGUI(new IView2ModelAdapter() {
+
+			// In the adapter code, one can reference the model field above
+			// because it is in scope.
+			// The model field is already set here but it doesn't matter if it
+			// was or wasn't. Don't start the view yet!
+
+			@Override
+			public void paint(Graphics g) {
+				model.update(g);
+			}
+
+			@Override
+			public void addBall(String className) {
+				ABall ball = model.loadBall(className, view.getCanvas());
+				System.out.println(ball);
+				model.addSprite(ball);
+			}
+
+		});
+	}
+
+	/**
+	 * Start the system
+	 */
+	public void start() {
+		model.start();
+		view.start();
+	}
+
+	/**
+	 * Launch the application.
+	 * 
+	 * @param args
+	 *            Arguments given by the system or command line.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() { // Java specs say that the
+												// system must be constructed on
+												// the GUI event thread.
+					public void run() {
+						try {
+							Controller controller = new Controller(); // instantiate
+																		// the
+																		// system
+							controller.start(); // start the system
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+	}
+}

@@ -1,0 +1,17 @@
+package shape;
+
+import java.awt.Graphics;
+
+
+public abstract class AShape {
+	int x;
+	int y;
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public abstract void paint(int x, int y, Graphics g);
+};
+

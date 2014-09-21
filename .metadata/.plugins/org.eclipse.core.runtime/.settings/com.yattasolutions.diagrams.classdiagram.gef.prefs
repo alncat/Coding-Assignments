@@ -1,0 +1,3 @@
+com.yattasolutions.diagrams.classdiagram.gef.DefaultSourceRoleCardinality=1..1
+com.yattasolutions.diagrams.classdiagram.gef.DefaultTargetRoleCardinality=1..1
+eclipse.preferences.version=1

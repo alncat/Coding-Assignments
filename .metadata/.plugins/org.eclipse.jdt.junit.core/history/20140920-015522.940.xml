@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="DoubleVectorTester" project="215HWA2" tests="17" started="17" failures="0" errors="0" ignored="0">
+  <testsuite name="DoubleVectorTester" time="0.0">
+    <testcase name="testLotsOfDenseSets" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testL1NormSparseShort" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testLotsOfAdds" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testNormalizeDense" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testL1NormDenseShort" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testOutOfBounds" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testLotsOfSparseSets" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testLotsOfSparseSetsWithAddToAll" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testL1NormSparseLong" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testSingleSparseSetSize1" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testSingleDenseSetSize1" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testSingleSparseSetSize1000" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testRounding" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testNormalizeSparse" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testSingleDenseSetSize1000" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testL1NormDenseLong" classname="DoubleVectorTester" time="0.0"/>
+    <testcase name="testLotsOfDenseSetsWithAddToAll" classname="DoubleVectorTester" time="0.0"/>
+  </testsuite>
+</testrun>

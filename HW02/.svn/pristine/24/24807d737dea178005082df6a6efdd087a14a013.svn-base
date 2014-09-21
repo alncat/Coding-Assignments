@@ -1,0 +1,13 @@
+package Balls;
+
+import java.awt.Color;
+
+public abstract class ABall {
+	private int radius;
+	private Color color;
+
+	public ABall(int radius, Color color) {
+		this.radius = radius;
+		this.color = color;
+	}
+}

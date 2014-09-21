@@ -1,0 +1,13 @@
+package Balls;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BallFactory {
+	private List<ABall> balls;
+
+	public BallFactory() {
+		balls = new ArrayList<ABall>();
+	}
+
+}

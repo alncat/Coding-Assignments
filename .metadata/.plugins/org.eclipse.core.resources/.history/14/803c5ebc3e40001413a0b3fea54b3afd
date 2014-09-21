@@ -1,0 +1,8 @@
+
+public class SparseDoubleVector {
+
+  public SparseDoubleVector() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

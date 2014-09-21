@@ -1,0 +1,22 @@
+package shape;
+
+import java.awt.Graphics;
+
+public class Comp extends AShape {
+	AShape [] children = new AShape[2];
+
+	/* (non-Javadoc)
+	 * @see shape.AShape#paint(int, int, java.awt.Graphics)
+	 */
+	@Override
+	public void paint(int x, int y, Graphics g) {
+		// TODO Auto-generated method stub
+		EquilTri first = new EquilTri(3,50,60);
+		Rect second = new Rect(50,50);
+		children[0] = first;
+		children[1] = second;
+		children[0].paint(50, 100, g);
+		children[1].paint(50, 50, g);
+	}
+	
+}

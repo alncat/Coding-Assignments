@@ -1,0 +1,15 @@
+package view;
+
+import java.awt.Graphics;
+
+public interface IModelUpdateAdapter<TDropListItem> {
+
+	public void update(Graphics g);
+	
+	/**
+	 * No-op singleton implementation of IModel2ViewAdapter.
+	 */
+	public static final IModelUpdateAdapter NULL_OBJECT = new IModelUpdateAdapter() {
+		public void update(Graphics g){}
+	};
+}

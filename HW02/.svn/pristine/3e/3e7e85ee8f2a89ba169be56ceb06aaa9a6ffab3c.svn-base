@@ -1,0 +1,14 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Point;
+
+public class StraightBall extends ABall {
+
+	public StraightBall(Point loc, int radius, Point velocity, Color color) {
+		super(radius, color, velocity, loc);
+	}
+
+	public void update() {
+	}
+}

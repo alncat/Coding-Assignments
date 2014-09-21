@@ -1,0 +1,8 @@
+
+public class OutOfBoundsException {
+
+  public OutOfBoundsException() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

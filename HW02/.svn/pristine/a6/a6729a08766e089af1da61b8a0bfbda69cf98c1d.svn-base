@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLLabProfile="http:///schemas/UMLLabProfile/NS/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/UMLLabProfile/NS/0 pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile">
+  <uml:Model xmi:id="_Sk0CoDUPEeSsBunqDIx7gQ" name="HW02">
+    <eAnnotations xmi:id="_SqQjUDUPEeSsBunqDIx7gQ" source="http://ns.yatta.de/umllab">
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_SqRKYDUPEeSsBunqDIx7gQ" source="codegen">
+        <details xmi:id="_SqRxcDUPEeSsBunqDIx7gQ" key="codegenDirectory" value="/HW02/src"/>
+        <details xmi:id="_r3RI4DUQEeSsBunqDIx7gQ" key="AssociatedSourceCode" value="/HW02/src/Balls/ABall.java;2650560936/1;/HW02/src/Balls/BallFactory.java;1375762302/1;/HW02/src/Balls/CirclePathBall.java;3593394801/1;/HW02/src/Balls/ExpandingBall.java;3643996208/1;/HW02/src/Balls/StandardBall.java;3366970274/1;"/>
+      </contents>
+    </eAnnotations>
+    <elementImport xmi:id="_r0h98DUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+    </elementImport>
+    <elementImport xmi:id="_r0h98TUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+    </elementImport>
+    <elementImport xmi:id="_r0h98jUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+    </elementImport>
+    <elementImport xmi:id="_r0h98zUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilADUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilATUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilAjUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilAzUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilBDUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </elementImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_r0jMEDUQEeSsBunqDIx7gQ" name="Balls">
+      <packagedElement xmi:type="uml:Class" xmi:id="_r0ndgDUQEeSsBunqDIx7gQ" name="ABall" isAbstract="true">
+        <ownedAttribute xmi:id="_2O7gQDUQEeSsBunqDIx7gQ" name="radius" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_2O7gQjUQEeSsBunqDIx7gQ" name="color" visibility="private" type="_2O5EADUQEeSsBunqDIx7gQ" association="_2O8uYDUQEeSsBunqDIx7gQ"/>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_2O8HUTUQEeSsBunqDIx7gQ" name="ABall" specification="_2O65MDUQEeSsBunqDIx7gQ">
+          <ownedParameter xmi:id="_2O8HUjUQEeSsBunqDIx7gQ" name="radius">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_2O8HUzUQEeSsBunqDIx7gQ" name="color" type="_2O5EADUQEeSsBunqDIx7gQ"/>
+          <ownedParameter xmi:id="_2O8HVDUQEeSsBunqDIx7gQ" type="_r0ndgDUQEeSsBunqDIx7gQ" direction="return"/>
+          <language>java</language>
+          <body>this.radius = radius;
+		this.color = color;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_2O65MDUQEeSsBunqDIx7gQ" name="ABall" method="_2O8HUTUQEeSsBunqDIx7gQ">
+          <eAnnotations xmi:id="_2O65NDUQEeSsBunqDIx7gQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_2O65NTUQEeSsBunqDIx7gQ" key="create"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_2O65MTUQEeSsBunqDIx7gQ" name="radius">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_2O65MjUQEeSsBunqDIx7gQ" name="color" type="_2O5EADUQEeSsBunqDIx7gQ"/>
+          <ownedParameter xmi:id="_2O65MzUQEeSsBunqDIx7gQ" type="_r0ndgDUQEeSsBunqDIx7gQ" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_r0oEkDUQEeSsBunqDIx7gQ" name="BallFactory">
+        <ownedAttribute xmi:id="_r0wAYTUQEeSsBunqDIx7gQ" name="balls" visibility="private" type="_r0ndgDUQEeSsBunqDIx7gQ" isOrdered="true" association="_r0xOgDUQEeSsBunqDIx7gQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_r0wAYjUQEeSsBunqDIx7gQ" value="*"/>
+        </ownedAttribute>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_r0wncTUQEeSsBunqDIx7gQ" name="BallFactory" specification="_r0oroDUQEeSsBunqDIx7gQ">
+          <ownedParameter xmi:id="_r0wncjUQEeSsBunqDIx7gQ" type="_r0oEkDUQEeSsBunqDIx7gQ" direction="return"/>
+          <language>java</language>
+          <body>balls = new ArrayList&lt;ABall>();
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_r0oroDUQEeSsBunqDIx7gQ" name="BallFactory" method="_r0wncTUQEeSsBunqDIx7gQ">
+          <eAnnotations xmi:id="_r0oroTUQEeSsBunqDIx7gQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_r0orojUQEeSsBunqDIx7gQ" key="create"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_r0orozUQEeSsBunqDIx7gQ" type="_r0oEkDUQEeSsBunqDIx7gQ" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_r0pSsDUQEeSsBunqDIx7gQ" name="CirclePathBall">
+        <generalization xmi:id="_r0vZUTUQEeSsBunqDIx7gQ" general="_r0ndgDUQEeSsBunqDIx7gQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_r0p5wDUQEeSsBunqDIx7gQ" name="ExpandingBall">
+        <generalization xmi:id="_r0vZUjUQEeSsBunqDIx7gQ" general="_r0ndgDUQEeSsBunqDIx7gQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_r0qg0DUQEeSsBunqDIx7gQ" name="StandardBall">
+        <generalization xmi:id="_r0wAYDUQEeSsBunqDIx7gQ" general="_r0ndgDUQEeSsBunqDIx7gQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_r0xOgDUQEeSsBunqDIx7gQ" name="" memberEnd="_r0xOgTUQEeSsBunqDIx7gQ _r0wAYTUQEeSsBunqDIx7gQ">
+        <ownedEnd xmi:id="_r0xOgTUQEeSsBunqDIx7gQ" name="" type="_r0oEkDUQEeSsBunqDIx7gQ" association="_r0xOgDUQEeSsBunqDIx7gQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_2O8uYDUQEeSsBunqDIx7gQ" name="" memberEnd="_2O8uYTUQEeSsBunqDIx7gQ _2O7gQjUQEeSsBunqDIx7gQ">
+        <ownedEnd xmi:id="_2O8uYTUQEeSsBunqDIx7gQ" name="" type="_r0ndgDUQEeSsBunqDIx7gQ" association="_2O8uYDUQEeSsBunqDIx7gQ"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_r0jzIDUQEeSsBunqDIx7gQ" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_r0jzITUQEeSsBunqDIx7gQ" name="util">
+        <packagedElement xmi:type="uml:Class" xmi:id="_r0uLMDUQEeSsBunqDIx7gQ" name="ArrayList"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_r0uyQTUQEeSsBunqDIx7gQ" name="List"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_2O0ykDUQEeSsBunqDIx7gQ" name="awt">
+        <packagedElement xmi:type="uml:Class" xmi:id="_2O5EADUQEeSsBunqDIx7gQ" name="Color"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_SqS_kDUPEeSsBunqDIx7gQ">
+      <eAnnotations xmi:id="_SqVb0DUPEeSsBunqDIx7gQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile"/>
+    </profileApplication>
+  </uml:Model>
+  <UMLLabProfile:TargetLanguage xmi:id="_SqWC4DUPEeSsBunqDIx7gQ" base_Package="_Sk0CoDUPEeSsBunqDIx7gQ">
+    <languageName>java</languageName>
+  </UMLLabProfile:TargetLanguage>
+  <UMLLabProfile:Reference xmi:id="_r0uyQDUQEeSsBunqDIx7gQ" base_Element="_r0uLMDUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_r0vZUDUQEeSsBunqDIx7gQ" base_Element="_r0uyQTUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_r0wncDUQEeSsBunqDIx7gQ" base_Element="_r0wAYTUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_r0x1kDUQEeSsBunqDIx7gQ" base_Element="_r0xOgDUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_2O5rEDUQEeSsBunqDIx7gQ" base_Element="_2O5EADUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_2O7gQTUQEeSsBunqDIx7gQ" base_Element="_2O7gQDUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_2O8HUDUQEeSsBunqDIx7gQ" base_Element="_2O7gQjUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_2O8uYjUQEeSsBunqDIx7gQ" base_Element="_2O8uYDUQEeSsBunqDIx7gQ"/>
+</xmi:XMI>

@@ -1,0 +1,9 @@
+package balls;
+
+public class EclipseBall {
+
+  public EclipseBall() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

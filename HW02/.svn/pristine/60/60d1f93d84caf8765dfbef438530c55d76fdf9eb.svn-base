@@ -1,0 +1,25 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Point;
+
+import util.Randomizer;
+
+public class ColorChangingBall extends ABall {
+
+	public ColorChangingBall(Point loc, int radius, Point velocity, Color color) {
+		super(radius, color, velocity, loc);
+	}
+
+	/* 
+	 * 
+	 * Method changes the color of the ball when called.
+	 * 
+	 * (non-Javadoc)
+	 * @see balls.ABall#update()
+	 */
+	@Override
+	public void update() {
+		super.setColor(Randomizer.Singleton.randomColor());
+	}
+}

@@ -1,0 +1,83 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Component;
+
+/**
+ * The BreathingBall class extends the ABall class.
+ * Breathing balls change radius over a fixed interval,
+ * giving the illusion that they are 'breathing'.
+ */
+public class BreathingBall extends ABall {
+	
+	/**
+	 * Counts the number of frames that have occurred -
+	 * used as a timer for the changing radius.
+	 */
+	private int frameCounter = 0;
+	/**
+	 * Stores the original radius of the ball.
+	 */
+	private int myRadius;
+	/**
+	 * True while the radius is decreasing in size, 
+	 * false when it is growing instead.
+	 */
+	private boolean decrease = false;
+
+	/**
+	 * General constructor for BreathingBalls.
+	 * 
+	 * @param color		The color of the ball
+	 * @param xLoc		The x coordinate of the center of the ball
+	 * @param yLoc		The y coordinate of the center of the ball
+	 * @param xVel		The magnitude of the x component of the velocity of the ball
+	 * @param yVel		The magnitude of the y component of the velocity of the ball
+	 * @param radius	The radius of the ball
+	 * @param inCanavas	The canvas component that holds the ball
+	 */
+	public BreathingBall (Color color, int xLoc, int yLoc, int xVel, int yVel, int radius, Component inCanvas)  {
+		super (color, xLoc, yLoc, xVel, yVel, radius, inCanvas) ;
+		myRadius = radius;
+	}
+	
+	/**
+	 * Updates the ball's state by changing the 
+	 * radius size.
+	 */
+	@Override
+	public void updateState(){
+		if(decrease){
+			// Switch directions if the minimum was reached
+			if (frameCounter <= 0){
+				decrease = false;
+			} 
+			// Decrement the counter and radius
+			else {
+				frameCounter--; 
+				this.setRadius(myRadius + frameCounter);
+			}
+		} else{
+			// Switch directions if the maximum was reached
+			if(frameCounter >= 60){
+				decrease = true;
+			} 
+			// Increment the counter and radius
+			else {
+				this.setRadius(myRadius + frameCounter);
+				frameCounter++;
+			}
+		}
+	}
+	
+
+
+
+
+
+
+
+
+
+	
+}

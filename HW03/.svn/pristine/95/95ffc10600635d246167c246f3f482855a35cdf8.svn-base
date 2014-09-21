@@ -1,0 +1,14 @@
+package model;
+
+public interface IViewUpdateAdapter {
+
+	public void update();
+	
+	/**
+	 * No-op singleton implementation of IModel2ViewAdapter.
+	 */
+	public static final IViewUpdateAdapter NULL_OBJECT = new IViewUpdateAdapter() {
+		public void update(){}
+	};
+	
+}

@@ -1,0 +1,61 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Component;
+
+import util.IRandomizer;
+import util.Randomizer;
+
+/**
+ * The BreathingBall class extends the ABall class.
+ * Breathing balls randomly change color after
+ * a set interval.
+ */
+public class ColorChangingBall extends ABall {
+	
+	/**
+	 * Counts the number of frames that have occurred -
+	 * used as a timer for the changing color.
+	 */
+	private int frameCounter = 0;
+	/**
+	 * Used to change the color to a random color.
+	 */
+	private static IRandomizer randomizer = Randomizer.Singleton;
+
+	/**
+	 * General constructor for ColorChangingBalls.
+	 * 
+	 * @param color		The color of the ball
+	 * @param xLoc		The x coordinate of the center of the ball
+	 * @param yLoc		The y coordinate of the center of the ball
+	 * @param xVel		The magnitude of the x component of the velocity of the ball
+	 * @param yVel		The magnitude of the y component of the velocity of the ball
+	 * @param radius	The radius of the ball
+	 * @param inCanavas	The canvas component that holds the ball
+	 */
+	public ColorChangingBall (Color color, int xLoc, int yLoc, int xVel, int yVel, int radius, Component inCanvas)  {
+		super (color, xLoc, yLoc, xVel, yVel, radius, inCanvas) ;
+	}
+
+	@Override
+	/**
+	 * Updates the ball's state by changing its
+	 * color after a fixed interval
+	 */
+	public void updateState() {
+		if(frameCounter >= 30){
+			this.setColor(randomizer.randomColor());
+			frameCounter = 0;
+		} else {
+			frameCounter++;
+		}
+	}
+
+
+
+
+
+
+	
+}

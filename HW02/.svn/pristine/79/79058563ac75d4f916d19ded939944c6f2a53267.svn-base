@@ -1,0 +1,6 @@
+Instructions for Ball World.
+
+After launching the application, type into the textbox the type of ball that you would like to 
+add to the screen. The following balls you may add are: balls.ColorChangingBall, balls.SizeChangingBall, 
+and balls.StraightBall. After typing in the type of ball into the textbox, click "Add Ball" as many times
+as you wish to add balls to the window. Press the "Clear Ball" to remove all balls from the screen.

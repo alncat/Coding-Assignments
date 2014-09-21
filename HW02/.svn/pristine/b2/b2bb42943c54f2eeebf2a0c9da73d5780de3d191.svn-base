@@ -1,0 +1,10 @@
+package Balls;
+
+import java.awt.Color;
+import java.awt.Point;
+
+public class ExpandingBall extends ABall {
+	public ExpandingBall(int radius, Color color, Point velocity, Point loc) {
+		super(radius, color, velocity, loc);
+	}
+}

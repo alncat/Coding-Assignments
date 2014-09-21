@@ -1,0 +1,112 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import controller.IView2ModelAdapter;
+
+public class BallGUI extends JFrame {
+	private static final long serialVersionUID = -7063488266654092746L;
+	private JPanel contentPane;
+	private final JPanel hdrPanel = new JPanel();
+	private final JTextField txtBallClassToAdd = new JTextField();
+	private final JButton btnAddBall = new JButton("Add Ball");
+	private final JButton btnClearBalls = new JButton("Clear Ball");
+	private final JPanel bodyPanel = new JPanel() {
+		/** Generated SerialVersion UID for the body panel */
+		private static final long serialVersionUID = -6952656931251224807L;
+
+		/**
+		 * Paints the
+		 * 
+		 * @param g
+		 *            The graphic to paint onto
+		 */
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g); // clear the panel and redo the background
+			/* Call model to paint all required items */
+			_view2ModelAdpt.paint(g);
+
+		}
+	};
+
+	// The model adapter is initialized to a no-op to insure that system always
+	// has well-defined behavior
+	private IView2ModelAdapter _view2ModelAdpt = IView2ModelAdapter.NULL_OBJECT;
+
+	public JPanel getCanvas() {
+		return bodyPanel;
+	}
+
+	/**
+	 * Constructor is supplied with an instance of the model adapter.
+	 */
+	public BallGUI(IView2ModelAdapter _view2ModelAdpt) {
+		this._view2ModelAdpt = _view2ModelAdpt;
+		txtBallClassToAdd.setColumns(10);
+		initGUI();
+	}
+
+	/**
+	 * Starts up the GUI
+	 */
+	public void start() {
+		/* Makes the GUI visible */
+		setVisible(true);
+	}
+
+	/**
+	 * Initializes the GUI
+	 */
+	private void initGUI() {
+		/* Creates */
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+
+		/* Sets up the header panel */
+		hdrPanel.setBackground(new Color(153, 204, 255));
+		contentPane.add(hdrPanel, BorderLayout.NORTH);
+		hdrPanel.add(txtBallClassToAdd);
+		hdrPanel.add(btnAddBall);
+		hdrPanel.add(btnClearBalls);
+
+		/*
+		 * Sets up addBall button to call the corresponding function in the
+		 * adapter
+		 */
+		btnAddBall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_view2ModelAdpt.addBall(txtBallClassToAdd.getText());
+			}
+		});
+
+		/*
+		 * Sets clearBalls button action the corresponding function in the
+		 * adapter
+		 */
+		btnClearBalls.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_view2ModelAdpt.clearBalls();
+			}
+		});
+
+		contentPane.add(bodyPanel, BorderLayout.CENTER);
+	}
+
+	public void update() {
+		bodyPanel.repaint();
+	}
+}

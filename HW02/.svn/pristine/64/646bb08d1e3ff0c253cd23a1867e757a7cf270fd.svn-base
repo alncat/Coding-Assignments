@@ -1,0 +1,62 @@
+package Balls;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import util.IRandomizer;
+import util.Randomizer;
+
+public class BallFactory {
+	private List<ABall> balls;
+	private IRandomizer randomizer;
+
+	public BallFactory() {
+		balls = new ArrayList<ABall>();
+		randomizer = Randomizer.Singleton;
+	}
+
+	/**
+	 * The following method returns an instance of an ABall, given a fully
+	 * qualified class name (package.classname) of a subclass of ABall. The
+	 * method assumes that there is only one constructor for the supplied class
+	 * that has the same *number* of input parameters as specified in the args
+	 * array and that it conforms to a specific signature, i.e. specific order
+	 * and types of input parameters in the args array.
+	 * 
+	 * @param className
+	 *            A string that is the fully qualified class name of the desired
+	 *            object
+	 * @return An instance of the supplied class.
+	 */
+	public ABall loadBall(String className) {
+		try {
+			Object[] args = new Object[] { startLoc, startRadius, startVel,
+					randomizer.randomColor(), theCanvas }; // YOUR CONSTRUCTOR
+															// MAY BE
+															// DIFFERENT!!
+			java.lang.reflect.Constructor<?> cs[] = Class.forName(className)
+					.getConstructors(); // get all the constructors
+			java.lang.reflect.Constructor<?> c = null;
+			for (int i = 0; i < cs.length; i++) { // find the first constructor
+													// with the right number of
+													// input parameters
+				if (args.length == (cs[i]).getParameterTypes().length) {
+					c = cs[i];
+					break;
+				}
+			}
+			ABall newBall = (ABall) c.newInstance(args);
+			balls.add(newBall);
+			return newBall;
+		} catch (Exception ex) {
+			System.err.println("Class " + className
+					+ " failed to load. \nException = \n" + ex);
+			ex.printStackTrace(); // print the stack trace to help in debugging.
+			return null;
+		}
+	}
+
+	public void clearBalls() {
+		balls.clear();
+	}
+}

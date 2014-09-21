@@ -1,0 +1,145 @@
+package model;
+
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
+import balls.ABall;
+import balls.NullBall;
+import util.Dispatcher;
+import util.IRandomizer;
+import util.Randomizer;
+
+/**
+ * The BallModel creates and updates
+ * a system of ABalls.
+ */
+public class BallModel {
+	
+	/**
+	 * Dispatcher used to hold and update the ABalls.
+	 */
+    private Dispatcher myDispatcher;
+    
+	/**
+	 * A randomizer to help create random balls.
+	 */
+	private IRandomizer myRandom;
+	
+	/**
+	 * Rectangle for random point creation -
+	 * used to pick the starting locations of the balls.
+	 */
+	private Rectangle myRect;
+    
+	/**
+	 * Timer will update after _timeSlice milliseconds.
+	 */
+	private int _timeSlice;
+	
+	/**
+	 * Times the model and tells it when to update.
+	 */
+    private Timer _timer;
+    
+	// The view adapter is initialized to a no-op to insure that system always has well-defined behavior
+	/**
+	 * An adaptor from the BallModel to a view.
+	 */
+    private IModel2ViewAdapter _model2ViewAdpt = IModel2ViewAdapter.NULL_OBJECT;  
+	
+    /**
+     *  Constructor for the BallModel.
+     *  
+     *  @param _model2ViewAdpt - an instance of the view adapter. 
+     */
+    public BallModel(IModel2ViewAdapter _inmodel2ViewAdpt ) {
+    	// Override null adaptor
+    	_model2ViewAdpt = _inmodel2ViewAdpt ; 
+    	
+    	// Initialize variables
+    	this.myRandom = Randomizer.Singleton;
+    	this.myDispatcher = new Dispatcher();
+    	this.myRect = new Rectangle(0, 0, 100, 100);
+    	this._timeSlice = 17;
+    	
+    	// Create timer
+    	this._timer = new Timer(_timeSlice, new ActionListener() {
+            /**
+             * The timer "ticks" by calling this method every _timeslice milliseconds
+             */
+            public void actionPerformed (ActionEvent e) {
+                _model2ViewAdpt.update();
+            }
+        });
+    }
+    
+    /**
+     * Removes all balls from the model.
+     */
+    public void clearBalls(){
+    	myDispatcher.deleteObservers();
+    }
+    
+    /**
+     * Creates a ball with given class on the given canvas.
+     * 
+     * @param className - name of a ball class that extends ABall
+     * @param incanvas - the canvas on which to draw the ball
+     */
+    public void makeBall(String className, Component incanvas){
+    	myRect.setSize(incanvas.getWidth(), incanvas.getHeight());
+    	myDispatcher.addObserver(this.loadBall(className, incanvas));
+    }
+    
+    /**
+     * Paints all of the balls using the given graphics object.
+     * 
+     * @param g - a Graphics object used to paint the balls
+     */
+    public void paint(Graphics g){	
+    	myDispatcher.notifyAll(g);
+    }
+    
+    /**
+     * Starts the model.
+     */
+    public void start() {
+		_timer.start();
+	}
+	
+	/**
+	* The following method returns an instance of an ABall, given a fully qualified class name (package.classname) of
+	* a subclass of ABall.
+	* The method assumes that there is only one constructor for the supplied class that has the same *number* of
+	* input parameters as specified in the args array and that it conforms to a specific
+	* signature, i.e. specific order and types of input parameters in the args array.
+	* 
+	* @param className - A string that is the fully qualified class name of the desired object
+	* @return An instance of the supplied class. 
+	*/
+	private ABall loadBall(String className, Component inCanvas) {  
+	    try {
+	        Object[] args = new Object[]{myRandom.randomColor(), myRandom.randomLoc(myRect).x, myRandom.randomLoc(myRect).y, myRandom.randomInt(2,15), myRandom.randomInt(2,15), myRandom.randomInt(10, 50), inCanvas};
+	        
+	    	java.lang.reflect.Constructor<?> cs[] = Class.forName(className).getConstructors();  // get all the constructors
+	        java.lang.reflect.Constructor<?> c = null; 
+	        for(int i=0;i < cs.length; i++) {  // find the first constructor with the right number of input parameters
+	            if(args.length == (cs[i]).getParameterTypes().length) {
+	                c = cs[i];
+	                break;
+	            }
+	        }
+	    return (ABall) c.newInstance(args);   // Call the constructor.   Will throw a null ptr exception if no constructor with the right number of input parameters was found.
+	  }
+	  catch(Exception ex) {
+	    System.err.println("Class "+className+" failed to load. \nException = \n"+ ex);
+	    return new NullBall(inCanvas);  
+	  }
+	}
+
+}

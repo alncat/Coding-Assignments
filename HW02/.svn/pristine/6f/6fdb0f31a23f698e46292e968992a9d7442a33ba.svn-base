@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLLabProfile="http:///schemas/UMLLabProfile/NS/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/UMLLabProfile/NS/0 pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile">
+  <uml:Model xmi:id="_Sk0CoDUPEeSsBunqDIx7gQ" name="HW02">
+    <eAnnotations xmi:id="_SqQjUDUPEeSsBunqDIx7gQ" source="http://ns.yatta.de/umllab">
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_SqRKYDUPEeSsBunqDIx7gQ" source="codegen">
+        <details xmi:id="_SqRxcDUPEeSsBunqDIx7gQ" key="codegenDirectory" value="/HW02/src"/>
+      </contents>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_TqTecDXoEeSP-9ZdQTQVOg" source="preferences">
+        <contents xmi:type="ecore:EAnnotation" xmi:id="_TqTecTXoEeSP-9ZdQTQVOg" source="com.yattasolutions.codegen.reverse">
+          <details xmi:id="_TqTecjXoEeSP-9ZdQTQVOg" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerNewFiles" value="true"/>
+          <details xmi:id="_TqTeczXoEeSP-9ZdQTQVOg" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerChangedFiles" value="true"/>
+          <details xmi:id="_TqUFgDXoEeSP-9ZdQTQVOg" key="com.yattasolutions.codegen.reverse.roundtrip.RemoveDeletedFiles" value="true"/>
+        </contents>
+      </contents>
+    </eAnnotations>
+    <elementImport xmi:id="_r0h98DUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+    </elementImport>
+    <elementImport xmi:id="_r0h98TUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+    </elementImport>
+    <elementImport xmi:id="_r0h98jUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+    </elementImport>
+    <elementImport xmi:id="_r0h98zUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilADUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilATUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilAjUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilAzUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+    </elementImport>
+    <elementImport xmi:id="_r0ilBDUQEeSsBunqDIx7gQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </elementImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_r0jMEDUQEeSsBunqDIx7gQ" name="Balls"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_r0jzIDUQEeSsBunqDIx7gQ" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_r0jzITUQEeSsBunqDIx7gQ" name="util">
+        <packagedElement xmi:type="uml:Class" xmi:id="_r0uLMDUQEeSsBunqDIx7gQ" name="ArrayList"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_r0uyQTUQEeSsBunqDIx7gQ" name="List"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_2O0ykDUQEeSsBunqDIx7gQ" name="awt">
+        <packagedElement xmi:type="uml:Class" xmi:id="_2O5EADUQEeSsBunqDIx7gQ" name="Color"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_-ov1cDUREeSsBunqDIx7gQ" name="Point"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_WajoUDUTEeSsBunqDIx7gQ" name="Rectangle"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_UGu7wDXoEeSP-9ZdQTQVOg" name="Graphics"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Hh_uEDUSEeSsBunqDIx7gQ" name="util">
+      <packagedElement xmi:type="uml:Interface" xmi:id="_X757wDUSEeSsBunqDIx7gQ" name="IRandomizer"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_X76i0TUSEeSsBunqDIx7gQ" name="Randomizer"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_DmEecDXrEeSP-9ZdQTQVOg" name="ballModel"/>
+    <profileApplication xmi:id="_SqS_kDUPEeSsBunqDIx7gQ">
+      <eAnnotations xmi:id="_SqVb0DUPEeSsBunqDIx7gQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile"/>
+    </profileApplication>
+  </uml:Model>
+  <UMLLabProfile:TargetLanguage xmi:id="_SqWC4DUPEeSsBunqDIx7gQ" base_Package="_Sk0CoDUPEeSsBunqDIx7gQ">
+    <languageName>java</languageName>
+  </UMLLabProfile:TargetLanguage>
+  <UMLLabProfile:Reference xmi:id="_r0uyQDUQEeSsBunqDIx7gQ" base_Element="_r0uLMDUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_r0vZUDUQEeSsBunqDIx7gQ" base_Element="_r0uyQTUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_2O5rEDUQEeSsBunqDIx7gQ" base_Element="_2O5EADUQEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_-owcgDUREeSsBunqDIx7gQ" base_Element="_-ov1cDUREeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_X76i0DUSEeSsBunqDIx7gQ" base_Element="_X757wDUSEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_X76i0jUSEeSsBunqDIx7gQ" base_Element="_X76i0TUSEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_WajoUTUTEeSsBunqDIx7gQ" base_Element="_WajoUDUTEeSsBunqDIx7gQ"/>
+  <UMLLabProfile:Reference xmi:id="_UGwJ4DXoEeSP-9ZdQTQVOg" base_Element="_UGu7wDXoEeSP-9ZdQTQVOg"/>
+</xmi:XMI>

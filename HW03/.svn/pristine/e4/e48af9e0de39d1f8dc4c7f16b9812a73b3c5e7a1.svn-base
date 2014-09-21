@@ -1,0 +1,16 @@
+Modify your ABall class to be concrete (change its name!) and take an IUpdateStrategy in its constructor.
+Implement a StraightStrategy.
+Test your code by temporarily commenting out your load ball code and hard-coding it to load a ball with a StraightStrategy.   You should have bouncing straight balls.
+Modify your dynamic class loading code so that it will instantiate and return a strategy.
+Modify your load ball code to instantiate and load a ball with a given strategy object.
+Implement at least one other strategy, a simple one.
+Test that you can type in a strategy name and it will create a ball with that strategy.
+Modify your GUI so that it has the drop lists and additional buttons.
+Add the supplied IStrategyFac utility methods to your model.
+Implement the "Add to Lists" and "Make Ball" buttons by adding their event listeners and connecting them to appropriate (perhaps new) methods on your adapters.    Implement those adapter methods by calling the supplied utility methods on the model.
+Test that you can add and create balls with your existing strategies.
+Implement the MultiStrategy.
+Implement the "Combine!" button functionality.
+Test that you can arbitrarily combine strategies in your balls.
+Implement the Switcher ball buttons and their behaviors on the model.   How many SwitcherStrategy instances are ever in existence?
+Enjoy!

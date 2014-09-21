@@ -1,0 +1,123 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.Observable;
+import java.util.Observer;
+
+public abstract class ABall implements Observer {
+	private int radius;
+	private Color color;
+	private Point velocity;
+	private Point loc;
+
+	public ABall(int radius, Color color, Point velocity, Point loc) {
+		this.setRadius(radius);
+		this.setColor(color);
+		this.setVelocity(new Point(1,2));
+		this.setLoc(loc);
+	}
+
+	/**
+	 * @return the radius
+	 */
+	public int getRadius() {
+		return radius;
+	}
+
+	/**
+	 * @param radius
+	 *            the radius to set
+	 */
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	/**
+	 * @return the color
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+	/**
+	 * @param color
+	 *            the color to set
+	 */
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	/**
+	 * @return the velocity
+	 */
+	public Point getVelocity() {
+		return velocity;
+	}
+
+	/**
+	 * @param velocity
+	 *            the velocity to set
+	 */
+	public void setVelocity(Point velocity) {
+		this.velocity = velocity;
+	}
+
+	/**
+	 * Getter for the Point.
+	 * @return the loc
+	 */
+	public Point getLoc() {
+		return loc;
+	}
+
+	/**
+	 * @param loc
+	 *    Setter for the Point.
+	 */
+	public void setLoc(Point loc) {
+		this.loc = loc;
+	}
+
+	/**
+	 * Method that defines the size and color of the ball produced.
+	 * @param g
+	 */
+	public void paint(Graphics g) {
+		g.setColor(color);
+		g.fillOval(loc.x - radius, loc.y - radius, 2 * radius, 2 * radius);
+	}
+
+	public abstract void update();
+
+	/* 
+	 * Method carries out the bouncing algorithm for all the balls that extend
+	 * ABall.
+	 * (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	public void update(Observable o, Object arg) {
+		if (arg instanceof Graphics) {
+			update();
+			loc.x = loc.x + velocity.x;
+			loc.y = loc.y + velocity.y;
+
+			// TODO: make rectangle for start not include radius border
+
+			Rectangle bounds = ((Graphics) arg).getClipBounds();
+
+			if (loc.x + radius >= bounds.getMaxX()
+					|| loc.x - radius <= bounds.getMinX()) {
+				velocity.x = -velocity.x;
+			}
+
+			if (loc.y + radius >= bounds.getMaxY()
+					|| loc.y - radius <= bounds.getMinY()) {
+				velocity.y = -velocity.y;
+			}
+			paint((Graphics) arg);
+		}
+	}
+}

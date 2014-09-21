@@ -1,0 +1,16 @@
+package model;
+
+import java.awt.Component;
+
+public interface IViewControlAdapter {
+	
+	public Component getCanvas();
+	
+	/**
+	 * No-op singleton implementation of IModel2ViewAdapter.
+	 */
+	public static final IViewControlAdapter NULL_OBJECT = new IViewControlAdapter() {
+		public Component getCanvas() { return null;}
+	};
+
+}

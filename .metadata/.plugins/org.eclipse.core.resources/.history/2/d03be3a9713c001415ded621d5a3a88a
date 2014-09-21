@@ -1,0 +1,45 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.util.Observable;
+
+/**
+ * The NullBall class extends the ABall class.
+ * It is a null class whose methods all do nothing.
+ */
+public class NullBall extends ABall{
+
+	/**
+	 * General constructor for NullBalls.
+	 * 
+	 * @param inCanavas	The canvas component that holds the ball
+	 */
+	public NullBall(Color color, int xLoc, int yLoc, int xVel, int yVel, int radius,Component canvas) { 
+		super(Color.BLACK, 0, 0, 0, 0, 0, canvas);
+	}
+
+	/**
+	 * No-op version of the 'update' method.
+	 */
+	//@Override
+	public void update(Observable o, Object arg) { }
+
+	/**
+	 * No-op version of the 'paint' method.
+	 */
+	//@Override
+	public void paint(Graphics g) { }
+
+	/**
+	 * No-op version of the 'updateState' method.
+	 */
+	@Override
+	public void updateState() { 
+      //super (color, xLoc, yLoc, xVel, yVel, radius, inCanvas) ;
+	  this.setXVel(this.getXVel()+ 1);// +=  1;
+	  this.setYVel(this.getYVel() + 1);// += 1;
+	}
+	
+}

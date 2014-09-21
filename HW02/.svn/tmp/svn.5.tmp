@@ -1,0 +1,112 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.JPanel;
+
+public abstract class ABall implements Observer {
+	private int radius;
+	private Color color;
+	private Point velocity;
+	private Point loc;
+	private JPanel canvas;
+
+	public ABall(int radius, Color color, Point velocity, Point loc,
+			JPanel canvas) {
+		this.setRadius(radius);
+		this.setColor(color);
+		this.setVelocity(velocity);
+		this.setLoc(loc);
+		this.canvas = canvas;
+	}
+
+	/**
+	 * @return the radius
+	 */
+	public int getRadius() {
+		return radius;
+	}
+
+	/**
+	 * @param radius
+	 *            the radius to set
+	 */
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	/**
+	 * @return the color
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+	/**
+	 * @param color
+	 *            the color to set
+	 */
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	/**
+	 * @return the velocity
+	 */
+	public Point getVelocity() {
+		return velocity;
+	}
+
+	/**
+	 * @param velocity
+	 *            the velocity to set
+	 */
+	public void setVelocity(Point velocity) {
+		this.velocity = velocity;
+	}
+
+	/**
+	 * @return the loc
+	 */
+	public Point getLoc() {
+		return loc;
+	}
+
+	/**
+	 * @param loc
+	 *            the loc to set
+	 */
+	public void setLoc(Point loc) {
+		this.loc = loc;
+	}
+
+	public void paint(Graphics g) {
+		g.setColor(color);
+		g.fillOval(loc.x - radius, loc.y - radius, 2 * radius, 2 * radius);
+	}
+
+	public abstract void update();
+
+	public void update(Observable o, Object arg) {
+		if (arg instanceof Graphics) {
+			update();
+		
+			changeDirections(canvas.getBounds().getWidth(),canvas.getBounds().getHeight());
+			paint((Graphics) arg);
+		}
+	}
+	
+	public Point changeDirections(double xCoordinate, double yCoordinate){
+	  //Calucate the new X-Coordinate from the bounce
+	    int newXCoordinate = (int) ((int) getVelocity().getX()*Math.cos(xCoordinate) - getVelocity().getY()*Math.sin(yCoordinate));
+	  //Calucate the new Y-Coordinate from the bounce
+	    int newYCoordinate = (int) ((int) getVelocity().getY()*Math.cos(yCoordinate) + getVelocity().getX()*Math.sin(xCoordinate));
+	    Point bounceCoordinates= new Point(newXCoordinate, newYCoordinate);
+	    return bounceCoordinates;
+	}
+
+}

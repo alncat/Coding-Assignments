@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_urmhMC5LEeSLXJeaQn_dJw">
+  <modelElement href="../HW01.uml#__LDWMC5LEeSLXJeaQn_dJw"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_5jwboDFuEeSocuij11eSMA" targetItem="_Vnm0EC5SEeSLXJeaQn_dJw" sourceItem="_5jt_YDFuEeSocuij11eSMA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_5kCIcDFuEeSocuij11eSMA" targetItem="_VnopQC5SEeSLXJeaQn_dJw" sourceItem="_5kATQDFuEeSocuij11eSMA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_5lA_4DFuEeSocuij11eSMA" targetItem="_Ok-mMC5PEeSLXJeaQn_dJw" sourceItem="_5kusADFuEeSocuij11eSMA"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_YeKZMC5MEeSLXJeaQn_dJw" name="AShape" abstractClass="true">
+    <modelElement href="../HW01.uml#_YeJyIC5MEeSLXJeaQn_dJw"/>
+    <visualProperties xmi:id="_YeKZMS5MEeSLXJeaQn_dJw" position="330.0,76.0" size="-1.0,-1.0"/>
+    <stereotypes xmi:id="_OleVcC5PEeSLXJeaQn_dJw" name="LegacyStyledElement">
+      <modelElement href="../HW01.uml#_OkzAAC5PEeSLXJeaQn_dJw"/>
+    </stereotypes>
+    <visibility xmi:id="_YeKZMi5MEeSLXJeaQn_dJw" label="+"/>
+    <attributes xmi:id="_OlRhIC5PEeSLXJeaQn_dJw" name="x">
+      <modelElement href="../HW01.uml#_Ok5tsC5PEeSLXJeaQn_dJw"/>
+      <visibility xmi:id="_OlRhIS5PEeSLXJeaQn_dJw" label="~"/>
+      <cardinality xmi:id="_OlRhIi5PEeSLXJeaQn_dJw" label="1" max="1" min="1"/>
+      <type xmi:id="_OlRhIy5PEeSLXJeaQn_dJw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_OlRhJC5PEeSLXJeaQn_dJw" name="y">
+      <modelElement href="../HW01.uml#_Ok6UwC5PEeSLXJeaQn_dJw"/>
+      <visibility xmi:id="_OlRhJS5PEeSLXJeaQn_dJw" label="~"/>
+      <cardinality xmi:id="_OlRhJi5PEeSLXJeaQn_dJw" label="1" max="1" min="1"/>
+      <type xmi:id="_OlRhJy5PEeSLXJeaQn_dJw" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_Ok-mMC5PEeSLXJeaQn_dJw" comments="_5kusADFuEeSocuij11eSMA" targetConnectionVisual="_5lA_4DFuEeSocuij11eSMA" abstractOperation="true" name="paint">
+      <modelElement href="../HW01.uml#_Ok01MC5PEeSLXJeaQn_dJw"/>
+      <stereotypes xmi:id="_Ok-mMS5PEeSLXJeaQn_dJw" name="StyledElement">
+        <modelElement href="../HW01.uml#_Ok2DUC5PEeSLXJeaQn_dJw"/>
+      </stereotypes>
+      <visibility xmi:id="_Ok-mMi5PEeSLXJeaQn_dJw" label="+"/>
+      <parameters xmi:id="_v_Eh8C5QEeSLXJeaQn_dJw" name="x">
+        <modelElement href="../HW01.uml#_Ok670S5PEeSLXJeaQn_dJw"/>
+        <type xmi:id="_v_Eh8S5QEeSLXJeaQn_dJw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_v_IMUC5QEeSLXJeaQn_dJw" name="y">
+        <modelElement href="../HW01.uml#_Ok670i5PEeSLXJeaQn_dJw"/>
+        <type xmi:id="_v_IMUS5QEeSLXJeaQn_dJw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_Vn4g4C5SEeSLXJeaQn_dJw" name="g">
+        <modelElement href="../HW01.uml#_VniioC5SEeSLXJeaQn_dJw"/>
+        <type xmi:id="_Vn4g4S5SEeSLXJeaQn_dJw" name="Graphics">
+          <modelElement href="../HW01.uml#_VnffUC5SEeSLXJeaQn_dJw"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_Vnm0EC5SEeSLXJeaQn_dJw" comments="_5jt_YDFuEeSocuij11eSMA" targetConnectionVisual="_5jwboDFuEeSocuij11eSMA" name="getX">
+      <modelElement href="../HW01.uml#_VnVuUC5SEeSLXJeaQn_dJw"/>
+      <stereotypes xmi:id="_Vnm0ES5SEeSLXJeaQn_dJw" name="StyledElement">
+        <modelElement href="../HW01.uml#_VnZYsC5SEeSLXJeaQn_dJw"/>
+      </stereotypes>
+      <visibility xmi:id="_Vnm0Ei5SEeSLXJeaQn_dJw" label="+"/>
+      <outParameters xmi:id="_Vnm0Ey5SEeSLXJeaQn_dJw">
+        <modelElement href="../HW01.uml#_VnbN4C5SEeSLXJeaQn_dJw"/>
+        <type xmi:id="_Vnm0FC5SEeSLXJeaQn_dJw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_VnopQC5SEeSLXJeaQn_dJw" comments="_5kATQDFuEeSocuij11eSMA" targetConnectionVisual="_5kCIcDFuEeSocuij11eSMA" name="getY">
+      <modelElement href="../HW01.uml#_VnVuUS5SEeSLXJeaQn_dJw"/>
+      <stereotypes xmi:id="_VnopQS5SEeSLXJeaQn_dJw" name="StyledElement">
+        <modelElement href="../HW01.uml#_VnZYsS5SEeSLXJeaQn_dJw"/>
+      </stereotypes>
+      <visibility xmi:id="_VnopQi5SEeSLXJeaQn_dJw" label="+"/>
+      <outParameters xmi:id="_VnopQy5SEeSLXJeaQn_dJw">
+        <modelElement href="../HW01.uml#_Vnb08C5SEeSLXJeaQn_dJw"/>
+        <type xmi:id="_VnopRC5SEeSLXJeaQn_dJw" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_5jt_YDFuEeSocuij11eSMA" sourceConnectionVisual="_5jwboDFuEeSocuij11eSMA" text="@return" item="_Vnm0EC5SEeSLXJeaQn_dJw">
+    <modelElement href="../HW01.uml#_5jmDkDFuEeSocuij11eSMA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_5kATQDFuEeSocuij11eSMA" sourceConnectionVisual="_5kCIcDFuEeSocuij11eSMA" text="@return" item="_VnopQC5SEeSLXJeaQn_dJw">
+    <modelElement href="../HW01.uml#_5jmqoDFuEeSocuij11eSMA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_5kusADFuEeSocuij11eSMA" sourceConnectionVisual="_5lA_4DFuEeSocuij11eSMA" text="@param x&#xA;&#x9; * @param y&#xA;&#x9; * @param g" item="_Ok-mMC5PEeSLXJeaQn_dJw">
+    <modelElement href="../HW01.uml#_5jmqoTFuEeSocuij11eSMA"/>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

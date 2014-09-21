@@ -1,0 +1,11 @@
+package Balls;
+
+import java.awt.Color;
+import java.awt.Point;
+
+public class StandardBall extends ABall {
+
+	public StandardBall(int radius, Color color, Point velocity, Point loc) {
+		super(radius, color, velocity, loc);
+	}
+}

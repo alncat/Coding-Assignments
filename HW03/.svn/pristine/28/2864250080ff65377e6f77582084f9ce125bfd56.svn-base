@@ -1,0 +1,45 @@
+package view;
+
+import java.awt.Component;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+/**
+ * The interface of the adapter from the view to the model that enables the view to talk to the model.
+ */
+public interface IView2ModelAdapter {
+
+	/**
+	 * The method that tells the model to draw all balls to
+	 * the given graphics object.
+	 * 
+	 * @param g - a Graphics object used to draw the balls
+	 */
+	public void paint(Graphics g);
+	
+	/**
+	 * The method that tells the model to add a new ball.
+	 * 
+	 * @param className - a ball class that extends ABall to use when creating the new ball
+	 * @param canvas - the canvas component that holds the ball
+	 */
+	public void loadBall(String className, Component canvas);
+	
+	/**
+	 * The method that tells the model to clear all balls.
+	 */
+	public void clearBalls();
+
+	/**
+	 * No-op singleton implementation of IView2ModelAdapter.
+	 */
+	public static final IView2ModelAdapter NULL_OBJECT = new IView2ModelAdapter () {	  
+	    public void paint(Graphics g) {}
+	    public void clearBalls() {}
+		public void loadBall(String className, Component canvas) {}
+	};
+
+	
+
+}

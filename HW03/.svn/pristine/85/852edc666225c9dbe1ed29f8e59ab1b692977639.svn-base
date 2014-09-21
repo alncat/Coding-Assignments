@@ -1,0 +1,11 @@
+package strategies;
+
+import balls.Ball;
+
+/**
+ * Updates the strategy for the ball.
+ *
+ */
+public interface IUpdateStrategy {
+	public void updateState(Ball context);
+}

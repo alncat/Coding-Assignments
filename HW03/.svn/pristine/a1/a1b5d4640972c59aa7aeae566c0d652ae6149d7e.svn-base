@@ -1,0 +1,61 @@
+package view;
+
+import java.awt.Component;
+
+public interface IModelControlAdapter<TDropListItem> {
+	
+	/**
+	 * Method that adds an item(strategy) to the Droplist in the GUI.
+	 * 
+	 * @param classname - The name of the strategy to add
+	 * @return The generic object of that strategy
+	 */
+	public TDropListItem addStrategey(String classname);
+	
+	/**
+	 * Method to generate a ball with a strategy object
+	 * @param selectedItem - A strategy object
+	 */
+	public void makeBall(TDropListItem selectedItem);
+	
+	/**
+	 * 
+	 * Method that combines two strategies and adds them to the list.
+	 * 
+	 * @param selecteditem1 - A strategy object
+	 * @param selecteditem2 - A strategy object
+	 * @return Combined strategy object 
+	 */
+	public TDropListItem combineStrategies(TDropListItem selecteditem1, TDropListItem selecteditem2);
+	
+	/**
+	 * Method to switch the strategies of switcherBalls
+	 * @param selectedItem - A strategy object
+	 */
+	public void switchStrategy(TDropListItem selectedItem);
+	
+	/**
+	 * Method to make the switcherBall.
+	 */
+	public void makeSwitcherBall();
+	
+	/**
+	 * Method to remove all the ball from the screen.
+	 */
+	public void clearBalls();
+	
+	/**
+	 * No-op singleton implementation of IModelControlAdapter.
+	 */
+	@SuppressWarnings("rawtypes")
+	public static final IModelControlAdapter NULL_OBJECT = new IModelControlAdapter () {	  
+		public Object addStrategey(String classname) {return null;}
+	    public void makeBall(Object selectedItem) {}
+	    public Object combineStrategies(Object o1, Object o2) {return null;}
+	    public void switchStrategy(Object selectedItem){}
+		public void clearBalls() {}
+		public void makeSwitcherBall() {}
+
+	};
+	
+}

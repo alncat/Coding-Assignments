@@ -1,0 +1,8 @@
+
+public class IDoubleVector {
+
+  public IDoubleVector() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

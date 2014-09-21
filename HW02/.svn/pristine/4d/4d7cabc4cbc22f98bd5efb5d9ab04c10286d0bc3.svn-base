@@ -1,0 +1,5 @@
+package Balls;
+
+public class ExpandingBall extends ABall {
+
+}

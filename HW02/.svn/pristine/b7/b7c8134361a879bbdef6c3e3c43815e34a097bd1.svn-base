@@ -1,0 +1,18 @@
+package ballModel;
+
+import java.awt.Color;
+import java.awt.Point;
+
+import util.Randomizer;
+
+public class ColorChangingBall extends ABall {
+
+	public ColorChangingBall(int radius, Color color, Point velocity, Point loc) {
+		super(radius, color, velocity, loc);
+	}
+
+	@Override
+	public void update() {
+		super.setColor(Randomizer.Singleton.randomColor());
+	}
+}

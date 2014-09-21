@@ -1,0 +1,101 @@
+package balls;
+
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.Observer;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import util.IRandomizer;
+import util.Randomizer;
+import controller.IModel2ViewAdapter;
+
+public class BallModel {
+
+	private IModel2ViewAdapter _model2ViewAdpt = IModel2ViewAdapter.NULL_OBJECT;
+	private Dispatcher myDispatcher;
+	private IRandomizer randomizer;
+	private int _timeSlice;
+	private Timer _timer;
+
+	// test
+	public BallModel(IModel2ViewAdapter model2ViewAdpt) {
+		_model2ViewAdpt = model2ViewAdpt;
+		myDispatcher = new Dispatcher();
+		randomizer = Randomizer.Singleton;
+		_timeSlice = 50;
+		_timer = new Timer(_timeSlice, (e) -> _model2ViewAdpt.update());
+	}
+
+	public void start() {
+		_timer.start();
+	}
+
+	public void addSprite(Observer aSprite) {
+		if (aSprite != null) {
+			myDispatcher.addObserver(aSprite);
+		}
+	}
+
+	/**
+	 * This is the method that is called by the view's adapter to the model,
+	 * i.e. is called by IView2ModelAdapter.paint(). This method will update the
+	 * sprites's painted locations by painting all the sprites onto the given
+	 * Graphics object.
+	 * 
+	 * @param g
+	 *            The Graphics object from the view's paintComponent() call.
+	 */
+	public void update(Graphics g) {
+		/*
+		 * The Graphics object is being given to all the sprites (Observers)
+		 */
+		myDispatcher.notifyAll(g);
+	}
+
+	/**
+	 * The following method returns an instance of an ABall, given a fully
+	 * qualified class name (package.classname) of a subclass of ABall. The
+	 * method assumes that there is only one constructor for the supplied class
+	 * that has the same *number* of input parameters as specified in the args
+	 * array and that it conforms to a specific signature, i.e. specific order
+	 * and types of input parameters in the args array. Adds the instance of the
+	 * supplied class to the balls list.
+	 * 
+	 * @param className
+	 *            A string that is the fully qualified class name of the desired
+	 *            object
+	 */
+	public ABall loadBall(String className, JPanel canvas) {
+		try {
+			int startRadius = randomizer.randomInt(5, 25);
+			Point startLoc = randomizer.randomLoc(canvas.getBounds());
+			Point startVel = randomizer.randomVel(canvas.getBounds());
+			Object[] args = new Object[] { startLoc, startRadius, startVel,
+					randomizer.randomColor() };
+			java.lang.reflect.Constructor<?> cs[] = Class.forName(className)
+					.getConstructors(); // get all the constructors
+			java.lang.reflect.Constructor<?> c = null;
+			for (int i = 0; i < cs.length; i++) { // find the first constructor
+													// with the right number of
+													// input parameters
+				if (args.length == (cs[i]).getParameterTypes().length) {
+					c = cs[i];
+					break;
+				}
+			}
+			return (ABall) c.newInstance(args);
+		} catch (Exception ex) {
+			System.err.println("Class " + className
+					+ " failed to load. \nException = \n" + ex);
+			ex.printStackTrace(); // print the stack trace to help in debugging.
+			return null;
+		}
+	}
+
+	public void clearBalls() {
+		myDispatcher.deleteObservers();
+	}
+
+}

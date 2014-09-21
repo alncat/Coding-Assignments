@@ -1,0 +1,8 @@
+package paint;
+
+import java.awt.Graphics;
+
+public interface IPaintStrategy {
+	public void init();
+	public void paint(Graphics g);
+}

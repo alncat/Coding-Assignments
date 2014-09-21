@@ -1,0 +1,18 @@
+package shape;
+
+import java.awt.Graphics;
+
+public class Rect extends AShape{
+	int w;
+	int h;
+	public Rect(int width, int height) {
+		w = width;
+		h = height;
+	}
+	@Override
+	public void paint(int x, int y, Graphics g) {
+		// TODO Auto-generated method stub
+		g.drawRect(x, y, w, h);
+	}
+
+}

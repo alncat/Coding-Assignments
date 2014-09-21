@@ -1,0 +1,28 @@
+package ballModel;
+
+import java.awt.Color;
+import java.awt.Point;
+
+public class ExpandingBall extends ABall {
+	private int maxRadius;
+	private int minRadius;
+	private int radiusChange;
+
+	public ExpandingBall(int radius, Color color, Point velocity, Point loc) {
+		super(radius, color, velocity, loc);
+		maxRadius = 2 * radius;
+		maxRadius = radius / 2;
+		radiusChange = 1;
+	}
+
+	@Override
+	public void update() {
+		int radius = super.getRadius();
+		super.setRadius(radius + radiusChange);
+		if (radius + radiusChange == maxRadius) {
+			radiusChange = -1;
+		} else if (radius + radiusChange == minRadius) {
+			radiusChange = 1;
+		}
+	}
+}

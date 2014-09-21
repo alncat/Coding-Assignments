@@ -1,0 +1,89 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import controller.IView2ModelAdapter;
+
+public class BallGUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7063488266654092746L;
+	private JPanel contentPane;
+	private final JPanel hdrPanel = new JPanel();
+	private final JTextField txtBallClassToAdd = new JTextField();
+	private final JButton btnAddBall = new JButton("Add Ball");
+	private final JPanel bodyPanel = new JPanel();
+
+	// The model adapter is initialized to a no-op to insure that system always
+	// has well-defined behavior
+	private IView2ModelAdapter _view2ModelAdpt = IView2ModelAdapter.NULL_OBJECT;
+
+	// Create a special panel with an overridden paintComponent method.
+	private JPanel _pnlCanvas = new JPanel() {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6952656931251224807L;
+
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g); // clear the panel and redo the background
+			_view2ModelAdpt.paint(g); // call back to the model to paint the
+										// sprites
+
+		}
+	};
+
+	/**
+	 * Constructor is supplied with an instance of the model adapter.
+	 */
+	public BallGUI(IView2ModelAdapter _view2ModelAdpt) {
+		this._view2ModelAdpt = _view2ModelAdpt;
+		txtBallClassToAdd.setColumns(10);
+		initGUI();
+	}
+
+	public void start() {
+		setVisible(true);
+	}
+
+	private void initGUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		hdrPanel.setBackground(new Color(153, 204, 255));
+
+		contentPane.add(hdrPanel, BorderLayout.NORTH);
+
+		hdrPanel.add(txtBallClassToAdd);
+
+		hdrPanel.add(btnAddBall);
+
+		contentPane.add(bodyPanel, BorderLayout.CENTER);
+
+		btnAddBall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_view2ModelAdpt.addBall(txtBallClassToAdd.getText());
+			}
+		});
+	}
+
+	public void update() {
+		_pnlCanvas.repaint();
+	}
+
+}

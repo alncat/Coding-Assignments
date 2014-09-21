@@ -1,0 +1,60 @@
+package balls;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Random;
+
+public class BumblebeeBall extends ABall {
+
+  private int canvasWidth;
+  private int canvasHeight;
+  
+  public BumblebeeBall (Color color, int xLoc, int yLoc, int xVel, int yVel, int radius, Component inCanvas)  {
+    super (color, xLoc, yLoc, xVel, yVel, radius, inCanvas) ;
+    canvasWidth = inCanvas.getWidth();
+    canvasHeight = inCanvas.getHeight();
+}
+  /* 
+   * Updates the ball's velocity by randomly
+   * changing the ball's velocity.
+   * (non-Javadoc)
+   * @see balls.ABall#updateState()
+   */
+  @Override
+  public void updateState() {
+
+    //change the velocity of the x direction
+    if(this.getXVel() >= randInt(0, canvasWidth) ){
+      this.setXVel(1);
+    }else{
+    this.setXVel(getXVel()+ randInt(-2,2));
+    }
+    
+    //Change the velocity of the y direction
+    if(this.getYVel() >= randInt(0,canvasHeight)){
+      this.setYVel(-1);
+    }else{
+    this.setYVel(getYVel()+ randInt(-3,3));
+    }
+  }
+
+   /**
+    * Method that produces integers in between the 
+    * given min and max range.
+   * @param min
+   * @param max
+   * @return
+   */
+  static int randInt(int min, int max) {
+
+    // NOTE: Usually this should be a field rather than a method
+    // variable so that it is not re-seeded every call.
+    Random rand = new Random();
+
+    // nextInt is normally exclusive of the top value,
+    // so add 1 to make it inclusive
+    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+    return randomNum;
+}
+}
