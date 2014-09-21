@@ -184,6 +184,10 @@ public class registerAlloc {
       // opCode1
       if (allocationActions.get(i).getVROp1().contains("r")) {
         performAllocationOP1(allocationActions.get(i).getVROp1(), i);
+        
+        //Try patching the store having memory locations
+        
+        
       } else {
         // This signifies that the OP1 is doing an operation from memory
         if (allocationActions.get(i).getVROp2().contains("r")
@@ -200,14 +204,15 @@ public class registerAlloc {
           System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister
               + "\t //Spill (k is minimal)");
           dataMemoryLoc += 4;
-
+          
           // Change the mappings for the virtual and physical register
           registerVMapped.put(virtualRegister, physicalRegister);
           allocationActions.get(i).setPROp1(registerVMapped.get(virtualRegister));
 
         }
-        
-        
+        //LoadI is the only thing that shows up in the else
+        //System.out.println(">>>>>>>>>>>>>>>>> \t Store should be before ^^^^^ and the Opcode: \t" + allocationActions.get(i).getTheOpcode() );
+      
         allocationActions.get(i).setPROp1(allocationActions.get(i).getVROp1());
       }
       
@@ -484,26 +489,6 @@ public class registerAlloc {
 
     // check to see if the virtual register is assigned to physical register
     if (registerVMapped.containsKey(allocationActions.get(index).getVROp1())) {
-      /**
-       * Need another if statement to load from memory
-       * */
-      /**
-       * if(allocationActions.get(index).getVROp2().contains("r") &&
-       * !allocationActions.get(index).getPROp1().contains("r")){ //Pick the register with the
-       * furtherest next use registerChange = iterateRegisterNextU(registerNextU);
-       * 
-       * //Change the mapping for register Change changeVRegisterMappings(registerVMapped,
-       * registerChange,Integer.toString(dataMemoryLoc));
-       * 
-       * 
-       * //Spill the contents of the furtherest register to memory System.out.println("LoadI \t" +
-       * dataMemoryLoc + "\t \t => \t " + registerChange + "\t //Spill (k is minimal)");
-       * dataMemoryLoc += 4;
-       * 
-       * //Change the mappings for the virtual and physical register
-       * registerVMapped.put(registerName, registerChange);
-       * allocationActions.get(index).setPROp1(registerVMapped.get(registerName)); }
-       */
 
       // write the PR to opcode1 location
       allocationActions.get(index).setPROp1(registerVMapped.get(registerName));
@@ -511,6 +496,12 @@ public class registerAlloc {
       // update the next use for the register in the hashmap
       registerNextU.put(registerVMapped.get(registerName), allocationActions.get(index).getNUOp1());
 
+      
+      if(allocationActions.get(index).getTheOpcode().contains("store") && !registerVMapped.get(allocationActions.get(index).getVROp1()).contains("pr")){
+        System.out.println(">>>>>>>>>>>>>>>>> \t Store should be before ^^^^^ and the Opcode: \t" + allocationActions.get(index).getPROp1() );
+        
+      }
+      
       // check to see if there is a next use
       if (allocationActions.get(index).getNUOp1().contains("Empty")) {
         // remove from the mapping

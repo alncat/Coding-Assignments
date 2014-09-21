@@ -1,0 +1,9 @@
+package paint;
+
+public class SquarePaintStrategy {
+
+  public SquarePaintStrategy() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

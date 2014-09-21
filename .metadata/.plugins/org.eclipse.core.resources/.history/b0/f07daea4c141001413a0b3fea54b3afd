@@ -1,0 +1,9 @@
+package paint;
+
+public class RectangleShapeFactory {
+
+  public RectangleShapeFactory() {
+    // TODO Auto-generated constructor stub
+  }
+
+}
