@@ -1,0 +1,8 @@
+
+public class OpenPageInDefaultBrowser {
+
+  public OpenPageInDefaultBrowser() {
+    // TODO Auto-generated constructor stub
+  }
+
+}

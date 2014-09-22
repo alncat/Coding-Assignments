@@ -1,0 +1,50 @@
+import java.awt.Desktop;
+import java.io.File;
+
+import java.io.IOException;
+
+public class OpenPageInDefaultBrowser {
+  public static void main(String[] args) {
+    try {
+      
+       //Set your page url in this string. For eg, I m using URL for Google Search engine String
+       String url = "http://water.clear.rice.edu:18024/index.html";
+        java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        olll();
+   
+    } catch (java.io.IOException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  
+  
+
+
+  public static void olll() throws IOException {
+
+
+  String os = System.getProperty("os.name");
+
+
+
+  if (os.contains("Windows")) {
+
+  Runtime.getRuntime().exec("taskkill /F /IM chrome.exe");
+  Runtime.getRuntime().exec("taskkill /F /IM safari.exe");
+
+  } else {
+  // Assuming a non Windows OS will be some version of Unix, Linux, or Mac
+  Runtime.getRuntime().exec("kill `ps -ef | grep -i firefox | grep -v grep | awk '{print $2}'`");
+  Runtime.getRuntime().exec("kill `ps -ef | grep -i chrome | grep -v grep | awk '{print $2}'`");
+  Runtime.getRuntime().exec("kill `ps -ef | grep -i safari | grep -v grep | awk '{print $2}'`");
+
+  }
+
+
+
+  }
+
+  
+
+}
