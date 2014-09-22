@@ -211,7 +211,7 @@ public class registerAlloc {
 
 
           // Spill the contents of the furtherest register to memory
-          System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
+          System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister
               + "\t //Spill (k is minimal)");
           dataMemoryLoc += 4;
           
@@ -261,7 +261,7 @@ public class registerAlloc {
             //System.out.println("\t \t Program never steps into here.");
             
             // Spill the contents of the furtherest register to memory
-            System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
+            System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister
                 + "\t //Spill (k is minimal)");
             dataMemoryLoc += 4;
 
@@ -284,7 +284,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
+        System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 
@@ -295,15 +295,10 @@ public class registerAlloc {
       }
 
       // Prints out the lines for the standard output //CHANGED allocationActions.get(i).getPROp2() TO operation2
-      if(operation2.equals("")){
       System.out.println(allocationActions.get(i).getTheOpcode() + "\t "
           + allocationActions.get(i).getPROp1() + "\t " + operation2
           + " =>" + "\t" + allocationActions.get(i).getPROp3());
-      }else{
-        System.out.println(allocationActions.get(i).getTheOpcode() + "\t "
-            + allocationActions.get(i).getPROp1() +", "+ "\t " + operation2
-            + " =>" + "\t" + allocationActions.get(i).getPROp3());
-      }
+
       operation1 = "";
       operation2 = "";
       //System.out.println(">>>>>>>>>>>> \t Number of registers mapped: \t" + .size());
@@ -340,7 +335,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
+        System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 
@@ -373,7 +368,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t" + registerChange
+        System.out.println("LoadI \t" + dataMemoryLoc + " => " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 
@@ -392,9 +387,9 @@ public class registerAlloc {
         // write the PR to opcode1 location
         allocationActions.get(index).setPROp3(registerVMapped.get(registerName));
 
-        //Patch for operation 3 having memory locations in the vector
+
         if(!allocationActions.get(index).getPROp3().contains("pr")){
-         // System.out.println("Op3 needs to be a physical register \t >>>>>>>>>>>>>>>> \t "+allocationActions.get(index).getPROp3());
+          //System.out.println("Op3 needs to be a physical register \t >>>>>>>>>>>>>>>> \t "+allocationActions.get(index).getPROp3());
        // Pick the register with the furtherest next use
           registerChange = iterateRegisterNextU(registerNextU);
 
@@ -403,7 +398,7 @@ public class registerAlloc {
 
 
           // Spill the contents of the furtherest register to memory
-          System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
+          System.out.println("LoadI \t" + dataMemoryLoc + " => " + registerChange
               + "\t //Spill (k is minimal)");
           dataMemoryLoc += 4;
 
@@ -441,7 +436,7 @@ public class registerAlloc {
             
             
             //Spill the contents of the furtherest register to memory
-            System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister + "\t //Spill (k is minimal)");
+            System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister + "\t //Spill (k is minimal)");
             dataMemoryLoc += 4;
             
           //Change the mappings for the virtual and physical register
@@ -461,7 +456,7 @@ public class registerAlloc {
                 
                 
                 //Spill the contents of the furtherest register to memory
-                System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister + "\t //Spill (k is minimal)");
+                System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + physicalRegister + "\t //Spill (k is minimal)");
                 dataMemoryLoc += 4;
                 
               //Change the mappings for the virtual and physical register
@@ -512,7 +507,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t => \t" + registerChange
+        System.out.println("LoadI \t" + dataMemoryLoc + " => " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 
@@ -581,7 +576,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
+        System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 
@@ -602,7 +597,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
+        System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 
@@ -637,7 +632,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("LoadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
+        System.out.println("LoadI \t" + dataMemoryLoc + "\t \t => \t " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
 

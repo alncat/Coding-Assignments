@@ -301,7 +301,7 @@ public class registerAlloc {
           + " =>" + "\t" + allocationActions.get(i).getPROp3());
       }else{
         System.out.println(allocationActions.get(i).getTheOpcode() + "\t "
-            + allocationActions.get(i).getPROp1() +", "+ "\t " + operation2
+            + allocationActions.get(i).getPROp1() +" , "+ "\t " + operation2
             + " =>" + "\t" + allocationActions.get(i).getPROp3());
       }
       operation1 = "";
