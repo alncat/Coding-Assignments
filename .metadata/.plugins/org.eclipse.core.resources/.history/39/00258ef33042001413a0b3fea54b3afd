@@ -59,23 +59,23 @@ public class registerAlloc {
 
   public static void main(String[] args) {
 
-    String[] inputLine = {"2", "/Users/Ace/Downloads/HolderJar/block2.i"};
+    String[] inputLine = {"5", "/Users/Ace/Downloads/HolderJar/block7.i"};
 
     // Check if the file exists
-    File f = new File(args[1]);
+    File f = new File(inputLine[1]);
     if (!f.exists() || f.isDirectory()) {
-      System.out.println("Failure to open '" + args[1] + "' as the input file.");
+      System.out.println("Failure to open '" + inputLine[1] + "' as the input file.");
       System.exit(0);
     }
 
     // Check to see if the parameter -h is present
-    if (hFlag(args)) {
+    if (hFlag(inputLine)) {
       System.exit(0);
     }
 
     // Look for the number of registers or throw an error if not there
     // String inputRegNumber = args[0];
-    if (!generateXRegisters(args[0])) {
+    if (!generateXRegisters(inputLine[0])) {
       // System.out.println("Will attempt to read from 'stdin'.");
       System.out.println("Cannot allocate with fewer than 2 registers.");
       System.exit(0);
@@ -88,7 +88,7 @@ public class registerAlloc {
      */
 
     // Opens the file, stores the program, and prints program
-    readMicrosyntax(openAndRead(args[1]), programLineCount);
+    readMicrosyntax(openAndRead(inputLine[1]), programLineCount);
 
     /**
      * Iterate through allocationActions, if the OpCode is Empty then skip the line. If maxLiveHash
@@ -451,7 +451,6 @@ public class registerAlloc {
             operation2 += physicalRegister;
             //System.out.println("Operation 2 >>>>>>>>>>>>>> \t "+ operation2);
             
-            if(registerVMapped.containsKey(allocationActions.get(index).getVROp1())){
             if(!registerVMapped.get(allocationActions.get(index).getVROp1()).contains("pr")){
               virtualRegister = allocationActions.get(index).getVROp1();
               //Pick the register with the furtherest next use
@@ -468,7 +467,6 @@ public class registerAlloc {
               //Change the mappings for the virtual and physical register
                 registerVMapped.put(virtualRegister, physicalRegister);
                 allocationActions.get(index).setPROp1(registerVMapped.get(virtualRegister));
-            }
             }
           
         }
