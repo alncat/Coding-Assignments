@@ -210,18 +210,13 @@ public class registerAlloc {
           System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
               + "\t //Spill (k is minimal)");
           dataMemoryLoc += 4;
-          System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
+          System.out.println("load \t" + physicalRegister + "\t  => \t " + physicalRegister
               + "\t //Spill (k is minimal)");
           
           // Change the mappings for the virtual and physical register
           virtualRegister = allocationActions.get(i).getVROp1();
           registerVMapped.put(virtualRegister, physicalRegister);
           allocationActions.get(i).setPROp1(registerVMapped.get(virtualRegister));
-          
-        /**  System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-              + "\t //Restoring");
-          System.out.println("load \t" + regChange + "\t  => \t " + regChange
-              + "\t //Restoring"); *///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         }
         // loadI is the only thing that shows up in the else
@@ -269,19 +264,14 @@ public class registerAlloc {
             System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
                 + "\t //Spill (k is minimal)");
             dataMemoryLoc += 4;
-            System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
+            System.out.println("load \t" + physicalRegister + "\t  => \t " + physicalRegister
                 + "\t //Spill (k is minimal)");
             
             
             // Change the mappings for the virtual and physical register
             registerVMapped.put(virtualRegister, physicalRegister);
             allocationActions.get(i).setPROp3(registerVMapped.get(virtualRegister));
- 
-             /** System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-                  + "\t //Restoring");
-              System.out.println("load \t" + regChange + "\t  => \t " + regChange
-                  + "\t //Restoring");*///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  
+
           }
         }
 
@@ -300,18 +290,12 @@ public class registerAlloc {
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
+        System.out.println("load \t" + physicalRegister + "\t  => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
         
         // Change the mappings for the virtual and physical register
         registerVMapped.put(virtualRegister, physicalRegister);
         allocationActions.get(i).setPROp3(registerVMapped.get(virtualRegister));
- 
-        /**  System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-              + "\t //Restoring");
-          System.out.println("load \t" + regChange + "\t  => \t " + regChange
-              + "\t //Restoring");*///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-         
 
       }
 
@@ -345,18 +329,7 @@ public class registerAlloc {
 
   public static void performAllocationOP3(String registerName, int index) {
     String registerChange = "SwitchRegister", physicalRegister = "", virtualRegister =
-        allocationActions.get(index).getVROp3(), regChange = "", memPrev = "";
-    boolean checked = false;
-    
-    if(registerVMapped.containsKey(registerName) ){
-      if(!registerVMapped.get(registerName).contains("r")){
-        
-     // Pick the register with the furtherest next use
-        regChange += iterateRegisterNextU(registerNextU);
-        //Remember where the memory came from
-        memPrev += registerVMapped.get(registerName);
-        }}
-    
+        allocationActions.get(index).getVROp3();
     // System.out.println("Line Number: " + index);
     // check to see if the virtual register is assigned to physical register
     if (registerVMapped.containsKey(allocationActions.get(index).getVROp3())) {
@@ -374,9 +347,9 @@ public class registerAlloc {
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
+        System.out.println("load \t" + physicalRegister + "\t  => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
-        checked = true;
+        
         
         // Change the mappings for the virtual and physical register
         registerVMapped.put(virtualRegister, physicalRegister);
@@ -410,9 +383,9 @@ public class registerAlloc {
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t" + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t" + registerChange
+        System.out.println("load \t" + registerChange + "\t  => \t" + registerChange
             + "\t //Spill (k is minimal)");
-        checked = true;
+        
         
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);
@@ -443,9 +416,9 @@ public class registerAlloc {
           System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
               + "\t //Spill (k is minimal)");
           dataMemoryLoc += 4;
-          System.out.println("store \t" + registerChange + "\t  => \t " + registerChange
+          System.out.println("load \t" + registerChange + "\t  => \t " + registerChange
               + "\t //Spill (k is minimal)");
-          checked = true;
+
           // Change the mappings for the virtual and physical register
           registerVMapped.put(registerName, registerChange);
           allocationActions.get(index).setPROp3(registerVMapped.get(registerName));
@@ -459,29 +432,12 @@ public class registerAlloc {
 
     }
 
-    if(checked&& !memPrev.equals("") && !regChange.equals("")){
-      System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-          + "\t //Restoring");
-      System.out.println("load \t" + regChange + "\t  => \t " + regChange
-          + "\t //Restoring");
-    }
-    
   }
 
 
   public static void performAllocationOP2(String registerName, int index) {
     String registerChange = "MoveRegister", physicalRegister = "", virtualRegister =
-        allocationActions.get(index).getVROp2(), regChange = "", memPrev = "";
-    boolean checked = false;
-    if(registerVMapped.containsKey(registerName) ){
-      if(!registerVMapped.get(registerName).contains("r")){
-        
-     // Pick the register with the furtherest next use
-        regChange += iterateRegisterNextU(registerNextU);
-        //Remember where the memory came from
-        memPrev += registerVMapped.get(registerName);
-        }}
-    
+        allocationActions.get(index).getVROp2();
     // check to see if the virtual register is assigned to physical register
     if (registerVMapped.containsKey(allocationActions.get(index).getVROp2())) {
       /**
@@ -503,9 +459,9 @@ public class registerAlloc {
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
+        System.out.println("load \t" + physicalRegister + "\t  => \t " + physicalRegister
             + "\t //Spill (k is minimal)");
-        checked = true;
+
         // Change the mappings for the virtual and physical register
         registerVMapped.put(virtualRegister, physicalRegister);
         // allocationActions.get(i).setPROp2(registerVMapped.get(virtualRegister));
@@ -528,9 +484,9 @@ public class registerAlloc {
             System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
                 + "\t //Spill (k is minimal)");
             dataMemoryLoc += 4;
-            System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
+            System.out.println("load \t" + physicalRegister + "\t  => \t " + physicalRegister
                 + "\t //Spill (k is minimal)");
-            checked = true;
+            
             // Change the mappings for the virtual and physical register
             registerVMapped.put(virtualRegister, physicalRegister);
             allocationActions.get(index).setPROp1(registerVMapped.get(virtualRegister));
@@ -583,9 +539,9 @@ public class registerAlloc {
         System.out.println("loadI \t" + dataMemoryLoc + "\t => \t" + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t => \t" + registerChange
+        System.out.println("load \t" + registerChange + "\t => \t" + registerChange
             + "\t //Spill (k is minimal)");
-        checked = true;
+
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);
         allocationActions.get(index).setPROp2(registerVMapped.get(registerName));
@@ -618,12 +574,7 @@ public class registerAlloc {
       }
 
     }
-    if(checked && !memPrev.equals("") && !regChange.equals("")){
-      System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-          + "\t //Restoring");
-      System.out.println("load \t" + regChange + "\t  => \t " + regChange
-          + "\t //Restoring");
-    }
+
   }
 
   /**
@@ -631,18 +582,8 @@ public class registerAlloc {
    * @param index
    */
   public static void performAllocationOP1(String registerName, int index) {
-    String registerChange = "OpenRegister", regChange = "", memPrev = "";
-boolean checked = false;
-    if(registerVMapped.containsKey(registerName) ){
-      if(!registerVMapped.get(registerName).contains("r")){
-        
-     // Pick the register with the furtherest next use
-        regChange += iterateRegisterNextU(registerNextU);
-        //Remember where the memory came from
-        memPrev += registerVMapped.get(registerName);
-      }
-    }
-      
+    String registerChange = "OpenRegister";
+
     // check to see if the virtual register is assigned to physical register
     if (registerVMapped.containsKey(allocationActions.get(index).getVROp1())) {
 
@@ -671,10 +612,9 @@ boolean checked = false;
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t " + registerChange
+        System.out.println("load \t" + registerChange + "\t  => \t " + registerChange
             + "\t //Spill (k is minimal)");
-        checked = true;
-        
+
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);
         allocationActions.get(index).setPROp1(registerVMapped.get(registerName));
@@ -695,10 +635,8 @@ boolean checked = false;
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t " + registerChange
+        System.out.println("load \t" + registerChange + "\t  => \t " + registerChange
             + "\t //Spill (k is minimal)");
-        checked = true;
-        
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);
         allocationActions.get(index).setPROp1(registerVMapped.get(registerName));
@@ -733,9 +671,9 @@ boolean checked = false;
         System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + registerChange
             + "\t //Spill (k is minimal)");
         dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t " + registerChange
+        System.out.println("load \t" + registerChange + "\t  => \t " + registerChange
             + "\t //Spill (k is minimal)");
-        checked = true;
+        
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);
         allocationActions.get(index).setPROp1(registerVMapped.get(registerName));
@@ -762,13 +700,6 @@ boolean checked = false;
         }
       }
 
-    }
-    
-    if(checked && !memPrev.equals("") && !regChange.equals("") ){
-      System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-          + "\t //Restoring");
-      System.out.println("load \t" + regChange + "\t  => \t " + regChange
-          + "\t //Restoring");
     }
 
   }

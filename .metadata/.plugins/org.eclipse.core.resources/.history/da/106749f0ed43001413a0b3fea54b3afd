@@ -459,7 +459,7 @@ public class registerAlloc {
 
     }
 
-    if(checked&& !memPrev.equals("") && !regChange.equals("")){
+    if(checked){
       System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
           + "\t //Restoring");
       System.out.println("load \t" + regChange + "\t  => \t " + regChange
@@ -618,7 +618,7 @@ public class registerAlloc {
       }
 
     }
-    if(checked && !memPrev.equals("") && !regChange.equals("")){
+    if(checked){
       System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
           + "\t //Restoring");
       System.out.println("load \t" + regChange + "\t  => \t " + regChange
@@ -764,7 +764,7 @@ boolean checked = false;
 
     }
     
-    if(checked && !memPrev.equals("") && !regChange.equals("") ){
+    if(checked){
       System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
           + "\t //Restoring");
       System.out.println("load \t" + regChange + "\t  => \t " + regChange
