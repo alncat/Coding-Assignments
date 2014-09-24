@@ -1,0 +1,28 @@
+package paint;
+
+import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.ImageObserver;
+import balls.Ball;
+
+public class ImagePaintStrategy extends APaintStrategy {
+
+  private ImageObserver iObs;
+	public ImagePaintStrategy(AffineTransform at, String fileName, double fillFactor) {
+    super(at);
+  }
+
+	public void init(Ball host){
+	  
+	}
+	
+  public void paintXfrm(AffineTransform af) {
+
+	}
+
+  @Override
+  public void paintXfrm(Graphics g, Ball host, AffineTransform af) {
+    
+  }
+
+}

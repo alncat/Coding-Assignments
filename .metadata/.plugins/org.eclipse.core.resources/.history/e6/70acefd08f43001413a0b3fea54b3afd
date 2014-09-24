@@ -1,0 +1,19 @@
+package paint;
+
+import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+
+import balls.Ball;
+
+public class ADecoratorPaintStrategy extends APaintStrategy {
+
+  public ADecoratorPaintStrategy(AffineTransform a) {
+    super(a);
+  }
+
+  @Override
+  public void paintXfrm(Graphics g, Ball host, AffineTransform af) {
+    
+  }
+
+}

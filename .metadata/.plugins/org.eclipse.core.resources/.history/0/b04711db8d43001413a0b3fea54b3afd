@@ -1,0 +1,41 @@
+package paint;
+
+import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+
+import balls.Ball;
+
+public class MultiPaintStrategy extends APaintStrategy{
+	
+	/**
+	 * Holders for two strategies that we are combining
+	 */
+	//private IUpdateStrategy s1;
+	//private IUpdateStrategy s2;
+	
+	/**
+	 * Constructor for MulitStrategy.
+	 */
+	public MultiPaintStrategy(APaintStrategy pstrats){
+		//s1 = ins1;
+		//s2 = ins2;
+	}
+	
+	public MultiPaintStrategy(AffineTransform at, APaintStrategy pstrats){
+	  super(at);
+	}
+	
+	
+	public void init(Ball host){
+	  
+	}
+	
+	
+  @Override
+  public void paintXfrm(Graphics g, Ball host, AffineTransform af) {
+    // TODO Auto-generated method stub
+    
+  }
+
+}
+
