@@ -841,11 +841,11 @@ boolean checked = false;
     for (int i = 0; i < arrayLen; i++) {
       if (commandLine[i] == "-h") {
         System.out.println(" ");
-        System.out.println("Command Syntax: " + "\n\t    ./412alloc k filename [-h]\n\n"
+        System.out.println("Command Syntax: " + "\n\t    ./412alloc k filename [-h] [-l]\n\n"
             + "\n Required arguments:" + "\n\t    k     specifies the number of register available"
             + "\n\t filename  is the pathname (absolute or relative) to the input file\n\n"
             + "\n Optional flags:" + "\n\t    -h    prints this message"
-            + "");
+            + "\n\t    -l    additive flag; increases detail written to './LogFile'");
         return true;
       }
     }

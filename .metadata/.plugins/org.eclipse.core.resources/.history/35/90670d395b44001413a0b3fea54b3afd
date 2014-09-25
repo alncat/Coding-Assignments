@@ -60,7 +60,7 @@ public class registerAlloc {
   public static void main(String[] args) {
 
     String[] inputLine = {"2", "/Users/Ace/Downloads/HolderJar/block2.i"};
-    inputLine = args;
+    //inputLine = args;
     // Check if the file exists
     File f = new File(inputLine[1]);
     if (!f.exists() || f.isDirectory()) {

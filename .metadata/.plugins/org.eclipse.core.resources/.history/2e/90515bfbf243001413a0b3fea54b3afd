@@ -60,7 +60,7 @@ public class registerAlloc {
   public static void main(String[] args) {
 
     String[] inputLine = {"2", "/Users/Ace/Downloads/HolderJar/block2.i"};
-    inputLine = args;
+
     // Check if the file exists
     File f = new File(inputLine[1]);
     if (!f.exists() || f.isDirectory()) {
@@ -218,14 +218,10 @@ public class registerAlloc {
           registerVMapped.put(virtualRegister, physicalRegister);
           allocationActions.get(i).setPROp1(registerVMapped.get(virtualRegister));
           
-          /*if(!memPrev.equals("") && !regChange.equals("")){
-            System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
-                + "\t //Restoring");
-            System.out.println("load \t" + regChange + "\t  => \t " + regChange
-                + "\t //Restoring");
-            memPrev = "";
-            regChange = "";
-          }******************************/
+        /**  System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
+              + "\t //Restoring");
+          System.out.println("load \t" + regChange + "\t  => \t " + regChange
+              + "\t //Restoring"); *///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
         }
         // loadI is the only thing that shows up in the else
@@ -281,14 +277,10 @@ public class registerAlloc {
             registerVMapped.put(virtualRegister, physicalRegister);
             allocationActions.get(i).setPROp3(registerVMapped.get(virtualRegister));
  
-           /* if(!memPrev.equals("") && !regChange.equals("")){
-              System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
+             /** System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
                   + "\t //Restoring");
               System.out.println("load \t" + regChange + "\t  => \t " + regChange
-                  + "\t //Restoring");
-              memPrev = "";
-              regChange = "";
-            }*********************/
+                  + "\t //Restoring");*///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   
           }
         }
@@ -315,14 +307,10 @@ public class registerAlloc {
         registerVMapped.put(virtualRegister, physicalRegister);
         allocationActions.get(i).setPROp3(registerVMapped.get(virtualRegister));
  
-       /* if(!memPrev.equals("") && !regChange.equals("")){
-          System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
+        /**  System.out.println("loadI \t" + memPrev + "\t  => \t " + regChange
               + "\t //Restoring");
           System.out.println("load \t" + regChange + "\t  => \t " + regChange
-              + "\t //Restoring");
-          memPrev = "";
-          regChange = "";
-        }********************/
+              + "\t //Restoring");*///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
          
 
       }
@@ -841,11 +829,11 @@ boolean checked = false;
     for (int i = 0; i < arrayLen; i++) {
       if (commandLine[i] == "-h") {
         System.out.println(" ");
-        System.out.println("Command Syntax: " + "\n\t    ./412alloc k filename [-h]\n\n"
+        System.out.println("Command Syntax: " + "\n\t    ./412alloc k filename [-h] [-l]\n\n"
             + "\n Required arguments:" + "\n\t    k     specifies the number of register available"
             + "\n\t filename  is the pathname (absolute or relative) to the input file\n\n"
             + "\n Optional flags:" + "\n\t    -h    prints this message"
-            + "");
+            + "\n\t    -l    additive flag; increases detail written to './LogFile'");
         return true;
       }
     }

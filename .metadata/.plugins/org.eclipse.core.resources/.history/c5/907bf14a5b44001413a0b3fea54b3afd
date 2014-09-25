@@ -2,9 +2,7 @@
 
 
 public class OpenPageInDefaultBrower  {
-    public static <T> void main(String[] args) {
-      Iterator<T> it = new Iterator<T>();
-      
+    public static void main(String[] args) {
         // Create a new instance of the Firefox driver
         // Notice that the remainder of the code relies on the interface, 
         // not the implementation.
@@ -40,15 +38,5 @@ public class OpenPageInDefaultBrower  {
         
         //Close the browser
         driver.quit();
-    }
-    
-    class Iterator<T> implements Iterable<T>{
-
-      @Override
-      public java.util.Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        return null;
-      }
-      
     }
 }
