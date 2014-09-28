@@ -2,29 +2,32 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="printMap" key="selection"/>
+		<item value="main" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="false" key="wholeword"/>
+		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="printMap"/>
-			<item value="registerLinesUsage"/>
-			<item value="registerVMapped"/>
-			<item value="registerList"/>
-			<item value="generateXRegisters"/>
-			<item value="file"/>
-			<item value="open"/>
-			<item value="openfile"/>
+			<item value="package strategies;"/>
+			<item value="main"/>
+			<item value="Spill"/>
+			<item value="Restoring"/>
+			<item value="load"/>
+			<item value="restore"/>
+			<item value="spill"/>
+			<item value="btnAddStra"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="r"/>
+			<item value="loadI"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="916" key="DIALOG_X_ORIGIN"/>
-		<item value="232" key="DIALOG_Y_ORIGIN"/>
+		<item value="1233" key="DIALOG_X_ORIGIN"/>
+		<item value="513" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

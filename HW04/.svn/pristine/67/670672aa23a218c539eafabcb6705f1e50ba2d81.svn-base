@@ -1,0 +1,247 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+
+//import javax.swing.BoxLayout;
+
+//import java.awt.FlowLayout;
+
+//import javax.swing.GroupLayout;
+//import javax.swing.GroupLayout.Alignment;
+
+//import model.IViewControlAdapter;
+//import model.IViewUpdateAdapter;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JSpinner;
+
+//import javax.swing.JScrollPane;
+//import javax.swing.JList;
+
+//import strategies.IUpdateStrategy;
+
+/**
+ * View Class for the BallWorld GUI
+ * 
+ * @author Jayson Carter, Wei Zeng
+ */
+public class BallView<TDropListItem> extends JFrame {
+	/** Generated SerialVersion UID for the body panel */
+	private static final long serialVersionUID = -7063488266654092746L;
+
+	
+	private IModelControlAdapter<TDropListItem> _modelControlAdapter;
+	@SuppressWarnings("rawtypes")
+    private IModelUpdateAdapter _modelUpdateAdapter = IModelUpdateAdapter.NULL_OBJECT;
+	
+	/** Content Panel that holds all panels. */
+	private JPanel contentPane;
+
+	/** Header panel that holds the options for the user. */
+	private final JPanel hdrPanel = new JPanel();
+
+	/** Text Field to type the name of the class into. */
+	private final JTextField txtStrategyToAdd = new JTextField();
+
+	/**
+	 * Button to add a ball of the name specified by txtBallClassToAdd to
+	 * bodyPanel upon click.
+	 */
+	private final JButton btnAddStra = new JButton("Add Strategy");
+
+	/** Button to clear all balls upon click. */
+	private final JButton btnClearBalls = new JButton("Clear Balls");
+
+	/** Panel in which the Balls will be displayed */
+	private final JPanel bodyPanel = new JPanel() {
+		/** Generated SerialVersion UID for the body panel */
+		private static final long serialVersionUID = -6952656931251224807L;
+
+		/**
+		 * Repains the panel. Clears all items on the panel and repains as
+		 * specified by the adapter.paint function.
+		 * 
+		 * @param g
+		 *            The graphic to paint onto
+		 */
+		public void paintComponent(Graphics g) {
+			/* Clears the screen*/
+			super.paintComponent(g);
+			/* Call model to paint all required items */
+			_modelUpdateAdapter.update(g);
+
+		}
+	};
+	/**
+	 * Buttons and DropList
+	 */
+	private final JButton btnBottomButtonForCombine = new JButton("Combine!");
+	private final JButton btnTopButtonForMakeSelBall = new JButton("Make Selected Ball");
+	private final JComboBox<TDropListItem> lstTopListInWindow = new JComboBox<TDropListItem>();
+	private final JComboBox<TDropListItem> lstBottomListInWindow = new JComboBox<TDropListItem>();
+	private final JButton btnNewButton = new JButton("Make Switcher");
+	private final JButton btnSwitchButton = new JButton("Switch!");
+	private final JButton btnPaintStrategies = new JButton("Add");
+	private final JTextField textFieldPaintStrategies = new JTextField();
+	private final JComboBox comboBoxAddStrategies = new JComboBox();
+
+	/**
+	 * Constructor is supplied with an instance of the model adapters.
+	 * 
+	 * @param _inModelControlAdapter - Control Adapter from model to view
+	 * @param _inModelUpdateAdapter - Update Adapter from model to view
+	 */
+	@SuppressWarnings("unchecked")
+	public BallView(@SuppressWarnings("rawtypes") IModelControlAdapter _inModelControlAdapter, @SuppressWarnings("rawtypes") IModelUpdateAdapter _inModelUpdateAdapter) {
+	  textFieldPaintStrategies.setColumns(10);
+		this._modelControlAdapter = _inModelControlAdapter;
+		this._modelUpdateAdapter = _inModelUpdateAdapter;
+		initGUI();
+	}
+
+
+	/**
+	 * Starts up the GUI
+	 */
+	public void start() {
+		/* Makes the GUI visible */
+		setVisible(true);
+	}
+
+	/**
+	 * Initializes the GUI
+	 */
+	private void initGUI() {
+		
+		/* Set up frame and panels */
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0, 0, 750, 550);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+
+		/* Sets up the header panel, including tooltips for all items */
+		hdrPanel.setBackground(new Color(153, 204, 255));
+		contentPane.add(hdrPanel, BorderLayout.NORTH);
+		hdrPanel.setLayout(new MigLayout("", "[134px,grow][95px,grow][][134px,grow][grow]", "[grow][][grow][]"));
+		btnTopButtonForMakeSelBall.setToolTipText("Make a ball with the strategy selected in the top DropList");
+		btnTopButtonForMakeSelBall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Make ball with selected strategy
+				TDropListItem item = lstTopListInWindow.getItemAt(lstTopListInWindow.getSelectedIndex());
+				if (item == null)	return;
+				_modelControlAdapter.makeBall(item);
+			}
+		});
+		
+		hdrPanel.add(btnTopButtonForMakeSelBall, "cell 1 0,alignx center");
+		
+		hdrPanel.add(textFieldPaintStrategies, "cell 4 0,growx");
+		txtStrategyToAdd
+				.setToolTipText("Type the name of a strategy you want to apply to the balls you make");
+		txtStrategyToAdd.setColumns(10);
+		hdrPanel.add(txtStrategyToAdd, "cell 0 1,growx,aligny top");
+		
+		hdrPanel.add(lstTopListInWindow, "cell 1 1,grow");
+		btnNewButton.setToolTipText("Make a switcherBall with straight strategy");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Make switcherBall with straight strategy
+				_modelControlAdapter.makeSwitcherBall();
+			}
+		});
+		
+		hdrPanel.add(btnNewButton, "cell 2 1,alignx center");
+		
+		hdrPanel.add(btnPaintStrategies, "cell 4 1,growx,aligny center");
+		btnAddStra
+				.setToolTipText("Add a strategy to the list");
+		hdrPanel.add(btnAddStra, "cell 0 2,alignx center,aligny top");
+		btnAddStra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Add a strategy to the list
+				String sName = txtStrategyToAdd.getText();
+				if (sName == null)	return;
+				TDropListItem uStr = _modelControlAdapter.addStrategey(sName);
+				if (uStr == null)	return;
+				
+				lstTopListInWindow.insertItemAt(uStr, 0);
+				lstBottomListInWindow.insertItemAt(uStr, 0);
+				
+			}
+			
+		});
+		btnBottomButtonForCombine
+		.setToolTipText("Combine the two strategies selected, and make a new combined strategy");
+		btnBottomButtonForCombine.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+			  // Combine two strategies and add the combined-strategy to the strategy list
+			  TDropListItem item1 = lstTopListInWindow.getItemAt(lstTopListInWindow.getSelectedIndex());
+			  TDropListItem item2 = lstBottomListInWindow.getItemAt(lstBottomListInWindow.getSelectedIndex());
+			  
+			  if(item1 == null || item2 == null) return;
+			
+			  TDropListItem itemCom = _modelControlAdapter.combineStrategies(item1, item2);
+			  lstTopListInWindow.insertItemAt(itemCom, 0);
+			  lstBottomListInWindow.insertItemAt(itemCom, 0);
+		  }
+		});
+		
+		hdrPanel.add(lstBottomListInWindow, "cell 1 2,grow");
+		btnSwitchButton
+		.setToolTipText("Apply switch strategy to all SwitcherBalls");
+		btnSwitchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				 // Apply switch strategy to all SwitcherBalls
+				 TDropListItem item1 = lstTopListInWindow.getItemAt(lstTopListInWindow.getSelectedIndex());
+				 if(item1 == null) return;
+				 _modelControlAdapter.switchStrategy(item1);
+
+			}
+		});
+		
+		hdrPanel.add(btnSwitchButton, "cell 2 2,alignx center");
+		btnClearBalls
+				.setToolTipText("Click to remove all balls from the display area below");
+		hdrPanel.add(btnClearBalls, "cell 3 2,alignx center,aligny top");
+		btnClearBalls.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Clear all balls on canvas
+				_modelControlAdapter.clearBalls();
+			}
+		});
+		
+		hdrPanel.add(comboBoxAddStrategies, "cell 4 2,growx");
+		
+		hdrPanel.add(btnBottomButtonForCombine, "cell 1 3,alignx center");
+		contentPane.add(bodyPanel, BorderLayout.CENTER);
+	}
+
+	/**
+	 * Repaints the view.
+	 */
+	public void update() {
+		bodyPanel.repaint();
+	}
+
+	/**
+	 * Gets the bodyPanel as a Component
+	 * @return the bodyPanel
+	 */
+	public Component getCanvas() {
+		return bodyPanel;
+	}
+}

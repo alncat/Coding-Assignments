@@ -1,0 +1,45 @@
+package strategies;
+
+import balls.Ball;
+
+public class BreathingStrategy implements IUpdateStrategy {
+
+  private boolean decrease = false;
+  private int frameCounter = 0;
+
+
+
+  /**
+   * Updates the ball's state by changing the radius size.
+   * 
+   * @param context - The ball we use
+   */
+  @Override
+  public void updateState(Ball context) {
+
+    if (decrease) {
+      // Switch directions if the minimum was reached
+      if (frameCounter <= 0) {
+        decrease = false;
+      }
+      // Decrement the counter and radius
+      else {
+        frameCounter--;
+        context.setRadius(context.getRadius() - 1);
+      }
+    } else {
+      // Switch directions if the maximum was reached
+      if (frameCounter >= 60) {
+        decrease = true;
+      }
+      // Increment the counter and radius
+      else {
+        context.setRadius(context.getRadius() + 1);
+        frameCounter++;
+      }
+    }
+  }
+
+
+
+}

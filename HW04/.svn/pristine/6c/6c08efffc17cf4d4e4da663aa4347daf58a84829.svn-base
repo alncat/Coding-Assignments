@@ -1,0 +1,338 @@
+package model;
+
+
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
+import factories.IStrategyFac;
+import balls.Ball;
+import strategies.IPaintStrategy;
+import strategies.IStrategy;
+import strategies.IUpdateStrategy;
+import strategies.MultiStrategy;
+import strategies.SwitcherStrategy;
+import util.Dispatcher;
+import util.IRandomizer;
+import util.Randomizer;
+
+/**
+ * The BallModel creates and updates a system of ABalls.
+ */
+public class BallModel {
+
+  /**
+   * Dispatcher used to hold and update the ABalls.
+   */
+  private Dispatcher myDispatcher;
+
+  /**
+   * A randomizer to help create random balls.
+   */
+  private IRandomizer myRandom;
+
+  /**
+   * Rectangle for random point creation - used to pick the starting locations of the balls.
+   */
+  private Rectangle myRect;
+
+  /**
+   * Timer will update after _timeSlice milliseconds.
+   */
+  private int _timeSlice;
+
+  /**
+   * Times the model and tells it when to update.
+   */
+  private Timer _timer;
+
+  /**
+   * Two adapters from model to view
+   */
+  @SuppressWarnings("unused")
+  private IViewControlAdapter _viewControlAdapter = IViewControlAdapter.NULL_OBJECT;
+  private IViewUpdateAdapter _viewUpdateAdapter = IViewUpdateAdapter.NULL_OBJECT;
+
+  /**
+   * The switcher strategy
+   */
+  private SwitcherStrategy _switcher = new SwitcherStrategy();
+
+  /**
+   * A factory for a beeping error strategy that beeps the speaker every 25 updates. Either use the
+   * _errorStrategyFac variable directly if you need a factory that makes an error strategy, or call
+   * _errorStrategyFac.make() to create an instance of a beeping error strategy.
+   */
+  private IStrategyFac _errorStrategyFac = new IStrategyFac() {
+    @Override
+    /**
+     * Make the beeping error strategy
+     * @return  An instance of a beeping error strategy
+     */
+    public IStrategy make() {
+      return new IStrategy() {
+        private int count = 0; // update counter
+
+        /**
+         * Beep the speaker every 25 updates
+         */
+        public void updateState(Ball context) {
+          if (25 < count++) {
+            java.awt.Toolkit.getDefaultToolkit().beep();
+            count = 0;
+          }
+        }
+      };
+    }
+  };
+
+  /**
+   * Constructor for the BallModel.
+   * 
+   * @param _model2ViewAdpt - an instance of the view adapter.
+   */
+  public BallModel(model.IViewControlAdapter iViewControlAdapter,
+      model.IViewUpdateAdapter _inviewUpdateAdapter) {
+    // Override null adaptor
+    _viewControlAdapter = iViewControlAdapter;
+    _viewUpdateAdapter = _inviewUpdateAdapter;
+
+    // Initialize variables
+    this.myRandom = Randomizer.Singleton;
+    this.myDispatcher = new Dispatcher();
+    this.myRect = new Rectangle(0, 0, 100, 100);
+    this._timeSlice = 17;
+
+    // Create timer
+    this._timer = new Timer(_timeSlice, new ActionListener() {
+      /**
+       * The timer "ticks" by calling this method every _timeslice milliseconds
+       */
+      public void actionPerformed(ActionEvent e) {
+        _viewUpdateAdapter.update();
+      }
+    });
+  }
+
+
+
+  /**
+   * Takes in the ball type from the textbox and returns the corresponding strategy. If the strategy
+   * is not found then the input from the textbox is returned to raise an error.
+   * 
+   * @param classname Shortened name of desired strategy
+   * @return String with "strategies." appended in front of the input
+   */
+  public String fixName(Object classname) {
+    String returnStr = "I am wrong";
+    if (classname.equals("Straight"))
+      returnStr = "strategies.StraightStrategy";
+    else if (classname.equals("FastSlow"))
+      returnStr = "strategies.FastSlowStrategy";
+    else if (classname.equals("ColorChanging"))
+      returnStr = "strategies.ColorChangingStrategy";
+    else if (classname.equals("BumbleBee"))
+      returnStr = "strategies.BumblebeeStrategy";
+    else if (classname.equals("Breathing"))
+      returnStr = "strategies.BreathingStrategy";
+    return returnStr;
+  }
+
+  /**
+   * Goes through the available constructors and loads the strategy for the input.
+   * 
+   * @param className Shortened name of desired strategy
+   * @return IUpdateStrategy Adds onto the already existing strategy
+   */
+  public IStrategy loadStrategy(String className) {
+
+    try {
+      Object[] args = new Object[] {};
+
+      java.lang.reflect.Constructor<?> cs[] = Class.forName(className).getConstructors(); // get all
+                                                                                          // the
+                                                                                          // constructors
+      java.lang.reflect.Constructor<?> c = null;
+      for (int i = 0; i < cs.length; i++) { // find the first constructor with the right number of
+                                            // input parameters
+        if (args.length == (cs[i]).getParameterTypes().length) {
+          c = cs[i];
+          break;
+        }
+      }
+      return (IStrategy) c.newInstance(args); // Call the constructor. Will throw a null ptr
+                                              // exception if no constructor with the right number
+                                              // of input parameters was found.
+    } catch (Exception ex) {
+      System.err.println("Class " + className + " failed to load. \nException = \n" + ex);
+      System.out.println("failed ehre");
+      return _errorStrategyFac.make();
+    }
+
+  }
+
+
+  /**
+   * Returns an IStrategyFac that can instantiate the strategy specified by classname. Returns a
+   * factory for a beeping error strategy if classname is null. The toString() of the returned
+   * factory is the classname.
+   * 
+   * @param classname Shortened name of desired strategy
+   * @return A factory to make that strategy
+   */
+  public IStrategyFac makeStrategyFac(final String classname) {
+    if (null == classname)
+      return _errorStrategyFac;
+    return new IStrategyFac() {
+      /**
+       * Instantiate a strategy corresponding to the given class name.
+       * 
+       * @return An IUpdateStrategy instance
+       */
+      public IStrategy make() {
+        return loadStrategy("strategies." + classname + "Strategy");
+      }
+
+      /**
+       * Return the given class name string
+       */
+      public String toString() {
+        return classname;
+      }
+    };
+  }
+
+  /**
+   * Returns an IStrategyFac that can instantiate a MultiStrategy with the two strategies made by
+   * the two given IStrategyFac objects. Returns null if either supplied factory is null. The
+   * toString() of the returned factory is the toString()'s of the two given factories, concatenated
+   * with "-". If either factory is null, then a factory for a beeping error strategy is returned.
+   * 
+   * @param stratFac1 An IStrategyFac for a strategy
+   * @param stratFac2 An IStrategyFac for a strategy
+   * @return An IStrategyFac for the composition of the two strategies
+   */
+  public IStrategyFac combineStrategyFacs(final IStrategyFac stratFac1, final IStrategyFac stratFac2) {
+    if (null == stratFac1 || null == stratFac2)
+      return _errorStrategyFac;
+    return new IStrategyFac() {
+      /**
+       * Instantiate a new MultiStrategy with the strategies from the given strategy factories
+       * 
+       * @return A MultiStrategy instance
+       */
+      public IUpdateStrategy make() {
+        return new MultiStrategy((IUpdateStrategy) stratFac1.make(),
+            (IUpdateStrategy) stratFac2.make());
+      }
+
+      /**
+       * Return a string that is the toString()'s of the given strategy factories concatenated with
+       * a "-"
+       */
+      public String toString() {
+        return stratFac1.toString() + "-" + stratFac2.toString();
+      }
+    };
+  }
+
+
+  /**
+   * Get the switcher (strategy)
+   * 
+   * @return the switcherStrategy
+   */
+  public SwitcherStrategy getSwitcherStrategy() {
+    return _switcher;
+  }
+
+  /**
+   * Set the strategy for the switcher
+   * 
+   * @param strat Strategy for Switcher
+   */
+  public void SwitchSwitcherStrategy(IUpdateStrategy strat) {
+    _switcher.setStrategy(strat);
+  }
+
+  /**
+   * Removes all balls from the model.
+   */
+  public void clearBalls() {
+    myDispatcher.deleteObservers();
+  }
+
+  /**
+   * Creates a ball with given class on the given canvas.
+   * 
+   * @param iStrategy - The strategy of the ball
+   * @param incanvas - The canvas on which to draw the ball
+   */
+  public void makeBall(IUpdateStrategy iStrategy, IPaintStrategy iPaint, Component incanvas) {
+    myRect.setSize(incanvas.getWidth(), incanvas.getHeight());
+    myDispatcher.addObserver(this.loadBall(iStrategy, iPaint, incanvas));
+  }
+
+  /**
+   * Paints all of the balls using the given graphics object.
+   * 
+   * @param g a Graphics object used to paint the balls
+   */
+  public void paint(Graphics g) {
+    myDispatcher.notifyAll(g);
+  }
+
+  /**
+   * Starts the model.
+   */
+  public void start() {
+    _timer.start();
+  }
+
+  /**
+   * The following method returns an instance of an ABall, given a fully qualified class name
+   * (package.classname) of a subclass of ABall. The method assumes that there is only one
+   * constructor for the supplied class that has the same *number* of input parameters as specified
+   * in the args array and that it conforms to a specific signature, i.e. specific order and types
+   * of input parameters in the args array.
+   * 
+   * @param className - A string that is the fully qualified class name of the desired object
+   * @return An instance of the supplied class.
+   */
+  private Ball loadBall(IUpdateStrategy myStrategy, IPaintStrategy paintStrategy, Component inCanvas) {
+
+
+    return new Ball(myRandom.randomColor(), myRandom.randomLoc(myRect).x,
+        myRandom.randomLoc(myRect).y, myRandom.randomInt(2, 15), myRandom.randomInt(2, 15),
+        myRandom.randomInt(10, 50), inCanvas, myStrategy, paintStrategy);
+
+
+  }
+
+
+
+  // public IStrategyFac makePaintStrategyFac(String classname) {
+  // if (null == classname) return _errorStrategyFac;
+  // return new IStrategyFac() {
+  // /**
+  // * Instantiate a strategy corresponding to the given class name.
+  // * @return An IUpdateStrategy instance
+  // */
+  // public IPaintStrategy make() {
+  // return (IPaintStrategy) loadStrategy(fixName(classname));
+  // }
+  //
+  // /**
+  // * Return the given class name string
+  // */
+  // public String toString() {
+  // return classname;
+  // }
+  // };
+  // }
+
+}

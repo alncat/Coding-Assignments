@@ -306,14 +306,14 @@ public class SparseArrayTester extends TestCase {
   /**
    * See if the linear sparse array takes less than 2/3 of the time comapred to SparseArray
    */
-  public void testSpeedMedium () {
+  /*public void testSpeedMedium () {
     speedCheck (66.67);  
-  }
+  }*/
   
   /**
    * See if the linear sparse array takes less than 1/2 of the time comapred to SparseArray
    */
-  public void testSpeedFast () {
+  /*public void testSpeedFast () {
     speedCheck (50.0);  
-  }
+  }*/
 }

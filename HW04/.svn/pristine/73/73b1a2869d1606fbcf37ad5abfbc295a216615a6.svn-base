@@ -1,0 +1,17 @@
+package factories;
+
+import java.awt.Shape;
+
+public class RectangleShapeFactory implements IShapeFactory{
+
+  public RectangleShapeFactory() {
+    // TODO Auto-generated constructor stub
+  }
+
+  @Override
+  public Shape makeShape(double x, double y, double xScale, double yScale) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+}

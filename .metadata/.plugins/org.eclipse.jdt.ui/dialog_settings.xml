@@ -8,6 +8,7 @@
 	<item value="0" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_x"/>
 	<item value="22" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_y"/>
 	<item value="1" key="org.eclipse.jdt.uiformatter_page.line_wrapping_tab_page.last_category_index"/>
+	<item value="/Users/Ace/Documents/Comp 215 Assignments/A2" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="/Users/Ace/Downloads" key="org.eclipse.jdt.ui.codeformatter.loadpath"/>
 	<item value="0" key="org.eclipse.jdt.uiformatter_page.white_space.java_view.inner"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
@@ -37,7 +38,7 @@
 		</section>
 	</section>
 	<section name="NewClassWizardPage">
-		<item value="true" key="create_constructor"/>
+		<item value="false" key="create_constructor"/>
 		<item value="true" key="create_unimplemented"/>
 	</section>
 	<section name="OptionalMessageDialog.hide.">
@@ -49,7 +50,7 @@
 	</section>
 	<section name="FatJarPackageWizard">
 		<item value="/Users/Ace/Documents/workspace" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="registerAlloc - 412alloc" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="registerAlloc (1) - 412allocTest" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
 		<item value="/Users/Ace/Downloads/HolderJar/lab1.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
@@ -69,6 +70,9 @@
 	</section>
 	<section name="NewPackageWizardPage">
 		<item value="false" key="create_package_info_java"/>
+	</section>
+	<section name="BuildPathsPropertyPage">
+		<item value="2" key="pageIndex"/>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

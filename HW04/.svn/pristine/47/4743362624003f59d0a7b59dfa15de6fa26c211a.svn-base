@@ -1,0 +1,18 @@
+package strategies.update;
+
+import strategies.IStrategy;
+import balls.Ball;
+
+/**
+ * Updates the strategy for the ball.
+ *
+ */
+public interface IUpdateStrategy extends IStrategy {
+
+  /**
+   * Update the state of the context ball with strategy
+   * 
+   * @param context - the ball we use
+   */
+  public void updateState(Ball context);
+}

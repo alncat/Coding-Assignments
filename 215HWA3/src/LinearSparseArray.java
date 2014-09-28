@@ -1,146 +1,155 @@
 import java.util.*;
 
-class LinearSparseArray<T> extends ASparseArray {//ISparseArray<T>
-  
-  private int [] indices;
+class LinearSparseArray<T> extends ASparseArray {
+
+  //Will hold the indices for the values
+  private int[] indices;
+  //class for Vector
   private Vector<T> data;
+  //class variables for number of 
+  //slots and number of puts called
   private int totalSlots, counter;
-  private int [] nothing = new int [1];
-  
-  
-  public LinearSparseArray(int initialSlots){   
-    indices = new int [2000000];
-    data = new Vector <T>(); 
+
+
+
+  /**
+   * Constructor that takes in the number of initial slots for the
+   * array.
+   * @param initialSlots
+   */
+  public LinearSparseArray(int initialSlots) {
+    //holds the indices for the sparse array
+    indices = new int[2000000];
+    //stores the objects of type T
+    data = new Vector<T>();
+    //takes in the number of slots
     totalSlots = initialSlots;
+    //keeps track of of the number of put operations
     counter = 0;
   }
-  
+
   /**
    * Add element to the array at position.
    * 
-   * @param position  position in the array
-   * @param element   data to place in the array
+   * @param position position in the array
+   * @param element data to place in the array
    */
+  @SuppressWarnings("unchecked")
   @Override
-  public void put (int position, T element){
-    
+  public void put(int position, Object element) {
+    //sets the corresponding position and counter
     indices[counter] = position;
+    //increment number of slots
     totalSlots++;
-    data.add(counter, element);
-    counter++;  
+    //add element to data vector
+    data.add(counter, (T) element);
+    //increment number of puts
+    counter++;
   };
-  
+
   /**
    * Get element at the given position.
    *
-   * @param position  position in the array
-   * @return          element at that position or null if there is none
+   * @param position position in the array
+   * @return element at that position or null if there is none
    */
-  public T get (int position){
-    /*LinearSearch search = new LinearSearch();
-    if ((position >= 0) && (position < data.size())){      
-      return data.get(position);// found at index
-    }else {     
-      return null; //not found
-    }*/
-    
-    for(int i = 0; i < counter; i++){//indices.length
-      if (indices[i] == position){
-      return data.get(i);
-      } 
+  public T get(int position) {
+    //search until matching index is found
+    //if not found just return null
+   for (int i = 0; i < counter; i++) {
+      if (indices[i] == position) {
+        return data.get(i);
+      }
     }
     return null;
   }
-  
+
   /**
    * Create an iterator over the array.
    *
-   * @return  an iterator over the sparse array
+   * @return an iterator over the sparse array
    */
-  public Iterator<IIndexedData<T>> iterator (){
+  public Iterator<IIndexedData<T>> iterator() {
     Iterator<IIndexedData<T>> myIter = new LinearIndexedIterator<T>(data, indices);
     return myIter;
   }
-  
-  
-  class LinearIndexedIterator<T> implements Iterator<IIndexedData<T>>{
-    
+
+
+  @SuppressWarnings("hiding")
+  class LinearIndexedIterator<T> implements Iterator<IIndexedData<T>> {
+
     private int index;
-    private IndexedData<T> [] arrayValues;
-    private IndexedData <T> myData; //= new IndexedData <T> (key, value);
+    private IndexedData<T> myData;
     private Vector<IndexedData<T>> vecData;
-    //trial run
-    private int [] actualPos, empty = new int [1];
-    private int counted = 0, counting = 0;
-    //trial run
-    
-    public LinearIndexedIterator(Vector<T> inputData, int [] posIndex){
+
+
+    /**
+     * Constructor to perform searches items in a vector.
+     *  
+     * @param inputData
+     * @param posIndex
+     */
+    public LinearIndexedIterator(Vector<T> inputData, int[] posIndex) {
       index = 0;
-      //arrayValues = new IndexedData<T> [inputData.size()];//NOT
       vecData = new Vector<IndexedData<T>>();
-      for(int i = 0; i < inputData.size(); i++){
-        //arrayValues[i] = myData = new IndexedData<T>(i,inputData.get(i));
-        myData = new IndexedData<T>(i*100, inputData.get(i));
+      for (int i = 0; i < inputData.size(); i++) {
+        myData = new IndexedData<T>(i * 100, inputData.get(i));
         vecData.add(myData);
       }
-      //trial run***************
-      //count the number of non-null indices
-//      for(int i = 0; i < posIndex.length; i++){
-//        if(posIndex[i] != empty[0]){
-//        counted++;
-//        }
-//      }
-//      actualPos = new int[counted];
-//      //fill in the array with the non-null indices
-//      for(int i = 0; i < posIndex.length; i++){
-//        if(posIndex[i] != empty[0]){
-//        actualPos[counting] = posIndex[i];
-//        counting++;
-//        }
-//      }
-//      for(int i = 0; i < actualPos.length; i++){
-//      myData = new IndexedData<T>(actualPos[i], inputData.get(actualPos[i]));
-//      vecData.add(myData);
-//      }
-      //trial run**************
-      
+
+
     }
-    
-    public boolean hasNext(){
-      if (data.size() < index + 1){
-        return false; 
-      }else{
-        //index++;
+
+    /* (non-Javadoc)
+     * @see java.util.Iterator#hasNext()
+     */
+    public boolean hasNext() {
+      if (data.size() < index + 1) {
+        return false;
+      } else {
         return true;
       }
     }
-    
-    public IIndexedData<T> next(){
+
+    /* (non-Javadoc)
+     * @see java.util.Iterator#next()
+     */
+    public IIndexedData<T> next() {
       IIndexedData<T> temp = vecData.get(index);
       index++;
       return temp;
     }
-    
-    public void remove(){     
+
+    /* (non-Javadoc)
+     * @see java.util.Iterator#remove()
+     */
+    public void remove() {
       throw new RuntimeException("There not be any removes called.");
     }
-    
-    
+
+
   }
-  
-  public class LinearSearch{
-    
-    public int find (final int[] data, final int key){     
-      for ( int i = 0; i < data.length; ++i){       
-        if (data[i] > key){         
+
+  public class LinearSearch {
+
+    /**
+     * Method that performs a linear search on an input array of
+     * integers.
+     * 
+     * @param data
+     * @param key
+     * @return
+     */
+    public int find(final int[] data, final int key) {
+      for (int i = 0; i < data.length; ++i) {
+        if (data[i] > key) {
           return -1;
-        }else if( data[i]== key) {          
+        } else if (data[i] == key) {
           return i;
-        }               
+        }
       }
       return -1;
     }
   }
-  
-}
 
+}

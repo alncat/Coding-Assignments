@@ -1,8 +1,0 @@
-
-public class DenseDoubleVector {
-
-  public DenseDoubleVector() {
-    // TODO Auto-generated constructor stub
-  }
-
-}
