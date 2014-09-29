@@ -11,6 +11,7 @@
 	<item value="/Users/Ace/Documents/Comp 215 Assignments/A2" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="/Users/Ace/Downloads" key="org.eclipse.jdt.ui.codeformatter.loadpath"/>
 	<item value="0" key="org.eclipse.jdt.uiformatter_page.white_space.java_view.inner"/>
+	<item value="3" key="org.eclipse.jdt.uiformatter_page.modify_dialog_tab_page.last_focus_index"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>

@@ -1,9 +1,0 @@
-package paint;
-
-public class PolygonFactory {
-
-  public PolygonFactory() {
-    // TODO Auto-generated constructor stub
-  }
-
-}

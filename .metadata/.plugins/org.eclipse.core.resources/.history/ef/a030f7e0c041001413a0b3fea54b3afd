@@ -1,9 +1,0 @@
-package paint;
-
-public class EllipsePaintStrategy {
-
-  public EllipsePaintStrategy() {
-    // TODO Auto-generated constructor stub
-  }
-
-}

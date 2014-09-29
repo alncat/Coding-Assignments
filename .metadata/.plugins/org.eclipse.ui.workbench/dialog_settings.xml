@@ -8,12 +8,20 @@
 		<item value="657" key="dialogHeight"/>
 		<item value="1050" key="dialogWidth"/>
 		<list key="textEntries">
+			<item value="1"/>
+			<item value="1"/>
 		</list>
 		<list key="orderedElements">
+			<item value="org.eclipse.jdt.ui.CompilationUnitEditorHW04/src/strategies/paint/EllipsePaintStrategy.java"/>
+			<item value="org.eclipse.jdt.ui.CompilationUnitEditorHW04/src/strategies/paint/BirdSheepImagePaintStrategy.java"/>
 		</list>
 		<list key="orderedProviders">
+			<item value="org.eclipse.ui.editors"/>
+			<item value="org.eclipse.ui.editors"/>
 		</list>
 		<list key="textArray">
+			<item value="ellipse"/>
+			<item value="sheep"/>
 		</list>
 	</section>
 	<section name="NewWizardAction">

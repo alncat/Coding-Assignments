@@ -11419,3 +11419,252 @@ Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/val
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
 	... 7 more
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2014-09-28 16:15:08.632
+!MESSAGE Can't handle %s as parent of completion location.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2014-09-28 16:16:32.846
+!MESSAGE Can't handle %s as parent of completion location.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2014-09-28 16:29:22.440
+!MESSAGE Can't handle %s as parent of completion location.
+
+!ENTRY org.eclipse.wb.core 4 4 2014-09-28 16:48:00.034
+!MESSAGE Designer [1.7.0.r44x201405021531.201409281648]: 313 (Exception during 'super' constructor evaluation). JFrame() {} java.lang.NullPointerException
+	at java.beans.MethodRef.get(MethodRef.java:72)
+	at java.beans.PropertyDescriptor.getWriteMethod(PropertyDescriptor.java:270)
+!STACK 0
+org.eclipse.wb.internal.core.utils.exception.DesignerException: 313 (Exception during 'super' constructor evaluation). JFrame() {} java.lang.NullPointerException
+	at java.beans.MethodRef.get(MethodRef.java:72)
+	at java.beans.PropertyDescriptor.getWriteMethod(PropertyDescriptor.java:270)
+	at org.eclipse.wb.internal.core.model.creation.ThisCreationSupport.create(ThisCreationSupport.java:275)
+	at org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper.evaluateJavaInfoUsingCreationSupport(JavaInfoEvaluationHelper.java:642)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.addJavaInfo(JavaInfoParser.java:1261)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parse(JavaInfoParser.java:253)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.access$9(JavaInfoParser.java:238)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$1.runObject(JavaInfoParser.java:153)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$1.runObject(JavaInfoParser.java:1)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.runDesignTime(ExecutionUtils.java:159)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parse(JavaInfoParser.java:151)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:534)
+	at org.eclipse.wb.internal.core.editor.DesignPage.access$9(DesignPage.java:522)
+	at org.eclipse.wb.internal.core.editor.DesignPage$8$1.run(DesignPage.java:449)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:187)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:156)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4721)
+	at org.eclipse.wb.internal.core.editor.DesignPage$8.run(DesignPage.java:446)
+	at org.eclipse.jface.operation.ModalContext.runInCurrentThread(ModalContext.java:466)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:374)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run(ProgressMonitorDialog.java:527)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF_withProgress(DesignPage.java:465)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:415)
+	at org.eclipse.wb.internal.core.editor.UndoManager.refreshDesignerEditor(UndoManager.java:381)
+	at org.eclipse.wb.internal.core.editor.UndoManager.activate(UndoManager.java:90)
+	at org.eclipse.wb.internal.core.editor.DesignPage.handleActiveState_True(DesignPage.java:263)
+	at org.eclipse.wb.internal.core.editor.DesignPage.handleActiveState(DesignPage.java:241)
+	at org.eclipse.wb.internal.core.editor.multi.DefaultMultiMode.showPage(DefaultMultiMode.java:125)
+	at org.eclipse.wb.internal.core.editor.multi.DefaultMultiMode$1.widgetSelected(DefaultMultiMode.java:63)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:248)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4188)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1467)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1490)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1475)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1279)
+	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3110)
+	at org.eclipse.swt.custom.CTabFolder.onMouse(CTabFolder.java:1794)
+	at org.eclipse.swt.custom.CTabFolder$1.handleEvent(CTabFolder.java:283)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4188)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1467)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1490)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1475)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1279)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4031)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3658)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1151)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1032)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:148)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:636)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:579)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:135)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:382)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:236)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:648)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
+Caused by: java.lang.NullPointerException
+	at java.beans.MethodRef.get(MethodRef.java:72)
+	at java.beans.PropertyDescriptor.getWriteMethod(PropertyDescriptor.java:270)
+	at org.eclipse.wb.internal.core.model.JavaInfoUtils.addExposedChildred_Method(JavaInfoUtils.java:447)
+	at org.eclipse.wb.internal.core.model.JavaInfoUtils.addExposedChildren(JavaInfoUtils.java:429)
+	at org.eclipse.wb.internal.swing.model.component.ComponentInfo.createExposedChildren(ComponentInfo.java:109)
+	at org.eclipse.wb.internal.swing.model.component.ContainerInfo.createExposedChildren(ContainerInfo.java:143)
+	at org.eclipse.wb.core.model.JavaInfo.initialize(JavaInfo.java:423)
+	at org.eclipse.wb.internal.swing.model.component.ContainerInfo.initialize(ContainerInfo.java:114)
+	at org.eclipse.wb.core.model.JavaInfo.setObject(JavaInfo.java:1288)
+	at org.eclipse.wb.internal.core.model.creation.ThisCreationSupport.create(ThisCreationSupport.java:269)
+	... 65 more
+!SESSION 2014-09-28 16:48:20.762 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-09-28 16:48:28.346
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.yattasolutions.umllab 2 0 2014-09-28 16:48:39.418
+!MESSAGE Unable to configure UML constraint validation
+!STACK 0
+java.lang.ClassNotFoundException: Unable to load synthetic subclass of com.yattasolutions.umllab.validation.f
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:123)
+	at com.yattasolutions.umllab.validation.f.<clinit>(SourceFile:40)
+	at com.yattasolutions.obf.oo.a.earlyStartup(SourceFile:17)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:89)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:67)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$56.run(Workbench.java:2755)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/validation/f__Gen_Configurable : Unsupported major.minor version 0.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at com.yattasolutions.umllab.validation.a$1.adl(SourceFile:109)
+	at com.yattasolutions.umllab.validation.a$1.findClass(SourceFile:91)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
+	... 7 more
+
+!ENTRY org.eclipse.wb.core 4 4 2014-09-28 16:56:10.516
+!MESSAGE Designer [1.7.0.r44x201405021531.201409281656]: 313 (Exception during 'super' constructor evaluation). JFrame() {} java.lang.NullPointerException
+	at java.beans.MethodRef.get(MethodRef.java:72)
+	at java.beans.PropertyDescriptor.getWriteMethod(PropertyDescriptor.java:270)
+!STACK 0
+org.eclipse.wb.internal.core.utils.exception.DesignerException: 313 (Exception during 'super' constructor evaluation). JFrame() {} java.lang.NullPointerException
+	at java.beans.MethodRef.get(MethodRef.java:72)
+	at java.beans.PropertyDescriptor.getWriteMethod(PropertyDescriptor.java:270)
+	at org.eclipse.wb.internal.core.model.creation.ThisCreationSupport.create(ThisCreationSupport.java:275)
+	at org.eclipse.wb.internal.core.model.JavaInfoEvaluationHelper.evaluateJavaInfoUsingCreationSupport(JavaInfoEvaluationHelper.java:642)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.addJavaInfo(JavaInfoParser.java:1261)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parse(JavaInfoParser.java:253)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.access$9(JavaInfoParser.java:238)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$1.runObject(JavaInfoParser.java:153)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser$1.runObject(JavaInfoParser.java:1)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.runDesignTime(ExecutionUtils.java:159)
+	at org.eclipse.wb.internal.core.parser.JavaInfoParser.parse(JavaInfoParser.java:151)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:534)
+	at org.eclipse.wb.internal.core.editor.DesignPage.access$9(DesignPage.java:522)
+	at org.eclipse.wb.internal.core.editor.DesignPage$8$1.run(DesignPage.java:449)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:187)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:156)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4721)
+	at org.eclipse.wb.internal.core.editor.DesignPage$8.run(DesignPage.java:446)
+	at org.eclipse.jface.operation.ModalContext.runInCurrentThread(ModalContext.java:466)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:374)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run(ProgressMonitorDialog.java:527)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF_withProgress(DesignPage.java:465)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:415)
+	at org.eclipse.wb.internal.core.editor.UndoManager.refreshDesignerEditor(UndoManager.java:381)
+	at org.eclipse.wb.internal.core.editor.UndoManager.activate(UndoManager.java:90)
+	at org.eclipse.wb.internal.core.editor.DesignPage.handleActiveState_True(DesignPage.java:263)
+	at org.eclipse.wb.internal.core.editor.DesignPage.handleActiveState(DesignPage.java:241)
+	at org.eclipse.wb.internal.core.editor.multi.DefaultMultiMode.showPage(DefaultMultiMode.java:125)
+	at org.eclipse.wb.internal.core.editor.multi.DefaultMultiMode$1.widgetSelected(DefaultMultiMode.java:63)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:248)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4188)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1467)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1490)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1475)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1279)
+	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3110)
+	at org.eclipse.swt.custom.CTabFolder.onMouse(CTabFolder.java:1794)
+	at org.eclipse.swt.custom.CTabFolder$1.handleEvent(CTabFolder.java:283)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4188)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1467)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1490)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1475)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1279)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4031)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3658)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1151)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1032)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:148)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:636)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:579)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:135)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:382)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:236)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:648)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
+Caused by: java.lang.NullPointerException
+	at java.beans.MethodRef.get(MethodRef.java:72)
+	at java.beans.PropertyDescriptor.getWriteMethod(PropertyDescriptor.java:270)
+	at org.eclipse.wb.internal.core.model.JavaInfoUtils.addExposedChildred_Method(JavaInfoUtils.java:447)
+	at org.eclipse.wb.internal.core.model.JavaInfoUtils.addExposedChildren(JavaInfoUtils.java:429)
+	at org.eclipse.wb.internal.swing.model.component.ComponentInfo.createExposedChildren(ComponentInfo.java:109)
+	at org.eclipse.wb.internal.swing.model.component.ContainerInfo.createExposedChildren(ContainerInfo.java:143)
+	at org.eclipse.wb.core.model.JavaInfo.initialize(JavaInfo.java:423)
+	at org.eclipse.wb.internal.swing.model.component.ContainerInfo.initialize(ContainerInfo.java:114)
+	at org.eclipse.wb.core.model.JavaInfo.setObject(JavaInfo.java:1288)
+	at org.eclipse.wb.internal.core.model.creation.ThisCreationSupport.create(ThisCreationSupport.java:269)
+	... 65 more
+!SESSION 2014-09-28 16:56:33.677 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-09-28 16:56:40.024
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.yattasolutions.umllab 2 0 2014-09-28 16:56:49.336
+!MESSAGE Unable to configure UML constraint validation
+!STACK 0
+java.lang.ClassNotFoundException: Unable to load synthetic subclass of com.yattasolutions.umllab.validation.f
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:123)
+	at com.yattasolutions.umllab.validation.f.<clinit>(SourceFile:40)
+	at com.yattasolutions.obf.oo.a.earlyStartup(SourceFile:17)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:89)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:67)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$56.run(Workbench.java:2755)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/validation/f__Gen_Configurable : Unsupported major.minor version 0.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at com.yattasolutions.umllab.validation.a$1.adl(SourceFile:109)
+	at com.yattasolutions.umllab.validation.a$1.findClass(SourceFile:91)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
+	... 7 more

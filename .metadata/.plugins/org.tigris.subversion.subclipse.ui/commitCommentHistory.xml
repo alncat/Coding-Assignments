@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CommitComments>	<CommitComment>Code reformatted.</CommitComment>
+<CommitComments>	<CommitComment>Java docs, readme, and buttons updated.</CommitComment>
+	<CommitComment>Proper bounce for ellipses.</CommitComment>
+	<CommitComment>New formatting.</CommitComment>
+	<CommitComment>Code reformatted.</CommitComment>
 	<CommitComment>Images folder added.</CommitComment>
 	<CommitComment>Box fixed.</CommitComment>
 	<CommitComment>End of Tuesday.</CommitComment>
 	<CommitComment>Halfway to endpoint.</CommitComment>
 	<CommitComment>Additional things added from UML diagram.</CommitComment>
 	<CommitComment>More stuff.</CommitComment>
-	<CommitComment>More details added.</CommitComment>
-	<CommitComment>New methods added.</CommitComment>
-	<CommitComment>lloo</CommitComment>
 </CommitComments>

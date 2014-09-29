@@ -1,0 +1,43 @@
+package strategies.paint;
+
+import java.awt.Graphics;
+
+
+
+public class EquilTri extends AShape{
+	int n;
+	int hb;
+	int h;
+	int [] Xpoints = new int [3];
+	int [] Ypoints = new int [3];
+	
+	/**
+	 * @param nPoints
+	 * @param height
+	 * @param halfBottom
+	 */
+	public EquilTri(int nPoints, int height, int halfBottom) {
+		super();
+		n = nPoints;
+		h = height;
+		hb = halfBottom;
+	}
+
+	/* (non-Javadoc)
+	 * @see shape.AShape#paint(int, int, java.awt.Graphics)
+	 * 
+	 * Paints a triangle.
+	 */
+	@Override
+	public void paint(int x, int y, Graphics g) {
+		// TODO Auto-generated method stub
+		Xpoints[0] = hb + x;
+		Xpoints[1] = x - hb;
+		Xpoints[2] = x;
+		Ypoints[0] = 0;
+		Ypoints[1] = 0;
+		Ypoints[2] = h;
+		g.drawPolygon(Xpoints, Ypoints, n);
+	}
+
+}

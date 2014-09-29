@@ -35,4 +35,6 @@
 <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
 <fullyQualifiedTypeName name="balls.Ball"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
+<fullyQualifiedTypeName name="java.util.concurrent.atomic.AtomicBoolean"/>
+<fullyQualifiedTypeName name="factories.CompositeShapeFactory"/>
 </qualifiedTypeNameHistroy>
