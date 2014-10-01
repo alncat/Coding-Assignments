@@ -1,0 +1,11 @@
+package model.ball;
+
+public class AUpdateStrategy implements IUpdateStrategy {
+
+	@Override
+	public void updateState(Ball ball) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

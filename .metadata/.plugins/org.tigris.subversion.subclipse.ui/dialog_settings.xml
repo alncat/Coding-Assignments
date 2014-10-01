@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="250" key="HistoryTableProvider.revisionsBlock.Date"/>
+	<item value="501" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Comment"/>
+	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jjc7/HW04" key="UrlCombo.HW03.0"/>
+	<item value="22" key="passwordStores.location.y"/>
+	<item value="22" key="CommitDialog.location.y"/>
+	<item value="170" key="passwordStores.location.x"/>
+	<item value="77" key="CommitDialog.location.x"/>
+	<item value="578" key="RevertDialog.location.x"/>
+	<item value="256" key="MarkResolvedDialog.location.y"/>
+	<item value="575" key="MarkResolvedDialog.location.x"/>
+	<item value="530" key="MarkResolvedDialog.size.x"/>
+	<item value="525" key="SetSvnPropertyDialog.size.x"/>
+	<item value="265" key="RevertDialog.location.y"/>
+	<item value="380" key="MarkResolvedDialog.size.y"/>
+	<item value="464" key="SetSvnPropertyDialog.size.y"/>
+	<item value="250" key="HistoryTableProvider.revisions.Date"/>
+	<item value="500" key="HistoryTableProvider.revisionsBlock.Comment"/>
+	<item value="578" key="ConfigureTagsDialog.location.x"/>
+	<item value="115" key="ConfigureTagsDialog.location.y"/>
+	<item value="101" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Revision"/>
 	<item value="101" key="HistoryTableProvider.revisions.Revision"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jak6/HW02" key="UrlCombo.Lab04.0"/>
-	<item value="250" key="HistoryTableProvider.revisionsBlock.Date"/>
 	<item value="367" key="RevertDialog.size.y"/>
 	<item value="525" key="RevertDialog.size.x"/>
 	<item value="564" key="passwordStores.size.y"/>
@@ -13,38 +32,23 @@
 	<item value="200" key="SetSvnPropertyDialog.location.y"/>
 	<item value="578" key="SetSvnPropertyDialog.location.x"/>
 	<item value="101" key="HistoryTableProvider.revisionsBlock.Revision"/>
-	<item value="501" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Comment"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jjc7/Labs/Lab04" key="UrlCombo.HW02.0"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jak6/Labs/Lab04" key="UrlCombo.HW02.1"/>
-	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jjc7/HW04" key="UrlCombo.HW03.0"/>
 	<item value="251" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Date"/>
-	<item value="22" key="passwordStores.location.y"/>
-	<item value="22" key="CommitDialog.location.y"/>
-	<item value="170" key="passwordStores.location.x"/>
-	<item value="77" key="CommitDialog.location.x"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jak6/HW02" key="UrlCombo.HW02.2"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jjc7/HW03" key="UrlCombo.HW02.3"/>
 	<item value="500" key="CommitDialog.weights.0"/>
-	<item value="578" key="RevertDialog.location.x"/>
 	<item value="500" key="CommitDialog.weights.1"/>
-	<item value="525" key="SetSvnPropertyDialog.size.x"/>
-	<item value="265" key="RevertDialog.location.y"/>
-	<item value="464" key="SetSvnPropertyDialog.size.y"/>
 	<item value="200" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Author"/>
 	<item value="567" key="CommitDialog.size.y"/>
 	<item value="1127" key="CommitDialog.size.x"/>
-	<item value="Labs" key="DirectorySelectionPage.lastParent_https://svn.rice.edu/r/comp310/turnin/F14/jjc7"/>
-	<item value="250" key="HistoryTableProvider.revisions.Date"/>
-	<item value="500" key="HistoryTableProvider.revisionsBlock.Comment"/>
+	<item value="" key="DirectorySelectionPage.lastParent_https://svn.rice.edu/r/comp310/turnin/F14/jjc7"/>
 	<item value="559" key="BranchTag.location.x"/>
-	<item value="578" key="ConfigureTagsDialog.location.x"/>
 	<item value="265" key="BranchTag.location.y"/>
-	<item value="115" key="ConfigureTagsDialog.location.y"/>
 	<item value="200" key="HistoryTableProvider.revisions.Author"/>
 	<item value="200" key="HistoryTableProvider.revisionsBlock.Author"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jjc7" key="RepositorySelectionPage.lastRepository"/>
 	<item value="367" key="BranchTag.size.y"/>
-	<item value="101" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Revision"/>
 	<item value="563" key="BranchTag.size.x"/>
 	<section name="CommitWizard">
 		<item value="500" key="VWeight2"/>

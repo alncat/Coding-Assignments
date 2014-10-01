@@ -1,0 +1,29 @@
+package model.ball;
+
+/**
+ *	This strategy lets a ball change its strategy from one kind to another.
+ */
+public class SwitcherStrategy implements IUpdateStrategy {
+	/**
+	 * The actual strategy that a ball with be updated with.
+	 * Initially set to the StraightStrategy.
+	 */
+	IUpdateStrategy _strategy = new StraightStrategy();
+
+	@Override
+	/**
+	 * Update the ball's state with set strategy.
+	 */
+	public void updateState(Ball ball, Dispatcher disp) {
+		_strategy.updateState(ball);
+	}
+	
+	/**
+	 * Switch the update strategy to a new strategy.
+	 * @param newStgy, new strategy with which the ball with be updated.
+	 */
+	public void setStrategy(IUpdateStrategy newStgy){
+		_strategy = newStgy;
+	}
+
+}

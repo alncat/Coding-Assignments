@@ -4,7 +4,7 @@
 		<item value="org.tigris.subversion.subclipse.ui.SharingWizard" key="selectedWizardId"/>
 	</section>
 	<section name="SynchronizeViewSettings">
-		<item value="1411264616234" key="lastactiveparticipant_sec_id"/>
+		<item value="1412040130374" key="lastactiveparticipant_sec_id"/>
 		<item value="org.tigris.subversion.subclipse.participant" key="lastactiveparticipant_id"/>
 		<item value="false" key="linkWithEditor"/>
 		<section name="org.tigris.subversion.subclipse.participant.1409065676345">
@@ -24,6 +24,10 @@
 			<item value="false" key="org.eclipse.team.ui.P_COMMIT_SET_ENABLED"/>
 		</section>
 		<section name="org.tigris.subversion.subclipse.participant.1409099782339">
+			<item value="org.eclipse.team.ui.modelprovider_compressedfolders" key="org.eclipse.team.ui.P_LAST_MODELPROVIDER"/>
+			<item value="false" key="org.eclipse.team.ui.P_COMMIT_SET_ENABLED"/>
+		</section>
+		<section name="org.tigris.subversion.subclipse.participant.1412040130374">
 			<item value="org.eclipse.team.ui.modelprovider_compressedfolders" key="org.eclipse.team.ui.P_LAST_MODELPROVIDER"/>
 			<item value="false" key="org.eclipse.team.ui.P_COMMIT_SET_ENABLED"/>
 		</section>

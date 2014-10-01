@@ -1,0 +1,29 @@
+package model.ball;
+
+import util.Dispatcher;
+
+public class KillStrategy implements  IUpdateStrategy {
+
+	public void init(Ball context) {
+		context.setInteractStrategy(new MultiInteractStrategy(context.getInteractStrategy(), new IInteractStrategy(){
+			@Override
+			public void interact(Ball context, Ball target, Dispatcher disp) {
+				disp.deleteObserver(target);		
+			}
+			
+		}));
+	}
+	public void updateState(Ball context){
+		// No-op
+	}
+	@Override
+	public void updateState(Ball context, Dispatcher dispatcher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+
+
+

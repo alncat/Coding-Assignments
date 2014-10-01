@@ -1,0 +1,59 @@
+package strategies.paint;
+
+import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+
+import balls.Ball;
+
+public abstract class APaintStrategy implements IPaintStrategy {
+	//class variable for Affinetransform object
+	private AffineTransform at;
+
+	/* (non-Javadoc)
+	 * @see strategies.paint.IPaintStrategy#init(balls.Ball)
+	 */
+	public void init(Ball context) {}
+
+	/**
+	 * Setter method for the AffineTransform
+	 * 
+	 * @param a
+	 */
+	public APaintStrategy(AffineTransform a) {
+		at = a;
+	}
+
+	/**
+	 * Method returns the AffineTransform object.
+	 * 
+	 * @return
+	 */
+	protected AffineTransform getAT() {
+		return at;
+	}
+
+	/* (non-Javadoc)
+	 * @see strategies.paint.IPaintStrategy#paint(java.awt.Graphics, balls.Ball)
+	 */
+	public void paint(Graphics g, Ball host) {
+		double scale = host.getRadius();
+		at.setToTranslation(host.getXLoc(), host.getYLoc());
+		at.scale(scale, scale);
+		at.rotate(Math.atan2(host.getYVel(), host.getXVel()));
+		g.setColor(host.getColor());
+		paintCfg(g, host);
+		paintXfrm(g, host, at);
+	}
+
+
+	/**
+	 * Empty method.
+	 * 
+	 * @param g: the canvas in which the image will be painted
+	 * @param host: image that is painted in the canvas
+	 */
+	protected void paintCfg(Graphics g, Ball host) {}
+
+	public abstract void paintXfrm(Graphics g, Ball host, AffineTransform af);
+
+}

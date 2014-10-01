@@ -1,0 +1,36 @@
+package strategies.paint;
+
+import java.awt.geom.AffineTransform;
+
+import factories.FishPolygonFactory;
+
+
+/**
+ * Paint strategy to paint an ellipse shape
+ */
+public class FishPaintStrategy extends ShapePaintStrategy {
+
+	/**
+	 * No parameter constructor that creates a prototype ellipse that has twice the width as height
+	 * but an average radius of 1. An AffineTranform for internal use is instantiated.
+	 */
+	public FishPaintStrategy() {
+		this(new AffineTransform(), 0, 0, 4.0 / 3.0, 2.0 / 3.0);
+	}
+
+	/**
+	 * Constructor that allows the specification of the location, x-radius and y-radius of the
+	 * prototype ellipse. The AffineTransform to use is given.
+	 * 
+	 * @param at The AffineTransform to use for internal calculations
+	 * @param x floating point x-coordinate of center of circle
+	 * @param y floating point y-coordinate of center of circle
+	 * @param width floating point x-radius of the circle (ellipse)
+	 * @param height floating point y-radius of the circle (ellipse)
+	 */
+	public FishPaintStrategy(AffineTransform at, double x, double y, double width, double height) {
+		super(at, FishPolygonFactory.Singleton.makeShape(x, y, width, height));
+	}
+
+
+}
