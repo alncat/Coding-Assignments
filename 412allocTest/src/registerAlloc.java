@@ -60,7 +60,7 @@ public class registerAlloc {
   public static void main(String[] args) {
 
     String[] inputLine = {"2", "/Users/Ace/Downloads/HolderJar/block2.i"};
-    inputLine = args;
+    //inputLine = args;
     // Check if the file exists
     File f = new File(inputLine[1]);
     if (!f.exists() || f.isDirectory()) {
@@ -102,6 +102,20 @@ public class registerAlloc {
 
 
     System.out.println("//Finished Test.");
+  }
+  
+  
+  /**
+   * Prints out a spillage to R0 due to lack of available registers.
+   * 
+ * @param physReg: Physical register which is being spilled.
+ */
+public static void printingSpillRegister(String physReg){
+	  System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
+              + "\t //Spill (k is minimal)");
+          dataMemoryLoc += 4;
+          System.out.println("store \t" + physReg + "\t  => \t " + "r0"
+              + "\t //Spill (k is minimal)");
   }
 
   /**
@@ -207,13 +221,7 @@ public class registerAlloc {
 
 
           // Spill the contents of the furtherest register to memory
-          //System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + physicalRegister
-          System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-              + "\t //Spill (k is minimal)");
-          dataMemoryLoc += 4;
-          //System.out.println("store \t" + physicalRegister + "\t  => \t " + physicalRegister
-          System.out.println("store \t" + physicalRegister + "\t  => \t " + "r0"
-              + "\t //Spill (k is minimal)");
+          printingSpillRegister(physicalRegister);
           
           // Change the mappings for the virtual and physical register
           virtualRegister = allocationActions.get(i).getVROp1();
@@ -272,11 +280,7 @@ public class registerAlloc {
             // System.out.println("\t \t Program never steps into here.");
 
             // Spill the contents of the furtherest register to memory
-            System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-                + "\t //Spill (k is minimal)");
-            dataMemoryLoc += 4;
-            System.out.println("store \t" + physicalRegister + "\t  => \t " + "r0"
-                + "\t //Spill (k is minimal)");
+            printingSpillRegister(physicalRegister);
             
             
             // Change the mappings for the virtual and physical register
@@ -307,11 +311,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + physicalRegister + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(physicalRegister);
         
         // Change the mappings for the virtual and physical register
         registerVMapped.put(virtualRegister, physicalRegister);
@@ -385,11 +385,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + physicalRegister + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(physicalRegister);
         checked = true;
         
         // Change the mappings for the virtual and physical register
@@ -421,11 +417,8 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t" + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(registerChange);        
+
         checked = true;
         
         // Change the mappings for the virtual and physical register
@@ -454,11 +447,7 @@ public class registerAlloc {
 
 
           // Spill the contents of the furtherest register to memory
-          System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-              + "\t //Spill (k is minimal)");
-          dataMemoryLoc += 4;
-          System.out.println("store \t" + registerChange + "\t  => \t " + "r0"
-              + "\t //Spill (k is minimal)");
+          printingSpillRegister(registerChange);
           checked = true;
           // Change the mappings for the virtual and physical register
           registerVMapped.put(registerName, registerChange);
@@ -514,11 +503,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + physicalRegister + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(physicalRegister);
         checked = true;
         // Change the mappings for the virtual and physical register
         registerVMapped.put(virtualRegister, physicalRegister);
@@ -539,11 +524,7 @@ public class registerAlloc {
 
 
             // Spill the contents of the furtherest register to memory
-            System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-                + "\t //Spill (k is minimal)");
-            dataMemoryLoc += 4;
-            System.out.println("store \t" + physicalRegister + "\t  => \t " + "r0"
-                + "\t //Spill (k is minimal)");
+            printingSpillRegister(physicalRegister);
             checked = true;
             // Change the mappings for the virtual and physical register
             registerVMapped.put(virtualRegister, physicalRegister);
@@ -594,11 +575,7 @@ public class registerAlloc {
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t => \t" + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(registerChange);
         checked = true;
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);
@@ -682,11 +659,7 @@ boolean checked = false;
 
 
         // Spill the contents of the furtherest register to memory Meaning that it is now freed.
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(registerChange);
         checked = true;
         
         // Change the mappings for the virtual and physical register
@@ -706,11 +679,7 @@ boolean checked = false;
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(registerChange);
         checked = true;
         
         // Change the mappings for the virtual and physical register
@@ -744,11 +713,7 @@ boolean checked = false;
 
 
         // Spill the contents of the furtherest register to memory
-        System.out.println("loadI \t" + dataMemoryLoc + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
-        dataMemoryLoc += 4;
-        System.out.println("store \t" + registerChange + "\t  => \t " + "r0"
-            + "\t //Spill (k is minimal)");
+        printingSpillRegister(registerChange);
         checked = true;
         // Change the mappings for the virtual and physical register
         registerVMapped.put(registerName, registerChange);

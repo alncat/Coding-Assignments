@@ -1,0 +1,239 @@
+import java.util.*;
+
+/*
+ * RowMajorDoubleMatrix is implemented as an ISparseArray of rows, where each row is itself an
+ * IDoubleVector object.
+ */
+
+// this was row major
+class RowMajorDoubleMatrix extends ADoubleMatrix {
+
+	private IDoubleVector element, allSumCol, holdCol, holdRow;
+	private ArrayList<IDoubleVector> columnHolder;
+
+
+	public RowMajorDoubleMatrix(int rows, int cols, double initialVal) {// build the matrix with the
+																		// correct parameters
+		element = new DenseDoubleVector(cols, initialVal);
+		columnHolder = new ArrayList<IDoubleVector>();
+
+		for (int i = 0; i < rows; i++) {
+			columnHolder.add(i, new DenseDoubleVector(cols, initialVal));
+		}
+
+
+	}
+
+
+	/**
+	 * This returns the i^th row in the matrix. Note that the row that is returned may contain one
+	 * or more references to data that are actually contained in the matrix, so if the caller
+	 * modifies this row, it could end up modifying the row in the underlying matrix in an
+	 * unpredicatble way. If i exceeds the number of rows in the matrix or it is less than zero, an
+	 * OutOfBoundsException is thrown.
+	 */
+	public IDoubleVector getRow(int i) throws OutOfBoundsException {
+		if (i >= columnHolder.size() || i < 0) {// test the bounds for the input
+			throw new OutOfBoundsException("Input exceeds max index.");
+
+		}
+		return columnHolder.get(i);
+	}
+
+	/**
+	 * This returns the j^th column in the matrix. All of the comments above regarding getRow apply.
+	 * If j exceeds the number of columns in the matrix or it is less than zero, an
+	 * OutOfBoundsException is thrown.
+	 */
+	public IDoubleVector getColumn(int j) throws OutOfBoundsException {
+		if (j >= element.getLength() || j < 0) {// test the bounds of the parameter
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+		int numRows = columnHolder.size();
+
+		IDoubleVector vecColumn = new DenseDoubleVector(numRows, 0.0);
+		for (int rowI = 0; rowI < numRows; rowI++) {
+			IDoubleVector rowIth = columnHolder.get(rowI);
+			double entryIJ = rowIth.getItem(j);
+			vecColumn.setItem(rowI, entryIJ);
+		}
+		return vecColumn;
+	}
+
+	/**
+	 * This sets the i^th row of the matrix. After the row is inserted into the matrix, the matrix
+	 * "owns" the row and it is free to do whatever it wants to it, including modifying the row. If
+	 * i exceeds the number of rows in the matrix or it is less than zero, an OutOfBoundsException
+	 * is thrown.
+	 */
+	public void setRow(int i, IDoubleVector setToMe) throws OutOfBoundsException {
+		if (i >= columnHolder.size() || i < 0 || setToMe.getLength() != element.getLength()) {// test
+																								// the
+																								// bounds
+																								// of
+																								// the
+																								// parameter
+																								// //||
+																								// setToMe.getLength()
+																								// !=
+																								// columnHolder.size()
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+		columnHolder.set(i, setToMe);
+		return;
+	}
+
+	/**
+	 * This sets the j^th column of the matrix. All of the comments above for the "setRow" method
+	 * apply to "setColumn". If j exceeds the number of columns in the matrix or it is less than
+	 * zero, an OutOfBoundsException is thrown.
+	 */
+	public void setColumn(int j, IDoubleVector setToMe) throws OutOfBoundsException {
+		if (j >= element.getLength() || j < 0 || setToMe.getLength() != columnHolder.size()) {// test
+																								// the
+																								// bounds
+																								// of
+																								// the
+																								// parameters
+			throw new OutOfBoundsException("Input exceeds max index.");
+
+		}
+
+		int numRows = columnHolder.size();
+		int numCols = element.getLength();
+
+		for (int rowI = 0; rowI < numRows; rowI++) {
+			IDoubleVector vecRow = columnHolder.get(rowI);
+			double newVal = setToMe.getItem(rowI);
+			vecRow.setItem(j, newVal);
+			columnHolder.set(rowI, vecRow);
+		}
+
+		return;
+	}
+
+	/**
+	 * Returns the entry in the i^th row and j^th column in the matrix. If i or j are less than
+	 * zero, or if j exceeds the number of columns or i exceeds the number of rows, then an
+	 * OutOfBoundsException is thrown.
+	 */
+	public double getEntry(int i, int j) throws OutOfBoundsException {
+		if (i >= columnHolder.size() || i < 0) {// test the bounds of the matrix
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+
+		if (j >= element.getLength() || j < 0) {// tests the bounds of the matrix
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+		IDoubleVector entryVector = columnHolder.get(i);
+		return entryVector.getItem(j);
+	}
+
+	/**
+	 * Sets the entry in the i^th row and j^th column in the matrix. If i or j are less than zero,
+	 * or if j exceeds the number of columns or i exceeds the number of rows, then an
+	 * OutOfBoundsException is thrown.
+	 */
+	public void setEntry(int i, int j, double setToMe) throws OutOfBoundsException {
+		if (i >= columnHolder.size() || i < 0) {// tests the bounds of the parameter
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+
+		if (j >= element.getLength() || j < 0) {// tests the bounds of the parameter
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+		// get the ith row
+		IDoubleVector rowIth = columnHolder.get(i);
+		// set the ij entry
+		rowIth.setItem(j, setToMe);
+		// place it back
+		columnHolder.set(i, rowIth);
+		return;
+	}
+
+	/**
+	 * Adds this particular IDoubleMatrix to the parameter. Returns an OutOfBoundsException if the
+	 * two don't match up in terms of their dimensions.
+	 */
+	public void addMyselfToHim(IDoubleMatrix toMe) throws OutOfBoundsException {
+		if (toMe.getNumColumns() != element.getLength() || toMe.getNumColumns() < 0) {// tests the
+																						// bounds of
+																						// the
+																						// parameter
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+
+		if (toMe.getNumRows() != columnHolder.size() || toMe.getNumRows() < 0) {// tests the bounds
+																				// of the parameter
+			throw new OutOfBoundsException("Input exceeds max index.");
+		}
+
+		for (int i = 0; i < toMe.getNumRows(); i++) {// for ith vector
+
+			holdRow = new DenseDoubleVector(element.getLength(), 0);// vector non -input matrix
+			holdCol = new DenseDoubleVector(element.getLength(), 0);// vector in toMe
+
+
+			holdRow = columnHolder.get(i);
+			holdCol = toMe.getRow(i);
+			holdRow.addMyselfToHim(holdCol);
+			toMe.setRow(i, holdCol);
+		}
+		return;
+	}
+
+	/**
+	 * Sums all of the rows of this IDoubleMatrix.
+	 */
+	public IDoubleVector sumRows() {
+		IDoubleVector sumCounter = new DenseDoubleVector(element.getLength(), 0.0);
+		for (int i = 0; i < columnHolder.size(); i++) {
+			IDoubleVector thisRow = columnHolder.get(i);
+			try {
+				thisRow.addMyselfToHim(sumCounter);
+			} catch (OutOfBoundsException E) {
+			}
+		}
+		return sumCounter;
+	}
+
+	/**
+	 * Sums all of the columns of this IDoubleMatrix. Returns the result.
+	 */
+	public IDoubleVector sumColumns() {
+		int lenCol = element.getLength();
+		holdCol = new DenseDoubleVector(lenCol, 0.0);
+		allSumCol = new DenseDoubleVector(lenCol, 0.0);
+		holdRow = new DenseDoubleVector(lenCol, 0.0);
+		double singleColSum = 0.0;
+		// loop the the rows
+		for (int i = 0; i < columnHolder.size(); i++) {// for ith vector
+			holdCol = columnHolder.get(i);
+			// loop the cols of ith row
+			for (int j = 0; j < holdCol.getLength(); j++) {// for jth element in vector
+				try {
+					singleColSum = allSumCol.getItem(i);
+					allSumCol.setItem(i, holdCol.getItem(j) + singleColSum);// add the result into
+																			// the vector
+				} catch (OutOfBoundsException E) {
+				}
+
+			}
+		}
+		return allSumCol;
+	}
+
+	/**
+	 * Returns the number of rows in the matrix.
+	 */
+	public int getNumRows() {
+		return columnHolder.size();
+	}
+
+	/**
+	 * Returns the number of columns in the matrix.
+	 */
+	public int getNumColumns() {
+		return element.getLength();
+	}
+}

@@ -1,0 +1,214 @@
+import java.util.*;
+
+class ColumnMajorDoubleMatrix implements IDoubleMatrix{
+  
+  private IDoubleMatrix buildMatrix;
+  private IDoubleVector element, pullRow, placeVals, vectorColSum, vectorRowSum, grabVector, pullVector, placeVal, pullCol;
+  private ArrayList<IDoubleVector> rowHolder;
+  
+  public ColumnMajorDoubleMatrix(int rows, int cols, double initialVal){//sets up the parameters of the matrix
+    element = new DenseDoubleVector(cols, initialVal);
+    rowHolder = new ArrayList<IDoubleVector>();
+    
+    for (int i = 0; i < rows; i++){
+      rowHolder.add(i, element);
+    }
+  }
+  
+  
+  /** 
+   * This returns the i^th row in the matrix.  Note that the row that
+   * is returned may contain one or more references to data that are
+   * actually contained in the matrix, so if the caller modifies this
+   * row, it could end up modifying the row in the underlying matrix in
+   * an unpredicatble way.  If i exceeds the number of rows in the matrix
+   * or it is less than zero, an OutOfBoundsException is thrown.
+   */
+  public IDoubleVector getRow (int i) throws OutOfBoundsException{
+    if (i >= rowHolder.size() || i < 0){ //tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+
+    }
+    
+  return rowHolder.get(i);}
+  
+  /** 
+   * This returns the j^th column in the matrix.  All of the comments
+   * above regarding getRow apply.  If j exceeds the number of columns in the
+   * matrix or it is less than zero, an OutOfBoundsException is thrown.
+   */
+  public IDoubleVector getColumn (int j) throws OutOfBoundsException{
+    if (j >= element.getLength() || j < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+  pullCol = new DenseDoubleVector (rowHolder.size(),0);
+  pullRow = new DenseDoubleVector (0,0);
+  for(int i = 0; i < rowHolder.size(); i++){//pulls out all of the columns in the matrix
+  pullRow = rowHolder.get(i);
+  pullCol.setItem(i, pullRow.getItem(j));
+  }
+
+  return pullCol;}
+  
+  /**
+   * This sets the i^th row of the matrix.  After the row is inserted into
+   * the matrix, the matrix "owns" the row and it is free to do whatever it
+   * wants to it, including modifying the row.  If i exceeds the number of rows
+   * in the matrix or it is less than zero, an OutOfBoundsException is thrown.
+   */
+  public void setRow (int i, IDoubleVector setToMe) throws OutOfBoundsException{
+    if (i >= rowHolder.size() || i < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+
+    }
+    rowHolder.set(i, setToMe);
+ 
+  return;}
+  
+  /**
+   * This sets the j^th column of the matrix.  All of the comments above for
+   * the "setRow" method apply to "setColumn".  If j exceeds the number of columns
+   * in the matrix or it is less than zero, an OutOfBoundsException is thrown.
+   */
+  public void setColumn (int j, IDoubleVector setToMe) throws OutOfBoundsException{
+    if (j >= element.getLength() || j < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+    placeVals = new DenseDoubleVector(rowHolder.size(), 0.0);
+    
+    for (int a = 0; a < rowHolder.size(); a++){//changes the ith position in the matrix
+    
+      
+      placeVals = rowHolder.get(a);// pulls out the vector from the array
+      placeVals.setItem(j, setToMe.getItem(a));// changes the ith element
+      rowHolder.set(a, placeVals);//places the element back into the array
+    }
+      //System.out.println("col major matrix: " + rowHolder);
+  return;}
+  
+  /**
+   * Returns the entry in the i^th row and j^th column in the matrix.
+   * If i or j are less than zero, or if j exceeds the number of columns
+   * or i exceeds the number of rows, then an OutOfBoundsException is thrown.
+   */
+  public double getEntry (int i, int j) throws OutOfBoundsException{
+    if (i >= rowHolder.size() || i < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+      
+    if (j >= element.getLength() || j < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+      pullVector = new DenseDoubleVector(0, 0);
+      pullVector = rowHolder.get(j);
+      
+  return pullVector.getItem(i);}
+  
+  /**
+   * Sets the entry in the i^th row and j^th column in the matrix.
+   * If i or j are less than zero, or if j exceeds the number of columns
+   * or i exceeds the number of rows, then an OutOfBoundsException is thrown.
+   */
+  public void setEntry (int i, int j, double setToMe) throws OutOfBoundsException{
+    if (i >= rowHolder.size() || i < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+    
+    if (j >= element.getLength() || j < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+      
+    placeVals = new DenseDoubleVector(element.getLength(), 0);
+    placeVal = new DenseDoubleVector(element.getLength(),0);
+    placeVals = rowHolder.get(j);//get the input column out of the arraylist
+    placeVals.addMyselfToHim(placeVal);
+    
+    placeVal.setItem(i, setToMe);// change the associated value of the entry
+    rowHolder.set(j,placeVal);//put the column back into the arrayList
+
+  return;}
+  
+  /**
+   * Adds this particular IDoubleMatrix to the parameter.  Returns an
+   * OutOfBoundsException if the two don't match up in terms of their dimensions.
+   */
+  public void addMyselfToHim (IDoubleMatrix toMe) throws OutOfBoundsException{
+    if (toMe.getNumRows() >= rowHolder.size() || toMe.getNumRows() < 0){//tests the parameter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+      
+    if (toMe.getNumColumns() >= element.getLength() || toMe.getNumColumns() < 0){//tests the parmeter
+      throw new OutOfBoundsException("Input exceeds max index.");
+    }
+    int len = element.getLength();
+
+    for (int a = 0; a < toMe.getNumRows(); a++){//goes through all the vectors in both matrices
+    placeVals = new DenseDoubleVector(len, 0.0);
+    placeVal = new DenseDoubleVector(len,0);
+    grabVector = new DenseDoubleVector(len, 0.0);
+   
+   placeVal = toMe.getRow(a);
+   
+   placeVals = rowHolder.get(a);
+   for(int i = 0; i < placeVals.getLength(); i++){
+   grabVector.setItem(i,placeVals.getItem(i));//creates a copy of the elements
+   
+   }
+   
+   placeVal.addMyselfToHim(grabVector);//place a copy from first matrix here
+   rowHolder.set(a,grabVector);//places the copy in the matrix
+    }
+    
+  return;}
+
+  /** 
+   * Sums all of the rows of this IDoubleMatrix.
+   */
+  public  IDoubleVector sumRows (){
+    double singleRowSum = 0.0;
+    placeVals = new DenseDoubleVector(element.getLength(), 0.0);
+    vectorRowSum = new DenseDoubleVector(rowHolder.size(),0.0);
+    placeVals = rowHolder.get(0);
+    
+    for(int i = 0; i < rowHolder.size(); i++){//for ith row
+      placeVals = rowHolder.get(i);
+      for(int j = 0; j < placeVals.getLength(); j++){//for jth column
+        try
+        {
+        singleRowSum = vectorRowSum.getItem(i);
+       vectorRowSum.setItem(i,singleRowSum + placeVals.getItem(j));
+        }catch(OutOfBoundsException E){}
+      }
+    }
+  return vectorRowSum;}
+
+  /**
+   * Sums all of the columns of this IDoubleMatrix.  Returns the result.
+   */
+  public IDoubleVector sumColumns (){
+    placeVals = new DenseDoubleVector(element.getLength(), 0.0);
+    vectorColSum = new DenseDoubleVector(element.getLength(),0.0);
+      
+    for (int a = 0; a < rowHolder.size(); a++){//for every column that is in the arraylist
+      placeVals = rowHolder.get(a);
+      try
+      {placeVals.addMyselfToHim(vectorColSum);}
+      catch(OutOfBoundsException E){
+      
+    }
+      
+    }
+  return vectorColSum;}
+
+  /**
+   * Returns the number of rows in the matrix.
+   */
+  public int getNumRows (){
+  return rowHolder.size();}
+  
+  /**
+   * Returns the number of columns in the matrix.
+   */
+  public int getNumColumns (){
+  return element.getLength();}
+}
