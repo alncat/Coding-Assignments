@@ -120,12 +120,12 @@ public static void printingSpillRegister(String physReg){
 
   /**
    * 
-   Finds the current mapping between virtual reg to phyiscal reg and replaces the physical reg
+   Finds the current mapping between virtual reg to physical reg and replaces the physical reg
    * with a memory location
    * 
    * @param map: registerVMapped which contains the virtual reg to physical reg maps
    * @param SwapRegister: physical register that needs to be switched
-   * @param MemoryLocation: memory location that is going to replace the phyiscal register
+   * @param MemoryLocation: memory location that is going to replace the physical register
    */
   public static void changeVRegisterMappings(HashMap<String, String> map, String SwapRegister,
       String MemoryLocation) {

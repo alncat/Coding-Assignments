@@ -57,15 +57,8 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 	 * @see ADoubleMatrix#setRow(int, IDoubleVector)
 	 */
 	public void setRow(int i, IDoubleVector setToMe) throws OutOfBoundsException {
-		if (i >= vector.getLength() || i < 0 || setToMe.getLength() != rowHolder.size()) {// tests
-																							// the
-																							// parameter
-																							// //||
-																							// setToMe.getLength()
-																							// !=
-																							// element.getLength()
+		if (i >= vector.getLength() || i < 0 || setToMe.getLength() != rowHolder.size()) {// tests the parameter setToMe.getLength()																							// !=																							// element.getLength()
 			throw new OutOfBoundsException("Input exceeds max index.");
-
 		}
 		// number of columns in the matrix
 		int colsHere = rowHolder.size();
@@ -84,9 +77,7 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 	 * @see ADoubleMatrix#setColumn(int, IDoubleVector)
 	 */
 	public void setColumn(int j, IDoubleVector setToMe) throws OutOfBoundsException {
-		if (j >= rowHolder.size() || j < 0 || setToMe.getLength() != vector.getLength()) {// tests
-																							// the
-																							// parameter
+		if (j >= rowHolder.size() || j < 0 || setToMe.getLength() != vector.getLength()) {// tests the parameter
 			throw new OutOfBoundsException("Input exceeds max index.");
 		}
 		rowHolder.set(j, setToMe);
@@ -100,12 +91,10 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 		if (i >= vector.getLength() || i < 0) {// tests the parameter
 			throw new OutOfBoundsException("Input exceeds max index.");
 		}
-
 		if (j >= rowHolder.size() || j < 0) {// tests the parameter
 			throw new OutOfBoundsException("Input exceeds max index.");
 		}
 		IDoubleVector jthColumn = rowHolder.get(j);
-
 		return jthColumn.getItem(i);
 	}
 
@@ -116,7 +105,6 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 		if (j >= rowHolder.size() || j < 0) {// tests the parameter
 			throw new OutOfBoundsException("Input exceeds max index.");
 		}
-
 		if (i >= vector.getLength() || i < 0) {// tests the parameter
 			throw new OutOfBoundsException("Input exceeds max index.");
 		}
@@ -129,16 +117,12 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 	 * @see ADoubleMatrix#addMyselfToHim(IDoubleMatrix)
 	 */
 	public void addMyselfToHim(IDoubleMatrix toMe) throws OutOfBoundsException {
-		if (toMe.getNumRows() != vector.getLength() || toMe.getNumRows() < 0) {// tests the
-																				// parameter
+		if (toMe.getNumRows() != vector.getLength() || toMe.getNumRows() < 0) {// tests the parameter
 			throw new OutOfBoundsException("Input exceeds max index.");
 		}
-
-		if (toMe.getNumColumns() != rowHolder.size() || toMe.getNumColumns() < 0) {// tests the
-																					// parmeter
+		if (toMe.getNumColumns() != rowHolder.size() || toMe.getNumColumns() < 0) {// tests the parmeter
 			throw new OutOfBoundsException("Input exceeds max index.");
-		}
-		
+		}		
 		int numCols = toMe.getNumColumns();
 		for (int i = 0; i < numCols; i++) {
 			IDoubleVector one = toMe.getColumn(i);
@@ -146,7 +130,6 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 			two.addMyselfToHim(one);
 			toMe.setColumn(i, one);
 		}
-
 		return;
 	}
 
@@ -158,7 +141,6 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 		placeVals = new DenseDoubleVector(vector.getLength(), 0.0);
 		vectorRowSum = new DenseDoubleVector(rowHolder.size(), 0.0);
 		placeVals = rowHolder.get(0);
-
 		for (int i = 0; i < rowHolder.size(); i++) {// for ith row
 			placeVals = rowHolder.get(i);
 			for (int j = 0; j < placeVals.getLength(); j++) {// for jth column
@@ -176,7 +158,6 @@ class ColumnMajorDoubleMatrix extends ADoubleMatrix {
 	 * @see ADoubleMatrix#sumColumns()
 	 */
 	public IDoubleVector sumColumns() {
-
 		IDoubleVector sumCounter = new DenseDoubleVector(vector.getLength(), 0.0);
 		for (int i = 0; i < rowHolder.size(); i++) {
 			IDoubleVector thisRow = rowHolder.get(i);
