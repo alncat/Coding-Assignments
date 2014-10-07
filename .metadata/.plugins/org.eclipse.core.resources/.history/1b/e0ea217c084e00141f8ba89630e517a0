@@ -89,8 +89,6 @@ public class LLgen {
 		
 		 iterTerms= terminals.iterator();
 		 iterNonTerms = nonTerminals.iterator();
-		 
-		 //Build string vector for terminals
 		while(iterTerms.hasNext()){
 			termStr += iterTerms.next();
 			if(iterTerms.hasNext()){
@@ -98,8 +96,6 @@ public class LLgen {
 			}
 		}
 		termStr += "]";
-		
-		//Build string vector for non terminals
 		while(iterNonTerms.hasNext()){
 			nonTermStr += iterNonTerms.next();
 			if(iterNonTerms.hasNext()){
@@ -107,8 +103,7 @@ public class LLgen {
 			}
 		}
 		nonTermStr += "]";
-		
-		System.out.println("terminals': "+ termStr);
+		System.out.println("terminals: "+ termStr);
 		System.out.println("non-terminals: "+ nonTermStr);
 		System.out.println("eof-marker: <EOF>");
 		System.out.println("error-marker: --");

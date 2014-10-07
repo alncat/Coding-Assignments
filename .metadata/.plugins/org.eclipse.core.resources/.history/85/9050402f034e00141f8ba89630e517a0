@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.util.HashSet;
 // 70 minutes
 // start 2:24 AM
-import java.util.Iterator;
 
 public class LLgen {
 
@@ -31,11 +30,9 @@ public class LLgen {
 	 * Prints the require YAML format for the top output portion.
 	 */
 	public static void printTopOutput(String inputFile) {
-		String line = "", word = "", nonTermStr = "[", termStr = "[";
+		String line = "", word = "";
 		HashSet<String> nonTerminals = new HashSet<String>();
 		HashSet<String> terminals = new HashSet<String>();
-		Iterator<String> iterNonTerms;
-		Iterator<String> iterTerms;
 		int colonIndex = -1;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -59,7 +56,7 @@ public class LLgen {
 							if (Character.isWhitespace(line.charAt(i + 1))) {
 								
 								//Add Term
-								if(!nonTerminals.contains(word)){	terminals.add(word);}
+								if(!nonTerminals.contains(word)){	terminals.add(word); }
 								
 								// Add the Non-terminal to the set
 								if (i < colonIndex && !nonTerminals.contains(word)) {
@@ -68,9 +65,11 @@ public class LLgen {
 								
 								}
 								word = "";
+							}else{
+								if(!nonTerminals.contains(word)){
+									terminals.add(word);
+								}
 							}
-						}else if(i + 1 == line.length()){
-							if(!nonTerminals.contains(word)){	terminals.add(word); }
 						}
 					}
 				}
@@ -84,32 +83,9 @@ public class LLgen {
 			System.err.format("Exception occurred trying to read '%s'.", inputFile);
 			e.printStackTrace();
 		}
-		//System.out.println("Size of terminals: \t " + terminals.size());
-		//System.out.println("Size of nonTerm: \t " + nonTerminals.size());
 		
-		 iterTerms= terminals.iterator();
-		 iterNonTerms = nonTerminals.iterator();
-		 
-		 //Build string vector for terminals
-		while(iterTerms.hasNext()){
-			termStr += iterTerms.next();
-			if(iterTerms.hasNext()){
-				termStr += ", ";
-			}
-		}
-		termStr += "]";
-		
-		//Build string vector for non terminals
-		while(iterNonTerms.hasNext()){
-			nonTermStr += iterNonTerms.next();
-			if(iterNonTerms.hasNext()){
-				nonTermStr += ", ";
-			}
-		}
-		nonTermStr += "]";
-		
-		System.out.println("terminals': "+ termStr);
-		System.out.println("non-terminals: "+ nonTermStr);
+		System.out.println("terminals: ");
+		System.out.println("non-terminals: ");
 		System.out.println("eof-marker: <EOF>");
 		System.out.println("error-marker: --");
 		System.out.println("start-symbol: ");

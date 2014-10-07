@@ -9320,3 +9320,12 @@ Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/val
 
 !ENTRY org.eclipse.jdt.launching 4 124 2014-10-07 02:58:19.560
 !MESSAGE Launch configuration JUnitCore references closed project 215HW01
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2014-10-07 04:31:19.773
+!MESSAGE Couldn't parse type name: '[Ljava/util/Set<Ljava/lang/String;>;.toArray<T:Ljava/lang/Object;>([TT;)[TT;:TT;'
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2014-10-07 04:31:19.774
+!MESSAGE Couldn't parse type name: '[Ljava/util/Collection<Ljava/lang/String;>;.toArray<T:Ljava/lang/Object;>([TT;)[TT;:TT;'
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2014-10-07 04:31:19.776
+!MESSAGE Couldn't parse type name: '[Ljava/util/AbstractCollection<Ljava/lang/String;>;.toArray<T:Ljava/lang/Object;>([TT;)[TT;:TT;'
