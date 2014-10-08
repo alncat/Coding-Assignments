@@ -14,14 +14,11 @@ public class LLgen {
 	private static String filePath = "";
 	//Start symbol of the grammar
 	private static String startSym = "";
-	//Map key non-Terminal for productions map
-	private static String nonTermKey = "";
 
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
-		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
 
 		// Reads the command line and sets up parameters
 		readCommandLine(cmdLine);
@@ -41,25 +38,18 @@ public class LLgen {
 		HashSet<String> terminals = new HashSet<String>();
 		Iterator<String> iterNonTerms;
 		Iterator<String> iterTerms;
-		int colonIndex = -1, lineCounter = 0, keyIndexCounter = 0, semicolonIndex = -1, barIndex = -1;
-		
-		String value = "";
-		
-		boolean endOfProduction = false;
+		int colonIndex = -1, lineCounter = 0;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			// read in each line from the block
 			while ((line = reader.readLine()) != null) {
-				
 				colonIndex = line.indexOf(":");
-				semicolonIndex = line.indexOf(";");
-				barIndex = line.indexOf("|");
-				
 				for (int i = 0; i < line.length(); i++) {
-					
-					//increment the may key index counter for the productions map
-					if(line.charAt(i) == '|' || line.charAt(i) == ';'){keyIndexCounter++;}
-					
+					// Skip pass the white space
+					/*
+					 * if(Character.isWhitespace(line.charAt(i))){ continue; }
+					 */
+
 					// Build the word
 					if (Character.isAlphabetic(line.charAt(i))) {
 						word += line.charAt(i);
@@ -68,49 +58,28 @@ public class LLgen {
 						if (i + 1 < line.length()) {
 							
 							//White space following character indicates a word
-							if (Character.isWhitespace(line.charAt(i + 1))|| line.charAt(i+1) == ';') {
+							if (Character.isWhitespace(line.charAt(i + 1))) {
 								
-								//Add Term, if at line 0 add the start symbol
+								//Add Term
 								if(!nonTerminals.contains(word)){	terminals.add(word); if(lineCounter == 0){startSym += word;}}
-																
+								
 								// Add the Non-terminal to the set
 								if (i < colonIndex && !nonTerminals.contains(word)) {
 									nonTerminals.add(word);
 									terminals.remove(word);
-									nonTermKey = word;
-									//System.out.println("Non-terminal at line: \t " + keyIndexCounter + "\t" + nonTermKey);
-									endOfProduction = true;
+								
 								}
-								
-								//Fill in the productions
-								if(endOfProduction){
-									endOfProduction = false;
-									value +="{" + nonTermKey + ": " + "[";
-								}
-								
-								
-								
-								if(i+ 2 == line.length()){value+= word+"]}";
-								}else if(i > colonIndex){ value+= word+ ", ";}
-								
 								word = "";
 							}
 						}else if(i + 1 == line.length()){
-							//gets terminals at the end of the line
 							if(!nonTerminals.contains(word)){	terminals.add(word); }
-							//System.out.println("The last word: \t " + word);
-							value+= word+"]}";
 						}
 					}
 				}
 				// clear the word
 				word = "";
-				//System.out.println(" ");
-				System.out.println("This is value: \t "+value);
-				//System.out.println(" ");
-				value = "";
+
 				lineCounter++;
-				//System.out.println("Line number for map key: \t " + keyIndexCounter);
 			}
 			reader.close();
 		} catch (Exception e) {

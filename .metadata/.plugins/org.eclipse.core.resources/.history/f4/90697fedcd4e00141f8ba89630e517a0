@@ -20,8 +20,7 @@ public class LLgen {
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
-		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
 
 		// Reads the command line and sets up parameters
 		readCommandLine(cmdLine);
@@ -90,7 +89,7 @@ public class LLgen {
 								
 								
 								
-								if(i+ 2 == line.length()){value+= word+"]}";
+								if(i+ 1 == line.length()){value+= word+"]}";
 								}else if(i > colonIndex){ value+= word+ ", ";}
 								
 								word = "";
@@ -98,16 +97,16 @@ public class LLgen {
 						}else if(i + 1 == line.length()){
 							//gets terminals at the end of the line
 							if(!nonTerminals.contains(word)){	terminals.add(word); }
-							//System.out.println("The last word: \t " + word);
+							System.out.println("The last word: \t " + word);
 							value+= word+"]}";
 						}
 					}
 				}
 				// clear the word
 				word = "";
-				//System.out.println(" ");
+				System.out.println(" ");
 				System.out.println("This is value: \t "+value);
-				//System.out.println(" ");
+				System.out.println(" ");
 				value = "";
 				lineCounter++;
 				//System.out.println("Line number for map key: \t " + keyIndexCounter);

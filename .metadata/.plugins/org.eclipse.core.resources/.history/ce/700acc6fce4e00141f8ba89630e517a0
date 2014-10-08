@@ -105,9 +105,9 @@ public class LLgen {
 				}
 				// clear the word
 				word = "";
-				//System.out.println(" ");
+				System.out.println(" ");
 				System.out.println("This is value: \t "+value);
-				//System.out.println(" ");
+				System.out.println(" ");
 				value = "";
 				lineCounter++;
 				//System.out.println("Line number for map key: \t " + keyIndexCounter);
