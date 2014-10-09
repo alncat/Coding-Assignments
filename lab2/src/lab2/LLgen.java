@@ -41,19 +41,17 @@ public class LLgen {
 		HashSet<String> terminals = new HashSet<String>();
 		Iterator<String> iterNonTerms;
 		Iterator<String> iterTerms;
-		int colonIndex = -1, lineCounter = 0, keyIndexCounter = 0, semicolonIndex = -1, barIndex = -1;
+		int colonIndex = -1, lineCounter = 0, keyIndexCounter = 0;
 		
 		String value = "";
 		
-		boolean endOfProduction = false;
+		boolean startOfProduction = false;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			// read in each line from the block
 			while ((line = reader.readLine()) != null) {
 				
 				colonIndex = line.indexOf(":");
-				semicolonIndex = line.indexOf(";");
-				barIndex = line.indexOf("|");
 				
 				for (int i = 0; i < line.length(); i++) {
 					
@@ -79,14 +77,16 @@ public class LLgen {
 									terminals.remove(word);
 									nonTermKey = word;
 									//System.out.println("Non-terminal at line: \t " + keyIndexCounter + "\t" + nonTermKey);
-									endOfProduction = true;
+									startOfProduction = true;
 								}
 								
 								//Fill in the productions
-								if(endOfProduction){
-									endOfProduction = false;
+								if(startOfProduction){
+									startOfProduction = false;
 									value +="{" + nonTermKey + ": " + "[";
-								}
+								}else if(nonTerminals.contains(word)&&!line.contains("|")){
+									value +="{" + nonTermKey+"'" + ": " + "[";
+								}//else if(nonTerminals.contains(word)&& i )
 								
 								
 								

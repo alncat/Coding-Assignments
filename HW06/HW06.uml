@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UMLLabProfile="http:///schemas/UMLLabProfile/NS/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/UMLLabProfile/NS/0 pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile">
+  <uml:Model xmi:id="_o_1oAE9XEeS2NJcPnPRI3Q" name="HW06">
+    <eAnnotations xmi:id="_pjyCkE9XEeS2NJcPnPRI3Q" source="http://ns.yatta.de/umllab">
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_pjyCkU9XEeS2NJcPnPRI3Q" source="codegen">
+        <details xmi:id="_pjyCkk9XEeS2NJcPnPRI3Q" key="codegenDirectory" value="/HW06/src"/>
+        <details xmi:id="_pj_d8E9XEeS2NJcPnPRI3Q" key="observedFolders" value="/HW06/src"/>
+      </contents>
+    </eAnnotations>
+    <profileApplication xmi:id="_pj1F4E9XEeS2NJcPnPRI3Q">
+      <eAnnotations xmi:id="_pj27EE9XEeS2NJcPnPRI3Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile"/>
+    </profileApplication>
+  </uml:Model>
+  <UMLLabProfile:TargetLanguage xmi:id="_pj6lcE9XEeS2NJcPnPRI3Q" base_Package="_o_1oAE9XEeS2NJcPnPRI3Q">
+    <languageName>java</languageName>
+  </UMLLabProfile:TargetLanguage>
+</xmi:XMI>
