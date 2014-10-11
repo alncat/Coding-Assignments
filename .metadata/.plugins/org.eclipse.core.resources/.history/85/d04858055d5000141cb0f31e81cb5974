@@ -1,0 +1,132 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.regex.Pattern;
+
+
+public class RegisterAllocator {
+	private static final String REGEX = "[=>, \t]";
+	
+	public static void main(String[] args) {
+		String[] inputLine = {"8", "/Users/Ace/Downloads/HolderJar/report/report1.i"};
+		 //inputLine = args;
+		
+		// Check if the file exists
+		File f = new File(inputLine[1]);
+		if (!f.exists() || f.isDirectory()) {
+			System.out.println("Failure to open '" + inputLine[1] + "' as the input file.");
+			System.exit(0);
+		}
+
+		// Check to see if the parameter -h is present
+		if (hFlag(inputLine)) {
+			System.exit(0);
+		}
+
+		// Look for the number of registers or throw an error if not there
+		if (!generateXRegisters(inputLine[0])) {
+			// System.out.println("Will attempt to read from 'stdin'.");
+			System.out.println("Cannot allocate with fewer than 2 registers.");
+			System.exit(0);
+		}
+		
+		openAndRead(inputLine[1]);
+
+		System.out.println("//finished.");
+	}
+	
+	/**
+	 * Opens up a text file and prints all the characters in the text.
+	 * 
+	 * @param filename
+	 * @return
+	 */
+	public static HashMap<Integer, String> openAndRead(String filename) {
+		// storage of the program
+		HashMap<Integer, String> dataStruct = new HashMap<Integer, String>();
+		Pattern p = Pattern.compile(REGEX);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			String line;
+			// read in each line from the block
+			while ((line = reader.readLine()) != null) {
+
+				// Skip pass the comment section of the file
+				if (line.contains("/") && line.charAt(0) == '/') {
+					continue;
+				}
+
+				// Put the line in the correct format
+				
+		        String[] items = p.split(line);
+		        for(String s : items) {
+		        	//if(!s.contains("\n")&& !s.contains("\t") && !s.contains("\r")){
+		            System.out.println(s);
+		        	//}
+		        }
+
+		        System.out.println("************** \t end of the line");
+			}
+			reader.close();
+		} catch (Exception e) {
+			System.err.format("Exception occurred trying to read '%s'.", filename);
+			e.printStackTrace();
+		}
+
+
+		return dataStruct;
+	}
+	
+	/**
+	 * Methods prints out all the available options for parameters.
+	 * 
+	 * @param commandLine
+	 * @param exitProgram
+	 * @return
+	 */
+	public static boolean hFlag(String[] commandLine) {
+		int arrayLen = commandLine.length;
+		for (int i = 0; i < arrayLen; i++) {
+			if (commandLine[i] == "-h") {
+				System.out.println(" ");
+				System.out
+						.println("Command Syntax: "
+								+ "\n\t    ./412alloc k filename [-h]\n\n"
+								+ "\n Required arguments:"
+								+ "\n\t    k     specifies the number of register available"
+								+ "\n\t filename  is the pathname (absolute or relative) to the input file\n\n"
+								+ "\n Optional flags:" + "\n\t    -h    prints this message" + "");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Parses the command line to find the number of registers to produce and places that number of
+	 * registers into the class variable Set<String> holding all the registers.
+	 * 
+	 * @param filePath
+	 */
+	public static boolean generateXRegisters(String strInt) {
+		String regName = "r";
+		int numRegisters;
+		numRegisters = Integer.parseInt(strInt);
+		
+		//Need at least two or more registers
+		if (numRegisters < 2) {
+			System.out.println("Cannot allocate with fewer than 2 registers.");
+			System.exit(0);
+		}
+		
+		//Create X number of registers
+		for (int j = 0; j < numRegisters; j++) {
+			regName += Integer.toString(j);
+			// add to the set
+			regName = "r";
+		}
+		return true;
+	}
+
+}

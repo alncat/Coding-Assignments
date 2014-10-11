@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="keyIndexCounter" key="selection"/>
+		<item value="Vector" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="keyIndexCounter"/>
-			<item value="barIndex"/>
-			<item value="semicolonIndex"/>
-			<item value="lineCounter"/>
-			<item value="system"/>
-			<item value="element"/>
-			<item value="vector"/>
-			<item value="Ist"/>
+			<item value="Vector"/>
+			<item value="lineOPVector"/>
+			<item value="readMicrosyntax"/>
+			<item value="numberOfLinesCounted"/>
+			<item value="sortMicrosyntax"/>
+			<item value="registerLinesUsage"/>
+			<item value="lineVectorOP"/>
+			<item value="registerList"/>
 		</list>
 		<list key="replacehistory">
+			<item value="operation2PR"/>
 			<item value=""/>
 			<item value="r"/>
 			<item value="loadI"/>
@@ -27,7 +28,7 @@
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="1233" key="DIALOG_X_ORIGIN"/>
-		<item value="513" key="DIALOG_Y_ORIGIN"/>
+		<item value="977" key="DIALOG_X_ORIGIN"/>
+		<item value="311" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

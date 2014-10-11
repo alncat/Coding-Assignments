@@ -864,6 +864,7 @@ public class registerAlloc {
 			// increment counter
 			stackIndex++;
 		}
+		
 		// System.out.println(programLineCount);
 		return dataStruct;
 	}
@@ -1042,7 +1043,7 @@ public class registerAlloc {
 	 * @param textLine
 	 */
 	public static void readTopDown(String textLine, int lineIndex) {
-		 //System.out.println("Reading this Line: \t" + textLine);
+		 System.out.println("Reading this Line: \t" + textLine);
 		String buildToken = "";
 		int strLen = textLine.length();
 		// Holds the start
@@ -1056,14 +1057,17 @@ public class registerAlloc {
 				 */
 				buildToken += textLine.charAt(i);
 				// System.out.println(textLine.charAt(i));
+				/**This if statement passes in the operation 3 virtual register*/
 				if (i + 1 == strLen) {
+					 System.out.println("Virtual registers for operation 3: " +buildToken);
 					liveRanges(buildToken, lineIndex);
 				}
 				continue;
 
 			}
+			/**The call to liveRanges below passes in the operation 1 and operation 2 virtual registers */
 			// display the token built
-			// System.out.println(buildToken);
+			 System.out.println("Virtual registers for operation 1 and operation 2: " + buildToken);
 
 			// Live ranges for all the registers in the program
 			liveRanges(buildToken, lineIndex);
@@ -1134,8 +1138,10 @@ public class registerAlloc {
 
 							if (!registerList.containsKey(secondReg)) {
 								regIndices = new int[2];
+								
 								// the first occurrance of the register in the program
 								regIndices[0] = lineIndex;
+								
 								// the last occurrance of the register in the program
 								regIndices[1] = lineIndex;
 								registerList.put(secondReg, regIndices);
@@ -1144,12 +1150,16 @@ public class registerAlloc {
 								return;
 							} else {
 								regIndices = new int[2];
+								
 								// the first occurrance of the register in the program
 								regIndices[0] = registerList.get(secondReg)[0];
+								
 								// the last occurrance of the register in the program
 								regIndices[1] = lineIndex;
+								
 								// update the indices list
 								registerList.put(secondReg, regIndices);
+								
 								// System.out.println("Updated: "+ buildToken + " at Line: " +
 								// lineIndex);
 								return;

@@ -1,12 +1,12 @@
 
 public class Vector {
   private String[] Opcode = {"Empty"};
-  //[0] = virtual register, [1] = physical register, [3] = next used
-  private String[] Op1 = {"Empty", "Empty", "Empty"};
-  //[0] = virtual register, [1] = physical register, [3] = next used
-  private String[] Op2 = {"Empty", "Empty", "Empty"};
-  //[0] = virtual register, [1] = physical register, [3] = next used
-  private String[] Op3 = {"Empty", "Empty", "Empty"};
+  //[0] = virtual register, [1] = physical register, [2] = next used, [3] = source register
+  private String[] Op1 = {"Empty", "Empty", "Empty", "Empty"};
+  //[0] = virtual register, [1] = physical register, [2] = next used, [3] = source register
+  private String[] Op2 = {"Empty", "Empty", "Empty", "Empty"};
+  //[0] = virtual register, [1] = physical register, [2] = next used, [3] = source register
+  private String[] Op3 = {"Empty", "Empty", "Empty", "Empty"};
 
   /**public Vector(String OperationCode){
   Opcode[0] = OperationCode;
