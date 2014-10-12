@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 
 public class RegisterAllocator {
 
@@ -22,13 +24,23 @@ public class RegisterAllocator {
 	// Source Registers mapped to Virtual Registers
 	private static HashMap<String, String> SRtoVR = new HashMap<String, String>();
 
-	// Virtual Register number that will be incremented as they increase
+	// Virtual Register number that will be incremented as number of virtual registers increase
 	private static int virutalRegisterNumber = 0;
+
+	// Holds the lines in which the virtual registers are live
+	private static HashMap<String, ArrayList<Integer>> virtualRegisterLineNumbers =
+			new HashMap<String, ArrayList<Integer>>();
+	
+	// Holds the physical registers that are available
+	private static Stack<String> availablePhysicalRegisters = new Stack<String>();
+	
+	// Holds the physical registers that are in use
+	private static Stack<String> usingPhysicalRegisters = new Stack<String>();
 
 	public static void main(String[] args) {
 		String[] inputLine = {"8", "/Users/Ace/Downloads/HolderJar/report/report1.i"};
 		// inputLine = args;
-
+		Instruction temp;
 		// Check if the file exists
 		File f = new File(inputLine[1]);
 		if (!f.exists() || f.isDirectory()) {
@@ -53,14 +65,32 @@ public class RegisterAllocator {
 		//
 		while (!topToBottom.isEmpty()) {
 			// System.out.println(topToBottom.pop().getLineNumber());
-			System.out.println(assignVirtualRegister(topToBottom.pop()).getVROp3());
+			temp = assignVirtualRegister(topToBottom.pop());
+			/*
+			System.out.println("Line Number  \t "+temp.getLineNumber());
+			System.out.println("Virtual register:  "+ temp.getVROp1() + "\t Line Number for next use: \t "+temp.getNUOp1());
+			System.out.println("Virtual register:  "+ temp.getVROp2() + "\t Line Number for next use: \t "+temp.getNUOp2());
+			System.out.println("Virtual register:  "+ temp.getVROp3() + "\t Line Number for next use: \t "+temp.getNUOp3());
+			*/
+			
+			//Add Instructions to allocation for physical register assignment
+			allocation.add(temp);
+			
 		}
-
+		assignPhysicalRegistersandPrint();
 		System.out.println("//finished.");
 	}
 
+	public static void assignPhysicalRegistersandPrint(){
+		int programSize = allocation.size()-1;
+		for(int i = programSize; 0 <= i; i--){
+			System.out.println(allocation.get(i).getLineNumber());
+		}
+	}
+	
 	public static Instruction assignVirtualRegister(Instruction modInstruction) {
 		String sourceRegister1 = "Empty", sourceRegister2 = "Empty", sourceRegister3 = "Empty";
+
 		// Make sure that source register 1 is a register
 		if (modInstruction.getSROp1().length() >= 2 && modInstruction.getSROp1().charAt(0) == 'r'
 				&& Character.isDigit(modInstruction.getSROp1().charAt(1))) {
@@ -144,14 +174,141 @@ public class RegisterAllocator {
 			// System.out.println(modInstruction.getVROp1());
 			// System.out.println("//finished.9999999999");
 		}
+
+
+
 		// System.out.println("//finished." + virutalRegisterNumber);
-		/*System.out.println("//SR1.\t " + modInstruction.getSROp1());
-		System.out.println("//VR1.\t " + modInstruction.getVROp1());
-		System.out.println("//SR2.\t " + modInstruction.getSROp2());
-		System.out.println("//VR2.\t " + modInstruction.getVROp2());
-		System.out.println("//SR3.\t " + modInstruction.getSROp3());
-		System.out.println("//VR3.\t " + modInstruction.getVROp3());*/
-		return modInstruction;
+		/*
+		 * System.out.println("//SR1.\t " + modInstruction.getSROp1());
+		 * System.out.println("//VR1.\t " + modInstruction.getVROp1());
+		 * System.out.println("//SR2.\t " + modInstruction.getSROp2());
+		 * System.out.println("//VR2.\t " + modInstruction.getVROp2());
+		 * System.out.println("//SR3.\t " + modInstruction.getSROp3());
+		 * System.out.println("//VR3.\t " + modInstruction.getVROp3());
+		 */
+		return assignVirtualRegistersNextUse(modInstruction);
+	}
+
+	public static Instruction assignVirtualRegistersNextUse(Instruction lineInstruction) {
+		ArrayList<Integer> lineNumbersOfVirtualRegisters;
+		int indexOfNextUse;
+
+		// ** Insert the next use for the virtual registers into the instruction */
+		if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp1())
+				&& !lineInstruction.getVROp1().contains("Empty")) {
+			// Get it
+			lineNumbersOfVirtualRegisters =
+					virtualRegisterLineNumbers.get(lineInstruction.getVROp1());
+			// Size it
+			indexOfNextUse = lineNumbersOfVirtualRegisters.size() - 1;
+			// Assign it
+			lineInstruction.setNUOp1(Integer.toString(lineNumbersOfVirtualRegisters
+					.get(indexOfNextUse)));
+		}
+
+		if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp2())
+				&& !lineInstruction.getVROp2().contains("Empty")) {
+			// Get it
+			lineNumbersOfVirtualRegisters =
+					virtualRegisterLineNumbers.get(lineInstruction.getVROp2());
+			// Size it
+			indexOfNextUse = lineNumbersOfVirtualRegisters.size() - 1;
+			// Assign it
+			lineInstruction.setNUOp2(Integer.toString(lineNumbersOfVirtualRegisters
+					.get(indexOfNextUse)));
+		}
+
+		if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp3())
+				&& !lineInstruction.getVROp3().contains("Empty")) {
+			// Get it
+			lineNumbersOfVirtualRegisters =
+					virtualRegisterLineNumbers.get(lineInstruction.getVROp3());
+			// Size it
+			indexOfNextUse = lineNumbersOfVirtualRegisters.size() - 1;
+			// Assign it
+			lineInstruction.setNUOp3(Integer.toString(lineNumbersOfVirtualRegisters
+					.get(indexOfNextUse)));
+		}
+
+		// ** Add the new next use into the virtual register line numbers hash */
+		if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp1())
+				&& !lineInstruction.getVROp1().contains("Empty")) {
+			// Get it
+			lineNumbersOfVirtualRegisters =
+					virtualRegisterLineNumbers.get(lineInstruction.getVROp1());
+			// Add it
+			lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+			// Set it
+			virtualRegisterLineNumbers.put(lineInstruction.getVROp1(),
+					lineNumbersOfVirtualRegisters);
+		}
+
+		if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp2())
+				&& !lineInstruction.getVROp2().contains("Empty")) {
+			// Get it
+			lineNumbersOfVirtualRegisters =
+					virtualRegisterLineNumbers.get(lineInstruction.getVROp2());
+			// Add it
+			lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+			// Set it
+			virtualRegisterLineNumbers.put(lineInstruction.getVROp2(),
+					lineNumbersOfVirtualRegisters);
+		}
+
+		if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp3())
+				&& !lineInstruction.getVROp3().contains("Empty")) {
+			// Get it
+			lineNumbersOfVirtualRegisters =
+					virtualRegisterLineNumbers.get(lineInstruction.getVROp3());
+			// Add it
+			lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+			// Set it
+			virtualRegisterLineNumbers.put(lineInstruction.getVROp3(),
+					lineNumbersOfVirtualRegisters);
+		}
+
+		/** If the key does not exist, add it to the virtual register line numbers */
+		
+		if (!virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp1())
+				&& !lineInstruction.getVROp1().contains("Empty")) {
+			
+			// Create new ArrayList
+			lineNumbersOfVirtualRegisters = new ArrayList<Integer>();
+			
+			// Add line number to ArrayList
+			lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+			
+			// Place virtual register and arrayList into hash
+			virtualRegisterLineNumbers.put(lineInstruction.getVROp1(), lineNumbersOfVirtualRegisters);
+		}
+
+		if (!virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp2())
+				&& !lineInstruction.getVROp2().contains("Empty")) {
+
+			// Create new ArrayList
+			lineNumbersOfVirtualRegisters = new ArrayList<Integer>();
+			
+			// Add line number to ArrayList
+			lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+			
+			// Place virtual register and arrayList into hash
+			virtualRegisterLineNumbers.put(lineInstruction.getVROp2(), lineNumbersOfVirtualRegisters);
+		}
+
+		if (!virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp3())
+				&& !lineInstruction.getVROp3().contains("Empty")) {
+
+			// Create new ArrayList
+			lineNumbersOfVirtualRegisters = new ArrayList<Integer>();
+			
+			// Add line number to ArrayList
+			lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+			
+			// Place virtual register and arrayList into hash
+			virtualRegisterLineNumbers.put(lineInstruction.getVROp3(), lineNumbersOfVirtualRegisters);
+		}
+
+		return lineInstruction;
 	}
 
 	/**
@@ -302,6 +459,7 @@ public class RegisterAllocator {
 		for (int j = 0; j < numRegisters; j++) {
 			regName += Integer.toString(j);
 			// add to the set
+			availablePhysicalRegisters.add(regName);
 			regName = "r";
 		}
 		return true;

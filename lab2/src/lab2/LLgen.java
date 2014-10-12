@@ -3,6 +3,7 @@ package lab2;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.HashSet;
 // 70 minutes + 2hrs 36 minutes
 // start 2:32 AM
@@ -16,6 +17,8 @@ public class LLgen {
 	private static String startSym = "";
 	//Map key non-Terminal for productions map
 	private static String nonTermKey = "";
+	//Maps the number of times a non-Terminal appears to determine if a ' is need on RHS
+	private static HashMap<String, Integer> nonTerminalCount = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
 
@@ -45,7 +48,7 @@ public class LLgen {
 		
 		String value = "";
 		
-		boolean startOfProduction = false;
+		boolean startOfProduction = false, foundStartSym = true;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			// read in each line from the block
@@ -55,7 +58,7 @@ public class LLgen {
 				
 				for (int i = 0; i < line.length(); i++) {
 					
-					//increment the may key index counter for the productions map
+					//increment the map key index counter for the productions map
 					if(line.charAt(i) == '|' || line.charAt(i) == ';'){keyIndexCounter++;}
 					
 					// Build the word
@@ -69,45 +72,107 @@ public class LLgen {
 							if (Character.isWhitespace(line.charAt(i + 1))|| line.charAt(i+1) == ';') {
 								
 								//Add Term, if at line 0 add the start symbol
-								if(!nonTerminals.contains(word)){	terminals.add(word); if(lineCounter == 0){startSym += word;}}
+								if(!nonTerminals.contains(word)){	terminals.add(word); if(lineCounter == 0 && foundStartSym ){startSym = word; foundStartSym = false;}}
 																
 								// Add the Non-terminal to the set
 								if (i < colonIndex && !nonTerminals.contains(word)) {
 									nonTerminals.add(word);
 									terminals.remove(word);
 									nonTermKey = word;
+									
+									// Increments the frequency for the word
+									updateNonTerminalCount(word);
+									
 									//System.out.println("Non-terminal at line: \t " + keyIndexCounter + "\t" + nonTermKey);
 									startOfProduction = true;
 								}
 								
 								//Fill in the productions
+								if(nonTerminals.contains(word)){
+									nonTermKey = word;
+									// Increments the frequency for the word
+									updateNonTerminalCount(nonTermKey);
+								}
+								
 								if(startOfProduction){
+									
+									// Increments the frequency for the word
+									updateNonTerminalCount(nonTermKey);
+									
 									startOfProduction = false;
 									value +="{" + nonTermKey + ": " + "[";
-								}else if(nonTerminals.contains(word)&&!line.contains("|")){
+								}else if(nonTerminals.contains(word)&&!line.contains("|")){//&& !value.contains("{"+word+": " +"[")
+									
+									// Increments the frequency for the word
+									updateNonTerminalCount(nonTermKey);
+									
+									if(value.length() == 0){
 									value +="{" + nonTermKey+"'" + ": " + "[";
-								}//else if(nonTerminals.contains(word)&& i )
+									}
+								}else if( line.contains("|") ){
+									
+									// Increments the frequency for the word
+									updateNonTerminalCount(nonTermKey);
+									
+									//if(value.length() == 0){
+										value +="{" + nonTermKey+"'" + ": " + "[";
+										//}
+								}
+														
 								
-								
-								
-								if(i+ 2 == line.length()){value+= word+"]}";
-								}else if(i > colonIndex){ value+= word+ ", ";}
+								if(i+ 2 == line.length()){
+									
+									// Formats the production table correctly
+									if(nonTerminalCount.containsKey(word)){
+										
+										
+										if(nonTerminalCount.get(word)> 1){
+											word +="'";
+										}
+									}
+									value+= word+"]}";
+								}else if(i > colonIndex){
+									
+									
+									// Formats the production table correctly
+									if(nonTerminalCount.containsKey(word)){
+										if(nonTerminalCount.get(word)> 1){
+											word +="'";
+										}
+									}
+									value+= word+ ", ";
+									}
 								
 								word = "";
 							}
 						}else if(i + 1 == line.length()){
 							//gets terminals at the end of the line
-							if(!nonTerminals.contains(word)){	terminals.add(word); }
+							if(!nonTerminals.contains(word)){	
+								terminals.add(word); 
+							}
 							//System.out.println("The last word: \t " + word);
+							
+							// Formats the production table correctly
+							if(nonTerminalCount.containsKey(word)){
+								if(nonTerminalCount.get(word)> 1){
+									word +="'";
+								}
+							}
 							value+= word+"]}";
 						}
 					}
 				}
 				// clear the word
 				word = "";
-				//System.out.println(" ");
+				
+				// Clear the non-terminal count
+				nonTerminalCount.clear();
+				
+				if(!value.equals("")){
 				System.out.println("This is value: \t "+value);
-				//System.out.println(" ");
+				//System.out.println(nonTerminalCount.get("Expr"));
+				}
+
 				value = "";
 				lineCounter++;
 				//System.out.println("Line number for map key: \t " + keyIndexCounter);
@@ -121,7 +186,7 @@ public class LLgen {
 		 iterTerms= terminals.iterator();
 		 iterNonTerms = nonTerminals.iterator();
 		 
-		 //Build string vector for terminals
+		 //Build string vector for terminals, has nothing to do with productions
 		while(iterTerms.hasNext()){
 			termStr += iterTerms.next();
 			if(iterTerms.hasNext()){
@@ -130,7 +195,7 @@ public class LLgen {
 		}
 		termStr += "]";
 		
-		//Build string vector for non terminals
+		//Build string vector for non terminals, has nothing to do with productions
 		while(iterNonTerms.hasNext()){
 			nonTermStr += iterNonTerms.next();
 			if(iterNonTerms.hasNext()){
@@ -146,6 +211,16 @@ public class LLgen {
 		System.out.println("start-symbol: "+ startSym);
 	}
 
+	public static void updateNonTerminalCount(String nonTerm){
+		int currentCount = 0;
+		if(nonTerminalCount.containsKey(nonTerm)){
+			currentCount = nonTerminalCount.get(nonTerm);
+			nonTerminalCount.put(nonTerm, currentCount+= 1);
+		}else{
+			nonTerminalCount.put(nonTerm,currentCount);
+		}
+	}
+	
 	/**
 	 * Finds the file and reads command line parameters for set-up.
 	 * 
