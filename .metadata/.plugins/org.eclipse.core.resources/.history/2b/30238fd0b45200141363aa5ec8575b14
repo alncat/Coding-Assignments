@@ -37,14 +37,14 @@ public class LLgen {
 
 	// Set holding created productions
 	private static Set<String> createdProduction = new HashSet<String>();
-
+	
 	// Index for the final production map
 	private static int productionMapIndex = 0;
-
+	
 	// The final proudction map
 	private static HashMap<Integer, ArrayList<String>> finalProduction =
 			new HashMap<Integer, ArrayList<String>>();
-
+	
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
@@ -57,7 +57,7 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
-		 //String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
@@ -145,10 +145,10 @@ public class LLgen {
 		}
 
 		parseTheGrammar();
-		// Test to see if everything is there
-		for (int i = 0; i < finalProduction.size(); i++) {
+		//Test to see if everything is there
+		for(int i = 0; i < finalProduction.size(); i++){
 			gramLine = finalProduction.get(i);
-			for (int j = 0; j < gramLine.size(); j++) {
+			for(int j = 0; j < gramLine.size(); j++){
 				System.out.print(gramLine.get(j) + " ");
 			}
 			System.out.println("");
@@ -182,104 +182,61 @@ public class LLgen {
 				if (flag && match) {
 					// System.out.print("*****Match.***");
 					buildProductions(gramLine, flagIndex);
-				}else{
-					//buildNonFlagProducitons(gramLine);
 				}
 
 				// Adds to the collection of non-terminals
 				determineIfNonTerm(gramLine.get(j), j);
-				// System.out.print(gramLine.get(j) + " ");
+				//System.out.print(gramLine.get(j) + " ");
 
 				match = false;
 			}
 			System.out.println("");
 		}
 	}
-
-	public static void buildProductions(ArrayList<String> gramLine, int flagIndex) {
+	
+	public static void buildProductions(ArrayList<String> gramLine, int flagIndex){
 		String productionString = "", productionString2 = "";
 		ArrayList<String> productionArrayList = new ArrayList<String>();
 		ArrayList<String> productionArrayListTop = new ArrayList<String>();
-
-		ArrayList<ArrayList<String>> mapOfMaps = new ArrayList<ArrayList<String>>();
-		ArrayList<String> mapOfStrings = new ArrayList<String>();
-
-		ArrayList<ArrayList<String>> mapOfMaps2 = new ArrayList<ArrayList<String>>();
-		ArrayList<String> mapOfStrings2 = new ArrayList<String>();
-
 		// Feed the grammar line for production list creation
 		for (int x = 0; x < gramLine.size(); x++) {
-
-			// Handle cases when "|" appears
-			if (gramLine.get(x).contains("|")) {
-				mapOfMaps.add(productionArrayListTop);
-				mapOfStrings.add(productionString);
-				productionString = "";
-
-				mapOfMaps2.add(productionArrayList);
-				mapOfStrings2.add(productionString2);
-				productionString2 = "";
-				
-
-				productionArrayList = new ArrayList<String>();
-				productionArrayListTop = new ArrayList<String>();
-
-				if (genNonTerminals.contains(gramLine.get(0) + "'")) {
-					productionString += gramLine.get(0) + "' ";
-					productionString2 += gramLine.get(0) + "' ";
-
-					productionArrayList.add(gramLine.get(0) + "' ");
-					productionArrayListTop.add(gramLine.get(0) + "' ");
-				} else {
-					productionString += gramLine.get(0) + " ";
-					productionString2 += gramLine.get(0) + " ";
-				}
-
-				continue;
-			}
+			
 			// Used to test for membership in productions
 			if (x != flagIndex) {
 				if (gramLine.get(0).contains(gramLine.get(x)) && x != 0) {
 					productionString += gramLine.get(x) + "'";
 					productionArrayListTop.add(gramLine.get(x) + "'");
-
+					
 				} else {
 					productionString += gramLine.get(x) + " ";
 					productionArrayListTop.add(gramLine.get(x) + " ");
 				}
 			}
-
-			// Bottom portion
-			if (x == 0 || gramLine.get(0).contains(gramLine.get(x))) {
-				productionArrayList.add(gramLine.get(x) + "'");
-				productionString2 += gramLine.get(x) + "' ";
-				if (!genNonTerminals.contains(gramLine.get(x) + "'")) {
-					genNonTerminals.add(gramLine.get(x) + "'");
+			
+			if(x == 0 || gramLine.get(0).contains(gramLine.get(x))){
+				productionArrayList.add(gramLine.get(x)+"'");
+				productionString2 += gramLine.get(x)+"' ";
+				if(!genNonTerminals.contains(gramLine.get(x)+"'")){
+					genNonTerminals.add(gramLine.get(x)+"'");
 				}
-			} else {
+			}else{
 				productionArrayList.add(gramLine.get(x));
-				productionString2 += gramLine.get(x) + " ";
+				productionString2 += gramLine.get(x)+" ";
 			}
-			if(x == gramLine.size()-1){
-			//System.out.println(productionString2);
+		}
+		
+		if(!createdProduction.contains(productionString)){
+			createdProduction.add(productionString);
+			finalProduction.put(productionMapIndex, productionArrayListTop);
+			productionMapIndex += 1;
+		}
+		
+		if(!createdProduction.contains(productionString2)){
+			createdProduction.add(productionString2);
 			finalProduction.put(productionMapIndex, productionArrayList);
 			productionMapIndex += 1;
-			}
 		}
-		for (int i = 0; i < mapOfStrings.size(); i++) {
-			if (!createdProduction.contains(mapOfStrings.get(i))) {
-				createdProduction.add(mapOfStrings.get(i));
-				finalProduction.put(productionMapIndex, mapOfMaps.get(i));
-				productionMapIndex += 1;
-			}
-		}
-		for (int j = 0; j < mapOfStrings2.size(); j++) {
-			if (!createdProduction.contains(mapOfStrings2.get(j))) {
-				createdProduction.add(mapOfStrings2.get(j));
-				finalProduction.put(productionMapIndex, mapOfMaps2.get(j));
-				productionMapIndex += 1;
-			}
-		}
+			
 	}
 
 	public static boolean determineIfInGrammarTable(String word) {

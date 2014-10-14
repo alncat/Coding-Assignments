@@ -57,7 +57,7 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
-		 //String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
@@ -182,8 +182,6 @@ public class LLgen {
 				if (flag && match) {
 					// System.out.print("*****Match.***");
 					buildProductions(gramLine, flagIndex);
-				}else{
-					//buildNonFlagProducitons(gramLine);
 				}
 
 				// Adds to the collection of non-terminals
@@ -227,9 +225,6 @@ public class LLgen {
 				if (genNonTerminals.contains(gramLine.get(0) + "'")) {
 					productionString += gramLine.get(0) + "' ";
 					productionString2 += gramLine.get(0) + "' ";
-
-					productionArrayList.add(gramLine.get(0) + "' ");
-					productionArrayListTop.add(gramLine.get(0) + "' ");
 				} else {
 					productionString += gramLine.get(0) + " ";
 					productionString2 += gramLine.get(0) + " ";
@@ -261,7 +256,7 @@ public class LLgen {
 				productionString2 += gramLine.get(x) + " ";
 			}
 			if(x == gramLine.size()-1){
-			//System.out.println(productionString2);
+			System.out.println(productionString2);
 			finalProduction.put(productionMapIndex, productionArrayList);
 			productionMapIndex += 1;
 			}

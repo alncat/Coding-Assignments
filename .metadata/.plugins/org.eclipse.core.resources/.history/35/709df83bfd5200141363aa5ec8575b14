@@ -49,9 +49,9 @@ public class LLgen {
 
 		// String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
+		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
