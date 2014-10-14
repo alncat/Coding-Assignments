@@ -41,12 +41,9 @@ public class LLgen {
 	// Index for the final production map
 	private static int productionMapIndex = 0;
 
-	// The final production map
+	// The final proudction map
 	private static HashMap<Integer, ArrayList<String>> finalProduction =
 			new HashMap<Integer, ArrayList<String>>();
-	
-	// Set to make that no duplicated productions are generated
-	private static Set<String> nonDuplicateProd = new HashSet<String>();
 
 	public static void main(String[] args) {
 
@@ -61,7 +58,7 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"}; //Problem with the white spaces, generating duplicate productions
+		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
 		// String[] cmdLine = {"-t",
@@ -152,7 +149,7 @@ public class LLgen {
 		for (int i = 0; i < finalProduction.size(); i++) {
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
-				System.out.print(gramLine.get(j) + " " );
+				System.out.print(gramLine.get(j) + " ");
 			}
 			System.out.println("");
 		}
@@ -219,17 +216,17 @@ public class LLgen {
 				productionString = "";
 
 				productionArrayList = new ArrayList<String>();
-				productionString += gramLine.get(0).trim() + " ";
-				productionArrayList.add(gramLine.get(0).trim());
+				productionString += gramLine.get(0) + " ";
+				productionArrayList.add(gramLine.get(0));
 				continue;
 			}
 
-			productionString += gramLine.get(x).trim() + " ";
-			productionArrayList.add(gramLine.get(x).trim() + " ");
+			productionString += gramLine.get(x) + " ";
+			productionArrayList.add(gramLine.get(x) + " ");
 
 			if (x == 0) {
-				if (!genNonTerminals.contains(gramLine.get(0).trim())) {
-					genNonTerminals.add(gramLine.get(0).trim());
+				if (!genNonTerminals.contains(gramLine.get(0))) {
+					genNonTerminals.add(gramLine.get(0));
 				}
 			}
 			
@@ -279,15 +276,15 @@ public class LLgen {
 				productionArrayList = new ArrayList<String>();
 				productionArrayListTop = new ArrayList<String>();
 
-				if (genNonTerminals.contains(gramLine.get(0).trim() + "'")) {
-					productionString += gramLine.get(0).trim() + "' ";
+				if (genNonTerminals.contains(gramLine.get(0) + "'")) {
+					productionString += gramLine.get(0) + "' ";
 					productionString2 += gramLine.get(0) + "' ";
 
-					productionArrayList.add(gramLine.get(0).trim() + "' ");
-					productionArrayListTop.add(gramLine.get(0).trim() + "' ");
+					productionArrayList.add(gramLine.get(0) + "' ");
+					productionArrayListTop.add(gramLine.get(0) + "' ");
 				} else {
-					productionString += gramLine.get(0).trim() + " ";
-					productionString2 += gramLine.get(0).trim() + " ";
+					productionString += gramLine.get(0) + " ";
+					productionString2 += gramLine.get(0) + " ";
 				}
 
 				continue;
@@ -295,25 +292,25 @@ public class LLgen {
 			// Used to test for membership in productions
 			if (x != flagIndex) {
 				if (gramLine.get(0).contains(gramLine.get(x)) && x != 0) {
-					productionString += gramLine.get(x).trim() + "'";
-					productionArrayListTop.add(gramLine.get(x).trim() + "'");
+					productionString += gramLine.get(x) + "'";
+					productionArrayListTop.add(gramLine.get(x) + "'");
 
 				} else {
-					productionString += gramLine.get(x).trim() + " ";
-					productionArrayListTop.add(gramLine.get(x).trim() + " ");
+					productionString += gramLine.get(x) + " ";
+					productionArrayListTop.add(gramLine.get(x) + " ");
 				}
 			}
 
 			// Bottom portion
 			if (x == 0 || gramLine.get(0).contains(gramLine.get(x))) {
-				productionArrayList.add(gramLine.get(x).trim() + "'");
-				productionString2 += gramLine.get(x).trim() + "' ";
-				if (!genNonTerminals.contains(gramLine.get(x).trim() + "'")) {
-					genNonTerminals.add(gramLine.get(x).trim() + "'");
+				productionArrayList.add(gramLine.get(x) + "'");
+				productionString2 += gramLine.get(x) + "' ";
+				if (!genNonTerminals.contains(gramLine.get(x) + "'")) {
+					genNonTerminals.add(gramLine.get(x) + "'");
 				}
 			} else {
-				productionArrayList.add(gramLine.get(x).trim());
-				productionString2 += gramLine.get(x).trim() + " ";
+				productionArrayList.add(gramLine.get(x));
+				productionString2 += gramLine.get(x) + " ";
 			}
 			if (x == gramLine.size() - 1) {
 				// System.out.println(productionString2);

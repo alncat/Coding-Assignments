@@ -41,12 +41,9 @@ public class LLgen {
 	// Index for the final production map
 	private static int productionMapIndex = 0;
 
-	// The final production map
+	// The final proudction map
 	private static HashMap<Integer, ArrayList<String>> finalProduction =
 			new HashMap<Integer, ArrayList<String>>();
-	
-	// Set to make that no duplicated productions are generated
-	private static Set<String> nonDuplicateProd = new HashSet<String>();
 
 	public static void main(String[] args) {
 
@@ -152,7 +149,7 @@ public class LLgen {
 		for (int i = 0; i < finalProduction.size(); i++) {
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
-				System.out.print(gramLine.get(j) + " " );
+				System.out.print(gramLine.get(j) );
 			}
 			System.out.println("");
 		}
