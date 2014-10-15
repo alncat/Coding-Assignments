@@ -45,14 +45,15 @@ public class LLgen {
 	private static HashMap<Integer, ArrayList<String>> finalProduction =
 			new HashMap<Integer, ArrayList<String>>();
 	
-	// Set to make that no duplicated productions are generated
-	private static Set<String> nonDuplicateProd = new HashSet<String>();
+	// Set holding all the terminals
+	private static Set<String> genTerminals = new HashSet<String>();
+	
 
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
@@ -61,7 +62,7 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"}; //Problem with the white spaces, generating duplicate productions
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
 		// String[] cmdLine = {"-t",
@@ -87,6 +88,7 @@ public class LLgen {
 	public static void fillGrammarLines(String inputFile) {
 		ArrayList<String> gramLine = new ArrayList<String>();
 		String line = "", word = "";
+		boolean boStartSymbol = true;
 
 		// KeyIndexCounter for debugging
 		int lineCounter = 0;
@@ -121,6 +123,11 @@ public class LLgen {
 
 								// Add Term, if at line 0 add the start symbol
 								gramLine.add(word);
+								// The start symbol found
+								if(boStartSymbol){
+									startSym += word;
+									boStartSymbol = false;
+								}
 								// Clear the word
 								word = "";
 							}
@@ -148,14 +155,76 @@ public class LLgen {
 		}
 
 		parseTheGrammar();
-		// Test to see if everything is there
+		
+		// Test to see if everything is there // Fill in the Terminals
 		for (int i = 0; i < finalProduction.size(); i++) {
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
-				System.out.print(gramLine.get(j) + " " );
+				if(j != 0 && !genNonTerminals.contains(gramLine.get(j).trim())){
+					genTerminals.add(gramLine.get(j).trim());
+				}
+				//System.out.print(gramLine.get(j) + " " );
 			}
-			System.out.println("");
+			//System.out.println("");
 		}
+		String strNonTerminals = "[";
+		Iterator<String> thisNonTermi = genNonTerminals.iterator();
+		while(thisNonTermi.hasNext()){
+			strNonTerminals += thisNonTermi.next();
+			if(thisNonTermi.hasNext()){
+				strNonTerminals += ", ";
+			}
+		}
+		strNonTerminals += "]";
+		
+		Iterator<String> iterTerminals = genTerminals.iterator();
+		String strTerminals = "[", strSym = "";
+		while(iterTerminals.hasNext()){
+			strSym = grammarsTable(iterTerminals.next());
+			if(strSym.equals("")){
+				continue;
+			}
+			strTerminals += strSym;
+			if(iterTerminals.hasNext()){
+				strTerminals += ", ";
+			}
+		}
+		strTerminals += "]";
+		String strProduction = "";
+		System.out.println("terminals: "+ strTerminals);
+		System.out.println("non-terminals: "+ strNonTerminals);
+		System.out.println("eof-maker: <EOF>");
+		System.out.println("error-maker: --");
+		System.out.println("start-symbol: "+ startSym);
+		System.out.println("");
+		System.out.println("productions: ");
+		for (int i = 0; i < finalProduction.size(); i++) {
+			strProduction += "\t"+ Integer.toString(i)+":\t";
+			gramLine = finalProduction.get(i);
+			for (int j = 0; j < gramLine.size(); j++) {
+				if(j == 0){
+					strProduction += "{"+gramLine.get(j).trim()+": [";
+					continue;
+				}
+				if(j +1 == gramLine.size()){
+					if(gramLine.size() ==2 && grammarsTable(gramLine.get(j).trim()) == ""){
+						strProduction += "]}";
+						continue;
+					}
+					if(grammarsTable(gramLine.get(j).trim()).equals("")){
+						continue;
+					}else{
+						strProduction += grammarsTable(gramLine.get(j).trim())+ "]}";
+					}
+				}else{
+					strProduction += grammarsTable(gramLine.get(j).trim())+", ";
+				}
+			}
+			System.out.println(strProduction);
+			strProduction = "";
+			//System.out.println("");
+		}
+		
 	}
 
 	public static void parseTheGrammar() {
@@ -178,18 +247,18 @@ public class LLgen {
 
 				// Looks for a match between non-Terminal and LR grammar
 				if (j != 0 && gramLine.get(0).contains(gramLine.get(j))) {
-					match = true;
 					matchWord = gramLine.get(j);
+					
+					match = true;
+					
 				}
 
 				if (flag && match) {
 					// System.out.print("*****Match.***");
+					
 					buildProductions(gramLine, flagIndex);
 					nonMatch = false;
-				} else {
-					//System.out.println("*****Non-Match.***");
-					//buildNonFlagProductions(gramLine);
-				}
+				} 
 
 				// Adds to the collection of non-terminals
 				determineIfNonTerm(gramLine.get(j), j);
@@ -219,23 +288,24 @@ public class LLgen {
 				productionString = "";
 
 				productionArrayList = new ArrayList<String>();
-				productionString += gramLine.get(0).trim() + " ";
-				productionArrayList.add(gramLine.get(0).trim());
+				productionString += gramLine.get(0) + " ";
+				productionArrayList.add(gramLine.get(0));
 				continue;
 			}
 
-			productionString += gramLine.get(x).trim() + " ";
-			productionArrayList.add(gramLine.get(x).trim() + " ");
+			productionString += gramLine.get(x) + " ";
+			productionArrayList.add(gramLine.get(x) + " ");
 
 			if (x == 0) {
-				if (!genNonTerminals.contains(gramLine.get(0).trim())) {
-					genNonTerminals.add(gramLine.get(0).trim());
+				if (!genNonTerminals.contains(gramLine.get(0))) {
+					genNonTerminals.add(gramLine.get(0));
 				}
 			}
 			
 			if (x == gramLine.size() - 1 && !createdProduction.contains(productionString)) {
 				 //System.out.println(">>>>>>>>>>>> \t"+productionString);
 				 createdProduction.add(productionString);
+				 
 				finalProduction.put(productionMapIndex, productionArrayList);
 				productionMapIndex += 1;
 			}
@@ -244,6 +314,8 @@ public class LLgen {
 		for (int i = 0; i < mapOfStrings.size(); i++) {
 			if (!createdProduction.contains(mapOfStrings.get(i))) {
 				createdProduction.add(mapOfStrings.get(i));
+				
+				
 				finalProduction.put(productionMapIndex, mapOfMaps.get(i));
 				productionMapIndex += 1;
 			}
@@ -279,15 +351,15 @@ public class LLgen {
 				productionArrayList = new ArrayList<String>();
 				productionArrayListTop = new ArrayList<String>();
 
-				if (genNonTerminals.contains(gramLine.get(0).trim() + "'")) {
-					productionString += gramLine.get(0).trim() + "' ";
+				if (genNonTerminals.contains(gramLine.get(0) + "'")) {
+					productionString += gramLine.get(0) + "' ";
 					productionString2 += gramLine.get(0) + "' ";
 
-					productionArrayList.add(gramLine.get(0).trim() + "' ");
-					productionArrayListTop.add(gramLine.get(0).trim() + "' ");
+					productionArrayList.add(gramLine.get(0) + "' ");
+					productionArrayListTop.add(gramLine.get(0) + "' ");
 				} else {
-					productionString += gramLine.get(0).trim() + " ";
-					productionString2 += gramLine.get(0).trim() + " ";
+					productionString += gramLine.get(0) + " ";
+					productionString2 += gramLine.get(0) + " ";
 				}
 
 				continue;
@@ -295,28 +367,29 @@ public class LLgen {
 			// Used to test for membership in productions
 			if (x != flagIndex) {
 				if (gramLine.get(0).contains(gramLine.get(x)) && x != 0) {
-					productionString += gramLine.get(x).trim() + "'";
-					productionArrayListTop.add(gramLine.get(x).trim() + "'");
+					productionString += gramLine.get(x) + "'";
+					productionArrayListTop.add(gramLine.get(x) + "'");
 
 				} else {
-					productionString += gramLine.get(x).trim() + " ";
-					productionArrayListTop.add(gramLine.get(x).trim() + " ");
+					productionString += gramLine.get(x) + " ";
+					productionArrayListTop.add(gramLine.get(x) + " ");
 				}
 			}
 
 			// Bottom portion
 			if (x == 0 || gramLine.get(0).contains(gramLine.get(x))) {
-				productionArrayList.add(gramLine.get(x).trim() + "'");
-				productionString2 += gramLine.get(x).trim() + "' ";
-				if (!genNonTerminals.contains(gramLine.get(x).trim() + "'")) {
-					genNonTerminals.add(gramLine.get(x).trim() + "'");
+				productionArrayList.add(gramLine.get(x) + "'");
+				productionString2 += gramLine.get(x) + "' ";
+				if (!genNonTerminals.contains(gramLine.get(x) + "'")) {
+					genNonTerminals.add(gramLine.get(x) + "'");
 				}
 			} else {
-				productionArrayList.add(gramLine.get(x).trim());
-				productionString2 += gramLine.get(x).trim() + " ";
+				productionArrayList.add(gramLine.get(x));
+				productionString2 += gramLine.get(x) + " ";
 			}
-			if (x == gramLine.size() - 1) {
+			if (x == gramLine.size() - 1 &&!createdProduction.contains(productionString2)) {
 				// System.out.println(productionString2);
+				createdProduction.add(productionString2);
 				finalProduction.put(productionMapIndex, productionArrayList);
 				productionMapIndex += 1;
 			}
@@ -324,6 +397,8 @@ public class LLgen {
 		for (int i = 0; i < mapOfStrings.size(); i++) {
 			if (!createdProduction.contains(mapOfStrings.get(i))) {
 				createdProduction.add(mapOfStrings.get(i));
+				
+				
 				finalProduction.put(productionMapIndex, mapOfMaps.get(i));
 				productionMapIndex += 1;
 			}
@@ -331,12 +406,15 @@ public class LLgen {
 		for (int j = 0; j < mapOfStrings2.size(); j++) {
 			if (!createdProduction.contains(mapOfStrings2.get(j))) {
 				createdProduction.add(mapOfStrings2.get(j));
+				
+				
 				finalProduction.put(productionMapIndex, mapOfMaps2.get(j));
 				productionMapIndex += 1;
 			}
 		}
 	}
 
+	
 	public static boolean determineIfInGrammarTable(String word) {
 		if (grammarTable.containsKey(word)) {
 			return true;
@@ -611,6 +689,7 @@ public class LLgen {
 		grammarTable.put("COMMA", ",");
 		grammarTable.put("LParen", "(");
 		grammarTable.put("RParen", ")");
+		grammarTable.put("DIVIDE", "/");
 	}
 
 	public static String grammarsTable(String word) {
