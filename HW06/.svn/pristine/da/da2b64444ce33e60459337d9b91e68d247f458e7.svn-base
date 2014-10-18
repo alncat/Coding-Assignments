@@ -1,0 +1,21 @@
+package visitor;
+
+import provided.music.IPhrase;
+import provided.music.IPhraseVisitorCmd;
+
+public class PhraseVisitorCmd implements IPhraseVisitorCmd {
+	private IPhrase theHost;
+	private String theId;
+	
+	public PhraseVisitorCmd( IPhrase HostIn, String idIn){
+		theHost = HostIn;
+		theId = idIn;
+	}
+	
+	@Override
+	public Object apply(String id, IPhrase host, Object... params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

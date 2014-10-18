@@ -1,0 +1,45 @@
+package controller;
+
+import java.awt.EventQueue;
+
+import view.View;
+import model.Model;
+
+public class Controller {
+
+    private Model model;
+    private View view;
+    
+    /**
+     * Constructor that builds the system.
+     */
+    public Controller() {
+        view = new View();
+    }
+    
+    /**
+     * Starts the system.
+     */
+    public void start() {
+        view.start();
+    }
+    
+    /**
+     * Launch the application.
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Controller controller = new Controller();
+                    controller.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    
+}

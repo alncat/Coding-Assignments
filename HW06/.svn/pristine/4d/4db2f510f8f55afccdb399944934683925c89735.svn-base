@@ -1,0 +1,14 @@
+package model;
+
+import adapters.IModel2View;
+import provided.abcParser.ABCParser;
+
+public class Model {
+
+    private IModel2View modelToView;
+    
+    private ABCParser abcParser;
+    
+    
+    
+}

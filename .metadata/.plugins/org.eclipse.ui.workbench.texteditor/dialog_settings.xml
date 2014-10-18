@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="VR0" key="selection"/>
+		<item value="p" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="p"/>
+			<item value="REGEX"/>
+			<item value="startSym"/>
+			<item value="nonDuplicateProd"/>
+			<item value="keyIndexCounter"/>
 			<item value="VR1"/>
 			<item value="VR0"/>
 			<item value="r4"/>
-			<item value="openAndRead"/>
-			<item value="Vector"/>
-			<item value="lineOPVector"/>
-			<item value="readMicrosyntax"/>
-			<item value="numberOfLinesCounted"/>
 		</list>
 		<list key="replacehistory">
 			<item value="operation2PR"/>
@@ -28,7 +28,7 @@
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="756" key="DIALOG_X_ORIGIN"/>
-		<item value="242" key="DIALOG_Y_ORIGIN"/>
+		<item value="1153" key="DIALOG_X_ORIGIN"/>
+		<item value="418" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

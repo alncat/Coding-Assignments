@@ -1,0 +1,34 @@
+package model;
+
+import model.visitors.ToStringVisitor;
+import provided.abcParser.ABCParser;
+import provided.music.NESeqList;
+
+public class Model {
+    
+    private String musicFileName;
+
+    /**
+     * Constructor
+     */
+    public Model() {
+        
+    }
+    
+    /**
+     * Loads 
+     * @param fileName
+     */
+    public void loadFile(String fileName) {
+       this.musicFileName = "/songs/" + fileName + ".abc";
+    }
+    
+    public String parseFile() {
+       return new ABCParser(musicFileName).parse().toString();
+    }
+    
+    public void start() {
+        NESeqList.setToStringAlgo(new ToStringVisitor());
+    }
+    
+}

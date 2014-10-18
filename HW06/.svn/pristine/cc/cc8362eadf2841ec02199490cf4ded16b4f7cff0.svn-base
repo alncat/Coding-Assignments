@@ -1,0 +1,113 @@
+package view;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+
+import adapters.IViewToModel;
+
+public class View extends JFrame {
+
+    private static final long serialVersionUID = 6376164136924196333L;
+    
+    private IViewToModel viewToModel;
+    
+    private JPanel contentPane;
+    private final JPanel panel = new JPanel();
+    private final JSplitPane splitPane = new JSplitPane();
+    private final JTextField textFieldFile = new JTextField();
+    private final JLabel lblFile = new JLabel("File:");
+    private final JButton btnLoad = new JButton("Load");
+    private final JButton btnParse = new JButton("Parse");
+    private final JButton btnPlay = new JButton("Play");
+    private final JScrollPane scrollPaneFileContents = new JScrollPane();
+    private final JScrollPane scrollPaneParsed = new JScrollPane();
+    private final JTextArea textAreaFileContents = new JTextArea();
+    private final JTextArea textAreaIParsed = new JTextArea();
+
+    /**
+     * Create the frame.
+     */
+    public View(IViewToModel viewToModel) {
+        textFieldFile.setToolTipText("The file to load. Assumed to be in the \"songs\" package with \".abc\" extension.");
+        textFieldFile.setColumns(10);
+        this.viewToModel = viewToModel;
+        initGUI();
+    }
+    
+    /**
+     * Starts the already initialized frame, making it visible and ready to
+     * interact with the user.
+     */
+    public void start() {
+       setVisible(true); 
+    }
+    
+    /**
+     * Initializes the GUI components but does not start the frame.
+     */
+    private void initGUI() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(new BorderLayout(0, 0));
+        setContentPane(contentPane);
+        
+        contentPane.add(panel, BorderLayout.NORTH);
+        
+        panel.add(lblFile);
+        
+        panel.add(textFieldFile);
+        btnLoad.setToolTipText("Load the file and create the ABCParser.");
+        btnLoad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                viewToModel.loadFile(textFieldFile.getText());
+            }
+        });
+        
+        panel.add(btnLoad);
+        btnParse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textAreaIParsed.setLineWrap(true);
+                textAreaIParsed.setWrapStyleWord(true);
+                textAreaIParsed.setText(viewToModel.parseFile());
+            }
+        });
+        btnParse.setToolTipText("Parse the file and create the IPhrase structure.");
+        
+        panel.add(btnParse);
+        btnPlay.setToolTipText("Play the parsed IPhrase data structure.");
+        
+        panel.add(btnPlay);
+        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        
+        contentPane.add(splitPane, BorderLayout.CENTER);
+        scrollPaneFileContents.setToolTipText("The text contents of the file.");
+        scrollPaneFileContents.setViewportBorder(new TitledBorder(null, "File Contents", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        
+        splitPane.setLeftComponent(scrollPaneFileContents);
+        
+        scrollPaneFileContents.setViewportView(textAreaFileContents);
+        scrollPaneParsed.setToolTipText("The String representation of the IPhrase data structure parsed from the input ABC file.");
+        scrollPaneParsed.setViewportBorder(new TitledBorder(null, "Parsed IPhrase Structure", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        
+        splitPane.setRightComponent(scrollPaneParsed);
+        
+        scrollPaneParsed.setViewportView(textAreaIParsed);
+    }
+
+}
