@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CommitComments>	<CommitComment>Test for single note.</CommitComment>
+<CommitComments>	<CommitComment>No changes.</CommitComment>
+	<CommitComment>Test for single note.</CommitComment>
 	<CommitComment>Visitor package added.</CommitComment>
 	<CommitComment>Model.</CommitComment>
 	<CommitComment>Started the ReadMe.</CommitComment>
@@ -8,5 +9,4 @@
 	<CommitComment>Additions to GUI.</CommitComment>
 	<CommitComment>Now all the errors are gone.</CommitComment>
 	<CommitComment>Errors should be gone.</CommitComment>
-	<CommitComment>Some updates.</CommitComment>
 </CommitComments>

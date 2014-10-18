@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Stack;
 
 // 70 minutes + 2hrs 36 minutes + 2hrs
 // start 12:15 PM - 4:50PM
@@ -83,6 +84,29 @@ public class LLgen {
 		// printTopOutput(filePath);
 
 		System.out.println("//Finished.");
+	}
+	
+	public static void LLSkeletonParser(){
+		Iterator<String> itNonTerm;
+		Stack<String> nonTermStack = new Stack<String>();
+		itNonTerm = genNonTerminals.iterator();
+		String TopOfStack = "";
+		while(itNonTerm.hasNext()){
+			nonTermStack.add(itNonTerm.next());
+		}
+		
+		nonTermStack.add("EOF");
+		TopOfStack = nonTermStack.pop();
+		while(true){
+			if(TopOfStack.contains("EOF")){
+				break;
+			}else{
+				TopOfStack = nonTermStack.pop();
+			}
+			
+			
+		}
+		return;
 	}
 
 	public static void fillGrammarLines(String inputFile) {

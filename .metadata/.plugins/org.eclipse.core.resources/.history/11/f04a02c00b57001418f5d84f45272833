@@ -45,16 +45,19 @@ public class LLgen {
 	private static HashMap<Integer, ArrayList<String>> finalProduction =
 			new HashMap<Integer, ArrayList<String>>();
 	
+	// Set holding all the terminals
+	private static Set<String> genTerminals = new HashSet<String>();
+	
 
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
+		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		 //String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
+		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"}; //If index(x+1) == index(x+2) then is NonFlagProduction
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
@@ -85,6 +88,7 @@ public class LLgen {
 	public static void fillGrammarLines(String inputFile) {
 		ArrayList<String> gramLine = new ArrayList<String>();
 		String line = "", word = "";
+		boolean boStartSymbol = true;
 
 		// KeyIndexCounter for debugging
 		int lineCounter = 0;
@@ -119,6 +123,11 @@ public class LLgen {
 
 								// Add Term, if at line 0 add the start symbol
 								gramLine.add(word);
+								// The start symbol found
+								if(boStartSymbol){
+									startSym += word;
+									boStartSymbol = false;
+								}
 								// Clear the word
 								word = "";
 							}
@@ -146,19 +155,76 @@ public class LLgen {
 		}
 
 		parseTheGrammar();
-		// Test to see if everything is there
+		
+		// Test to see if everything is there // Fill in the Terminals
 		for (int i = 0; i < finalProduction.size(); i++) {
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
-				System.out.print(gramLine.get(j) + " " );
+				if(j != 0 && !genNonTerminals.contains(gramLine.get(j).trim())){
+					genTerminals.add(gramLine.get(j).trim());
+				}
+				//System.out.print(gramLine.get(j) + " " );
 			}
-			System.out.println("");
+			//System.out.println("");
 		}
-		
+		String strNonTerminals = "[";
 		Iterator<String> thisNonTermi = genNonTerminals.iterator();
 		while(thisNonTermi.hasNext()){
-			System.out.println("A non-term: \t" + thisNonTermi.next());
+			strNonTerminals += thisNonTermi.next();
+			if(thisNonTermi.hasNext()){
+				strNonTerminals += ", ";
+			}
 		}
+		strNonTerminals += "]";
+		
+		Iterator<String> iterTerminals = genTerminals.iterator();
+		String strTerminals = "[", strSym = "";
+		while(iterTerminals.hasNext()){
+			strSym = grammarsTable(iterTerminals.next());
+			if(strSym.equals("")){
+				continue;
+			}
+			strTerminals += strSym;
+			if(iterTerminals.hasNext()){
+				strTerminals += ", ";
+			}
+		}
+		strTerminals += "]";
+		String strProduction = "";
+		System.out.println("terminals: "+ strTerminals);
+		System.out.println("non-terminals: "+ strNonTerminals);
+		System.out.println("eof-maker: <EOF>");
+		System.out.println("error-maker: --");
+		System.out.println("start-symbol: "+ startSym);
+		System.out.println("");
+		System.out.println("productions: ");
+		for (int i = 0; i < finalProduction.size(); i++) {
+			strProduction += "\t"+ Integer.toString(i)+":\t";
+			gramLine = finalProduction.get(i);
+			for (int j = 0; j < gramLine.size(); j++) {
+				if(j == 0){
+					strProduction += "{"+gramLine.get(j).trim()+": [";
+					continue;
+				}
+				if(j +1 == gramLine.size()){
+					if(gramLine.size() ==2 && grammarsTable(gramLine.get(j).trim()) == ""){
+						strProduction += "]}";
+						continue;
+					}
+					if(grammarsTable(gramLine.get(j).trim()).equals("")){
+						continue;
+					}else{
+						strProduction += grammarsTable(gramLine.get(j).trim())+ "]}";
+					}
+				}else{
+					strProduction += grammarsTable(gramLine.get(j).trim())+", ";
+				}
+			}
+			System.out.println(strProduction);
+			strProduction = "";
+			//System.out.println("");
+		}
+		
 	}
 
 	public static void parseTheGrammar() {
@@ -623,6 +689,7 @@ public class LLgen {
 		grammarTable.put("COMMA", ",");
 		grammarTable.put("LParen", "(");
 		grammarTable.put("RParen", ")");
+		grammarTable.put("DIVIDE", "/");
 	}
 
 	public static String grammarsTable(String word) {
