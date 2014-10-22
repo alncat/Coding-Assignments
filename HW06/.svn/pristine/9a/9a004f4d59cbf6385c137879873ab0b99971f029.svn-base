@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_DlgCQFgPEeSTYp88fJMr7g">
+  <modelElement href="HW062.uml#_CJVmQFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FxSkYVgPEeSTYp88fJMr7g" targetItem="_FxUZkFgPEeSTYp88fJMr7g" sourceItem="_FxSkYFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FxSkY1gPEeSTYp88fJMr7g" targetItem="_FxUZqlgPEeSTYp88fJMr7g" sourceItem="_FxSkYlgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FxSkZVgPEeSTYp88fJMr7g" targetItem="_FxUZr1gPEeSTYp88fJMr7g" sourceItem="_FxSkZFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FxTygFgPEeSTYp88fJMr7g" source="_FxUZkFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSSG4VgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_FxW10FgPEeSTYp88fJMr7g" position="90.0,90.0"/>
+    <stereotypes xmi:id="_FxTygVgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSSG41gPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FxTyglgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_FxTyg1gPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSSG4lgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxTyhFgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_FxTyhVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FxTyhlgPEeSTYp88fJMr7g" aggregationKind="NONE" name="playSongVisitor" navigable="true">
+      <modelElement href="HW062.uml#_CRNv41gPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxTyh1gPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxTyiFgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FxTyiVgPEeSTYp88fJMr7g" source="_FxUZkFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSSG5FgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_FxW10VgPEeSTYp88fJMr7g" position="110.0,110.0"/>
+    <stereotypes xmi:id="_FxTyilgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSSt8FgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FxTyi1gPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_FxTyjFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSSG5VgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxTyjVgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_FxTyjlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FxTyj1gPEeSTYp88fJMr7g" aggregationKind="NONE" name="sequencePlayer" navigable="true">
+      <modelElement href="HW062.uml#_CROW8VgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxTykFgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxTykVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FxTyklgPEeSTYp88fJMr7g" source="_FxUZkFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSSt8VgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_FxXc4FgPEeSTYp88fJMr7g" position="130.0,130.0"/>
+    <stereotypes xmi:id="_FxTyk1gPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSTVAFgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FxTylFgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_FxTylVgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSSt8lgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxTyllgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_FxTyl1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FxTymFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="keySignature" navigable="true">
+      <modelElement href="HW062.uml#_CRO-AFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxTymVgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxTymlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FxVnsVgPEeSTYp88fJMr7g" targetItem="_FxWOyFgPEeSTYp88fJMr7g" sourceItem="_FxVnsFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FxVnslgPEeSTYp88fJMr7g" source="_FxWOyFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CST8EFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_FxXc4VgPEeSTYp88fJMr7g" position="150.0,150.0"/>
+    <stereotypes xmi:id="_FxWOwlgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSUjIFgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FxVntVgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_FxWOwFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CST8EVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxWOxFgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_FxWOw1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FxWOwVgPEeSTYp88fJMr7g" aggregationKind="NONE" name="toStringVisitor" navigable="true">
+      <modelElement href="HW062.uml#_CRPlEFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxWOxlgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxWOxVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FxVntFgPEeSTYp88fJMr7g" targetItem="_FxWO0FgPEeSTYp88fJMr7g" sourceItem="_FxVns1gPEeSTYp88fJMr7g"/>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FxSkYFgPEeSTYp88fJMr7g" sourceConnectionVisual="_FxSkYVgPEeSTYp88fJMr7g" text="Visitor capable of playing the music of a IPhrase host." item="_FxUZkFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSGgtVgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FxSkYlgPEeSTYp88fJMr7g" sourceConnectionVisual="_FxSkY1gPEeSTYp88fJMr7g" text="Constructor - loads a default command and commands for various types of IPhrase objects" item="_FxUZqlgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSGgtlgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FxSkZFgPEeSTYp88fJMr7g" sourceConnectionVisual="_FxSkZVgPEeSTYp88fJMr7g" text="Initializes and configures the Sequence Player to default settings." item="_FxUZr1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSGgt1gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FxVnsFgPEeSTYp88fJMr7g" sourceConnectionVisual="_FxVnsVgPEeSTYp88fJMr7g" text="Visitor capable of parsing IPhrase host for its String representation." item="_FxWOyFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSGguFgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FxVns1gPEeSTYp88fJMr7g" sourceConnectionVisual="_FxVntFgPEeSTYp88fJMr7g" text="Constructor - loads a default command and commands for empty and non-empty sequence lists" item="_FxWO0FgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSGguVgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FxUZkFgPEeSTYp88fJMr7g" comments="_FxSkYFgPEeSTYp88fJMr7g" targetConnectionVisual="_FxSkYVgPEeSTYp88fJMr7g" name="PlaySongVisitor" associationsOut="_FxTygFgPEeSTYp88fJMr7g _FxTyiVgPEeSTYp88fJMr7g _FxTyklgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CLN1kFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_FxUZkVgPEeSTYp88fJMr7g" position="50.0,50.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FxUZklgPEeSTYp88fJMr7g" label="+"/>
+    <attributes xmi:id="_FxUZk1gPEeSTYp88fJMr7g" defaultValue="this" name="playSongVisitor">
+      <modelElement href="HW062.uml#_CRNv41gPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_FxUZlFgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CROW8FgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FxUZlVgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CROW8FgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_FxUZllgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxUZl1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_FxUZmFgPEeSTYp88fJMr7g" name="IPhraseVisitor">
+        <modelElement href="HW062.uml#_CLydUFgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FxUZmVgPEeSTYp88fJMr7g" name="sequencePlayer">
+      <modelElement href="HW062.uml#_CROW8VgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_FxUZmlgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CROW8lgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FxUZm1gPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CROW8lgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_FxUZnFgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxUZnVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_FxUZnlgPEeSTYp88fJMr7g" name="SequencePlayer">
+        <modelElement href="HW062.uml#_CMMtAFgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FxUZn1gPEeSTYp88fJMr7g" name="keySignature">
+      <modelElement href="HW062.uml#_CRO-AFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_FxUZoFgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRO-AVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FxUZoVgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRO-AVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_FxUZolgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxUZo1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_FxUZpFgPEeSTYp88fJMr7g" name="KeySignature">
+        <modelElement href="HW062.uml#_CPmmUFgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FxUZpVgPEeSTYp88fJMr7g" defaultValue="1" name="lastTick">
+      <modelElement href="HW062.uml#_CRO-AlgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_FxUZplgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRO-BFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_FxUZp1gPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxUZqFgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_FxUZqVgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FxUZqlgPEeSTYp88fJMr7g" comments="_FxSkYlgPEeSTYp88fJMr7g" targetConnectionVisual="_FxSkY1gPEeSTYp88fJMr7g" name="PlaySongVisitor">
+      <modelElement href="HW062.uml#_CLPDsFgPEeSTYp88fJMr7g"/>
+      <keywords xmi:id="_FxUZq1gPEeSTYp88fJMr7g" keyword="create"/>
+      <visibility xmi:id="_FxUZrFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_FxUZrVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CLPDs1gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_FxUZrlgPEeSTYp88fJMr7g" name="PlaySongVisitor">
+          <modelElement href="HW062.uml#_CLN1kFgPEeSTYp88fJMr7g"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FxUZr1gPEeSTYp88fJMr7g" comments="_FxSkZFgPEeSTYp88fJMr7g" targetConnectionVisual="_FxSkZVgPEeSTYp88fJMr7g" name="initSequencePlayer">
+      <modelElement href="HW062.uml#_CLPDtFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_FxUZsFgPEeSTYp88fJMr7g" label="-"/>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FxWOyFgPEeSTYp88fJMr7g" comments="_FxVnsFgPEeSTYp88fJMr7g" targetConnectionVisual="_FxVnsVgPEeSTYp88fJMr7g" name="ToStringVisitor" associationsOut="_FxVnslgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CLQ44FgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_FxWOyVgPEeSTYp88fJMr7g" position="-264.0,115.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FxWOylgPEeSTYp88fJMr7g" label="+"/>
+    <attributes xmi:id="_FxWOy1gPEeSTYp88fJMr7g" defaultValue="this" name="toStringVisitor">
+      <modelElement href="HW062.uml#_CRPlEFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_FxWOzFgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRPlElgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FxWOx1gPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRPlElgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_FxWOzVgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_FxWOzlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_FxWOz1gPEeSTYp88fJMr7g" name="IPhraseVisitor">
+        <modelElement href="HW062.uml#_CLydUFgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FxWO0FgPEeSTYp88fJMr7g" comments="_FxVns1gPEeSTYp88fJMr7g" targetConnectionVisual="_FxVntFgPEeSTYp88fJMr7g" name="ToStringVisitor">
+      <modelElement href="HW062.uml#_CLRf8FgPEeSTYp88fJMr7g"/>
+      <keywords xmi:id="_FxWO0VgPEeSTYp88fJMr7g" keyword="create"/>
+      <visibility xmi:id="_FxWO0lgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_FxWO01gPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CLRf81gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_FxWO1FgPEeSTYp88fJMr7g" name="ToStringVisitor">
+          <modelElement href="HW062.uml#_CLQ44FgPEeSTYp88fJMr7g"/>
+        </type>
+      </outParameters>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

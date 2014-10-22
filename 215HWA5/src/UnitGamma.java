@@ -1,10 +1,10 @@
-import java.util.*;
+
 
 class UnitGamma extends ARandomGenerationAlgorithm<Double> {
 
 
 
-	private double shape, scale, leftmostStep, r, pdf, totalArea, area, nextArea, leftArea, step,
+	private double shape, scale, leftmostStep, r, pdf, area, nextArea, leftArea, 
 			randomV, maxpdfValue, xValue, yValue;
 	private int numSteps, exitloop, exit;
 	private IPRNG z;
@@ -15,8 +15,6 @@ class UnitGamma extends ARandomGenerationAlgorithm<Double> {
 		shape = myParam.getShape();
 		leftmostStep = myParam.getLeftmostStep();
 		numSteps = myParam.getNumSteps();
-
-
 	}
 
 	public UnitGamma(IPRNG useMe, GammaParam myParam) {
@@ -25,22 +23,21 @@ class UnitGamma extends ARandomGenerationAlgorithm<Double> {
 		shape = myParam.getShape();
 		leftmostStep = myParam.getLeftmostStep();
 		numSteps = myParam.getNumSteps();
-
 	}
 
 	/**
 	 * Generate another random object
 	 */
 	public Double getNext() {// pdf = step^(k-1) * e^(-step/shape)
-
-		step = leftmostStep;
-		totalArea = 0.0;
+		//TODO arraylist of sums and iterate backwards.
+		double step = leftmostStep;
+		double totalArea = 0.0;
 		while (step < leftmostStep * Math.pow(2.0, numSteps)) {// COMPUTES THE TOTAL AREA
 
-			pdf = Math.pow(step, (shape - 1.0)) * Math.exp(-step);// height of the box
-			area = pdf * (2.0 * step - step); // base times height for the area of the box
-			totalArea = totalArea + area;
-			step = 2.0 * step;
+			pdf = gamma(step);// height of the box
+			area = pdf * step; // base times height for the area of the box
+			totalArea += area;
+			step *= 2.0;
 
 		}// COMPUTES THE TOTAL AREA
 		exit = 0;
@@ -61,11 +58,10 @@ class UnitGamma extends ARandomGenerationAlgorithm<Double> {
 				}
 			}
 			xValue2 = genUniform(step, 2.0 * step);
-			maxpdfValue = Math.pow(step, (shape - 1.0)) * Math.exp(-step);// FIND THE PDF(X)
+			maxpdfValue = gamma(step);// FIND THE PDF(X)
 			yValue = genUniform(0.0, maxpdfValue);// Step four generate a number from 0 to high pdf
 
-			pdf = Math.pow(xValue2, (shape - 1.0)) * Math.exp(-xValue2);
-//TODO Might need to switch the sign from left pointer to right pointer
+			pdf = gamma(xValue2);
 			if (yValue < pdf) {
 				exitloop = 1;
 			}
@@ -73,6 +69,10 @@ class UnitGamma extends ARandomGenerationAlgorithm<Double> {
 
 
 		return xValue2;
+	}
+	
+	private double gamma(double x) {
+		return Math.pow(x, (shape - 1.0)) * Math.exp(-x);
 	}
 
 

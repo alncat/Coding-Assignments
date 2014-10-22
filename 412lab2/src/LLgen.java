@@ -45,21 +45,24 @@ public class LLgen {
 	// The final production map
 	private static HashMap<Integer, ArrayList<String>> finalProduction =
 			new HashMap<Integer, ArrayList<String>>();
-	
+
 	// Set holding all the terminals
 	private static Set<String> genTerminals = new HashSet<String>();
-	
+
+	// Contains the First Sets, get need use a hashmap to get the values
+	private static HashMap<String, String> firstSetHM = new HashMap<String, String>();
 
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
-		 //String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
+		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"}; //If index(x+1) == index(x+2) then is NonFlagProduction
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
+		 //String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"}; //If
+		// index(x+1) == index(x+2) then is NonFlagProduction
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
@@ -83,28 +86,349 @@ public class LLgen {
 		// Generate Output path for top Yamal
 		// printTopOutput(filePath);
 
+		firstSets();
+		// followSet();
 		System.out.println("//Finished.");
 	}
+
+	public static void followSet() {
+		// Indicate Follow Set changes
+		boolean change = true;
+
+		// the Trailer
+		ArrayList<String> aProduction;
+
+		// Non-Terminal and terminals
+		String nonTermStr = "", trailerStr = "";
+
+		// Follow Set
+		Set<String> follow = new HashSet<String>();
+		Set<String> followOrigin = new HashSet<String>();
+
+
+		// For each non-terminal
+		Iterator<String> itNonTerminals = genNonTerminals.iterator();
+		while (itNonTerminals.hasNext()) {
+			nonTermStr = itNonTerminals.next();
+			follow.add(nonTermStr);
+			followOrigin.add(nonTermStr);
+		}
+
+		follow.add("EOF");
+
+		// While Follow sets are still changing
+		while (change) {
+
+			// for each production
+			for (int i = 0; i < finalProduction.size(); i++) {
+
+				// Trailer <- Follow(A)
+				aProduction = finalProduction.get(i);
+
+				// for i <- k down to 1
+				for (int j = aProduction.size() - 1; j > 0; j--) {
+
+					// trailer <- follow(A)
+					trailerStr = followProductionToString(aProduction);
+
+					// if b(i) is a non-terminal
+					if (genNonTerminals.contains(aProduction.get(j))) {
+
+						// Follow(b(i)) <- Follow(b(i)) union trailer
+						follow.add(aProduction.get(j) + trailerStr);
+
+						// If espilon is in First(b(i))
+						if (!firstSetHM.get(aProduction.get(j)).toLowerCase().contains("epsilon")) {
+							trailerStr = "";
+						}
+						trailerStr += firstSetHM.get(aProduction.get(j)) + " ";
+					} else {
+						trailerStr += aProduction.get(j) + " ";
+					}
+				}
+			}
+			if (compareSets(followOrigin, follow)) {
+				change = false;
+			} else {
+				itNonTerminals = follow.iterator();
+				while (itNonTerminals.hasNext()) {
+					nonTermStr = itNonTerminals.next();
+					followOrigin.add(nonTermStr);
+				}
+			}
+		}
+		itNonTerminals = follow.iterator();
+		while (itNonTerminals.hasNext()) {
+			System.out.println("Follow final result <<<<<<<<<<<<\t " + itNonTerminals.next());
+		}
+	}// end of method
+
+	public static String followProductionToString(ArrayList<String> production) {
+		String result = "";
+		for (int i = 1; i < production.size(); i++) {
+			if (!production.get(i).contains("|")) {
+				result += production.get(i) + " ";
+			}
+		}
+		return result;
+	}
+
+
+	public static void firstSets() {
+		String epsilon = "", symbol = "", firstRHSSymbol = "";
+		boolean change = true;
+
+		// First Set and First Set Original
+		Set<String> first = new HashSet<String>();
+		Set<String> firstOrign = new HashSet<String>();
+		Set<String> setTerminals = new HashSet<String>(), setAllTerminals = new HashSet<String>();
+
+		// Production
+		ArrayList<String> production = new ArrayList<String>();
+
+		// Right Hand Side
+		String rhs = "";
+
+		// Add all the non-terminals to the First Set
+		Iterator<String> itNonTerminals = genNonTerminals.iterator();
+
+		// Map of first set, key is symbol and value is firstSet for symbol
+		HashMap<String, Set<String>> hmFirstSets = new HashMap<String, Set<String>>();
+
+		// Set up the first sets for the terminals
+		Iterator<String> itTerminals = genTerminals.iterator();
+		while (itTerminals.hasNext()) {
+			symbol = itTerminals.next();
+			first = new HashSet<String>();
+			first.add(symbol);
+			hmFirstSets.put(symbol, first);
+		}
+
+		// Add EOF to the sets
+		first = new HashSet<String>();
+		first.add("EOF");
+		hmFirstSets.put("EOF", first);
+
+		// Set up the first sets for the non-terminals
+		while (itNonTerminals.hasNext()) {
+			symbol = itNonTerminals.next();
+			first = new HashSet<String>();
+			first.clear();
+			hmFirstSets.put(symbol, first);
+		}
+
+		// print out the key and values mappings for terminals and non-terminals
+		for (String key : hmFirstSets.keySet()) {
+			System.out.print("Symbol: " + key.trim() + " \t");
+			System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
+			System.out.println(" ");
+		}
+
+		// Perform computing first sets for non-terminals
+		itNonTerminals = genNonTerminals.iterator();
+		while (itNonTerminals.hasNext()) {
+
+			symbol = itNonTerminals.next();
+
+			// for all the terminals find the first symbol and add it to the first set for that
+			// non-terminal
+			for (int key : finalProduction.keySet()) {
+
+				if (finalProduction.get(key).get(0).trim().equals(symbol.trim())) {
+
+					System.out.println("Non-terminal: " + symbol + " \t First Value in Set: "
+							+ finalProduction.get(key).get(1));
+					// if non-terminal, go until terminal is found
+					firstRHSSymbol = finalProduction.get(key).get(1).trim();
+
+					if (genNonTerminals.contains(firstRHSSymbol)) {
+
+						while (genNonTerminals.contains(firstRHSSymbol)) {
+							for (int index : finalProduction.keySet()) {
+								if (finalProduction.get(index).get(0).trim().equals(firstRHSSymbol)) {
+									setAllTerminals = helperFirstSet(firstRHSSymbol);
+									firstRHSSymbol = finalProduction.get(index).get(1).trim();
+									if (genTerminals.contains(firstRHSSymbol)) {
+										setTerminals.add(firstRHSSymbol);
+										//setAllTerminals = helperFirstSet(firstRHSSymbol);
+									}else{
+										// keep going until all terminals are found
+										setAllTerminals = helperFirstSet(firstRHSSymbol);
+									}
+								}
+
+								if (genTerminals.contains(firstRHSSymbol)||!setAllTerminals.isEmpty()) {
+									for (String sym : setTerminals) {
+										first = hmFirstSets.get(symbol);
+										first.add(sym);
+										hmFirstSets.put(symbol, first);
+									}
+									for (String sym : setAllTerminals) {
+										first = hmFirstSets.get(symbol);
+										first.add(sym);
+										hmFirstSets.put(symbol, first);
+									}
+								}
+							}
+
+						}// end of while loop
+					} else {
+						first = hmFirstSets.get(symbol);
+						first.add(firstRHSSymbol);
+						hmFirstSets.put(symbol, first);
+					}
+				}
+				setAllTerminals.clear();
+				setTerminals.clear();
+			}
+		}
+
+		System.out.println("****************");
+
+		// print out the key and values mappings for terminals and non-terminals
+		for (String key : hmFirstSets.keySet()) {
+			System.out.print("Symbol: " + key.trim() + " \t");
+			System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
+			System.out.println(" ");
+		}
+/*
+		first = new HashSet<String>();
+		itNonTerminals = genNonTerminals.iterator();
+		while (itNonTerminals.hasNext()) {
+			epsilon = itNonTerminals.next();
+			first.add(epsilon);
+			firstOrign.add(epsilon);
+		}
+
+
+
+		// Add all the terminals to the First Set
+		itTerminals = genTerminals.iterator();
+
+		while (itTerminals.hasNext()) {
+			epsilon = itTerminals.next();
+			// Do not add epsilon to the First Set
+			if (!epsilon.toLowerCase().contains("epsilon")) {
+				first.add(epsilon);
+				firstOrign.add(epsilon);
+			}
+		}
+
+		// Continue until First Sets do not change
+		while (change) {
+
+			// For each productions
+			for (int i = 0; i < finalProduction.size(); i++) {
+				production = finalProduction.get(i);
+				for (int j = 1; j < production.size(); j++) {
+					epsilon = production.get(j);
+					if (!epsilon.contains("|")) {// !epsilon.toLowerCase().contains("epsilon")&&
+						rhs += epsilon + " ";
+					}
+				}
+
+				// Add the rhs to the set
+				first.add(rhs);
+
+				// System.out.println("rhs \t" + rhs);
+
+				// Clear the rhs
+				rhs = "";
+
+
+				// Test here if First(A) has changed to set a flag for while loop
+				if (compareSets(firstOrign, first)) {
+					change = false;
+				} else {
+					itNonTerminals = first.iterator();
+					while (itNonTerminals.hasNext()) {
+						firstOrign.add(itNonTerminals.next());
+					}
+				}
+			}
+		}
+
+		// Add the First Sets to the class variable
+		itNonTerminals = first.iterator();
+		while (itNonTerminals.hasNext()) {
+			epsilon = itNonTerminals.next();
+			// System.out.println("Going into firstSetCV >>>>>>>>>>>>>> \t" + epsilon);
+			firstSetHM.put(epsilon, epsilon);
+		}*/
+	}
 	
-	public static void LLSkeletonParser(){
+	public static Set<String> helperFirstSet(String str){
+		String terminal = "", nonTerminal = "";
+		Set<String> setAllTerminals = new HashSet<String>(), first;
+		HashMap<String, Set<String>> hmFirstSymbol = new HashMap<String, Set<String>>();
+		
+		for(int key : finalProduction.keySet()){
+			nonTerminal = finalProduction.get(key).get(0).trim();
+			terminal = finalProduction.get(key).get(1).trim();
+			if(hmFirstSymbol.containsKey(nonTerminal)){
+				first = hmFirstSymbol.get(nonTerminal);
+				first.add(terminal);
+				hmFirstSymbol.put(nonTerminal, first);
+			}else{
+				first = new HashSet<String>();
+				first.add(terminal);
+				hmFirstSymbol.put(nonTerminal, first);
+			}
+		}
+		
+		while (genNonTerminals.contains(str)) {
+			Set<String> temp = hmFirstSymbol.get(str);
+			for(String sym : temp){
+				str = sym;
+			}
+			if(!genNonTerminals.contains(str)){
+				for(String nTerm : temp){
+					setAllTerminals.add(nTerm);
+				}
+			}
+			
+		}
+		return setAllTerminals;
+	}
+
+	public static boolean compareSets(Set<String> originalSet, Set<String> compareSet) {
+		String[] originalSetArray;
+		String[] compareSetArray;
+		if (originalSet.size() == compareSet.size()) {
+			originalSetArray = (String[]) originalSet.toArray(new String[0]);
+			compareSetArray = (String[]) compareSet.toArray(new String[0]);
+			for (int i = 0; i < compareSet.size(); i++) {
+				if (!compareSetArray[i].contains(originalSetArray[i])) {
+					// System.out.println("top \t " + compareSetArray[i]);
+					// System.out.println("bottom \t " + originalSetArray[i]);
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public static void LLSkeletonParser() {
 		Iterator<String> itNonTerm;
 		Stack<String> nonTermStack = new Stack<String>();
 		itNonTerm = genNonTerminals.iterator();
 		String TopOfStack = "";
-		while(itNonTerm.hasNext()){
+		while (itNonTerm.hasNext()) {
 			nonTermStack.add(itNonTerm.next());
 		}
-		
+
 		nonTermStack.add("EOF");
 		TopOfStack = nonTermStack.pop();
-		while(true){
-			if(TopOfStack.contains("EOF")){
+		while (true) {
+			if (TopOfStack.contains("EOF")) {
 				break;
-			}else{
+			} else {
 				TopOfStack = nonTermStack.pop();
 			}
-			
-			
+
+
 		}
 		return;
 	}
@@ -148,7 +472,7 @@ public class LLgen {
 								// Add Term, if at line 0 add the start symbol
 								gramLine.add(word);
 								// The start symbol found
-								if(boStartSymbol){
+								if (boStartSymbol) {
 									startSym += word;
 									boStartSymbol = false;
 								}
@@ -179,76 +503,116 @@ public class LLgen {
 		}
 
 		parseTheGrammar();
-		
+
 		// Test to see if everything is there // Fill in the Terminals
 		for (int i = 0; i < finalProduction.size(); i++) {
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
-				if(j != 0 && !genNonTerminals.contains(gramLine.get(j).trim())){
+				if (j != 0 && !genNonTerminals.contains(gramLine.get(j).trim())) {
 					genTerminals.add(gramLine.get(j).trim());
 				}
-				//System.out.print(gramLine.get(j) + " " );
+				// System.out.print(gramLine.get(j) + " " );
 			}
-			//System.out.println("");
+			// System.out.println("");
 		}
 		String strNonTerminals = "[";
 		Iterator<String> thisNonTermi = genNonTerminals.iterator();
-		while(thisNonTermi.hasNext()){
+		while (thisNonTermi.hasNext()) {
 			strNonTerminals += thisNonTermi.next();
-			if(thisNonTermi.hasNext()){
+			if (thisNonTermi.hasNext()) {
 				strNonTerminals += ", ";
 			}
 		}
 		strNonTerminals += "]";
-		
+
 		Iterator<String> iterTerminals = genTerminals.iterator();
 		String strTerminals = "[", strSym = "";
-		while(iterTerminals.hasNext()){
+		while (iterTerminals.hasNext()) {
 			strSym = grammarsTable(iterTerminals.next());
-			if(strSym.equals("")){
+			if (strSym.equals("")) {
 				continue;
 			}
 			strTerminals += strSym;
-			if(iterTerminals.hasNext()){
+			if (iterTerminals.hasNext()) {
 				strTerminals += ", ";
 			}
 		}
+
+		// Find the start symbol
+		startSym = getTheStartSymbol();
+
 		strTerminals += "]";
 		String strProduction = "";
-		System.out.println("terminals: "+ strTerminals);
-		System.out.println("non-terminals: "+ strNonTerminals);
+		System.out.println("terminals: " + strTerminals);
+		System.out.println("non-terminals: " + strNonTerminals);
 		System.out.println("eof-maker: <EOF>");
 		System.out.println("error-maker: --");
-		System.out.println("start-symbol: "+ startSym);
+		System.out.println("start-symbol: " + startSym);
 		System.out.println("");
 		System.out.println("productions: ");
 		for (int i = 0; i < finalProduction.size(); i++) {
-			strProduction += "\t"+ Integer.toString(i)+":\t";
+			strProduction += "\t" + Integer.toString(i) + ":\t";
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
-				if(j == 0){
-					strProduction += "{"+gramLine.get(j).trim()+": [";
+				if (j == 0) {
+					strProduction += "{" + gramLine.get(j).trim() + ": [";
 					continue;
 				}
-				if(j +1 == gramLine.size()){
-					if(gramLine.size() ==2 && grammarsTable(gramLine.get(j).trim()) == ""){
+				if (j + 1 == gramLine.size()) {
+					if (gramLine.size() == 2 && grammarsTable(gramLine.get(j).trim()) == "") {
 						strProduction += "]}";
 						continue;
 					}
-					if(grammarsTable(gramLine.get(j).trim()).equals("")){
+					if (grammarsTable(gramLine.get(j).trim()).equals("")) {
 						continue;
-					}else{
-						strProduction += grammarsTable(gramLine.get(j).trim())+ "]}";
+					} else {
+						strProduction += grammarsTable(gramLine.get(j).trim()) + "]}";
 					}
-				}else{
-					strProduction += grammarsTable(gramLine.get(j).trim())+", ";
+				} else {
+					strProduction += grammarsTable(gramLine.get(j).trim()) + ", ";
 				}
 			}
 			System.out.println(strProduction);
 			strProduction = "";
-			//System.out.println("");
+			// System.out.println("");
 		}
-		
+
+	}
+
+	public static String getTheStartSymbol() {
+		// Start symbol
+		String theStartSymbol = "", testSymbol = "";
+		// Set that will only have the start symbol
+		Set<String> symbols = new HashSet<String>();
+
+		// A production
+		ArrayList<String> production;
+
+		// Get all the non-termninals
+		for (int i = 0; i < finalProduction.size(); i++) {
+			production = finalProduction.get(i);
+			// System.out.println("NT >>>>> \t" +production.get(0));
+			symbols.add(production.get(0).trim());
+		}
+
+		// Remove all the non-start symbols
+		for (int i = 0; i < finalProduction.size(); i++) {
+			production = finalProduction.get(i);
+			for (int j = 1; j < production.size(); j++) {
+				// System.out.println("Terminals <<<<< \t "+production.get(j));
+				symbols.remove(production.get(j).trim());
+			}
+		}
+
+		Iterator<String> it = symbols.iterator();
+		while (it.hasNext()) {
+			testSymbol = it.next();
+			if (!testSymbol.contains("'")) {
+				theStartSymbol = testSymbol;
+			}
+		}
+
+		return theStartSymbol;
 	}
 
 	public static void parseTheGrammar() {
@@ -272,17 +636,17 @@ public class LLgen {
 				// Looks for a match between non-Terminal and LR grammar
 				if (j != 0 && gramLine.get(0).contains(gramLine.get(j))) {
 					matchWord = gramLine.get(j);
-					
+
 					match = true;
-					
+
 				}
 
 				if (flag && match) {
 					// System.out.print("*****Match.***");
-					
+
 					buildProductions(gramLine, flagIndex);
 					nonMatch = false;
-				} 
+				}
 
 				// Adds to the collection of non-terminals
 				determineIfNonTerm(gramLine.get(j), j);
@@ -290,8 +654,8 @@ public class LLgen {
 
 				match = false;
 			}
-			//System.out.println("");
-			if(nonMatch){
+			// System.out.println("");
+			if (nonMatch) {
 				buildNonFlagProductions(gramLine);
 			}
 			nonMatch = true;
@@ -325,21 +689,21 @@ public class LLgen {
 					genNonTerminals.add(gramLine.get(0));
 				}
 			}
-			
+
 			if (x == gramLine.size() - 1 && !createdProduction.contains(productionString)) {
-				 //System.out.println(">>>>>>>>>>>> \t"+productionString);
-				 createdProduction.add(productionString);
-				 
+				// System.out.println(">>>>>>>>>>>> \t"+productionString);
+				createdProduction.add(productionString);
+
 				finalProduction.put(productionMapIndex, productionArrayList);
 				productionMapIndex += 1;
 			}
 		}
-		
+
 		for (int i = 0; i < mapOfStrings.size(); i++) {
 			if (!createdProduction.contains(mapOfStrings.get(i))) {
 				createdProduction.add(mapOfStrings.get(i));
-				
-				
+
+
 				finalProduction.put(productionMapIndex, mapOfMaps.get(i));
 				productionMapIndex += 1;
 			}
@@ -411,7 +775,7 @@ public class LLgen {
 				productionArrayList.add(gramLine.get(x));
 				productionString2 += gramLine.get(x) + " ";
 			}
-			if (x == gramLine.size() - 1 &&!createdProduction.contains(productionString2)) {
+			if (x == gramLine.size() - 1 && !createdProduction.contains(productionString2)) {
 				// System.out.println(productionString2);
 				createdProduction.add(productionString2);
 				finalProduction.put(productionMapIndex, productionArrayList);
@@ -421,8 +785,8 @@ public class LLgen {
 		for (int i = 0; i < mapOfStrings.size(); i++) {
 			if (!createdProduction.contains(mapOfStrings.get(i))) {
 				createdProduction.add(mapOfStrings.get(i));
-				
-				
+
+
 				finalProduction.put(productionMapIndex, mapOfMaps.get(i));
 				productionMapIndex += 1;
 			}
@@ -430,15 +794,15 @@ public class LLgen {
 		for (int j = 0; j < mapOfStrings2.size(); j++) {
 			if (!createdProduction.contains(mapOfStrings2.get(j))) {
 				createdProduction.add(mapOfStrings2.get(j));
-				
-				
+
+
 				finalProduction.put(productionMapIndex, mapOfMaps2.get(j));
 				productionMapIndex += 1;
 			}
 		}
 	}
 
-	
+
 	public static boolean determineIfInGrammarTable(String word) {
 		if (grammarTable.containsKey(word)) {
 			return true;

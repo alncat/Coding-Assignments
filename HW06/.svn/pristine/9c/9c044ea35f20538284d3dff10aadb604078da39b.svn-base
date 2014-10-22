@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_Dk3wIFgPEeSTYp88fJMr7g">
+  <modelElement href="HW062.uml#_BI75MFgPEeSTYp88fJMr7g"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETJLYFgPEeSTYp88fJMr7g" name="adapters">
+    <modelElement href="HW062.uml#_CJTKAFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETJLYVgPEeSTYp88fJMr7g" position="50.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETKZgFgPEeSTYp88fJMr7g" name="java">
+    <modelElement href="HW062.uml#_CJUYIFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETKZgVgPEeSTYp88fJMr7g" position="-115.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETLAkFgPEeSTYp88fJMr7g" name="view">
+    <modelElement href="HW062.uml#_CJUYIlgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETLAkVgPEeSTYp88fJMr7g" position="200.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETMOsFgPEeSTYp88fJMr7g" name="model">
+    <modelElement href="HW062.uml#_CJUYI1gPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETMOsVgPEeSTYp88fJMr7g" position="350.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETM1wFgPEeSTYp88fJMr7g" name="controller">
+    <modelElement href="HW062.uml#_CJU_MFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETM1wVgPEeSTYp88fJMr7g" position="-280.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETNc0FgPEeSTYp88fJMr7g" name="provided">
+    <modelElement href="HW062.uml#_CJVmQVgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETNc0VgPEeSTYp88fJMr7g" position="500.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_ETOD4FgPEeSTYp88fJMr7g" name="javax">
+    <modelElement href="HW062.uml#_CJ-fcFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_ETOD4VgPEeSTYp88fJMr7g" position="-445.0,50.0" size="-1.0,-1.0"/>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

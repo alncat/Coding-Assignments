@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_Dl0yYFgPEeSTYp88fJMr7g">
+  <modelElement href="HW062.uml#_CJYpkFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IP2RgFgPEeSTYp88fJMr7g" sourceAnchor="75.0,0.0" targetAnchor="0.0,32.0" target="_IP3foFgPEeSTYp88fJMr7g" source="_IP3foFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSQRsFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQGwMFgPEeSTYp88fJMr7g" position="110.0,110.0"/>
+    <bendpoints xmi:id="_IcIaAFgPEeSTYp88fJMr7g" sourceY="-97" targetX="75" targetY="-129"/>
+    <bendpoints xmi:id="_IcIaAVgPEeSTYp88fJMr7g" sourceX="-155" sourceY="-97" targetX="-80" targetY="-129"/>
+    <bendpoints xmi:id="_IcIaAlgPEeSTYp88fJMr7g" sourceX="-155" sourceY="32" targetX="-80"/>
+    <stereotypes xmi:id="_IP24lVgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSQRslgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IP24klgPEeSTYp88fJMr7g" text="">
+      <visualProperties xmi:id="_IcIaBFgPEeSTYp88fJMr7g" position="49.50000000000003,-8.000000000000014"/>
+    </nameVisual>
+    <sourceRole xmi:id="_IP24k1gPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSQRsVgPEeSTYp88fJMr7g"/>
+      <visualProperties xmi:id="_IcIaA1gPEeSTYp88fJMr7g" position="-20.0,-45.999999999999986"/>
+      <visibility xmi:id="_IP24l1gPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP24llgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IP24lFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="NULL" navigable="true">
+      <modelElement href="HW062.uml#_CMMF8lgPEeSTYp88fJMr7g"/>
+      <visualProperties xmi:id="_IcIaBVgPEeSTYp88fJMr7g" position="-50.00000000000003,6.0"/>
+      <visibility xmi:id="_IP24mVgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP24mFgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP2RglgPEeSTYp88fJMr7g" targetItem="_IP3foFgPEeSTYp88fJMr7g" sourceItem="_IP2RgVgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP24kVgPEeSTYp88fJMr7g" targetItem="_IP3fp1gPEeSTYp88fJMr7g" sourceItem="_IP24kFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP4twVgPEeSTYp88fJMr7g" targetItem="_IP7xEFgPEeSTYp88fJMr7g" sourceItem="_IP4twFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP4tw1gPEeSTYp88fJMr7g" targetItem="_IP7xSFgPEeSTYp88fJMr7g" sourceItem="_IP4twlgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP4txVgPEeSTYp88fJMr7g" targetItem="_IP7xUVgPEeSTYp88fJMr7g" sourceItem="_IP4txFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP4tx1gPEeSTYp88fJMr7g" targetItem="_IP7xWVgPEeSTYp88fJMr7g" sourceItem="_IP4txlgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5U0VgPEeSTYp88fJMr7g" targetItem="_IP7xW1gPEeSTYp88fJMr7g" sourceItem="_IP5U0FgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5U01gPEeSTYp88fJMr7g" targetItem="_IP7xX1gPEeSTYp88fJMr7g" sourceItem="_IP5U0lgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5U1VgPEeSTYp88fJMr7g" targetItem="_IP7xY1gPEeSTYp88fJMr7g" sourceItem="_IP5U1FgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5U11gPEeSTYp88fJMr7g" targetItem="_IP7xZ1gPEeSTYp88fJMr7g" sourceItem="_IP5U1lgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5U2VgPEeSTYp88fJMr7g" targetItem="_IP7xa1gPEeSTYp88fJMr7g" sourceItem="_IP5U2FgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5U21gPEeSTYp88fJMr7g" targetItem="_IP7xb1gPEeSTYp88fJMr7g" sourceItem="_IP5U2lgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP574VgPEeSTYp88fJMr7g" targetItem="_IP7xd1gPEeSTYp88fJMr7g" sourceItem="_IP574FgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IP5741gPEeSTYp88fJMr7g" targetItem="_IP7xgVgPEeSTYp88fJMr7g" sourceItem="_IP574lgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IP7KAFgPEeSTYp88fJMr7g" source="_IP7xEFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSb35FgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQHXSlgPEeSTYp88fJMr7g" position="150.0,150.0"/>
+    <stereotypes xmi:id="_IP7KAVgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSce8FgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IP7KAlgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IP7KA1gPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSb35VgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KBFgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP7KBVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IP7KBlgPEeSTYp88fJMr7g" aggregationKind="NONE" name="_sequence" navigable="true">
+      <modelElement href="HW062.uml#_CRakMFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KB1gPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7KCFgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IP7KCVgPEeSTYp88fJMr7g" source="_IP7xEFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSce8VgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQHXS1gPEeSTYp88fJMr7g" position="170.0,170.0"/>
+    <stereotypes xmi:id="_IP7KClgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSdGAFgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IP7KC1gPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IP7KDFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSce8lgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KDVgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP7KDlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IP7KD1gPEeSTYp88fJMr7g" aggregationKind="NONE" name="_track" navigable="true">
+      <modelElement href="HW062.uml#_CRakMlgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KEFgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7KEVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IP7KElgPEeSTYp88fJMr7g" source="_IP7xEFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSdGAVgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQHXTFgPEeSTYp88fJMr7g" position="190.0,190.0"/>
+    <stereotypes xmi:id="_IP7KE1gPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSdGA1gPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IP7KFFgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IP7KFVgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSdGAlgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KFlgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP7KF1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IP7KGFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="_sequencer" navigable="true">
+      <modelElement href="HW062.uml#_CRbyU1gPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KGVgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7KGlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IP7KG1gPEeSTYp88fJMr7g" source="_IP7xEFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSdGBFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQHXTVgPEeSTYp88fJMr7g" position="210.0,210.0"/>
+    <stereotypes xmi:id="_IP7KHFgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSdtEFgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IP7KHVgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IP7KHlgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSdGBVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KH1gPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP7KIFgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IP7KIVgPEeSTYp88fJMr7g" aggregationKind="NONE" name="_synthesizer" navigable="true">
+      <modelElement href="HW062.uml#_CRcZYFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7KIlgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7KI1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQApkVgPEeSTYp88fJMr7g" targetItem="_IQDs4FgPEeSTYp88fJMr7g" sourceItem="_IQApkFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IQApklgPEeSTYp88fJMr7g" source="_IQDs4FgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSdtEVgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQH-UFgPEeSTYp88fJMr7g" position="230.0,230.0"/>
+    <stereotypes xmi:id="_IQCew1gPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSeUIFgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IQCewFgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IQCewVgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSdtElgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDF0VgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IQDF0FgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IQCewlgPEeSTYp88fJMr7g" aggregationKind="NONE" name="_sequence" navigable="true">
+      <modelElement href="HW062.uml#_CRdAclgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDF01gPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDF0lgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IQApk1gPEeSTYp88fJMr7g" source="_IQDs4FgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSeUIVgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQH-UVgPEeSTYp88fJMr7g" position="250.0,250.0"/>
+    <stereotypes xmi:id="_IQCex1gPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSeUI1gPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IQCexFgPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IQCexVgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSeUIlgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDF1lgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IQDF1VgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IQCexlgPEeSTYp88fJMr7g" aggregationKind="NONE" name="_track" navigable="true">
+      <modelElement href="HW062.uml#_CRdngVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDF2FgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDF11gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQAplVgPEeSTYp88fJMr7g" targetItem="_IQDtClgPEeSTYp88fJMr7g" sourceItem="_IQAplFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQApl1gPEeSTYp88fJMr7g" targetItem="_IQDtE1gPEeSTYp88fJMr7g" sourceItem="_IQApllgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQBQoVgPEeSTYp88fJMr7g" targetItem="_IQDtG1gPEeSTYp88fJMr7g" sourceItem="_IQBQoFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQBQo1gPEeSTYp88fJMr7g" targetItem="_IQDtH1gPEeSTYp88fJMr7g" sourceItem="_IQBQolgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQBQpVgPEeSTYp88fJMr7g" targetItem="_IQDtI1gPEeSTYp88fJMr7g" sourceItem="_IQBQpFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQBQp1gPEeSTYp88fJMr7g" targetItem="_IQDtJ1gPEeSTYp88fJMr7g" sourceItem="_IQBQplgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQBQqVgPEeSTYp88fJMr7g" targetItem="_IQDtK1gPEeSTYp88fJMr7g" sourceItem="_IQBQqFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQBQq1gPEeSTYp88fJMr7g" targetItem="_IQDtL1gPEeSTYp88fJMr7g" sourceItem="_IQBQqlgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQB3sVgPEeSTYp88fJMr7g" targetItem="_IQDtN1gPEeSTYp88fJMr7g" sourceItem="_IQB3sFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_IQB3s1gPEeSTYp88fJMr7g" targetItem="_IQDtQVgPEeSTYp88fJMr7g" sourceItem="_IQB3slgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_IQHXQFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSQRs1gPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQHXQVgPEeSTYp88fJMr7g" position="130.0,130.0"/>
+    <stereotypes xmi:id="_IQHXQlgPEeSTYp88fJMr7g" name="Reference">
+      <modelElement href="HW062.uml#_CSQ4wFgPEeSTYp88fJMr7g"/>
+    </stereotypes>
+    <nameVisual xmi:id="_IQHXQ1gPEeSTYp88fJMr7g" text=""/>
+    <sourceRole xmi:id="_IQHXRFgPEeSTYp88fJMr7g" aggregationKind="NONE" name="">
+      <modelElement href="HW062.uml#_CSQRtFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQHXRVgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IQHXRlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_IQHXR1gPEeSTYp88fJMr7g" aggregationKind="NONE" name="NULL" navigable="true">
+      <modelElement href="HW062.uml#_CMUBwFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQHXSFgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IQHXSVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP2RgVgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP2RglgPEeSTYp88fJMr7g" text="Command that is used to notify a user that a track has stopped playing.&#xD;&#xA;@author swong&#xD;&#xA; *" item="_IP3foFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSIV71gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP24kFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP24kVgPEeSTYp88fJMr7g" text="Called when a track stops playing." item="_IP3fp1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSIV8FgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP4twFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP4twVgPEeSTYp88fJMr7g" text="Sequence Player to create and play MIDI music sequences." item="_IP7xEFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSIV8VgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP4twlgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP4tw1gPEeSTYp88fJMr7g" text="Create a new SequencePlayer to create and play music.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param  ticksPerQuarterNote      - tick definition&#xD;&#xA;&#x9; * @param  instrument               - MIDI instrument" item="_IP7xSFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSIV8lgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP4txFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP4txVgPEeSTYp88fJMr7g" text="Initialize the SequencePlayer as per the supplied ticksPerQuarterNote and instrument&#xD;&#xA;&#x9; * this SequencePlayer was instantiated with.   This method is called by the constructor to &#xD;&#xA;&#x9; * initialize the player upon instantiation and can be called again to reinitialize the &#xD;&#xA;&#x9; * SequencePlayer.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param  ticksPerQuarterNote      - tick definition&#xD;&#xA;&#x9; * @param  instrument               - MIDI instrument&#xD;&#xA;&#x9; * @return                         - true if properly initialized, false otherwise" item="_IP7xUVgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI88FgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP4txlgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP4tx1gPEeSTYp88fJMr7g" text="Stop playing music and close resources." item="_IP7xWVgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI89FgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP5U0FgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5U0VgPEeSTYp88fJMr7g" text="Accessor to get the current ticks per default note&#xD;&#xA;&#x9; * @return the _ticksPerDefaultNote" item="_IP7xW1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI89VgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP5U0lgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5U01gPEeSTYp88fJMr7g" text="Accessor to set the current ticks per default note&#xD;&#xA;&#x9; * @param ticksPerDefaultNote the _ticksPerDefaultNote to set" item="_IP7xX1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI89lgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP5U1FgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5U1VgPEeSTYp88fJMr7g" text="Accessor for the current tempo&#xD;&#xA;&#x9; * @return the tempo (in beats per minute)" item="_IP7xY1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI891gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP5U1lgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5U11gPEeSTYp88fJMr7g" text="Set the tempo - can't change the tempo in the middle of a sequence,&#xD;&#xA;&#x9; * the last tempo set will be used for the whole sequence.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param bpm - beats per minute" item="_IP7xZ1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI8-FgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP5U2FgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5U2VgPEeSTYp88fJMr7g" text="Accessor for the current number of ticks per quarter note.&#xD;&#xA;&#x9; * @return the number of ticks per quarter note" item="_IP7xa1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI8-VgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP5U2lgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5U21gPEeSTYp88fJMr7g" text="Add a note to the MIDI sequence with a default velocity of 64 for middle volume&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param note     - the note to schedule in the sequence&#xD;&#xA;&#x9; * @param start    - the tick at which this note should start playing&#xD;&#xA;&#x9; * @return         - the tick at which this note stops playing" item="_IP7xb1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI88VgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP574FgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP574VgPEeSTYp88fJMr7g" text="Add a note to the MIDI sequence.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param note     - the note to schedule in the sequence&#xD;&#xA;&#x9; * @param start    - the tick at which this note should start playing&#xD;&#xA;&#x9; * @param velocity - the volume (0-127)&#xD;&#xA;&#x9; * @return         - the tick at which this note stops playing" item="_IP7xd1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI88lgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IP574lgPEeSTYp88fJMr7g" sourceConnectionVisual="_IP5741gPEeSTYp88fJMr7g" text="Play the created Sequence.&#xD;&#xA;&#x9; * @param statusCmd The finished() method of this command is called when the track finishes being played, i.e. a normal termination.  There is no notification if play is forcibly stopped." item="_IP7xgVgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI881gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQApkFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQApkVgPEeSTYp88fJMr7g" text="Sequence Player to create and play MIDI music sequences.&#xD;&#xA;Differs from SequencePlayer because it has no play() method.   Instead, this class has &#xD;&#xA;a factory method that creates an SequencePlayer2.IPlayable object that can be individually &#xD;&#xA;and asynchronously started and stopped." item="_IQDs4FgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI8-lgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQAplFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQAplVgPEeSTYp88fJMr7g" text="Create a new SequencePlayer to create and play music.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param  ticksPerQuarterNote      - tick definition&#xD;&#xA;&#x9; * @param  instrument               - MIDI instrument" item="_IQDtClgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI8_lgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQApllgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQApl1gPEeSTYp88fJMr7g" text="Initialize the SequencePlayer as per the supplied ticksPerQuarterNote and instrument&#xD;&#xA;&#x9; * this SequencePlayer was instantiated with.   This method is called by the constructor to &#xD;&#xA;&#x9; * initialize the player upon instantiation and can be called again to reinitialize the &#xD;&#xA;&#x9; * SequencePlayer.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param  ticksPerQuarterNote      - tick definition&#xD;&#xA;&#x9; * @param  instrument               - MIDI instrument&#xD;&#xA;&#x9; * @return                         - true if properly initialized, false otherwise" item="_IQDtE1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI8_1gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQBQoFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQBQoVgPEeSTYp88fJMr7g" text="Accessor to get the current ticks per default note&#xD;&#xA;&#x9; * @return the _ticksPerDefaultNote" item="_IQDtG1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSJkAFgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQBQolgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQBQo1gPEeSTYp88fJMr7g" text="Accessor to set the current ticks per default note&#xD;&#xA;&#x9; * @param ticksPerDefaultNote the _ticksPerDefaultNote to set" item="_IQDtH1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSJkAVgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQBQpFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQBQpVgPEeSTYp88fJMr7g" text="Accessor for the current tempo&#xD;&#xA;&#x9; * @return the tempo (in beats per minute)" item="_IQDtI1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSJkAlgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQBQplgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQBQp1gPEeSTYp88fJMr7g" text="Set the tempo - can't change the tempo in the middle of a sequence,&#xD;&#xA;&#x9; * the last tempo set will be used for the whole sequence.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param bpm - beats per minute" item="_IQDtJ1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSJkA1gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQBQqFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQBQqVgPEeSTYp88fJMr7g" text="Accessor for the current number of ticks per quarter note.&#xD;&#xA;&#x9; * @return the number of ticks per quarter note" item="_IQDtK1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSJkBFgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQBQqlgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQBQq1gPEeSTYp88fJMr7g" text="Add a note to the MIDI sequence with a default velocity of 64 for middle volume&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param note     - the note to schedule in the sequence&#xD;&#xA;&#x9; * @param start    - the tick at which this note should start playing&#xD;&#xA;&#x9; * @return         - the tick at which this note stops playing" item="_IQDtL1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI9AFgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQB3sFgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQB3sVgPEeSTYp88fJMr7g" text="Add a note to the MIDI sequence.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param note     - the note to schedule in the sequence&#xD;&#xA;&#x9; * @param start    - the tick at which this note should start playing&#xD;&#xA;&#x9; * @param velocity - the volume (0-127)&#xD;&#xA;&#x9; * @return         - the tick at which this note stops playing" item="_IQDtN1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI9AVgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_IQB3slgPEeSTYp88fJMr7g" sourceConnectionVisual="_IQB3s1gPEeSTYp88fJMr7g" text="Factory method for an IPlayable object that can play the currently programmed music sequence.&#xD;&#xA;&#x9; * @param statusCmd The finished() method of this command is called when the track finishes being played, i.e. a normal termination.  There is no notification if play is forcibly stopped.&#xD;&#xA;&#x9; * @return An IPlayable object associated with the currently programmed music sequence." item="_IQDtQVgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSI9AlgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_IP3foFgPEeSTYp88fJMr7g" comments="_IP2RgVgPEeSTYp88fJMr7g" targetConnectionVisual="_IP2RglgPEeSTYp88fJMr7g" name="ISequencePlayerStatus" associationsIn="_IP2RgFgPEeSTYp88fJMr7g" associationsOut="_IP2RgFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CMMF8FgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IP3foVgPEeSTYp88fJMr7g" position="50.0,50.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_IP3folgPEeSTYp88fJMr7g" label="+"/>
+    <attributes xmi:id="_IP3fo1gPEeSTYp88fJMr7g" defaultValue="new ISequencePlayerStatus() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;/**&#xD;&#xA;&#x9;&#x9; * Prints &quot;ISequencePlayerStatus.NULL.finished(): Track finished playing!&quot; to console.&#xD;&#xA;&#x9;&#x9; */&#xD;&#xA;&#x9;&#x9;@Override&#xD;&#xA;&#x9;&#x9;public void finished() {&#xD;&#xA;&#x9;&#x9;&#x9;System.out&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;.println(&quot;ISequencePlayerStatus.NULL.finished(): Track finished playing!&quot;);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;}" name="NULL" staticAttribute="true">
+      <modelElement href="HW062.uml#_CMMF8lgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP3fpFgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP3fpVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP3fplgPEeSTYp88fJMr7g" name="ISequencePlayerStatus">
+        <modelElement href="HW062.uml#_CMMF8FgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_IP3fp1gPEeSTYp88fJMr7g" comments="_IP24kFgPEeSTYp88fJMr7g" targetConnectionVisual="_IP24kVgPEeSTYp88fJMr7g" name="finished">
+      <modelElement href="HW062.uml#_CMMF8VgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP3fqFgPEeSTYp88fJMr7g" label="+"/>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_IP7xEFgPEeSTYp88fJMr7g" comments="_IP4twFgPEeSTYp88fJMr7g" targetConnectionVisual="_IP4twVgPEeSTYp88fJMr7g" name="SequencePlayer" associationsOut="_IP7KAFgPEeSTYp88fJMr7g _IP7KCVgPEeSTYp88fJMr7g _IP7KElgPEeSTYp88fJMr7g _IP7KG1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CMMtAFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IP7xEVgPEeSTYp88fJMr7g" position="270.0,-318.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_IP7xElgPEeSTYp88fJMr7g" label="+"/>
+    <attributes xmi:id="_IP7xE1gPEeSTYp88fJMr7g" defaultValue="47" name="END_OF_TRACK" staticAttribute="true">
+      <modelElement href="HW062.uml#_CRZ9I1gPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xFFgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IP7xFVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xFlgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xF1gPEeSTYp88fJMr7g" name="_sequence">
+      <modelElement href="HW062.uml#_CRakMFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xGFgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRakMVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_IP7xGVgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRakMVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xGlgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xG1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xHFgPEeSTYp88fJMr7g" name="Sequence">
+        <modelElement href="HW062.uml#_CQ9RM1gPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xHVgPEeSTYp88fJMr7g" name="_track">
+      <modelElement href="HW062.uml#_CRakMlgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xHlgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRakM1gPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_IP7xH1gPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRakM1gPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xIFgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xIVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xIlgPEeSTYp88fJMr7g" name="Track">
+        <modelElement href="HW062.uml#_CQ94QVgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xI1gPEeSTYp88fJMr7g" name="_bpm">
+      <modelElement href="HW062.uml#_CRakNFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xJFgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRbLQFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xJVgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xJlgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xJ1gPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xKFgPEeSTYp88fJMr7g" name="_ticksPerDefaultNote">
+      <modelElement href="HW062.uml#_CRbLQVgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xKVgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRbLQlgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xKlgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xK1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xLFgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xLVgPEeSTYp88fJMr7g" name="_ticksPerQuarterNote">
+      <modelElement href="HW062.uml#_CRbLQ1gPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xLlgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRbyUFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xL1gPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xMFgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xMVgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xMlgPEeSTYp88fJMr7g" name="_instrument">
+      <modelElement href="HW062.uml#_CRbyUVgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xM1gPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRbyUlgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xNFgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xNVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xNlgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xN1gPEeSTYp88fJMr7g" name="_sequencer">
+      <modelElement href="HW062.uml#_CRbyU1gPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xOFgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRbyVFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_IP7xOVgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRbyVFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xOlgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xO1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xPFgPEeSTYp88fJMr7g" name="Sequencer">
+        <modelElement href="HW062.uml#_CQ-fUVgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xPVgPEeSTYp88fJMr7g" name="_synthesizer">
+      <modelElement href="HW062.uml#_CRcZYFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xPlgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRcZYVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_IP7xP1gPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRcZYVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xQFgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xQVgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IP7xQlgPEeSTYp88fJMr7g" name="Synthesizer">
+        <modelElement href="HW062.uml#_CQYCYFgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IP7xQ1gPEeSTYp88fJMr7g" defaultValue="{ // add these amounts to the base value&#xD;&#xA;&#x9;// A   B  C  D  E  F  G&#xD;&#xA;&#x9;&#x9;&#x9;9, 11, 0, 2, 4, 5, 7 }" name="_offsets" staticAttribute="true">
+      <modelElement href="HW062.uml#_CRcZYlgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IP7xRFgPEeSTYp88fJMr7g" name="Array">
+        <modelElement href="HW062.uml#_CRcZZFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IP7xRVgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IP7xRlgPEeSTYp88fJMr7g" label="1..*" max="-1" min="1"/>
+      <type xmi:id="_IP7xR1gPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_IP7xSFgPEeSTYp88fJMr7g" comments="_IP4twlgPEeSTYp88fJMr7g" targetConnectionVisual="_IP4tw1gPEeSTYp88fJMr7g" name="SequencePlayer">
+      <modelElement href="HW062.uml#_CMN7IFgPEeSTYp88fJMr7g"/>
+      <keywords xmi:id="_IP7xSVgPEeSTYp88fJMr7g" keyword="create"/>
+      <visibility xmi:id="_IP7xSlgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xS1gPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMN7JVgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xTFgPEeSTYp88fJMr7g" name="SequencePlayer">
+          <modelElement href="HW062.uml#_CMMtAFgPEeSTYp88fJMr7g"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IP7xTVgPEeSTYp88fJMr7g" name="ticksPerQuarterNote">
+        <modelElement href="HW062.uml#_CMN7IVgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xTlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IP7xT1gPEeSTYp88fJMr7g" name="instrument">
+        <modelElement href="HW062.uml#_CMN7IlgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xUFgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IP7xUVgPEeSTYp88fJMr7g" comments="_IP4txFgPEeSTYp88fJMr7g" targetConnectionVisual="_IP4txVgPEeSTYp88fJMr7g" name="init">
+      <modelElement href="HW062.uml#_CMN7JlgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xUlgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xU1gPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMOiMVgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xVFgPEeSTYp88fJMr7g" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IP7xVVgPEeSTYp88fJMr7g" name="ticksPerQuarterNote">
+        <modelElement href="HW062.uml#_CMN7J1gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xVlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IP7xV1gPEeSTYp88fJMr7g" name="instrument">
+        <modelElement href="HW062.uml#_CMOiMFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xWFgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IP7xWVgPEeSTYp88fJMr7g" comments="_IP4txlgPEeSTYp88fJMr7g" targetConnectionVisual="_IP4tx1gPEeSTYp88fJMr7g" name="stop">
+      <modelElement href="HW062.uml#_CMOiMlgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xWlgPEeSTYp88fJMr7g" label="+"/>
+    </operations>
+    <operations xmi:id="_IP7xW1gPEeSTYp88fJMr7g" comments="_IP5U0FgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5U0VgPEeSTYp88fJMr7g" name="getTicksPerDefaultNote">
+      <modelElement href="HW062.uml#_CMPJQFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xXFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xXVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMPJQVgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xXlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_IP7xX1gPEeSTYp88fJMr7g" comments="_IP5U0lgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5U01gPEeSTYp88fJMr7g" name="setTicksPerDefaultNote">
+      <modelElement href="HW062.uml#_CMPJQlgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xYFgPEeSTYp88fJMr7g" label="+"/>
+      <parameters xmi:id="_IP7xYVgPEeSTYp88fJMr7g" name="ticksPerDefaultNote">
+        <modelElement href="HW062.uml#_CMPJQ1gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xYlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IP7xY1gPEeSTYp88fJMr7g" comments="_IP5U1FgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5U1VgPEeSTYp88fJMr7g" name="getTempo">
+      <modelElement href="HW062.uml#_CMPJRFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xZFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xZVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMPwUFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xZlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_IP7xZ1gPEeSTYp88fJMr7g" comments="_IP5U1lgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5U11gPEeSTYp88fJMr7g" name="setTempo">
+      <modelElement href="HW062.uml#_CMPwUVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xaFgPEeSTYp88fJMr7g" label="+"/>
+      <parameters xmi:id="_IP7xaVgPEeSTYp88fJMr7g" name="bpm">
+        <modelElement href="HW062.uml#_CMPwUlgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xalgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IP7xa1gPEeSTYp88fJMr7g" comments="_IP5U2FgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5U2VgPEeSTYp88fJMr7g" name="getTicksPerQuarterNote">
+      <modelElement href="HW062.uml#_CMPwU1gPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xbFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xbVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMPwVFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xblgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_IP7xb1gPEeSTYp88fJMr7g" comments="_IP5U2lgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5U21gPEeSTYp88fJMr7g" name="addNote">
+      <modelElement href="HW062.uml#_CQFugFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xcFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xcVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CQGVkFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xclgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IP7xc1gPEeSTYp88fJMr7g" name="note">
+        <modelElement href="HW062.uml#_CQFugVgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xdFgPEeSTYp88fJMr7g" name="Note">
+          <modelElement href="HW062.uml#_CL8OUFgPEeSTYp88fJMr7g"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IP7xdVgPEeSTYp88fJMr7g" name="start">
+        <modelElement href="HW062.uml#_CQFuglgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xdlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IP7xd1gPEeSTYp88fJMr7g" comments="_IP574FgPEeSTYp88fJMr7g" targetConnectionVisual="_IP574VgPEeSTYp88fJMr7g" name="addNote">
+      <modelElement href="HW062.uml#_CQG8oFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xeFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IP7xeVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CQG8pFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xelgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IP7xe1gPEeSTYp88fJMr7g" name="note">
+        <modelElement href="HW062.uml#_CQG8oVgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xfFgPEeSTYp88fJMr7g" name="Note">
+          <modelElement href="HW062.uml#_CL8OUFgPEeSTYp88fJMr7g"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IP7xfVgPEeSTYp88fJMr7g" name="start">
+        <modelElement href="HW062.uml#_CQG8olgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xflgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IP7xf1gPEeSTYp88fJMr7g" name="velocity">
+        <modelElement href="HW062.uml#_CQG8o1gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IP7xgFgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IP7xgVgPEeSTYp88fJMr7g" comments="_IP574lgPEeSTYp88fJMr7g" targetConnectionVisual="_IP5741gPEeSTYp88fJMr7g" name="play">
+      <modelElement href="HW062.uml#_CQG8pVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IP7xglgPEeSTYp88fJMr7g" label="+"/>
+      <parameters xmi:id="_IP7xg1gPEeSTYp88fJMr7g" name="statusCmd">
+        <modelElement href="HW062.uml#_CQG8plgPEeSTYp88fJMr7g"/>
+        <keywords xmi:id="_IP7xhFgPEeSTYp88fJMr7g" keyword="final"/>
+        <type xmi:id="_IP7xhVgPEeSTYp88fJMr7g" name="ISequencePlayerStatus">
+          <modelElement href="HW062.uml#_CMMF8FgPEeSTYp88fJMr7g"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_IQDs4FgPEeSTYp88fJMr7g" comments="_IQApkFgPEeSTYp88fJMr7g" targetConnectionVisual="_IQApkVgPEeSTYp88fJMr7g" name="SequencePlayer2" associationsOut="_IQApklgPEeSTYp88fJMr7g _IQApk1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CMSzoFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_IQDs4VgPEeSTYp88fJMr7g" position="831.0,-269.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_IQDs4lgPEeSTYp88fJMr7g" label="+"/>
+    <attributes xmi:id="_IQDs41gPEeSTYp88fJMr7g" defaultValue="47" name="END_OF_TRACK" staticAttribute="true">
+      <modelElement href="HW062.uml#_CRdAcFgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDs5FgPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IQDs5VgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDs5lgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDs51gPEeSTYp88fJMr7g" name="_sequence">
+      <modelElement href="HW062.uml#_CRdAclgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDs6FgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRdngFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_IQDF1FgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRdngFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDs6VgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDs6lgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDs61gPEeSTYp88fJMr7g" name="Sequence">
+        <modelElement href="HW062.uml#_CQ9RM1gPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDs7FgPEeSTYp88fJMr7g" name="_track">
+      <modelElement href="HW062.uml#_CRdngVgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDs7VgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRdnglgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <stereotypes xmi:id="_IQDF2VgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRdnglgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDs7lgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDs71gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDs8FgPEeSTYp88fJMr7g" name="Track">
+        <modelElement href="HW062.uml#_CQ94QVgPEeSTYp88fJMr7g"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDs8VgPEeSTYp88fJMr7g" name="_bpm">
+      <modelElement href="HW062.uml#_CRdng1gPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDs8lgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CReOkFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDs81gPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDs9FgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDs9VgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDs9lgPEeSTYp88fJMr7g" name="_ticksPerDefaultNote">
+      <modelElement href="HW062.uml#_CReOkVgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDs91gPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CReOklgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDs-FgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDs-VgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDs-lgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDs-1gPEeSTYp88fJMr7g" name="_ticksPerQuarterNote">
+      <modelElement href="HW062.uml#_CReOk1gPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDs_FgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRomoFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDs_VgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDs_lgPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDs_1gPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDtAFgPEeSTYp88fJMr7g" name="_instrument">
+      <modelElement href="HW062.uml#_CRpNsFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDtAVgPEeSTYp88fJMr7g" name="LegacyStyledElement">
+        <modelElement href="HW062.uml#_CRpNsVgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDtAlgPEeSTYp88fJMr7g" label="-"/>
+      <cardinality xmi:id="_IQDtA1gPEeSTYp88fJMr7g" label="1" max="1" min="1"/>
+      <type xmi:id="_IQDtBFgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_IQDtBVgPEeSTYp88fJMr7g" defaultValue="{ // add these amounts to the base value&#xD;&#xA;&#x9;// A   B  C  D  E  F  G&#xD;&#xA;&#x9;&#x9;&#x9;9, 11, 0, 2, 4, 5, 7 }" name="_offsets" staticAttribute="true">
+      <modelElement href="HW062.uml#_CRp0wFgPEeSTYp88fJMr7g"/>
+      <stereotypes xmi:id="_IQDtBlgPEeSTYp88fJMr7g" name="Array">
+        <modelElement href="HW062.uml#_CRp0xFgPEeSTYp88fJMr7g"/>
+      </stereotypes>
+      <visibility xmi:id="_IQDtB1gPEeSTYp88fJMr7g" label="+"/>
+      <cardinality xmi:id="_IQDtCFgPEeSTYp88fJMr7g" label="1..*" max="-1" min="1"/>
+      <type xmi:id="_IQDtCVgPEeSTYp88fJMr7g" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_IQDtClgPEeSTYp88fJMr7g" comments="_IQAplFgPEeSTYp88fJMr7g" targetConnectionVisual="_IQAplVgPEeSTYp88fJMr7g" name="SequencePlayer2">
+      <modelElement href="HW062.uml#_CMUo0FgPEeSTYp88fJMr7g"/>
+      <keywords xmi:id="_IQDtC1gPEeSTYp88fJMr7g" keyword="create"/>
+      <visibility xmi:id="_IQDtDFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtDVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMVP4VgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtDlgPEeSTYp88fJMr7g" name="SequencePlayer2">
+          <modelElement href="HW062.uml#_CMSzoFgPEeSTYp88fJMr7g"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IQDtD1gPEeSTYp88fJMr7g" name="ticksPerQuarterNote">
+        <modelElement href="HW062.uml#_CMUo0VgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtEFgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IQDtEVgPEeSTYp88fJMr7g" name="instrument">
+        <modelElement href="HW062.uml#_CMUo0lgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtElgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IQDtE1gPEeSTYp88fJMr7g" comments="_IQApllgPEeSTYp88fJMr7g" targetConnectionVisual="_IQApl1gPEeSTYp88fJMr7g" name="init">
+      <modelElement href="HW062.uml#_CMVP4lgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtFFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtFVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMVP5VgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtFlgPEeSTYp88fJMr7g" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IQDtF1gPEeSTYp88fJMr7g" name="ticksPerQuarterNote">
+        <modelElement href="HW062.uml#_CMVP41gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtGFgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IQDtGVgPEeSTYp88fJMr7g" name="instrument">
+        <modelElement href="HW062.uml#_CMVP5FgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtGlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IQDtG1gPEeSTYp88fJMr7g" comments="_IQBQoFgPEeSTYp88fJMr7g" targetConnectionVisual="_IQBQoVgPEeSTYp88fJMr7g" name="getTicksPerDefaultNote">
+      <modelElement href="HW062.uml#_CMV28FgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtHFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtHVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMWeAFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtHlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_IQDtH1gPEeSTYp88fJMr7g" comments="_IQBQolgPEeSTYp88fJMr7g" targetConnectionVisual="_IQBQo1gPEeSTYp88fJMr7g" name="setTicksPerDefaultNote">
+      <modelElement href="HW062.uml#_CMWeAVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtIFgPEeSTYp88fJMr7g" label="+"/>
+      <parameters xmi:id="_IQDtIVgPEeSTYp88fJMr7g" name="ticksPerDefaultNote">
+        <modelElement href="HW062.uml#_CMWeAlgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtIlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IQDtI1gPEeSTYp88fJMr7g" comments="_IQBQpFgPEeSTYp88fJMr7g" targetConnectionVisual="_IQBQpVgPEeSTYp88fJMr7g" name="getTempo">
+      <modelElement href="HW062.uml#_CMWeA1gPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtJFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtJVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMWeBFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtJlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_IQDtJ1gPEeSTYp88fJMr7g" comments="_IQBQplgPEeSTYp88fJMr7g" targetConnectionVisual="_IQBQp1gPEeSTYp88fJMr7g" name="setTempo">
+      <modelElement href="HW062.uml#_CMWeBVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtKFgPEeSTYp88fJMr7g" label="+"/>
+      <parameters xmi:id="_IQDtKVgPEeSTYp88fJMr7g" name="bpm">
+        <modelElement href="HW062.uml#_CMXFEFgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtKlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IQDtK1gPEeSTYp88fJMr7g" comments="_IQBQqFgPEeSTYp88fJMr7g" targetConnectionVisual="_IQBQqVgPEeSTYp88fJMr7g" name="getTicksPerQuarterNote">
+      <modelElement href="HW062.uml#_CMXFEVgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtLFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtLVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CMXFElgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtLlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_IQDtL1gPEeSTYp88fJMr7g" comments="_IQBQqlgPEeSTYp88fJMr7g" targetConnectionVisual="_IQBQq1gPEeSTYp88fJMr7g" name="addNote">
+      <modelElement href="HW062.uml#_CQIx0FgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtMFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtMVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CQJY4FgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtMlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IQDtM1gPEeSTYp88fJMr7g" name="note">
+        <modelElement href="HW062.uml#_CQIx0VgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtNFgPEeSTYp88fJMr7g" name="Note">
+          <modelElement href="HW062.uml#_CL8OUFgPEeSTYp88fJMr7g"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IQDtNVgPEeSTYp88fJMr7g" name="start">
+        <modelElement href="HW062.uml#_CQIx0lgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtNlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IQDtN1gPEeSTYp88fJMr7g" comments="_IQB3sFgPEeSTYp88fJMr7g" targetConnectionVisual="_IQB3sVgPEeSTYp88fJMr7g" name="addNote">
+      <modelElement href="HW062.uml#_CQJY4VgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtOFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtOVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CQJY5VgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtOlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IQDtO1gPEeSTYp88fJMr7g" name="note">
+        <modelElement href="HW062.uml#_CQJY4lgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtPFgPEeSTYp88fJMr7g" name="Note">
+          <modelElement href="HW062.uml#_CL8OUFgPEeSTYp88fJMr7g"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IQDtPVgPEeSTYp88fJMr7g" name="start">
+        <modelElement href="HW062.uml#_CQJY41gPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtPlgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_IQDtP1gPEeSTYp88fJMr7g" name="velocity">
+        <modelElement href="HW062.uml#_CQJY5FgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtQFgPEeSTYp88fJMr7g" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_IQDtQVgPEeSTYp88fJMr7g" comments="_IQB3slgPEeSTYp88fJMr7g" targetConnectionVisual="_IQB3s1gPEeSTYp88fJMr7g" name="makePlayable">
+      <modelElement href="HW062.uml#_CQJY5lgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_IQDtQlgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_IQDtQ1gPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CQJ_8FgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_IQDtRFgPEeSTYp88fJMr7g" name="IPlayable">
+          <modelElement href="HW062.uml#_CMTasFgPEeSTYp88fJMr7g"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_IQDtRVgPEeSTYp88fJMr7g" name="statusCmd">
+        <modelElement href="HW062.uml#_CQJY51gPEeSTYp88fJMr7g"/>
+        <keywords xmi:id="_IQDtRlgPEeSTYp88fJMr7g" keyword="final"/>
+        <type xmi:id="_IQDtR1gPEeSTYp88fJMr7g" name="ISequencePlayerStatus">
+          <modelElement href="HW062.uml#_CMMF8FgPEeSTYp88fJMr7g"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_DlKEAFgPEeSTYp88fJMr7g">
+  <modelElement href="HW062.uml#_CJTKAFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Er8s8VgPEeSTYp88fJMr7g" targetItem="_Er9UAFgPEeSTYp88fJMr7g" sourceItem="_Er8s8FgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Er_JMFgPEeSTYp88fJMr7g" targetItem="_EsA-YFgPEeSTYp88fJMr7g" sourceItem="_Er-iIFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Er_JMlgPEeSTYp88fJMr7g" targetItem="_EsA-Y1gPEeSTYp88fJMr7g" sourceItem="_Er_JMVgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EsAXUFgPEeSTYp88fJMr7g" targetItem="_EsA-aVgPEeSTYp88fJMr7g" sourceItem="_Er_wQFgPEeSTYp88fJMr7g"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EsAXUlgPEeSTYp88fJMr7g" targetItem="_EsA-bVgPEeSTYp88fJMr7g" sourceItem="_EsAXUVgPEeSTYp88fJMr7g"/>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Er8s8FgPEeSTYp88fJMr7g" sourceConnectionVisual="_Er8s8VgPEeSTYp88fJMr7g" text="The Model to View adapter interface.&#xA;&#xA;Contains no methods, can be added in future if needed." item="_Er9UAFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSF5oFgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Er-iIFgPEeSTYp88fJMr7g" sourceConnectionVisual="_Er_JMFgPEeSTYp88fJMr7g" text="The View to Model adapter interface." item="_EsA-YFgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSF5oVgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Er_JMVgPEeSTYp88fJMr7g" sourceConnectionVisual="_Er_JMlgPEeSTYp88fJMr7g" text="Loads user-specified music file.&#xA;     * &#xA;     * @param fileName&#xA;     * @return contents of file" item="_EsA-Y1gPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSF5olgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Er_wQFgPEeSTYp88fJMr7g" sourceConnectionVisual="_EsAXUFgPEeSTYp88fJMr7g" text="Parses previously inputted music file to retrieve its string representation." item="_EsA-aVgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSF5o1gPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_EsAXUVgPEeSTYp88fJMr7g" sourceConnectionVisual="_EsAXUlgPEeSTYp88fJMr7g" text="Plays music from previously inputted music file." item="_EsA-bVgPEeSTYp88fJMr7g">
+    <modelElement href="HW062.uml#_CSF5pFgPEeSTYp88fJMr7g"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_Er9UAFgPEeSTYp88fJMr7g" comments="_Er8s8FgPEeSTYp88fJMr7g" targetConnectionVisual="_Er8s8VgPEeSTYp88fJMr7g" name="IModelToView">
+    <modelElement href="HW062.uml#_CLEroFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_Er9UAVgPEeSTYp88fJMr7g" position="50.0,50.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_Er9UAlgPEeSTYp88fJMr7g" label="+"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_EsA-YFgPEeSTYp88fJMr7g" comments="_Er-iIFgPEeSTYp88fJMr7g" targetConnectionVisual="_Er_JMFgPEeSTYp88fJMr7g" name="IViewToModel">
+    <modelElement href="HW062.uml#_CLF5wFgPEeSTYp88fJMr7g"/>
+    <visualProperties xmi:id="_EsA-YVgPEeSTYp88fJMr7g" position="218.0,-9.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_EsA-YlgPEeSTYp88fJMr7g" label="+"/>
+    <operations xmi:id="_EsA-Y1gPEeSTYp88fJMr7g" comments="_Er_JMVgPEeSTYp88fJMr7g" targetConnectionVisual="_Er_JMlgPEeSTYp88fJMr7g" name="loadFile">
+      <modelElement href="HW062.uml#_CLGg0FgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_EsA-ZFgPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_EsA-ZVgPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CLHH4FgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_EsA-ZlgPEeSTYp88fJMr7g" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_EsA-Z1gPEeSTYp88fJMr7g" name="fileName">
+        <modelElement href="HW062.uml#_CLGg0VgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_EsA-aFgPEeSTYp88fJMr7g" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_EsA-aVgPEeSTYp88fJMr7g" comments="_Er_wQFgPEeSTYp88fJMr7g" targetConnectionVisual="_EsAXUFgPEeSTYp88fJMr7g" name="parseFile">
+      <modelElement href="HW062.uml#_CLHH4VgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_EsA-algPEeSTYp88fJMr7g" label="+"/>
+      <outParameters xmi:id="_EsA-a1gPEeSTYp88fJMr7g">
+        <modelElement href="HW062.uml#_CLHH4lgPEeSTYp88fJMr7g"/>
+        <type xmi:id="_EsA-bFgPEeSTYp88fJMr7g" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_EsA-bVgPEeSTYp88fJMr7g" comments="_EsAXUVgPEeSTYp88fJMr7g" targetConnectionVisual="_EsAXUlgPEeSTYp88fJMr7g" name="playMusic">
+      <modelElement href="HW062.uml#_CLHu8FgPEeSTYp88fJMr7g"/>
+      <visibility xmi:id="_EsA-blgPEeSTYp88fJMr7g" label="+"/>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>

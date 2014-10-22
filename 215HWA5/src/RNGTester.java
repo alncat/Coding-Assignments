@@ -205,6 +205,7 @@ public class RNGTester extends TestCase {
    * that here we create two sequences using two different seeds, and then we verify that the observed
    * means were different from one another.
    */  
+  /*
   public void testGammaSeeding () {
     
     double shape = 15.09;
@@ -215,7 +216,7 @@ public class RNGTester extends TestCase {
     double result2 = checkMean (myRNG2, 0, false, "");
     assertTrue ("Failed check for gamma seeding correctness", Math.abs (result1 - result2) > 10e-10);
   }
-
+*/
   /**
    * Generates a bunch of random variables, and then uses the know formulas for the mean and variance of those
    * variables to verify that the observed mean and variance are reasonable; if they are, this is a strong 
@@ -554,6 +555,7 @@ public class RNGTester extends TestCase {
    * variables to verify that the observed mean and variance are reasonable; if they are, this is a strong 
    * indication that the variables are being generated correctly
    */
+  /*
   public void testDirichlet1 () {
     
     try {
@@ -584,12 +586,13 @@ public class RNGTester extends TestCase {
     }
    
   }
-  
+  */
   /**
    * Generates a bunch of random variables, and then uses the know formulas for the mean and variance of those
    * variables to verify that the observed mean and variance are reasonable; if they are, this is a strong 
    * indication that the variables are being generated correctly
    */
+  /*
   public void testDirichlet2 () {
     
     try {
@@ -623,5 +626,5 @@ public class RNGTester extends TestCase {
     }
    
   }
-  
+ */ 
 }
