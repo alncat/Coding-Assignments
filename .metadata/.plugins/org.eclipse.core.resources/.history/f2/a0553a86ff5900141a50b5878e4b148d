@@ -112,7 +112,7 @@ public class LLgen {
 		HashMap<String, Set<String>> hmFollowSets = new HashMap<String, Set<String>>();
 		
 		// Create follow set for each non-terminal
-		for(String NT : genNonTerminals){   // EOF goes into FOLLOW(start symbol) 
+		for(String NT : genNonTerminals){
 			follow = new HashSet<String>();
 			follow.add("EOF");
 			hmFollowSets.put(NT, follow);
@@ -125,35 +125,26 @@ public class LLgen {
 		}
 		
 		//Perform follow operations
-		// set CHANGED to 1
-		// while (CHANGED is 1) {
-		//      CHANGED = 0;
-		for(String NT : hmFollowSets.keySet()){  // goes away
-			trailer = new HashSet<String>();     // goes away
-			
+		for(String NT : hmFollowSets.keySet()){
+			trailer = new HashSet<String>();
 			for(int i : finalProduction.keySet()){
 				aProduction = finalProduction.get(i);
-				// initialize trailer to FOLLOW( left hand side nonterminal of the production )
 				
 				//Iterate from the end to start of the rhs hand-side
 				for(int j = aProduction.size()-1; j > 1; j--){
 					
-					// temp set gets FOLLOW( item j) union trailer
-					// if temp set is not identical to FOLLOW( item j) then CHANGED = 1 
-					
 					//Skip items with vertical bars
 					if(aProduction.get(j).contains("|")){
-						// reinitialize trailer to FOLLOW( left hand side nonterminal of production )
 						continue;
 					}
 					
 					if(genNonTerminals.contains(aProduction.get(j).trim())){
 						
 						// if epsilon not in first(Bi)
-						if(!hmFirstSets.containsKey(aProduction.get(j).trim())){
+						if(!hmFirstSets.containsKey(aProduction.get(j))){
 							continue;
 						}
-						if(!hmFirstSets.get(aProduction.get(j).trim()).contains("epsilon")){//Need to account for all the versions of epsilon
+						if(!hmFirstSets.get(aProduction.get(j)).contains("epsilon")){//Need to account for all the versions of epsilon
 							// trailer <- 0
 							trailer.clear();
 						}
@@ -165,9 +156,9 @@ public class LLgen {
 					}
 				}			
 			}
-			followOrigin =hmFollowSets.get(NT);                 // goes away
-			followOrigin = fillTrailer(followOrigin, trailer);  // goes away
-			hmFollowSets.put(NT, followOrigin);                 // goes away
+			followOrigin =hmFollowSets.get(NT);
+			followOrigin = fillTrailer(followOrigin, trailer);
+			hmFollowSets.put(NT, followOrigin);
 		}// end of follow operations
 		
 		//Print out the Non-terminal and Follow set
@@ -822,12 +813,12 @@ public class LLgen {
 				productionArrayList = new ArrayList<String>();
 				productionArrayListTop = new ArrayList<String>();
 
-				if (genNonTerminals.contains(gramLine.get(0) + "'")) { //genNonTerminals.contains(gramLine.get(0) + "'"
-					productionString += gramLine.get(0) + " "; //productionString += gramLine.get(0) + "' ";
-					productionString2 += gramLine.get(0) + " "; //productionString2 += gramLine.get(0) + "' "
+				if (genNonTerminals.contains(gramLine.get(0) + "'")) {
+					productionString += gramLine.get(0) + "' ";
+					productionString2 += gramLine.get(0) + "' ";
 
-					productionArrayList.add(gramLine.get(0) + " "); //productionArrayList.add(gramLine.get(0) + "' ");
-					productionArrayListTop.add(gramLine.get(0) + " ");//productionArrayListTop.add(gramLine.get(0) + "' ");
+					productionArrayList.add(gramLine.get(0) + "' ");
+					productionArrayListTop.add(gramLine.get(0) + "' ");
 				} else {
 					productionString += gramLine.get(0) + " ";
 					productionString2 += gramLine.get(0) + " ";
@@ -838,8 +829,8 @@ public class LLgen {
 			// Used to test for membership in productions
 			if (x != flagIndex) {
 				if (gramLine.get(0).contains(gramLine.get(x)) && x != 0) {
-					productionString += gramLine.get(x) + ""; // productionString += gramLine.get(x) + "'";
-					productionArrayListTop.add(gramLine.get(x) + ""); // productionArrayListTop.add(gramLine.get(x) + "'"); 
+					productionString += gramLine.get(x) + "'";
+					productionArrayListTop.add(gramLine.get(x) + "'");
 
 				} else {
 					productionString += gramLine.get(x) + " ";
@@ -849,10 +840,10 @@ public class LLgen {
 
 			// Bottom portion
 			if (x == 0 || gramLine.get(0).contains(gramLine.get(x))) {
-				productionArrayList.add(gramLine.get(x) + ""); //productionArrayList.add(gramLine.get(x) + "'");
-				productionString2 += gramLine.get(x) + " "; //productionString2 += gramLine.get(x) + "' ";
-				if (!genNonTerminals.contains(gramLine.get(x) + "")) { //if (!genNonTerminals.contains(gramLine.get(x) + "'"))
-					genNonTerminals.add(gramLine.get(x) + "");// genNonTerminals.add(gramLine.get(x) + "'");
+				productionArrayList.add(gramLine.get(x) + "'");
+				productionString2 += gramLine.get(x) + "' ";
+				if (!genNonTerminals.contains(gramLine.get(x) + "'")) {
+					genNonTerminals.add(gramLine.get(x) + "'");
 				}
 			} else {
 				productionArrayList.add(gramLine.get(x));
