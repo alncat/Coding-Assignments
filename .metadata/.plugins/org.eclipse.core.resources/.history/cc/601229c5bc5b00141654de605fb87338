@@ -57,9 +57,6 @@ public class LLgen {
 
 	// Map of follow set, non-terminal is key and value is follow set for non-terminal
 	private static HashMap<String, Set<String>> hmFollowSets = new HashMap<String, Set<String>>();
-	
-	// Map of first plus set, int is key and value is first plus set for production
-	private static HashMap<Integer, Set<String>> hmFirstPlusSets = new HashMap<Integer, Set<String>>();
 
 	public static void main(String[] args) {
 
@@ -96,82 +93,55 @@ public class LLgen {
 
 		firstSets();
 		followSet();
-		firstPlusSets();
 		yamlTable();
 		System.out.println("//Finished.");
 	}
-	
-	public static void firstPlusSets(){
-		
-		ArrayList<String> aProduction;
-		String NT = "", B = "";
-		Set<String> firstPlusSet;
-		
-		//Iterate through all the productions
-		for(int key : finalProduction.keySet()){
-			aProduction = finalProduction.get(key);
-			NT = aProduction.get(0).trim();
-			B = aProduction.get(1).trim();
-			firstPlusSet = new HashSet<String>();
-			
-			// If epsilon is not present, it is just the first set
-			if(!hmFirstSets.get(B).contains("epsilon")){
-				firstPlusSet.addAll(hmFirstSets.get(B));
-			}else{
-				firstPlusSet.addAll(hmFirstSets.get(B));
-				firstPlusSet.addAll(hmFollowSets.get(NT));
-			}
-			hmFirstPlusSets.put(key, firstPlusSet);	
-		}
-		
-		System.out.println(" ");
-		for(int key : hmFirstPlusSets.keySet()){
-			hmFirstPlusSets.get(key).remove("epsilon");
-			System.out.println("\t"+ key+":\t"+ hmFirstPlusSets.get(key).toString());
-			
-		}
-		
-	}
 
 	public static void yamlTable() {
-		HashMap<String, String>  row;
-		HashMap<String,HashMap<String, String> > matrix = new HashMap<String, HashMap<String, String> >();
+		ArrayList<String> row;
+		HashMap<String, ArrayList<String>> matrix = new HashMap<String, ArrayList<String>>();
 		Set<String> aFollowSet;
-		Set<String> aFirstPlusSet;
 		ArrayList<String> aProduction;
 		int columnIndex;
 
 		// Initialize the table
 		for (String NT : genNonTerminals) {
-			row = new HashMap<String, String>();
+			row = new ArrayList<String>();
 			// for each Table[NT, T] <- error
 			for (String Terminal : genTerminals) {
-				row.put(Terminal, "--");
+				row.add("--");
 			}
-			row.put("EOF", "--");
 			matrix.put(NT, row);
-			
-			for(int keyProduction : finalProduction.keySet()){
-				aProduction = finalProduction.get(keyProduction);
-				if(!NT.equals(aProduction.get(0).trim())){
-					continue;
-				}
-				Set<String> tempFirstPlusSet = hmFirstPlusSets.get(keyProduction);
-				for(String sym : tempFirstPlusSet){
-					if(genTerminals.contains(sym)){
-						row.put(sym, Integer.toString(keyProduction));
+		}
+		
+		// for each non-terminal
+		for (String NT : genNonTerminals) {
+			row = matrix.get(NT);
+			aFollowSet = hmFollowSets.get(NT);
+			columnIndex = 0;
+			// for each terminal
+			for (String Terminal : genTerminals) {
+				// if terminal is in follow set
+				if (aFollowSet.contains(Terminal)) {
+					// for each production
+					for (int index : finalProduction.keySet()) {
+						aProduction = finalProduction.get(index);
+						// if NT of production matches outer loop
+						if (aProduction.get(0).contains(NT)) {
+							System.out.println("Found NT in production: " +NT );
+							System.out.println("\t Found in the table: " + Terminal);
+							System.out.println("\t\t The production: " + aProduction.toString());
+							// if Terminal is in the production, update table entry
+							if (aProduction.contains(Terminal)) {
+								System.out.println("Found in the table: " + Terminal);
+								row.add(columnIndex, Integer.toString(index));
+							}
+						}
 					}
 				}
-				if(tempFirstPlusSet.contains("EOF")){
-					row.put("EOF", Integer.toString(keyProduction));
-				}
-				
-				
-				
+				columnIndex++;
 			}
-			
 		}
-
 		
 		System.out.println("");
 		System.out.println("table:");
@@ -182,14 +152,11 @@ public class LLgen {
 			columnIndex = 0;
 			// for each column, print Table[NT,T] in YAML format
 			for(String term : genTerminals){
-				if(term.contains("epsilon")){
-					term = "EOF";
-				}
 				System.out.print(term+": ");
 				if(columnIndex == row.size()-1){
-					System.out.print(row.get(term)+ " ");
+					System.out.print(row.get(columnIndex)+ " ");
 				}else{
-				System.out.print(row.get(term)+ ", ");
+				System.out.print(row.get(columnIndex)+ ", ");
 				}
 				columnIndex++;
 			}

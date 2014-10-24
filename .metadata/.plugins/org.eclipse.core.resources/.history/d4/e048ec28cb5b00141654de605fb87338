@@ -187,9 +187,9 @@ public class LLgen {
 				}
 				System.out.print(term+": ");
 				if(columnIndex == row.size()-1){
-					System.out.print(row.get(term)+ " ");
+					System.out.print(row.get(columnIndex)+ " ");
 				}else{
-				System.out.print(row.get(term)+ ", ");
+				System.out.print(row.get(columnIndex)+ ", ");
 				}
 				columnIndex++;
 			}

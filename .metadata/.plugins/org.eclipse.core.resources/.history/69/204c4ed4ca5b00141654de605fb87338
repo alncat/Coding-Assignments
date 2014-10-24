@@ -134,8 +134,8 @@ public class LLgen {
 	}
 
 	public static void yamlTable() {
-		HashMap<String, String>  row;
-		HashMap<String,HashMap<String, String> > matrix = new HashMap<String, HashMap<String, String> >();
+		ArrayList<String> row;
+		HashMap<String, ArrayList<String>> matrix = new HashMap<String, ArrayList<String>>();
 		Set<String> aFollowSet;
 		Set<String> aFirstPlusSet;
 		ArrayList<String> aProduction;
@@ -143,35 +143,43 @@ public class LLgen {
 
 		// Initialize the table
 		for (String NT : genNonTerminals) {
-			row = new HashMap<String, String>();
+			row = new ArrayList<String>();
 			// for each Table[NT, T] <- error
 			for (String Terminal : genTerminals) {
-				row.put(Terminal, "--");
+				row.add("--");
 			}
-			row.put("EOF", "--");
 			matrix.put(NT, row);
+		}
+		for(int keyProduction : finalProduction.keySet()){
+			aProduction = finalProduction.get(keyProduction);
+		// for each non-terminal
+		for (String NT : genNonTerminals) {
+			row = matrix.get(NT);
+			aFollowSet = hmFollowSets.get(NT);
+			columnIndex = 0;
+			// for each terminal
+			for (String Terminal : genTerminals) {
+				if(Terminal.contains("epsilon")){
 			
-			for(int keyProduction : finalProduction.keySet()){
-				aProduction = finalProduction.get(keyProduction);
-				if(!NT.equals(aProduction.get(0).trim())){
-					continue;
 				}
-				Set<String> tempFirstPlusSet = hmFirstPlusSets.get(keyProduction);
-				for(String sym : tempFirstPlusSet){
-					if(genTerminals.contains(sym)){
-						row.put(sym, Integer.toString(keyProduction));
+				// if terminal is in follow set
+				if (aFollowSet.contains(Terminal)) {
+					// for each production
+					for (int index : hmFirstPlusSets.keySet()) {
+						aFirstPlusSet = hmFirstPlusSets.get(index);
+						// if NT of production matches outer loop
+						for (String sym : aFirstPlusSet) {
+							// if Terminal is in the production, update table entry
+							if (aProduction.contains(sym)) {
+								row.add(columnIndex, Integer.toString(index));
+							}
+						}
 					}
 				}
-				if(tempFirstPlusSet.contains("EOF")){
-					row.put("EOF", Integer.toString(keyProduction));
-				}
-				
-				
-				
+				columnIndex++;
 			}
-			
+			}
 		}
-
 		
 		System.out.println("");
 		System.out.println("table:");
@@ -187,9 +195,9 @@ public class LLgen {
 				}
 				System.out.print(term+": ");
 				if(columnIndex == row.size()-1){
-					System.out.print(row.get(term)+ " ");
+					System.out.print(row.get(columnIndex)+ " ");
 				}else{
-				System.out.print(row.get(term)+ ", ");
+				System.out.print(row.get(columnIndex)+ ", ");
 				}
 				columnIndex++;
 			}

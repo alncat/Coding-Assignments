@@ -183,7 +183,7 @@ public class LLgen {
 			// for each column, print Table[NT,T] in YAML format
 			for(String term : genTerminals){
 				if(term.contains("epsilon")){
-					term = "EOF";
+					term = "<EOF>";
 				}
 				System.out.print(term+": ");
 				if(columnIndex == row.size()-1){
