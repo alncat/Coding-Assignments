@@ -15416,3 +15416,6 @@ Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/val
 	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
 	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
 	... 7 more
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2014-10-24 10:08:45.833
+!MESSAGE Can't handle %s as parent of completion location.

@@ -55,6 +55,9 @@ public class LLgen {
 	// Map of first set, key is symbol and value is firstSet for symbol
 	private static HashMap<String, Set<String>> hmFirstSets = new HashMap<String, Set<String>>();
 
+	// Map of follow set, non-terminal is key and value is follow set for non-terminal
+	private static HashMap<String, Set<String>> hmFollowSets = new HashMap<String, Set<String>>();
+
 	public static void main(String[] args) {
 
 		// String[] cmdLine = args;
@@ -64,8 +67,7 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"}; //If
-		// index(x+1) == index(x+2) then is NonFlagProduction
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
@@ -91,8 +93,73 @@ public class LLgen {
 
 		firstSets();
 		followSet();
+		yamlTable();
 		System.out.println("//Finished.");
 	}
+
+	public static void yamlTable() {
+		ArrayList<String> row;
+		HashMap<String, ArrayList<String>> matrix = new HashMap<String, ArrayList<String>>();
+		Set<String> aFollowSet;
+		ArrayList<String> aProduction;
+		int columnIndex;
+
+		// Initialize the table
+		for (String NT : genNonTerminals) {
+			row = new ArrayList<String>();
+			// for each Table[NT, T] <- error
+			for (String Terminal : genTerminals) {
+				row.add("--");
+			}
+			matrix.put(NT, row);
+		}
+		
+		//For each non-terminal
+		for (String NT : genNonTerminals) {
+			row = matrix.get(NT);
+			aFollowSet = hmFollowSets.get(NT);
+			columnIndex = 0;
+			// for each terminal
+			for (String Terminal : genTerminals) {
+				// if terminal is in follow set
+				if (aFollowSet.contains(Terminal)) {
+					// for each production
+					for (int index : finalProduction.keySet()) {
+						aProduction = finalProduction.get(index);
+						// if NT of production matches outer loop
+						if (aProduction.get(0).contains(NT)) {
+							// if Terminal is in the production, update table entry
+							if (aProduction.contains(Terminal)) {
+								row.add(columnIndex, Integer.toString(index));
+							}
+						}
+					}
+				}
+				columnIndex++;
+			}
+		}
+		
+		System.out.println("");
+		System.out.println("table:");
+		// for each row
+		for(String NT : matrix.keySet()){
+			System.out.print("\t"+NT+ "\t{");
+			row = matrix.get(NT);
+			columnIndex = 0;
+			// for each column, print Table[NT,T] in YAML format
+			for(String term : genTerminals){
+				System.out.print(term+": ");
+				if(columnIndex == row.size()-1){
+					System.out.print(row.get(columnIndex)+ " ");
+				}else{
+				System.out.print(row.get(columnIndex)+ ", ");
+				}
+				columnIndex++;
+			}
+			System.out.println("} ");
+		}
+	}
+
 
 	public static void followSet() {
 		// Indicate Follow Set changes
@@ -108,8 +175,7 @@ public class LLgen {
 		Set<String> follow = new HashSet<String>(), trailer;
 		Set<String> followOrigin = new HashSet<String>();
 
-		// Map of follow set, non-terminal is key and value is follow set for non-terminal
-		HashMap<String, Set<String>> hmFollowSets = new HashMap<String, Set<String>>();
+
 
 		// Create follow set for each non-terminal
 		for (String NT : genNonTerminals) { // EOF goes into FOLLOW(start symbol)
@@ -125,10 +191,10 @@ public class LLgen {
 
 		System.out.println("");
 		// Print out the Non-terminal and Follow set
-		/*for (String NT : hmFollowSets.keySet()) {
-			System.out.println("Non-Terminal: " + NT + "\t Follow Set: "
-					+ hmFollowSets.get(NT).toString());
-		}*/
+		/*
+		 * for (String NT : hmFollowSets.keySet()) { System.out.println("Non-Terminal: " + NT +
+		 * "\t Follow Set: " + hmFollowSets.get(NT).toString()); }
+		 */
 
 		// Perform follow operations
 		// set CHANGED to 1
@@ -136,69 +202,37 @@ public class LLgen {
 		while (changed == 1) {
 			changed = 0;
 			// for(String NT : hmFollowSets.keySet()){ // goes away
-			// trailer = new HashSet<String>(); // goes away
+			 trailer = new HashSet<String>(); // goes away
 
 			for (int i : finalProduction.keySet()) {
 				aProduction = finalProduction.get(i);
 				// initialize trailer to FOLLOW( left hand side nonterminal of the production )
-				
-				trailer = hmFollowSets.get(aProduction.get(0).trim());
-				//System.out.println("Initialize trailer to FOLLOW(LHS, the NT) \t " + trailer.toString());
-				
+				trailer.clear();
+				trailer.addAll(hmFollowSets.get(aProduction.get(0).trim()));
+
 				// Iterate from the end to start of the rhs hand-side
-				for (int j = aProduction.size() - 1; j > 1; j--) {
+				for (int j = aProduction.size() - 1; j >=1; j--) {
 
-					// temp set gets FOLLOW( item j) union trailer
-					Set<String> temp = addSetBtoSetA(trailer, hmFollowSets.get(aProduction.get(j).trim()));
+					// if element j is a NT
+					if (hmFollowSets.containsKey(aProduction.get(j).trim())) { 
 
-					// if temp set is not identical to FOLLOW( item j) then CHANGED = 1
-					if (hmFollowSets.containsKey(aProduction.get(j).trim())) {
-						//System.out.println(aProduction.get(j).trim());
-						
-						if (!temp.equals(hmFollowSets.get(aProduction.get(j).trim()))) {
-							temp.addAll(hmFollowSets.get(aProduction.get(j).trim()));
-							hmFollowSets.put(aProduction.get(j).trim(), temp);
+						// if temp set is not identical to FOLLOW( item j) then CHANGED = 1
+						if (hmFollowSets.get(aProduction.get(j).trim()).addAll(trailer))
 							changed = 1;
+					
+						if (hmFirstSets.get(aProduction.get(j).trim()).contains("epsilon")) {
+							trailer.addAll(hmFirstSets.get(aProduction.get(j).trim()));
+							trailer.remove("epsilon");
 						}
-					}
-					// Skip items with vertical bars
-					if (aProduction.get(j).trim().contains("|")) {
-						//reinitialize trailer to FOLLOW( left hand side nonterminal of production)
-						trailer = hmFollowSets.get(aProduction.get(0));
-						System.out.println("//reinitialize trailer to FOLLOW( left hand side nonterminal of production) \t " + trailer.toString() );
-						/**Does not make it into this if statement.*/
-						continue;
-					}
-
-					if (genNonTerminals.contains(aProduction.get(j).trim())) {
-						
-						// follow(Bi) <- follow(Bi) union trailer
-						temp = hmFollowSets.get(aProduction.get(j).trim());
-						temp.addAll(trailer);
-						hmFollowSets.put(aProduction.get(j).trim(), temp);
-						
-						// if epsilon not in first(Bi)
-						if (!hmFirstSets.containsKey(aProduction.get(j).trim())) {
-							continue;
-						}
-						//TODO Need to account for all versions of epsilon
-						if (!hmFirstSets.get(aProduction.get(j).trim()).contains("epsilon")) {
-																								
-							// trailer <- 0
+						else {
 							trailer.clear();
+							trailer.addAll(hmFirstSets.get(aProduction.get(j).trim()));
 						}
 						
-						// trailer <- first(Bi)
-						//trailer = addSetBtoSetA(trailer, hmFirstSets.get(aProduction.get(j).trim()));
-						trailer.addAll(hmFirstSets.get(aProduction.get(j).trim()));
-						//System.out.println("trailer <- first(Bi) \t" + trailer);
-						
-					} else {
-						
-						// trailer <- trailer union First{Bi}
-						//trailer = addSetBtoSetA(trailer, hmFirstSets.get(aProduction.get(j).trim()));
-						trailer.addAll(hmFirstSets.get(aProduction.get(j).trim()));
-						//System.out.println("trailer <- trailer + First(Bi) \t" + trailer.toString());
+					}
+					else {
+						trailer.clear();
+						trailer.addAll(hmFirstSets.get(aProduction.get(j).trim()));						
 					}
 				}
 			}
@@ -256,7 +290,7 @@ public class LLgen {
 		if (getFrom.isEmpty()) {
 			return addTo;
 		}
-		
+
 		for (String Sym : getFrom) {
 			if (Sym == null) {
 				continue;
@@ -328,7 +362,7 @@ public class LLgen {
 
 		// Right Hand Side
 		String rhs = "";
-		
+
 		// RHS set
 		Set<String> setRHS;
 
@@ -358,54 +392,58 @@ public class LLgen {
 		}
 
 		// print out the key and values mappings for terminals and non-terminals
-		/*for (String key : hmFirstSets.keySet()) {
-			System.out.print("Symbol: " + key.trim() + " \t");
-			System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
-			System.out.println(" ");
-		}*/
+		/*
+		 * for (String key : hmFirstSets.keySet()) { System.out.print("Symbol: " + key.trim() +
+		 * " \t"); System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
+		 * System.out.println(" "); }
+		 */
 		Set<String> holdFirstSet, tempFirstSet;
 		// While the first sets are changing
 		int Changed = 1;
 		int LastSymbol = 0;
-		while(Changed == 1) {
+		while (Changed == 1) {
 			Changed = 0;
-			for (int key: finalProduction.keySet()) {
+			for (int key : finalProduction.keySet()) {
 				ArrayList<String> tempArrayList = finalProduction.get(key);
-				//System.out.println("Production at index: " + key+ "\t " + tempArrayList.toString());
+				// System.out.println("Production at index: " + key+ "\t " +
+				// tempArrayList.toString());
 				String tempSymbol = tempArrayList.get(1).trim();
 				setRHS = new HashSet<String>();
 				setRHS.addAll(hmFirstSets.get(tempSymbol));
-				
-				//remove epsilon
+
+				// remove epsilon
 				setRHS.remove("epsilon");
 				LastSymbol = 1;
-				for(int i = 1; i < tempArrayList.size()-1; i++){
+				for (int i = 1; i < tempArrayList.size() - 1; i++) {
 					tempSymbol = tempArrayList.get(i).trim();
-					//System.out.print(tempSymbol + " :");
-					//for(String itSym : hmFirstSets.get(tempSymbol)){
-					//	System.out.print(itSym + " ");
-					//}
-					//System.out.println(" ");
-					if (hmFirstSets.get(tempSymbol).contains("epsilon")){
-						setRHS.addAll(hmFirstSets.get(tempArrayList.get(i+1).trim()));
+					// System.out.print(tempSymbol + " :");
+					// for(String itSym : hmFirstSets.get(tempSymbol)){
+					// System.out.print(itSym + " ");
+					// }
+					// System.out.println(" ");
+					if (hmFirstSets.get(tempSymbol).contains("epsilon")) {
+						setRHS.addAll(hmFirstSets.get(tempArrayList.get(i + 1).trim()));
 						setRHS.remove("epsilon");
-						LastSymbol = i+1;
+						LastSymbol = i + 1;
 					}
 				}
-				//System.out.println("size of temp: " + tempArrayList.size() + "\t value of LastSymbol: " + LastSymbol);
-				if (LastSymbol == tempArrayList.size()-1 && hmFirstSets.get(tempArrayList.get(LastSymbol).trim()).contains("epsilon"))
+				// System.out.println("size of temp: " + tempArrayList.size() +
+				// "\t value of LastSymbol: " + LastSymbol);
+				if (LastSymbol == tempArrayList.size() - 1
+						&& hmFirstSets.get(tempArrayList.get(LastSymbol).trim())
+								.contains("epsilon"))
 					setRHS.add("epsilon");
-				 holdFirstSet = hmFirstSets.get(tempArrayList.get(0).trim());
-				 //System.out.println("  First(LHS)" + holdFirstSet.toString());
-				 //System.out.println("  setRHS" + setRHS.toString());
-				 if (holdFirstSet.addAll(setRHS)) {
-					 Changed = 1;
-				 }
-				 //System.out.println("  New set is "+ holdFirstSet.toString());
+				holdFirstSet = hmFirstSets.get(tempArrayList.get(0).trim());
+				// System.out.println("  First(LHS)" + holdFirstSet.toString());
+				// System.out.println("  setRHS" + setRHS.toString());
+				if (holdFirstSet.addAll(setRHS)) {
+					Changed = 1;
+				}
+				// System.out.println("  New set is "+ holdFirstSet.toString());
 			}
 		}
 
-		//System.out.println("**************** ^^^^^^ initialization ^^^^^^^");
+		// System.out.println("**************** ^^^^^^ initialization ^^^^^^^");
 		System.out.println(" ");
 
 		// print out the key and values mappings for terminals and non-terminals
@@ -782,8 +820,8 @@ public class LLgen {
 		ArrayList<ArrayList<String>> mapOfMaps2 = new ArrayList<ArrayList<String>>();
 		ArrayList<String> mapOfStrings2 = new ArrayList<String>();
 
-		//System.out.println("Input production: "+ gramLine.toString());
-		
+		// System.out.println("Input production: "+ gramLine.toString());
+
 		// Feed the grammar line for production list creation
 		for (int x = 0; x < gramLine.size(); x++) {
 
@@ -813,8 +851,8 @@ public class LLgen {
 					productionArrayListTop.add(gramLine.get(0) + " ");// productionArrayListTop.add(gramLine.get(0)
 																		// + "' ");
 				} else {
-					//productionString += gramLine.get(0) + " ";
-					//productionString2 += gramLine.get(0) + " ";
+					// productionString += gramLine.get(0) + " ";
+					// productionString2 += gramLine.get(0) + " ";
 				}
 
 				continue;
@@ -822,14 +860,16 @@ public class LLgen {
 			// Used to test for membership in productions
 			if (x != flagIndex) {
 				if (gramLine.get(0).contains(gramLine.get(x)) && x != 0) {
-					//????productionString += gramLine.get(x) + ""; // productionString += gramLine.get(x)
-																// + "'";
-					//?????productionArrayListTop.add(gramLine.get(x) + ""); // productionArrayListTop.add(gramLine.get(x)
-																		// + "'");
+					// ????productionString += gramLine.get(x) + ""; // productionString +=
+					// gramLine.get(x)
+					// + "'";
+					// ?????productionArrayListTop.add(gramLine.get(x) + ""); //
+					// productionArrayListTop.add(gramLine.get(x)
+					// + "'");
 
 				} else {
-					//productionString += gramLine.get(x) + " ";
-					//productionArrayListTop.add(gramLine.get(x) + " ");
+					// productionString += gramLine.get(x) + " ";
+					// productionArrayListTop.add(gramLine.get(x) + " ");
 				}
 			}
 
@@ -852,6 +892,12 @@ public class LLgen {
 			if (x == gramLine.size() - 1 && !createdProduction.contains(productionString2)) {
 				// System.out.println(productionString2);
 				createdProduction.add(productionString2);
+
+				// Do not add productions that has a size of zero or one
+				if (productionArrayList.size() == 0 || productionArrayList.size() == 1) {
+					continue;
+				}
+
 				finalProduction.put(productionMapIndex, productionArrayList);
 				productionMapIndex += 1;
 			}
@@ -861,10 +907,12 @@ public class LLgen {
 				createdProduction.add(mapOfStrings.get(i));
 
 
-				//Debugging print statement
-				//System.out.println("Index: " + productionMapIndex + "\t Production: " + mapOfMaps.get(i).toString());
-				//Do not add thing that has a size of zero
-				if(mapOfMaps.get(i).size() == 0){
+				// Debugging print statement
+				// System.out.println("Index: " + productionMapIndex + "\t Production: " +
+				// mapOfMaps.get(i).toString());
+
+				// Do not add productions that has a size of zero or one
+				if (mapOfMaps.get(i).size() == 0 || mapOfMaps.get(i).size() == 1) {
 					continue;
 				}
 				finalProduction.put(productionMapIndex, mapOfMaps.get(i));
@@ -874,9 +922,14 @@ public class LLgen {
 		for (int j = 0; j < mapOfStrings2.size(); j++) {
 			if (!createdProduction.contains(mapOfStrings2.get(j))) {
 				createdProduction.add(mapOfStrings2.get(j));
-				//Debugging print statement
-				//System.out.println("Index: " + productionMapIndex + "\t Production: " + mapOfMaps2.get(j).toString());
+				// Debugging print statement
+				// System.out.println("Index: " + productionMapIndex + "\t Production: " +
+				// mapOfMaps2.get(j).toString());
 
+				// Do not add productions that has a size of zero or one
+				if (mapOfMaps2.get(j).size() == 0 || mapOfMaps2.get(j).size() == 1) {
+					continue;
+				}
 				finalProduction.put(productionMapIndex, mapOfMaps2.get(j));
 				productionMapIndex += 1;
 			}
