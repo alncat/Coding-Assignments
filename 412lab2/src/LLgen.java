@@ -62,26 +62,29 @@ public class LLgen {
 	
 	// Map of first plus set, int is key and value is first plus set for production
 	private static HashMap<Integer, Set<String>> hmFirstPlusSets = new HashMap<Integer, Set<String>>();
-
+	
+	// Print only the human readable information for the grammar
+	private static boolean humanReadable = false;
+	
 	public static void main(String[] args) {
 
-		// String[] cmdLine = args;
+		 String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
-		// String[] cmdLine = {"-t",
+		//String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Parens"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
+		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
+		// String[] cmdLine = {"-s",
 		// "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example1"};
-		// String[] cmdLine = {"-t",
+		// String[] cmdLine = {"-s",
 		// "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example2"};
 
 		// Reads the command line and sets up parameters
@@ -100,7 +103,7 @@ public class LLgen {
 		followSet();
 		firstPlusSets();
 		yamlTable();
-		System.out.println("//Finished.");
+		//System.out.println("//Finished.");
 	}
 	
 	public static void firstPlusSets(){
@@ -125,13 +128,16 @@ public class LLgen {
 			}
 			hmFirstPlusSets.put(key, firstPlusSet);	
 		}
-		
+		if(humanReadable){
+		System.out.println(" ");
+		System.out.println("\t\t\t ***The First+ Sets***");
 		System.out.println(" ");
 		for(int key : hmFirstPlusSets.keySet()){
 			hmFirstPlusSets.get(key).remove("epsilon");
 			System.out.println("\t"+ key+":\t"+ hmFirstPlusSets.get(key).toString());
 			
 		}
+	}
 		
 	}
 
@@ -180,7 +186,8 @@ public class LLgen {
 					if (finalProduction.get(key).get(0).trim().equals(finalProduction.get(j).get(0).trim())) {
 						if (!Collections.disjoint(hmFirstPlusSets.get(key), hmFirstPlusSets.get(j))) {
 							// ERROR
-							System.out.println("Grammar is not LL(1).");
+							System.out.println(" ");
+							System.out.println("Grammar, "+ filePath+ ", is not LL(1).");
 							System.exit(0);
 						}
 					}
@@ -189,6 +196,7 @@ public class LLgen {
 			}
 		}
 		
+		if(!humanReadable){
 		System.out.println("");
 		System.out.println("table:");
 		// for each row
@@ -201,8 +209,8 @@ public class LLgen {
 				if(term.contains("epsilon")){
 					term = "EOF";
 				}
-				System.out.print(term+": ");
-				if(columnIndex == row.size()-1){
+				System.out.print(grammarsTable(term)+": ");
+				if(columnIndex+1 == row.size()-1){
 					System.out.print(row.get(term)+ " ");
 				}else{
 				System.out.print(row.get(term)+ ", ");
@@ -211,6 +219,7 @@ public class LLgen {
 			}
 			System.out.println("} ");
 		}
+	}
 	}
 
 
@@ -291,13 +300,15 @@ public class LLgen {
 			}
 
 		}// end of follow operations
-
+if(humanReadable){
 		// Print out the Non-terminal and Follow set
+		System.out.println("\t\t\t ***The Follow Sets***");
+		System.out.println(" ");
 		for (String NT : hmFollowSets.keySet()) {
-			System.out.println("Non-Terminal: " + NT + "\t Follow Set: "
+			System.out.println( NT + "\t >>> "
 					+ hmFollowSets.get(NT).toString());
 		}
-
+}
 		
 	}// end of method
 
@@ -435,12 +446,15 @@ public class LLgen {
 		System.out.println(" ");
 
 		// print out the key and values mappings for terminals and non-terminals
+		if(humanReadable){
+		System.out.println("\t\t\t ***The First Sets***");
+		System.out.println(" ");
 		for (String key : hmFirstSets.keySet()) {
-			System.out.print("Symbol: " + key.trim() + " \t");
-			System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
-			System.out.println(" ");
+			System.out.println(key.trim() + " \t>>>\t "+hmFirstSets.get(key).toString().trim());
+			//System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
+			//System.out.println(" ");
 		}
-
+		}
 	}
 
 	public static Set<String> helperFirstSet(String str) {
@@ -522,6 +536,7 @@ public class LLgen {
 	public static void fillGrammarLines(String inputFile) {
 		ArrayList<String> gramLine = new ArrayList<String>();
 		String line = "", word = "";
+		String strProduction = "";
 		boolean boStartSymbol = true;
 
 		// KeyIndexCounter for debugging
@@ -556,7 +571,11 @@ public class LLgen {
 									|| line.charAt(i + 1) == ';') {
 
 								// Add Term, if at line 0 add the start symbol
+								if(word.toLowerCase().equals("epsilon")){
+									gramLine.add("epsilon");
+								}else{
 								gramLine.add(word);
+								}
 								// The start symbol found
 								if (boStartSymbol) {
 									startSym += word;
@@ -567,8 +586,11 @@ public class LLgen {
 							}
 						} else if (i + 1 == line.length()) {
 							// gets terminals at the end of the line
+							if(word.toLowerCase().equals("epsilon")){
+								gramLine.add("epsilon");
+							}else{
 							gramLine.add(word);
-
+							}
 						}
 					}
 
@@ -601,6 +623,7 @@ public class LLgen {
 			}
 			// System.out.println("");
 		}
+		if(!humanReadable){
 		String strNonTerminals = "[";
 		Iterator<String> thisNonTermi = genNonTerminals.iterator();
 		while (thisNonTermi.hasNext()) {
@@ -628,13 +651,16 @@ public class LLgen {
 		startSym = getTheStartSymbol();
 
 		strTerminals += "]";
-		String strProduction = "";
+	
+		strProduction = "";
 		System.out.println("terminals: " + strTerminals);
 		System.out.println("non-terminals: " + strNonTerminals);
 		System.out.println("eof-maker: <EOF>");
 		System.out.println("error-maker: --");
 		System.out.println("start-symbol: " + startSym);
 		System.out.println("");
+		}
+		strProduction = "";
 		System.out.println("productions: ");
 		for (int i = 0; i < finalProduction.size(); i++) {
 			strProduction += "\t" + Integer.toString(i) + ":\t";
@@ -662,7 +688,7 @@ public class LLgen {
 			strProduction = "";
 			// System.out.println("");
 		}
-
+	
 	}
 
 	public static String getTheStartSymbol() {
@@ -1200,6 +1226,7 @@ public class LLgen {
 		grammarTable.put("LParen", "(");
 		grammarTable.put("RParen", ")");
 		grammarTable.put("DIVIDE", "/");
+		grammarTable.put("EOF", "<EOF>");
 	}
 
 	public static String grammarsTable(String word) {
@@ -1227,7 +1254,7 @@ public class LLgen {
 	 */
 	public static void readCommandLine(String[] cmdLine) {
 		int numArgs = cmdLine.length;
-		int fileCount = 0;
+		int fileCount = 0, cmdCount = 0;
 
 		// Set of the acceptable commands in command line
 		HashSet<String> okayCmds = new HashSet<String>();
@@ -1241,7 +1268,7 @@ public class LLgen {
 		for (int i = 0; i < numArgs; i++) {
 			// Check to see if there is a dash which indicates that it is a command
 			if (cmdLine[i].contains("-") && cmdLine[i].length() == 2) {
-
+				cmdCount++;
 				// Prints out the acceptable command line arguments
 				if (cmdLine[i].contains("-h")) {
 					cmdLinePrintMessages();
@@ -1252,6 +1279,10 @@ public class LLgen {
 					System.out.println("Invalid command.");
 					System.exit(0);
 				}
+				
+				if(cmdLine[i].equals("-s")){
+					humanReadable = true;	
+				}
 			} else {
 				filePath = cmdLine[i];
 				fileCount++;
@@ -1259,9 +1290,10 @@ public class LLgen {
 		}
 
 		// Check to see if more than one file was found
-		if (fileCount != 1) {
+		if (fileCount != 1 || cmdCount != 1 ) {
 			System.out.println("Invalid file input. Found " + fileCount
-					+ " different file locations.");
+					+ " different file location(s).");
+			System.out.println("And "+ cmdCount + " command line(s) arguments.");
 			System.exit(0);
 		}
 		// Check if the file exists
