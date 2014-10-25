@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -67,12 +65,12 @@ public class LLgen {
 
 		// String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
@@ -173,21 +171,7 @@ public class LLgen {
 			}
 			
 		}
-		// Perfrom error checking
-		for (int key : hmFirstPlusSets.keySet()) {
-			for (int j : hmFirstPlusSets.keySet()) {
-				if (j != key) {
-					if (finalProduction.get(key).get(0).trim().equals(finalProduction.get(j).get(0).trim())) {
-						if (!Collections.disjoint(hmFirstPlusSets.get(key), hmFirstPlusSets.get(j))) {
-							// ERROR
-							System.out.println("Grammar is not LL(1).");
-							System.exit(0);
-						}
-					}
-				}
 
-			}
-		}
 		
 		System.out.println("");
 		System.out.println("table:");
@@ -298,7 +282,37 @@ public class LLgen {
 					+ hmFollowSets.get(NT).toString());
 		}
 
-		
+		/*
+		 * follow = new HashSet<String>(); // For each non-terminal Iterator<String> itNonTerminals
+		 * = genNonTerminals.iterator(); while (itNonTerminals.hasNext()) { nonTermStr =
+		 * itNonTerminals.next(); follow.add(nonTermStr); followOrigin.add(nonTermStr); }
+		 * 
+		 * follow.add("EOF");
+		 * 
+		 * // While Follow sets are still changing while (change) {
+		 * 
+		 * // for each production for (int i = 0; i < finalProduction.size(); i++) {
+		 * 
+		 * // Trailer <- Follow(A) aProduction = finalProduction.get(i);
+		 * 
+		 * // for i <- k down to 1 for (int j = aProduction.size() - 1; j > 0; j--) {
+		 * 
+		 * // trailer <- follow(A) trailerStr = followProductionToString(aProduction);
+		 * 
+		 * // if b(i) is a non-terminal if (genNonTerminals.contains(aProduction.get(j))) {
+		 * 
+		 * // Follow(b(i)) <- Follow(b(i)) union trailer follow.add(aProduction.get(j) +
+		 * trailerStr);
+		 * 
+		 * // If espilon is in First(b(i)) if
+		 * (!firstSetHM.get(aProduction.get(j)).toLowerCase().contains("epsilon")) { trailerStr =
+		 * ""; } trailerStr += firstSetHM.get(aProduction.get(j)) + " "; } else { trailerStr +=
+		 * aProduction.get(j) + " "; } } } if (compareSets(followOrigin, follow)) { change = false;
+		 * } else { itNonTerminals = follow.iterator(); while (itNonTerminals.hasNext()) {
+		 * nonTermStr = itNonTerminals.next(); followOrigin.add(nonTermStr); } } } itNonTerminals =
+		 * follow.iterator(); while (itNonTerminals.hasNext()) {
+		 * System.out.println("Follow final result <<<<<<<<<<<<\t " + itNonTerminals.next()); }
+		 */
 	}// end of method
 
 	public static Set<String> addSetBtoSetA(Set<String> addTo, Set<String> getFrom) {
@@ -335,7 +349,42 @@ public class LLgen {
 	}
 
 
-	
+	/**
+	 * first = new HashSet<String>(); itNonTerminals = genNonTerminals.iterator(); while
+	 * (itNonTerminals.hasNext()) { epsilon = itNonTerminals.next(); first.add(epsilon);
+	 * firstOrign.add(epsilon); }
+	 * 
+	 * 
+	 * 
+	 * // Add all the terminals to the First Set itTerminals = genTerminals.iterator();
+	 * 
+	 * while (itTerminals.hasNext()) { epsilon = itTerminals.next(); // Do not add epsilon to the
+	 * First Set if (!epsilon.toLowerCase().contains("epsilon")) { first.add(epsilon);
+	 * firstOrign.add(epsilon); } }
+	 * 
+	 * // Continue until First Sets do not change while (change) {
+	 * 
+	 * // For each productions for (int i = 0; i < finalProduction.size(); i++) { production =
+	 * finalProduction.get(i); for (int j = 1; j < production.size(); j++) { epsilon =
+	 * production.get(j); if (!epsilon.contains("|")) {//
+	 * !epsilon.toLowerCase().contains("epsilon")&& rhs += epsilon + " "; } }
+	 * 
+	 * // Add the rhs to the set first.add(rhs);
+	 * 
+	 * // System.out.println("rhs \t" + rhs);
+	 * 
+	 * // Clear the rhs rhs = "";
+	 * 
+	 * 
+	 * // Test here if First(A) has changed to set a flag for while loop if (compareSets(firstOrign,
+	 * first)) { change = false; } else { itNonTerminals = first.iterator(); while
+	 * (itNonTerminals.hasNext()) { firstOrign.add(itNonTerminals.next()); } } } }
+	 * 
+	 * // Add the First Sets to the class variable itNonTerminals = first.iterator(); while
+	 * (itNonTerminals.hasNext()) { epsilon = itNonTerminals.next(); //
+	 * System.out.println("Going into firstSetCV >>>>>>>>>>>>>> \t" + epsilon);
+	 * firstSetHM.put(epsilon, epsilon); }
+	 */
 	public static void firstSets() {
 		String epsilon = "", symbol = "", firstRHSSymbol = "";
 		boolean change = true;

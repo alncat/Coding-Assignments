@@ -72,10 +72,10 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
-		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
+		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR-Simple"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-ILR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
@@ -174,18 +174,20 @@ public class LLgen {
 			
 		}
 		// Perfrom error checking
-		for (int key : hmFirstPlusSets.keySet()) {
-			for (int j : hmFirstPlusSets.keySet()) {
-				if (j != key) {
-					if (finalProduction.get(key).get(0).trim().equals(finalProduction.get(j).get(0).trim())) {
-						if (!Collections.disjoint(hmFirstPlusSets.get(key), hmFirstPlusSets.get(j))) {
-							// ERROR
-							System.out.println("Grammar is not LL(1).");
-							System.exit(0);
-						}
+		for(int key : hmFirstPlusSets.keySet()){
+			for(int j : hmFirstPlusSets.keySet()){
+				if(j == key){
+					continue;
+				}
+				if(finalProduction.get(key).get(0).equals(finalProduction.get(j).get(0))){
+					if (!Collections.disjoint(hmFirstPlusSets.get(key), hmFirstPlusSets.get(j))) {
+						// ERROR
+						System.out.println("Grammar is not LL(1).");
+						System.exit(0);
 					}
 				}
-
+				
+				
 			}
 		}
 		

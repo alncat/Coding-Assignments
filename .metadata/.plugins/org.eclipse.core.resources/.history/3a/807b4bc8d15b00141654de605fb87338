@@ -72,7 +72,7 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
-		 String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Useless-nonLL1"};
@@ -81,8 +81,8 @@ public class LLgen {
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/CEG-LR"};
 		// String[] cmdLine = {"-t",
 		// "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example1"};
-		// String[] cmdLine = {"-t",
-		// "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example2"};
+		 String[] cmdLine = {"-t",
+		 "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example2"};
 
 		// Reads the command line and sets up parameters
 		readCommandLine(cmdLine);
