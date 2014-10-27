@@ -66,15 +66,18 @@ public class LLgen {
 	// Print only the human readable information for the grammar
 	private static boolean humanReadable = false;
 	
+	// Setup white spaces
+	private static String whiteSpaces = "    ";
+	
 	public static void main(String[] args) {
 
 		 String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
-		//String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
-		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
+		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
 		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Invocation-nonLL1"};
-		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
-		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Parens"};
+		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/LongAlternation"};
+		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Parens"};
 		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Parens-Alt"};
 		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/SN-RR-LL1"};
 		// String[] cmdLine = {"-s", "/Users/Ace/Downloads/lab2/grammars/Useless-LL1"};
@@ -130,11 +133,11 @@ public class LLgen {
 		}
 		if(humanReadable){
 		System.out.println(" ");
-		System.out.println("\t\t\t ***The First+ Sets***");
+		System.out.println(whiteSpaces +"***The First+ Sets***");
 		System.out.println(" ");
 		for(int key : hmFirstPlusSets.keySet()){
 			hmFirstPlusSets.get(key).remove("epsilon");
-			System.out.println("\t"+ key+":\t"+ hmFirstPlusSets.get(key).toString());
+			System.out.println(whiteSpaces+ key+":"+whiteSpaces+ hmFirstPlusSets.get(key).toString());
 			
 		}
 	}
@@ -201,7 +204,7 @@ public class LLgen {
 		System.out.println("table:");
 		// for each row
 		for(String NT : matrix.keySet()){
-			System.out.print("\t"+NT+ "\t{");
+			System.out.print(whiteSpaces+NT+":"+whiteSpaces +"{");
 			row = matrix.get(NT);
 			columnIndex = 0;
 			// for each column, print Table[NT,T] in YAML format
@@ -302,10 +305,10 @@ public class LLgen {
 		}// end of follow operations
 if(humanReadable){
 		// Print out the Non-terminal and Follow set
-		System.out.println("\t\t\t ***The Follow Sets***");
+		System.out.println(whiteSpaces+"***The Follow Sets***");
 		System.out.println(" ");
 		for (String NT : hmFollowSets.keySet()) {
-			System.out.println( NT + "\t >>> "
+			System.out.println( NT + whiteSpaces
 					+ hmFollowSets.get(NT).toString());
 		}
 }
@@ -447,10 +450,10 @@ if(humanReadable){
 
 		// print out the key and values mappings for terminals and non-terminals
 		if(humanReadable){
-		System.out.println("\t\t\t ***The First Sets***");
+		System.out.println(whiteSpaces+"***The First Sets***");
 		System.out.println(" ");
 		for (String key : hmFirstSets.keySet()) {
-			System.out.println(key.trim() + " \t>>>\t "+hmFirstSets.get(key).toString().trim());
+			System.out.println(key.trim() + whiteSpaces+hmFirstSets.get(key).toString().trim());
 			//System.out.print("FirstSet: " + hmFirstSets.get(key).toString());
 			//System.out.println(" ");
 		}
@@ -655,15 +658,15 @@ if(humanReadable){
 		strProduction = "";
 		System.out.println("terminals: " + strTerminals);
 		System.out.println("non-terminals: " + strNonTerminals);
-		System.out.println("eof-maker: <EOF>");
-		System.out.println("error-maker: --");
+		System.out.println("eof-marker: <EOF>");
+		System.out.println("error-marker: --");
 		System.out.println("start-symbol: " + startSym);
 		System.out.println("");
 		}
 		strProduction = "";
 		System.out.println("productions: ");
 		for (int i = 0; i < finalProduction.size(); i++) {
-			strProduction += "\t" + Integer.toString(i) + ":\t";
+			strProduction += whiteSpaces + Integer.toString(i) + ":"+whiteSpaces;
 			gramLine = finalProduction.get(i);
 			for (int j = 0; j < gramLine.size(); j++) {
 				if (j == 0) {
@@ -1122,7 +1125,7 @@ if(humanReadable){
 				if (!value.equals("")) {
 					// System.out.println("This is value: \t " + value);
 					// Add the production for printing
-					productionLists.add("\t" + Integer.toString(productionCounter) + ":" + "\t"
+					productionLists.add(whiteSpaces + Integer.toString(productionCounter) + ":" + whiteSpaces
 							+ value);
 					productionCounter += 1;
 					// System.out.println(nonTerminalCount.get("Expr"));
@@ -1195,7 +1198,7 @@ if(humanReadable){
 			theTerms.add(grammarsTable(iterTerms.next()));
 		}
 		for (int i = 0; i < theNonTerms.size(); i++) {
-			mapOfMap += "\t" + theNonTerms.get(i) + ": {";
+			mapOfMap += whiteSpaces + theNonTerms.get(i) + ": {";
 			for (int j = 0; j < theTerms.size(); j++) {
 				if (theTerms.get(j) == "") {
 					mapOfMap += "<EOF>" + ": --,";
@@ -1211,21 +1214,21 @@ if(humanReadable){
 	}
 
 	public static void fillGrammarTable() {
-		grammarTable.put("LP", "(");
-		grammarTable.put("RP", ")");
-		grammarTable.put("LB", "{");
-		grammarTable.put("RB", "}");
-		grammarTable.put("TIMES", "*");
-		grammarTable.put("PLUS", "+");
-		grammarTable.put("MINUS", "-");
-		grammarTable.put("DIV", "/");
+		//grammarTable.put("LP", "(");
+		//grammarTable.put("RP", ")");
+		//grammarTable.put("LB", "{");
+		//grammarTable.put("RB", "}");
+		//grammarTable.put("TIMES", "*");
+		//grammarTable.put("PLUS", "+");
+		//grammarTable.put("MINUS", "-");
+		//grammarTable.put("DIV", "/");
 		grammarTable.put("epsilon", "");
 		grammarTable.put("Epsilon", "");
 		grammarTable.put("EPSILON", "");
-		grammarTable.put("COMMA", ",");
-		grammarTable.put("LParen", "(");
-		grammarTable.put("RParen", ")");
-		grammarTable.put("DIVIDE", "/");
+		//grammarTable.put("COMMA", ",");
+		//grammarTable.put("LParen", "(");
+		//grammarTable.put("RParen", ")");
+		//grammarTable.put("DIVIDE", "/");
 		grammarTable.put("EOF", "<EOF>");
 	}
 
