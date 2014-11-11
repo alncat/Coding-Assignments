@@ -1,0 +1,122 @@
+package com.seanharger.chatapp.model.chatroom;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
+
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import provided.datapacket.DataPacketAlgo;
+import common.ICmd2ModelAdapter;
+import common.chatroom.IChatroomID;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.chat.IChatMessage;
+import common.message.connect.IConnectMessage;
+import common.user.IUser;
+
+public class Chatroom {
+  private IChatroomID chatroomId;
+  private IChatroomToViewAdapter view;
+  private String name;
+  private IUser thisUser;
+  private List<IChatroomToChatroomAdapter> userChatroomStubs;
+  private ArrayList<ChatMessage> messages;
+
+  private DataPacketAlgo<DataPacket<? extends IChatMessage>, Object> chatHost =
+      new DataPacketAlgo<DataPacket<? extends IChatMessage>, Object>(
+          new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, Object>() {
+
+            private static final long serialVersionUID = 7541508735919507513L;
+
+            @Override
+            public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                DataPacket<Object> host, Object... params) {
+              return null;
+            }
+
+            @Override
+            public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+            }
+          }) {
+
+        private static final long serialVersionUID = -7385090018966824899L;
+
+        {
+
+        }
+      };
+
+  private ChatroomToChatroomAdapter thisAdapter;
+
+  private IChatroomToChatroomRemote thisRemote = new IChatroomToChatroomRemote() {
+
+    @Override
+    public DataPacket<? extends IChatMessage> sendChatroomMessage(
+        DataPacket<? extends IChatMessage> message, IChatroomToChatroomAdapter sendingAdapter)
+        throws RemoteException {
+      System.out.println("Processed a message");
+      return null;
+    }
+
+  };
+
+  public Chatroom(String name, IUser thisUser, IChatroomToViewAdapter view,
+      List<IChatroomToChatroomAdapter> userStubs) {
+    this.name = name;
+    this.thisUser = thisUser;
+    this.view = view;
+    this.userChatroomStubs = userStubs;
+    this.messages = new ArrayList<ChatMessage>();
+    this.chatroomId = new ChatroomID(null, name);
+
+    try {
+      IChatroomToChatroomRemote thisChatroomStub =
+          (IChatroomToChatroomRemote) UnicastRemoteObject.exportObject(thisRemote, 2101);
+      this.thisAdapter = new ChatroomToChatroomAdapter(thisUser, chatroomId, thisChatroomStub);
+      this.userChatroomStubs.add(this.thisAdapter);
+    } catch (RemoteException e) {
+      e.printStackTrace();
+      System.exit(-1);
+    }
+  }
+
+  public Chatroom(String name, IUser thisUser, IChatroomToViewAdapter view) {
+    this(name, thisUser, view, new ArrayList<IChatroomToChatroomAdapter>());
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public List<IChatroomToChatroomAdapter> getUserStubs() {
+    return userChatroomStubs;
+  }
+
+  public void installAdapter(IChatroomToViewAdapter view) {
+    this.view = view;
+  }
+
+  public void sendMessage(String message) {
+    ChatMessage msg = new ChatMessage("Username", message);
+    messages.add(msg);
+    view.displayMessage(String.format("%s : %s", msg.getUser(), msg.getMessage()));
+    
+    for (IChatroomToChatroomAdapter room: userChatroomStubs) {
+      try {
+        room.sendChatroomMessage(null, null);
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void leaveRoom() {
+    view.removeChatroom();
+  }
+
+  public IChatroomID getChatroomID() {
+    return this.chatroomId;
+  }
+}

@@ -25,5 +25,7 @@ interface ITopKMachine<T> {
 	int size();// computes the size of the tree
 
 	int checkBalance();// checks to see if the tree is balanced
+	
+	boolean membership(T value);
 
 }

@@ -71,7 +71,7 @@ public class LLgen {
 	
 	public static void main(String[] args) {
 
-		 String[] cmdLine = args;
+		 //String[] cmdLine = args;
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/SN-nonLL1-RR"};
 		//String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/CEG-RR"};
 		// String[] cmdLine = {"-t", "/Users/Ace/Downloads/lab2/grammars/Factor-LL1-RR"};
@@ -89,6 +89,8 @@ public class LLgen {
 		// "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example1"};
 		// String[] cmdLine = {"-s",
 		// "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/ILR-Example2"};
+		 String[] cmdLine = {"-t",
+			 "/Users/Ace/Downloads/lab2/grammars/LeftRecursion/DefMod"};
 
 		// Reads the command line and sets up parameters
 		readCommandLine(cmdLine);

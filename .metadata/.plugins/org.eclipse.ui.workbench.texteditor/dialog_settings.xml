@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="finalProduction" key="selection"/>
+		<item value="ADataPacketAlgoCmd" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="finalProduction"/>
-			<item value="p"/>
-			<item value="REGEX"/>
-			<item value="startSym"/>
-			<item value="nonDuplicateProd"/>
-			<item value="keyIndexCounter"/>
-			<item value="VR1"/>
-			<item value="VR0"/>
+			<item value="ADataPacketAlgoCmd"/>
+			<item value="rmiUtils"/>
+			<item value="newPanel"/>
+			<item value="outputTA"/>
+			<item value="append"/>
+			<item value="tabbedPane"/>
+			<item value="getaddress"/>
+			<item value="memebership"/>
 		</list>
 		<list key="replacehistory">
+			<item value="membership"/>
 			<item value="operation2PR"/>
 			<item value=""/>
 			<item value="r"/>

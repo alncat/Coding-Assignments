@@ -137,7 +137,7 @@ class AVLTopKMachine<T extends Comparable<T>> implements ITopKMachine<T> {
 		return myTree.height();
 	}
 
-	public boolean memebership(T value) {// check to see if there is node in the tree.
+	public boolean membership(T value) {// check to see if there is node in the tree.
 		if (myTree.isThere(value) == true) {
 			return true;
 		} else {
@@ -148,6 +148,13 @@ class AVLTopKMachine<T extends Comparable<T>> implements ITopKMachine<T> {
 	public int size() {// finds the number of nodes in the tree
 		int treeSize = topK.size();
 		return treeSize;
+	}
+
+
+	@Override
+	public boolean memebership(T value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

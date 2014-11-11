@@ -4,7 +4,7 @@
 	<item value="501" key="HistoryTableProvider.MergeWizardUnblockRevisionsPage.Comment"/>
 	<item value="https://svn.rice.edu/r/comp310/turnin/F14/jjc7/HW04" key="UrlCombo.HW03.0"/>
 	<item value="22" key="passwordStores.location.y"/>
-	<item value="22" key="CommitDialog.location.y"/>
+	<item value="23" key="CommitDialog.location.y"/>
 	<item value="170" key="passwordStores.location.x"/>
 	<item value="77" key="CommitDialog.location.x"/>
 	<item value="578" key="RevertDialog.location.x"/>

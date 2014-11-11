@@ -1,0 +1,342 @@
+package com.seanharger.chatapp.model;
+
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import provided.datapacket.DataPacketAlgo;
+import provided.rmiUtils.IRMIUtils;
+import provided.rmiUtils.IRMI_Defs;
+import provided.rmiUtils.RMIUtils;
+import provided.util.IVoidLambda;
+
+import com.seanharger.chatapp.model.chatroom.Chatroom;
+import com.seanharger.chatapp.model.chatroom.IChatroomToViewAdapter;
+import com.seanharger.chatapp.model.message.connect.ChatroomInviteMessage;
+import com.seanharger.chatapp.model.message.connect.ChatroomsListMessage;
+import com.seanharger.chatapp.model.message.connect.RequestChatroomMessage;
+import common.ICmd2ModelAdapter;
+import common.chatroom.IChatroomID;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.NullMessage;
+import common.message.connect.IChatroomInviteMessage;
+import common.message.connect.IChatroomsListMessage;
+import common.message.connect.IConnectMessage;
+import common.message.connect.IGetChatroomsListMessage;
+import common.message.connect.IRejectRequestMessage;
+import common.message.connect.IRequestChatroomMessage;
+import common.user.IUser;
+import common.user.IUserToUserAdapter;
+
+public class ChatAppModel {
+
+	private IModelToViewAdapter view;
+
+	private Registry registry;
+
+	private ArrayList<Chatroom> chatrooms;
+	private IUser thisUser;
+	private IUserToUserAdapter remoteUser;
+
+	private DataPacketAlgo<DataPacket<? extends IConnectMessage>, Object> connectHost;
+
+	private void initConnectHost() {
+		connectHost = new DataPacketAlgo<DataPacket<? extends IConnectMessage>, Object>(
+				new ADataPacketAlgoCmd<DataPacket<? extends IConnectMessage>, Object, Object>() {
+
+					/** Serial ID. */
+					private static final long serialVersionUID = 1575617045646257538L;
+
+					@Override
+					public DataPacket<? extends IConnectMessage> apply(
+							Class<?> index, DataPacket<Object> host,
+							Object... params) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+
+		connectHost
+				.setCmd(IGetChatroomsListMessage.class,
+						new ADataPacketAlgoCmd<DataPacket<? extends IConnectMessage>, Object, Object>() {
+
+							/** Serial ID */
+							private static final long serialVersionUID = 3982132619939006944L;
+
+							@Override
+							public DataPacket<? extends IConnectMessage> apply(
+									Class<?> index, DataPacket<Object> host,
+									Object... params) {
+								ChatroomsListMessage msg = new ChatroomsListMessage();
+								for (Chatroom c : chatrooms) {
+									msg.addRoom(c.getChatroomID());
+								}
+								return new DataPacket<IChatroomsListMessage>(
+										IChatroomsListMessage.class, msg);
+							}
+
+							@Override
+							public void setCmd2ModelAdpt(
+									ICmd2ModelAdapter cmd2ModelAdpt) {
+								// TODO Auto-generated method stub
+
+							}
+
+						});
+
+		connectHost
+				.setCmd(IChatroomsListMessage.class,
+						new ADataPacketAlgoCmd<DataPacket<? extends IConnectMessage>, Object, Object>() {
+
+							private static final long serialVersionUID = 3982132619939006944L;
+
+							@Override
+							public DataPacket<? extends IConnectMessage> apply(
+									Class<?> index, DataPacket<Object> host,
+									Object... params) {
+
+								IChatroomsListMessage chatlistMessage = (IChatroomsListMessage) host
+										.getData();
+								List<IChatroomID> roomIds = chatlistMessage
+										.getChatroomIDs();
+								view.setChatroomOptions(roomIds);
+								return new DataPacket<NullMessage>(
+										NullMessage.class,
+										NullMessage.SINGLETON);
+							}
+
+							@Override
+							public void setCmd2ModelAdpt(
+									ICmd2ModelAdapter cmd2ModelAdpt) {
+								// TODO Auto-generated method stub
+
+							}
+
+						});
+
+		connectHost
+				.setCmd(IRejectRequestMessage.class,
+						new ADataPacketAlgoCmd<DataPacket<? extends IConnectMessage>, Object, Object>() {
+
+							private static final long serialVersionUID = 3133555369876569653L;
+
+							@Override
+							public DataPacket<? extends IConnectMessage> apply(
+									Class<?> index, DataPacket<Object> host,
+									Object... params) {
+								view.showInformationDialog("Request rejected",
+										"Your request to join was rejected.");
+								return new DataPacket<NullMessage>(
+										NullMessage.class,
+										NullMessage.SINGLETON);
+							}
+
+							@Override
+							public void setCmd2ModelAdpt(
+									ICmd2ModelAdapter cmd2ModelAdpt) {
+								// TODO Auto-generated method stub
+
+							}
+						});
+
+		connectHost
+				.setCmd(IRequestChatroomMessage.class,
+						new ADataPacketAlgoCmd<DataPacket<? extends IConnectMessage>, Object, Object>() {
+
+							private static final long serialVersionUID = 3133555369876569653L;
+
+							@Override
+							public DataPacket<? extends IConnectMessage> apply(
+									Class<?> index, DataPacket<Object> host,
+									Object... params) {
+								IRequestChatroomMessage request = (IRequestChatroomMessage) host
+										.getData();
+								for (Chatroom room : chatrooms) {
+									if (room.getChatroomID().equals(
+											request.getChatroomID())) {
+										ChatroomInviteMessage invite = new ChatroomInviteMessage(room.getChatroomID(), room.getUserAdapters());
+										return new DataPacket<IChatroomInviteMessage>(
+<<<<<<< .mine
+												IChatroomInviteMessage.class,
+												new ChatroomInviteMessage(
+														room.getChatroomID(),
+														room.getUserAdapters()));
+=======
+												IChatroomInviteMessage.class, invite);
+												
+>>>>>>> .r50780
+									}
+								}
+								return new DataPacket<NullMessage>(
+										NullMessage.class,
+										NullMessage.SINGLETON);
+							}
+
+							@Override
+							public void setCmd2ModelAdpt(
+									ICmd2ModelAdapter cmd2ModelAdpt) {
+								// TODO Auto-generated method stub
+
+							}
+						});
+
+		connectHost.setCmd(IChatroomInviteMessage.class,
+			new ADataPacketAlgoCmd<DataPacket<? extends IConnectMessage>, Object, Object>() {
+
+							private static final long serialVersionUID = 3133555369876569653L;
+
+							@Override
+							public DataPacket<? extends IConnectMessage> apply(
+									Class<?> index, DataPacket<Object> host,
+									Object... params) {
+								IChatroomInviteMessage invite = (IChatroomInviteMessage) host
+										.getData();
+								System.out.println("I was invited to "
+										+ invite.getChatroomID());
+								Chatroom newRoom = new Chatroom(invite
+										.getChatroomID().toString(), thisUser,
+										IChatroomToViewAdapter.NULL_OBJECT,
+										invite.getMemberAdapters());
+								newRoom.installAdapter(view
+										.makeChatroomToViewAdapter(newRoom));
+								return new DataPacket<NullMessage>(
+										NullMessage.class,
+										NullMessage.SINGLETON);
+							}
+
+							@Override
+							public void setCmd2ModelAdpt(
+									ICmd2ModelAdapter cmd2ModelAdpt) {
+								// TODO Auto-generated method stub
+
+							}
+			});
+	}
+
+	/**
+	 * Factory for the Registry and other uses.
+	 */
+	IRMIUtils rmiUtils = new RMIUtils(new IVoidLambda<String>() {
+
+		@Override
+		public void apply(String... params) {
+
+		}
+
+	});
+
+	public ChatAppModel(IModelToViewAdapter view) {
+		this.view = view;
+		this.chatrooms = new ArrayList<Chatroom>();
+		try {
+			this.thisUser = new User(System.getProperty("user.name"),
+					(Inet4Address) Inet4Address.getLocalHost());
+		} catch (UnknownHostException e) {
+			System.err.println("Host IP address could not be determined.");
+			System.exit(-1);
+		}
+		initConnectHost();
+	}
+
+	public void makeRoom(String name) {
+		Chatroom room;
+		room = new Chatroom(name, thisUser, IChatroomToViewAdapter.NULL_OBJECT);
+		room.installAdapter(view.makeChatroomToViewAdapter(room));
+		chatrooms.add(room);
+	}
+
+	public void start() {
+		rmiUtils.startRMI(IRMI_Defs.CLASS_SERVER_PORT_SERVER);
+
+		try {
+			IUserToUserAdapter thisAdapter = new IUserToUserAdapter() {
+
+				@Override
+				public DataPacket<? extends IConnectMessage> sendMessage(
+						DataPacket<? extends IConnectMessage> message)
+						throws RemoteException {
+					return message.execute(connectHost, new Object[] {});
+				}
+
+				@Override
+				public IUser getUser() throws RemoteException {
+					return thisUser;
+				}
+
+			};
+
+			// String name = "Compute";
+			// Use this technique rather than the simpler
+			// "registry.rebind(name, engine);"
+			// because it enables us to specify a port number so we can open
+			// that port on the firewall
+			IUserToUserAdapter stub = (IUserToUserAdapter) UnicastRemoteObject
+					.exportObject(thisAdapter, 2101);
+
+			registry = rmiUtils.getLocalRegistry();
+
+			registry.rebind(IUserToUserAdapter.BOUND_NAME, stub);
+		} catch (Exception e) {
+			System.err.println("ComputeEngine exception:" + "\n");
+			e.printStackTrace();
+			System.exit(-1);
+		}
+
+	}
+
+	public void stop() {
+		try {
+			rmiUtils.stopRMI();
+		} catch (Exception e) {
+			System.err.println("Error stopping RMI server: " + e);
+		}
+		System.exit(0);
+	}
+
+	public void connectTo(String remoteHost) {
+		try {
+			Registry registry = rmiUtils.getRemoteRegistry(remoteHost);
+			remoteUser = (IUserToUserAdapter) registry
+					.lookup(IUserToUserAdapter.BOUND_NAME);
+
+			System.out.println("connected to: "
+					+ remoteUser.getUser().getName());
+
+			DataPacket<? extends IConnectMessage> response = remoteUser
+					.sendMessage(new DataPacket<IGetChatroomsListMessage>(
+							IGetChatroomsListMessage.class, null));
+			response.execute(connectHost, new Object[] {});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void requestToJoin(IChatroomID chatroomId) {
+		try {
+			DataPacket<? extends IConnectMessage> test = new DataPacket<IRequestChatroomMessage>(
+					IRequestChatroomMessage.class, new RequestChatroomMessage(
+							chatroomId));
+			DataPacket<? extends IConnectMessage> response = remoteUser
+					.sendMessage(test);
+			response.execute(connectHost, new Object[] {});
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
