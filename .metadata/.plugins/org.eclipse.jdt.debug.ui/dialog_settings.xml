@@ -15,4 +15,8 @@
 			<item value="154" key="DIALOG_Y_ORIGIN"/>
 		</section>
 	</section>
+	<section name="AddExceptionDialog">
+		<item value="true" key="caughtChecked"/>
+		<item value="true" key="uncaughtChecked"/>
+	</section>
 </section>

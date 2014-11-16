@@ -1,0 +1,30 @@
+package com.seanharger.chatapp.model.message.chat.unknown;
+
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import common.ICmd2ModelAdapter;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.NullMessage;
+import common.message.chat.IChatMessage;
+
+public class SimpleUnknown extends
+    ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter> {
+
+  private static final long serialVersionUID = 5951881335031599836L;
+
+  private transient ICmd2ModelAdapter cmd2ModelAdpt;
+
+  @Override
+  public DataPacket<? extends IChatMessage> apply(Class<?> index, DataPacket<Object> host,
+      IChatroomToChatroomAdapter... params) {
+    System.out.println("Processing Sean's unknown message");
+    cmd2ModelAdpt.append("Donald duck");
+    return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+  }
+
+  @Override
+  public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+    this.cmd2ModelAdpt = cmd2ModelAdpt;
+  }
+
+}

@@ -51,4 +51,7 @@
 <fullyQualifiedTypeName name="com.seanharger.chatapp.model.ChatAppModel"/>
 <fullyQualifiedTypeName name="com.seanharger.chatapp.view.IViewToModelAdapter"/>
 <fullyQualifiedTypeName name="com.seanharger.chatapp.model.IModelToViewAdapter"/>
+<fullyQualifiedTypeName name="com.seanharger.chatapp.model.chatroom.IChatroomToModelAdapter"/>
+<fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
+<fullyQualifiedTypeName name="javax.swing.JRootPane"/>
 </qualifiedTypeNameHistroy>

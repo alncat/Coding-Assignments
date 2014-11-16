@@ -1,0 +1,510 @@
+package com.seanharger.chatapp.model.chatroom;
+
+import java.awt.Component;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.seanharger.chatapp.model.message.chat.JoinChatroomMessage;
+import com.seanharger.chatapp.model.message.chat.LeaveMessage;
+import com.seanharger.chatapp.model.message.chat.SendCmdMessage;
+import com.seanharger.chatapp.model.message.chat.TextMessage;
+import com.seanharger.chatapp.model.message.chat.RequestCmdMessage;
+import com.seanharger.chatapp.model.message.chat.unknown.IDonaldMessage;
+import com.seanharger.chatapp.model.message.chat.unknown.DonaldAlgo;
+import com.seanharger.chatapp.model.message.chat.unknown.DonaldMessage;
+
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import provided.datapacket.DataPacketAlgo;
+import provided.mixedData.IMixedDataDictionary;
+import provided.mixedData.MixedDataDictionary;
+import common.ICmd2ModelAdapter;
+import common.chatroom.IChatroomID;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.IErrorMessage;
+import common.message.NullMessage;
+import common.message.chat.IChatMessage;
+import common.message.chat.IJoinChatroomMessage;
+import common.message.chat.ILeaveMessage;
+import common.message.chat.ITextMessage;
+import common.user.IUser;
+import common.message.chat.IRequestCmdMessage;
+import common.message.chat.ISendCmdMessage;
+
+public class Chatroom {
+  private IChatroomID chatroomId;
+  private IChatroomToViewAdapter view;
+  private IUser thisUser;
+  private List<IChatroomToChatroomAdapter> userChatroomAdapters;
+  private MixedDataDictionary data = new MixedDataDictionary();
+
+  private IChatroomToChatroomAdapter thisAdapter;
+
+  private IChatroomToModelAdapter model;
+
+  private IChatroomToChatroomRemote thisRemote = 
+  new IChatroomToChatroomRemote() {
+
+    @Override
+    public DataPacket<? extends IChatMessage> sendChatroomMessage(
+        DataPacket<? extends IChatMessage> message, IChatroomToChatroomAdapter sendingAdapter)
+        throws RemoteException {
+      System.out.println("Processed a message");
+      return message.execute(chatHost, sendingAdapter);
+    }
+
+  };
+
+  /**
+   * Handles all the visitor cases for messages.
+   */
+  private DataPacketAlgo<DataPacket<? extends IChatMessage>, IChatroomToChatroomAdapter> chatHost =
+      new DataPacketAlgo<DataPacket<? extends IChatMessage>, IChatroomToChatroomAdapter>(
+          new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+            /* Unknown message case. */
+
+            private static final long serialVersionUID = 7541508735919507513L;
+
+            @Override
+            public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+              IChatroomToChatroomAdapter sender = params[0];
+              try {
+                DataPacket<? extends IChatMessage> response =
+                    sender.sendChatroomMessage(new DataPacket<IRequestCmdMessage>(
+                        IRequestCmdMessage.class, new RequestCmdMessage(index)), thisAdapter);
+                response.execute(chatHost, sender);
+                host.execute(chatHost, sender);
+              } catch (RemoteException e) {
+//<<<<<<< .mine
+                view.showErrorDialog("DataPacket Response Error","Encountered an error sending a response DataPacket.");
+                e.printStackTrace();
+//=======
+                removeBrokenAdapter(sender);
+//>>>>>>> .r52374
+              }
+              return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+            }
+
+            @Override
+            public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+            }
+          }) {
+
+        private static final long serialVersionUID = -7385090018966824899L;
+
+        {
+          setCmd(
+              NullMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 5861230867628406578L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              IErrorMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 5861230867628406578L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  IErrorMessage error = (IErrorMessage) host;
+                  error.getCause().printStackTrace();
+                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              IRequestCmdMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 5861230867628406578L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  IRequestCmdMessage requestCmdMsg = (IRequestCmdMessage) host.getData();
+                  return new DataPacket<ISendCmdMessage>(
+                      ISendCmdMessage.class,
+                      new SendCmdMessage(
+                          requestCmdMsg.getMessageID(),
+                          (ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Class<?>, IChatroomToChatroomAdapter>) chatHost
+                              .getCmd(requestCmdMsg.getMessageID())));
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              ISendCmdMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 5861230867628406578L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  ISendCmdMessage requestCmdMsg = (ISendCmdMessage) host.getData();
+                  requestCmdMsg.getCmd().setCmd2ModelAdpt(new ICmd2ModelAdapter() {
+
+                    @Override
+                    public void addComponent(Component component) {
+                      view.addComponent(component);
+                    }
+
+                    @Override
+                    public void append(String text) {
+                      view.displayMessage(text);
+                    }
+
+                    @Override
+                    public IMixedDataDictionary getMixedDataDictionary() {
+                      System.out.println("Get mixed data dictionary for something I don't know");
+                      return data;
+                    }
+
+                  });
+                  chatHost.setCmd(requestCmdMsg.getCmdID(), requestCmdMsg.getCmd());
+                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              ITextMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 4783116422972675010L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  ITextMessage txtMessage = (ITextMessage) host.getData();
+                  IChatroomToChatroomAdapter sendingRoom = (IChatroomToChatroomAdapter) params[0];
+                  view.displayMessage(String.format("%s : %s", sendingRoom.getUser().toString(),
+                      txtMessage.getText()));
+                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              IJoinChatroomMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 3963012518156912018L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  IJoinChatroomMessage joinMessage = (IJoinChatroomMessage) host.getData();
+                  IChatroomToChatroomAdapter sendingRoom = params[0];
+                  userChatroomAdapters.add(joinMessage.getAdapter());
+                  view.displayMessage(String.format("%s joined the room.", sendingRoom.getUser()
+                      .toString()));
+                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              ILeaveMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                private static final long serialVersionUID = 3963012518156912018L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  ILeaveMessage leaveMessage = (ILeaveMessage) host.getData();
+
+                  System.out.println("Existing adapters");
+                  for (IChatroomToChatroomAdapter a : userChatroomAdapters) {
+                    System.out.println("existing" + a.getChatroomID() + ", " + a.getUser()
+                        + Integer.toString(a.hashCode()));
+                  }
+                  System.out.println("leaveMesssage" + leaveMessage.getAdapter().getChatroomID()
+                      + ", " + leaveMessage.getAdapter().getUser()
+                      + Integer.toString(leaveMessage.getAdapter().hashCode()));
+                  userChatroomAdapters.remove(leaveMessage.getAdapter());
+                  System.out.println("-----------------------");
+                  System.out.println("user list: " + userChatroomAdapters);
+                  view.displayMessage(String.format("%s left the room.", leaveMessage.getAdapter()
+                      .getUser().toString()));
+                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+        }
+      };
+
+  /**
+   * Constructor that setups joining a remote chatroom.
+   * 
+   * @param chatroomId
+   * @param thisUser
+   * @param view
+   * @param model
+   * @param userStubs
+   */
+  public Chatroom(IChatroomID chatroomId, IUser thisUser, IChatroomToViewAdapter view,
+      IChatroomToModelAdapter model, List<IChatroomToChatroomAdapter> userStubs) {
+    this.thisUser = thisUser;
+    this.view = view;
+    this.userChatroomAdapters = userStubs;
+    this.chatroomId = chatroomId;
+    this.model = model;
+
+    try {
+      IChatroomToChatroomRemote thisChatroomStub =
+          (IChatroomToChatroomRemote) UnicastRemoteObject.exportObject(thisRemote, 2101);
+      this.thisAdapter = new ChatroomToChatroomAdapter(thisUser, chatroomId, thisChatroomStub);
+      this.userChatroomAdapters.add(this.thisAdapter);
+
+      new Thread(() -> {
+        IJoinChatroomMessage joinMessage = new JoinChatroomMessage(this.thisAdapter);
+
+        List<IChatroomToChatroomAdapter> removeLater = new ArrayList<IChatroomToChatroomAdapter>();
+
+        for (IChatroomToChatroomAdapter existingUser : this.userChatroomAdapters) {
+          if (existingUser.getUser().equals(this.thisUser)) {
+            continue;
+          }
+
+          try {
+            existingUser.sendChatroomMessage(new DataPacket<IJoinChatroomMessage>(
+                IJoinChatroomMessage.class, joinMessage), this.thisAdapter);
+          } catch (Exception e) {
+//<<<<<<< .mine
+            view.showErrorDialog("Send Chatroom Message Error", "Encountered an error sending a message to the chatroom.");
+            e.printStackTrace();
+//=======
+            removeLater.add(existingUser);
+//>>>>>>> .r52374
+          }
+        }
+
+        for (IChatroomToChatroomAdapter remove : removeLater) {
+          removeBrokenAdapter(remove);
+        }
+      }).start();;
+    } catch (RemoteException e) {
+      view.showErrorDialog("Send Chatroom Message Error", "Encountered a RemoteException with chatroom stub.");
+      e.printStackTrace();
+      System.exit(-1);
+    }
+  }
+
+  /**
+   * Constructor that setups creating a local chatroom.
+   * 
+   * @param name: string that is the name of the user.
+   * @param thisUser: IUser
+   * @param view: IChatroomToViewAdapter
+   * @param model: IChatroomToModelAdapter
+   */
+  public Chatroom(String name, IUser thisUser, IChatroomToViewAdapter view,
+      IChatroomToModelAdapter model) {
+    this(new ChatroomID(thisUser.getIPAddress(), name), thisUser, view, model,
+        new ArrayList<IChatroomToChatroomAdapter>());
+  }
+
+  /**
+   * Gets the name of this chatroom.
+   * 
+   * @return: string that is the name of the chatroom.
+   */
+  public String getName() {
+    return this.chatroomId.toString();
+  }
+
+  /**
+   * Gets all IChatrooomToChatroomAdapters.
+   * 
+   * @return: a List of IChatroomToChatroomAdapters.
+   */
+  public List<IChatroomToChatroomAdapter> getUserStubs() {
+    return userChatroomAdapters;
+  }
+
+  /**
+   * Sets the view.
+   * 
+   * @param view: setter for the view. 
+   */
+  public void installViewAdapter(IChatroomToViewAdapter view) {
+    this.view = view;
+  }
+
+
+  /**
+   * Removes broken IChatroomToChatroomAdapter from the list of
+   * of user chatroom adapters.
+   * 
+   * @param adapter: IChatroomToChatroom adapter that needs to be removed.
+   */
+  private void removeBrokenAdapter(IChatroomToChatroomAdapter adapter) {
+    view.displayMessage("Lost connection with " + adapter.getUser());
+    userChatroomAdapters.remove(adapter);
+  }
+
+  /**
+   * Sends a text message to this chatroom.
+   * 
+   * @param message: text that was typed into the text field.
+   */
+  public void sendMessage(String message) {
+    new Thread(() -> {
+      TextMessage txtMessage = new TextMessage(message);
+
+      List<IChatroomToChatroomAdapter> removeLater = new ArrayList<IChatroomToChatroomAdapter>();
+      for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+        try {
+          room.sendChatroomMessage(new DataPacket<ITextMessage>(ITextMessage.class, txtMessage),
+              thisAdapter);
+        } catch (RemoteException e) {
+//<<<<<<< .mine
+          view.showErrorDialog("Send Message Error", "Encountered a RemoteException sending a text message.");
+          e.printStackTrace();
+//=======
+          removeLater.add(room);
+//>>>>>>> .r52374
+        }
+      }
+
+      for (IChatroomToChatroomAdapter remove : removeLater) {
+        removeBrokenAdapter(remove);
+      }
+    }).start();
+  }
+
+  /**
+   * Sends an unknown message to the chatroom.
+   */
+  public void sendUnknown() {
+    DonaldAlgo su = new DonaldAlgo();
+    su.setCmd2ModelAdpt(new ICmd2ModelAdapter() {
+
+      @Override
+      public void addComponent(Component component) {
+        view.addComponent(component);
+      }
+
+      @Override
+      public void append(String text) {
+        view.displayMessage(text);
+      }
+
+      @Override
+      public IMixedDataDictionary getMixedDataDictionary() {
+        System.out.println("Get mixed data dictionary for something I don't know");
+        return data;
+      }
+
+    });
+
+    chatHost.setCmd(IDonaldMessage.class, su);
+
+    for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+      try {
+        room.sendChatroomMessage(new DataPacket<IDonaldMessage>(IDonaldMessage.class,
+            new DonaldMessage()), this.thisAdapter);
+      } catch (RemoteException e) {
+        view.showErrorDialog("Send Chatroom Message Error", "Encountered a RemoteException sending a chatroom message.");
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Method to leave the chatroom for this instance.
+   */
+  public void leaveRoom() {
+    new Thread(() -> {
+      LeaveMessage leaveMessage = new LeaveMessage(this.thisAdapter);
+
+      userChatroomAdapters.remove(thisAdapter);
+      
+      view.removeChatroom();
+
+      for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+        try {
+          room.sendChatroomMessage(
+              new DataPacket<ILeaveMessage>(ILeaveMessage.class, leaveMessage), this.thisAdapter);
+//<<<<<<< .mine
+        } catch (Exception e) {
+          view.showErrorDialog("Leave Message Error", "Encountered an error leaving the chatroom.");
+          e.printStackTrace();
+//=======
+        }
+      }
+
+      model.removeChatroom(this);
+    }).start();
+  }
+
+  /**
+   * Gets the IChatroomID for this chatroom.
+   * 
+   * @return returns the IChatroomID for this instance.
+   */
+  public IChatroomID getChatroomID() {
+    return this.chatroomId;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+    return this.chatroomId.toString();
+  }
+}

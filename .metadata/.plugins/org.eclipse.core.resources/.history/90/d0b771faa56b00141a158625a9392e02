@@ -1,0 +1,26 @@
+package com.seanharger.chatapp.model.message.chat;
+
+import common.message.chat.IRequestCmdMessage;
+
+public class RequestCmdMessage implements IRequestCmdMessage {
+
+  private static final long serialVersionUID = 2492950703515176918L;
+
+  private Class<?> messageId;
+  
+  /**
+   * Constructor that sets the instance variable for
+   * RequestCmdMessage.
+   * 
+   * @param messageId: Class<&>.
+   */
+  public RequestCmdMessage(Class<?> messageId) {
+    this.messageId = messageId;
+  }
+  
+  @Override
+  public Class<?> getMessageID() {
+    return this.messageId;
+  }
+
+}

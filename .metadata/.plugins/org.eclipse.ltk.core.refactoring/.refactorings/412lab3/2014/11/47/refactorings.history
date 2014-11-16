@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;inputLine&apos; in &apos;schedule.main(...)&apos; to &apos;inputFile&apos;&#x0A;- Original project: &apos;412lab3&apos;&#x0A;- Original element: &apos;schedule.main(String[]).inputLine&apos;&#x0A;- Renamed element: &apos;inputLine&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;inputLine&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{schedule.java[schedule~main~\[QString;@inputLine!1227!1294!1236!1244!\[QString;!0!false" name="inputFile" references="true" stamp="1416125445577" version="1.0"/>
+</session>

@@ -1,0 +1,7 @@
+package com.seanharger.chatapp.model.message.chat.unknown;
+
+import common.message.chat.IChatMessage;
+
+public interface IDonaldMessage extends IChatMessage {
+
+}

@@ -1,0 +1,7 @@
+package com.seanharger.chatapp.model.message.chat.unknown;
+
+public class SimpleUnknownMessage implements ISimpleUnknownMessage {
+  
+  private static final long serialVersionUID = 4110526569522097230L;
+
+}

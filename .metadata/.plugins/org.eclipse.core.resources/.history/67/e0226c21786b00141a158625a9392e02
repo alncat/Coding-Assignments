@@ -1,0 +1,36 @@
+package com.seanharger.chatapp.model.message.chat;
+
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.chat.IChatMessage;
+import common.message.chat.ISendCmdMessage;
+
+public class SendCmdMessage implements ISendCmdMessage {
+
+  private static final long serialVersionUID = 6698485597098711444L;
+
+  private Class<?> cmdId;
+  private ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, ?, IChatroomToChatroomAdapter> cmd;
+
+  /**
+   * @param cmdId
+   * @param cmd
+   */
+  public SendCmdMessage(Class<?> cmdId,
+      ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, ?, IChatroomToChatroomAdapter> cmd) {
+    this.cmdId = cmdId;
+    this.cmd = cmd;
+  }
+
+  @Override
+  public ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, ?, IChatroomToChatroomAdapter> getCmd() {
+    return this.cmd;
+  }
+
+  @Override
+  public Class<?> getCmdID() {
+    return this.cmdId;
+  }
+
+}

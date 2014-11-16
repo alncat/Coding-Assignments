@@ -1,0 +1,43 @@
+package com.seanharger.chatapp.model.message.chat.unknown;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import common.ICmd2ModelAdapter;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.NullMessage;
+import common.message.chat.IChatMessage;
+
+public class DonaldAlgo extends
+    ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter> {
+
+  private static final long serialVersionUID = 8229090220907590550L;
+
+  private transient ICmd2ModelAdapter cmd2ModelAdpt;
+  
+  @Override
+  public DataPacket<? extends IChatMessage> apply(Class<?> index, DataPacket<Object> host,
+      IChatroomToChatroomAdapter... params) {
+    System.out.println("Processing Sean's unknown message");
+    cmd2ModelAdpt.append("Donald duck");
+    JLabel photo;
+    try {
+      photo = new JLabel(new ImageIcon(new URL("http://img1.wikia.nocookie.net/__cb20121120233839/scratchpad/images/1/1e/Donald_Duck.gif")));
+      cmd2ModelAdpt.addComponent(photo);
+    } catch (MalformedURLException e) {
+      System.err.println("Could not get Donald image.");
+    }
+    return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+  }
+
+  @Override
+  public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+    this.cmd2ModelAdpt = cmd2ModelAdpt;
+  }
+
+}

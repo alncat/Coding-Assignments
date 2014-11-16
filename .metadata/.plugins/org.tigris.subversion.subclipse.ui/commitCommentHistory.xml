@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CommitComments>	<CommitComment>If no text is added in the name field for a chatroom then a tab is not created.</CommitComment>
+<CommitComments>	<CommitComment>Added adapter from Chatroom to Model for room deletion.</CommitComment>
+	<CommitComment>Patch for preventing duplicate chatroomIDs.</CommitComment>
+	<CommitComment>Prevent getting chatrooms in which the user is already in revised.</CommitComment>
+	<CommitComment>Prevent getting chatrooms in which the user is already in.</CommitComment>
+	<CommitComment>Updated accept to get the a correct yes or no.</CommitComment>
+	<CommitComment>Displays an error message when a chatroom name is already in use.</CommitComment>
+	<CommitComment>When a message is sent, the text box field with clear with an empty string.</CommitComment>
+	<CommitComment>No changes.</CommitComment>
+	<CommitComment>If no text is added in the name field for a chatroom then a tab is not created.</CommitComment>
 	<CommitComment>Added the method to append text to frame.</CommitComment>
-	<CommitComment>Added IModelToViewAdapter and IViewToModelAdapter.</CommitComment>
-	<CommitComment>Added M</CommitComment>
-	<CommitComment>Added MVC classes.</CommitComment>
-	<CommitComment>JUnit and externals added.</CommitComment>
-	<CommitComment>Empty project.</CommitComment>
-	<CommitComment>Nothing here.</CommitComment>
-	<CommitComment>Initial import.</CommitComment>
-	<CommitComment>remove hw08 again</CommitComment>
 </CommitComments>

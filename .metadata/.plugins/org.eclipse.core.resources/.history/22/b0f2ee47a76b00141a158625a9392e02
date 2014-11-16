@@ -1,0 +1,83 @@
+package com.seanharger.chatapp.model.chatroom;
+
+import java.net.Inet4Address;
+
+import common.chatroom.IChatroomID;
+
+/**
+ * Concrete implementation of the unique chatroom identifier interface.
+ * 
+ * @author Jayson Carter, Sean Harger
+ *
+ */
+public class ChatroomID implements IChatroomID {
+
+  private static final long serialVersionUID = 2631838645808442211L;
+
+  /** The IP address of the user that created the chatroom */
+  private Inet4Address address;
+  /** The name of the chatroom */
+  private String name;
+  /** The time that the chatroom id was generated */
+  private long time;
+
+<<<<<<< .mine
+ 
+=======
+  /**
+   * Creates a new chatroom id with the specified creator IP address and chatroom name.
+   * 
+   * @param address the IP address of the user that created the chatroom
+   * @param name the name of the chatroom
+   */
+>>>>>>> .r52624
+  public ChatroomID(Inet4Address address, String name) {
+    this.address = address;
+    this.name = name;
+    this.time = System.currentTimeMillis();
+  }
+
+<<<<<<< .mine
+  
+=======
+  /**
+   * Returns the IP address of the user that created this chatroom.
+   * @return the IP address of the user that created this chatroom
+   */
+>>>>>>> .r52624
+  public Inet4Address getAddress() {
+    return this.address;
+  }
+
+  @Override
+  public int hashCode() {
+    return (int) (name.hashCode() + address.hashCode() + time);
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof ChatroomID) {
+      return equals((ChatroomID) other);
+    }
+    return false;
+  }
+
+<<<<<<< .mine
+  
+=======
+  /**
+   * Compares two chatroom ids for equality. Equality is defined as a match between the name of
+   * the chatroom and the time it was created.
+   * @param other the other chatroom to compare
+   * @return true if the chatroom ids are equal, false otherwise
+   */
+>>>>>>> .r52624
+  public boolean equals(ChatroomID other) {
+    return name.equals(other.name) && time == other.time;
+  }
+}
