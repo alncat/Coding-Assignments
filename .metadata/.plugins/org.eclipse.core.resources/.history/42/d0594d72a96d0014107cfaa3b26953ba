@@ -113,9 +113,7 @@ public class schedule {
           // New entry in hash table
           dependenceEdges.put(nodeInBound, newList);
         }else{
-          if(dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1){
-            dependenceEdges.get(nodeInBound).remove(dependenceEdges.get(nodeInBound).indexOf(lineNum));
-          }
+          dependenceEdges.get(nodeInBound).remove(lineNum);
           dependenceEdges.get(nodeInBound).add(lineNum);
         }
       }
@@ -138,9 +136,7 @@ public class schedule {
           // New entry in hash table
           dependenceEdges.put(nodeInBound, newList);
         }else{
-          if(dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1){
-            dependenceEdges.get(nodeInBound).remove(dependenceEdges.get(nodeInBound).indexOf(lineNum));
-          }
+          dependenceEdges.get(nodeInBound).remove(lineNum);
           dependenceEdges.get(nodeInBound).add(lineNum);
         }
       }
@@ -163,9 +159,7 @@ public class schedule {
           // New entry in hash table
           dependenceEdges.put(nodeInBound, newList);
         }else{
-          if(dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1){
-            dependenceEdges.get(nodeInBound).remove(dependenceEdges.get(nodeInBound).indexOf(lineNum));
-          }
+          dependenceEdges.get(nodeInBound).remove(lineNum);
           dependenceEdges.get(nodeInBound).add(lineNum);
         }
       }

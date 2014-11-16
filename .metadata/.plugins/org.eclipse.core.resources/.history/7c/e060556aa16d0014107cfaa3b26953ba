@@ -76,9 +76,6 @@ public class schedule {
 
     }
     assignPhysicalRegistersandPrint();
-    for(Integer node : dependenceEdges.keySet()){
-      System.out.println("Node: "+ node + "\t Edges: "+ dependenceEdges.get(node).toString());
-    }
     System.out.println("//finished.");
   }
 
@@ -94,81 +91,46 @@ public class schedule {
     ArrayList<Integer> newList;
     int NUOp1 = -1, NUOp2 = -1, NUOp3 = -1;
 
-    // Go through each virtual register in the instruction and
+    // Go through each register in the instruction and
     // add them to the values for the key
-    if (!node.getVROp1().contains("Empty")) {
-      for(Integer nodeInBound : virtualRegisterLineNumbers.get(node.getVROp1())){
-        if(nodeInBound <= lineNum){
-          continue;
-        }
-     // If the line number is not in the hash table, add it
-        if (!dependenceEdges.containsKey(nodeInBound)) {
-
-          // Empty arraylist for new keys in dependence graph
-          newList = new ArrayList<Integer>();
-          
-          // Add the next use
-          newList.add(lineNum);
-
-          // New entry in hash table
-          dependenceEdges.put(nodeInBound, newList);
-        }else{
-          if(dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1){
-            dependenceEdges.get(nodeInBound).remove(dependenceEdges.get(nodeInBound).indexOf(lineNum));
-          }
-          dependenceEdges.get(nodeInBound).add(lineNum);
-        }
-      }
+    if (!node.getNUOp1().contains("Empty")) {
+      NUOp1 = Integer.parseInt(node.getNUOp1());
     }
-    
-    if (!node.getVROp2().contains("Empty")) {
-      for(Integer nodeInBound : virtualRegisterLineNumbers.get(node.getVROp2())){
-        if(nodeInBound <= lineNum){
-          continue;
-        }
-     // If the line number is not in the hash table, add it
-        if (!dependenceEdges.containsKey(nodeInBound)) {
-
-          // Empty arraylist for new keys in dependence graph
-          newList = new ArrayList<Integer>();
-          
-          // Add the next use
-          newList.add(lineNum);
-
-          // New entry in hash table
-          dependenceEdges.put(nodeInBound, newList);
-        }else{
-          if(dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1){
-            dependenceEdges.get(nodeInBound).remove(dependenceEdges.get(nodeInBound).indexOf(lineNum));
-          }
-          dependenceEdges.get(nodeInBound).add(lineNum);
-        }
-      }
+    if (!node.getNUOp2().contains("Empty")) {
+      NUOp2 = Integer.parseInt(node.getNUOp2());
     }
-    
-    if (!node.getVROp3().contains("Empty")) {
-      for(Integer nodeInBound : virtualRegisterLineNumbers.get(node.getVROp3())){
-        if(nodeInBound <= lineNum){
-          continue;
-        }
-     // If the line number is not in the hash table, add it
-        if (!dependenceEdges.containsKey(nodeInBound)) {
+    if (!node.getNUOp3().contains("Empty")) {
+      NUOp3 = Integer.parseInt(node.getNUOp3());
+    }
 
-          // Empty arraylist for new keys in dependence graph
-          newList = new ArrayList<Integer>();
-          
-          // Add the next use
-          newList.add(lineNum);
+    // If the line number is not in the hash table, add it
+    if (!dependenceEdges.containsKey(NUOp1) && NUOp1 != -1) {
 
-          // New entry in hash table
-          dependenceEdges.put(nodeInBound, newList);
-        }else{
-          if(dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1){
-            dependenceEdges.get(nodeInBound).remove(dependenceEdges.get(nodeInBound).indexOf(lineNum));
-          }
-          dependenceEdges.get(nodeInBound).add(lineNum);
-        }
-      }
+      // Empty arraylist for new keys in dependence graph
+      newList = new ArrayList<Integer>();
+
+      // New entry in hash table
+      dependenceEdges.put(NUOp1, newList);
+    }
+
+    // If the line number is not in the hash table, add it
+    if (!dependenceEdges.containsKey(NUOp2) && NUOp2 != -1) {
+
+      // Empty arraylist for new keys in dependence graph
+      newList = new ArrayList<Integer>();
+
+      // New entry in hash table
+      dependenceEdges.put(NUOp2, newList);
+    }
+
+    // If the line number is not in the hash table, add it
+    if (!dependenceEdges.containsKey(NUOp3) && NUOp3 != -1) {
+
+      // Empty arraylist for new keys in dependence graph
+      newList = new ArrayList<Integer>();
+
+      // New entry in hash table
+      dependenceEdges.put(NUOp3, newList);
     }
 
 
@@ -184,7 +146,6 @@ public class schedule {
     for (int i = programSize; 0 <= i; i--) {
       // System.out.println(allocation.get(i).getLineNumber());
       instru = allocation.get(i);
-      fillDependenceEdges(instru);
       sr1 = instru.getSROp1();
       sr2 = instru.getSROp2();
       sr3 = instru.getSROp3();
@@ -209,8 +170,8 @@ public class schedule {
       if (vr3.contains("Empty")) {
         vr3 = "";
       }
-      System.out.println(instru.getLineNumber() +" "+ instru.getTheOpcode() + "\t" + vr1 + " " + vr2 + "\t" + vr3);// + "\t // "
-        //  + "\t" + sr1 + " " + sr2 + "\t" + sr3 + "\t (The source registers)");
+      System.out.println(instru.getTheOpcode() + "\t" + vr1 + " " + vr2 + "\t" + vr3 + "\t // "
+          + "\t" + sr1 + " " + sr2 + "\t" + sr3 + "\t (The source registers)");
       System.out.println("");
     }
   }
