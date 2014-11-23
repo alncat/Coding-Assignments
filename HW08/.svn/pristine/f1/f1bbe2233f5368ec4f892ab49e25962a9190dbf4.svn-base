@@ -1,6 +1,0 @@
-package com.seanharger.chatapp.model.chatroom;
-
-public interface IChatroomToModelAdapter {
-
-  public void removeChatroom(Chatroom room);
-}

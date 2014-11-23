@@ -1,0 +1,30 @@
+package yn4_jjc7.game;
+
+/**
+ * Generic Player
+ * */
+public interface IPlayer {
+
+  /**
+   * Gets the name player's username.
+   * 
+   * @return
+   */
+  public String getUserID();
+  
+  /**
+   * Gets the name of the team in which the
+   * player is playing on.
+   * @return
+   */
+  public String getTeam();
+  
+  /**
+   * Gets the name of the city that the player is
+   * in.
+   * 
+   * @return
+   */
+  public String getUserCity();
+  
+}

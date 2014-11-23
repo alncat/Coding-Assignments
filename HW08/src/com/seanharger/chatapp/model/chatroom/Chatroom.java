@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.seanharger.chatapp.model.message.chat.JoinChatroomMessage;
 import com.seanharger.chatapp.model.message.chat.LeaveMessage;
@@ -23,10 +24,12 @@ import common.ICmd2ModelAdapter;
 import common.chatroom.IChatroomID;
 import common.chatroom.IChatroomToChatroomAdapter;
 import common.message.IErrorMessage;
+import common.message.INullMessage;
 import common.message.NullMessage;
 import common.message.chat.IChatMessage;
 import common.message.chat.IJoinChatroomMessage;
 import common.message.chat.ILeaveMessage;
+import common.message.chat.IPingMessage;
 import common.message.chat.ITextMessage;
 import common.user.IUser;
 import common.message.chat.IRequestCmdMessage;
@@ -57,8 +60,7 @@ public class Chatroom {
    * The remote that will be encapsulated in the thisUser adapter to help remote users communicate
    * with this chatroom instance
    */
-  private IChatroomToChatroomRemote thisRemote = 
-  new IChatroomToChatroomRemote() {
+  private IChatroomToChatroomRemote thisRemote = new IChatroomToChatroomRemote() {
 
     @Override
     public DataPacket<? extends IChatMessage> sendChatroomMessage(
@@ -90,17 +92,13 @@ public class Chatroom {
                 DataPacket<? extends IChatMessage> response =
                     sender.sendChatroomMessage(new DataPacket<IRequestCmdMessage>(
                         IRequestCmdMessage.class, new RequestCmdMessage(index)), thisAdapter);
+
                 response.execute(chatVisitor, sender);
-                host.execute(chatVisitor, sender);
+                return host.execute(chatVisitor, params);
               } catch (RemoteException e) {
-//<<<<<<< .mine
-                view.showErrorDialog("DataPacket Response Error","Encountered an error sending a response DataPacket.");
-                e.printStackTrace();
-//=======
-                removeBrokenAdapter(sender);
-//>>>>>>> .r52374
+
               }
-              return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+              return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
             }
 
             @Override
@@ -109,11 +107,11 @@ public class Chatroom {
             }
           }) {
 
-        private static final long serialVersionUID = -7385090018966824899L;
+        private static final long serialVersionUID = -7462140994737597017L;
 
         {
           setCmd(
-              NullMessage.class,
+              INullMessage.class,
               new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
 
                 /* Null message case */
@@ -123,7 +121,7 @@ public class Chatroom {
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
                     DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
-                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
                 }
 
                 @Override
@@ -139,14 +137,35 @@ public class Chatroom {
 
                 /* Error message case */
 
-                private static final long serialVersionUID = 5861230867628406578L;
+                private static final long serialVersionUID = 4826965457258701801L;
 
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
                     DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
                   IErrorMessage error = (IErrorMessage) host;
                   error.getCause().printStackTrace();
-                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
+                }
+
+                @Override
+                public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+
+                }
+
+              });
+
+          setCmd(
+              IPingMessage.class,
+              new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
+
+                /* Ping case */
+
+                private static final long serialVersionUID = 914807586642021802L;
+
+                @Override
+                public DataPacket<? extends IChatMessage> apply(Class<?> index,
+                    DataPacket<Object> host, IChatroomToChatroomAdapter... params) {
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
                 }
 
                 @Override
@@ -160,12 +179,13 @@ public class Chatroom {
               IRequestCmdMessage.class,
               new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
 
+                private static final long serialVersionUID = 3295103158269328527L;
+
                 /*
                  * Request command case: called when a user needs a command for a message they did
                  * not know how to process
                  */
 
-                private static final long serialVersionUID = 5861230867628406578L;
 
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
@@ -190,12 +210,13 @@ public class Chatroom {
               ISendCmdMessage.class,
               new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
 
+                private static final long serialVersionUID = -1746480363664278026L;
+
                 /*
                  * Send command case: called when we received the command to handle a message that
                  * we did not know how to process
                  */
 
-                private static final long serialVersionUID = 5861230867628406578L;
 
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
@@ -220,7 +241,7 @@ public class Chatroom {
 
                   });
                   chatVisitor.setCmd(requestCmdMsg.getCmdID(), requestCmdMsg.getCmd());
-                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
                 }
 
                 @Override
@@ -234,9 +255,10 @@ public class Chatroom {
               ITextMessage.class,
               new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
 
+                private static final long serialVersionUID = 469976173113304452L;
+
                 /* Text message case: called when we receive a chat message from another user */
 
-                private static final long serialVersionUID = 4783116422972675010L;
 
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
@@ -245,7 +267,7 @@ public class Chatroom {
                   IChatroomToChatroomAdapter sendingRoom = (IChatroomToChatroomAdapter) params[0];
                   view.displayMessage(String.format("%s : %s", sendingRoom.getUser().toString(),
                       txtMessage.getText()));
-                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
                 }
 
                 @Override
@@ -261,7 +283,7 @@ public class Chatroom {
 
                 /* Join chatroom case: called when a new user joined this chatroom */
 
-                private static final long serialVersionUID = 3963012518156912018L;
+                private static final long serialVersionUID = 4533714929612084218L;
 
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
@@ -271,7 +293,7 @@ public class Chatroom {
                   userChatroomAdapters.add(joinMessage.getAdapter());
                   view.displayMessage(String.format("%s joined the room.", sendingRoom.getUser()
                       .toString()));
-                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
                 }
 
                 @Override
@@ -285,9 +307,10 @@ public class Chatroom {
               ILeaveMessage.class,
               new ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomToChatroomAdapter>() {
 
+                private static final long serialVersionUID = 3390382639006865241L;
+
                 /* Leave message case: called when a user in this chatroom leaves the room */
 
-                private static final long serialVersionUID = 3963012518156912018L;
 
                 @Override
                 public DataPacket<? extends IChatMessage> apply(Class<?> index,
@@ -307,7 +330,7 @@ public class Chatroom {
                   System.out.println("user list: " + userChatroomAdapters);
                   view.displayMessage(String.format("%s left the room.", leaveMessage.getAdapter()
                       .getUser().toString()));
-                  return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+                  return new DataPacket<INullMessage>(INullMessage.class, NullMessage.SINGLETON);
                 }
 
                 @Override
@@ -347,7 +370,6 @@ public class Chatroom {
         }
       };
 
-
   /**
    * Constructs a chatroom instance from an existing unique chatroom ID and list of user adapters.
    * 
@@ -357,7 +379,6 @@ public class Chatroom {
    * @param model the adapter to the model that manages this chatroom
    * @param userStubs the list of adapters to other users in this chatroom
    */
-
   public Chatroom(IChatroomID chatroomId, IUser thisUser, IChatroomToViewAdapter view,
       IChatroomToModelAdapter model, List<IChatroomToChatroomAdapter> userStubs) {
     this.thisUser = thisUser;
@@ -372,40 +393,27 @@ public class Chatroom {
       this.thisAdapter = new ChatroomToChatroomAdapter(thisUser, chatroomId, thisChatroomStub);
       this.userChatroomAdapters.add(this.thisAdapter);
 
-      new Thread(() -> {
-        IJoinChatroomMessage joinMessage = new JoinChatroomMessage(this.thisAdapter);
+      IJoinChatroomMessage joinMessage = new JoinChatroomMessage(this.thisAdapter);
 
-        List<IChatroomToChatroomAdapter> removeLater = new ArrayList<IChatroomToChatroomAdapter>();
+      for (IChatroomToChatroomAdapter existingUser : this.userChatroomAdapters) {
+        if (existingUser.getUser().equals(this.thisUser)) {
+          continue;
+        }
 
-        for (IChatroomToChatroomAdapter existingUser : this.userChatroomAdapters) {
-          if (existingUser.getUser().equals(this.thisUser)) {
-            continue;
-          }
-
+        new Thread(() -> {
           try {
             existingUser.sendChatroomMessage(new DataPacket<IJoinChatroomMessage>(
                 IJoinChatroomMessage.class, joinMessage), this.thisAdapter);
-          } catch (Exception e) {
-//<<<<<<< .mine
-            view.showErrorDialog("Send Chatroom Message Error", "Encountered an error sending a message to the chatroom.");
-            e.printStackTrace();
-//=======
-            removeLater.add(existingUser);
-//>>>>>>> .r52374
+          } catch (RemoteException e) {
+            removeBrokenAdapter(existingUser);
           }
-        }
-
-        for (IChatroomToChatroomAdapter remove : removeLater) {
-          removeBrokenAdapter(remove);
-        }
-      }).start();;
+        }).start();
+      }
     } catch (RemoteException e) {
-      view.showErrorDialog("Send Chatroom Message Error", "Encountered a RemoteException with chatroom stub.");
       e.printStackTrace();
       System.exit(-1);
     }
   }
-
 
   /**
    * Constructs a new chatroom instance with a new unique chatroom ID and an empty list of users
@@ -416,13 +424,11 @@ public class Chatroom {
    * @param view the adapter to the chatroom's view
    * @param model the adapter to the model that manages this chatroom
    */
-
   public Chatroom(String name, IUser thisUser, IChatroomToViewAdapter view,
       IChatroomToModelAdapter model) {
     this(new ChatroomID(thisUser.getIPAddress(), name), thisUser, view, model,
-        new ArrayList<IChatroomToChatroomAdapter>());
+        new CopyOnWriteArrayList<IChatroomToChatroomAdapter>());
   }
-
 
   /**
    * Returns the unique identifier for this chatroom.
@@ -438,11 +444,9 @@ public class Chatroom {
    * 
    * @return the name of this chatroom
    */
-
   public String getName() {
     return this.chatroomId.toString();
   }
-
 
   /**
    * Returns the list of user adapters of the members of this chatroom.
@@ -458,7 +462,6 @@ public class Chatroom {
    * 
    * @param view the view adapter to install
    */
-
   public void installViewAdapter(IChatroomToViewAdapter view) {
     this.view = view;
   }
@@ -469,24 +472,24 @@ public class Chatroom {
    * this chatroom is removed from the model that manages this chatroom via an adapter.
    */
   public void leaveRoom() {
-    new Thread(() -> {
-      LeaveMessage leaveMessage = new LeaveMessage(this.thisAdapter);
+    LeaveMessage leaveMessage = new LeaveMessage(this.thisAdapter);
 
-      userChatroomAdapters.remove(thisAdapter);
+    userChatroomAdapters.remove(thisAdapter);
 
-      view.removeChatroom();
+    view.removeChatroom();
 
-      for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+    for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+      new Thread(() -> {
         try {
           room.sendChatroomMessage(
               new DataPacket<ILeaveMessage>(ILeaveMessage.class, leaveMessage), this.thisAdapter);
         } catch (RemoteException e) {
 
         }
-      }
+      }).start();
+    }
 
-      model.removeChatroom(this);
-    }).start();
+    model.removeChatroom(this);
   }
 
   /**
@@ -496,12 +499,10 @@ public class Chatroom {
    * 
    * @param adapter the broken adapter to remove
    */
-
   private void removeBrokenAdapter(IChatroomToChatroomAdapter adapter) {
     view.displayMessage("Lost connection with " + adapter.getUser());
     userChatroomAdapters.remove(adapter);
   }
-
 
   /**
    * Asynchronously sends the specified message to all chatrooms in the
@@ -512,25 +513,19 @@ public class Chatroom {
    * @param message the message to send
    */
   public void sendMessage(String message) {
-    new Thread(() -> {
-      TextMessage txtMessage = new TextMessage(message);
+    TextMessage txtMessage = new TextMessage(message);
 
-      List<IChatroomToChatroomAdapter> removeLater = new ArrayList<IChatroomToChatroomAdapter>();
-      for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+    for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+      System.out.println("Sending message to " + room.getUser().toString());
+      new Thread(() -> {
         try {
           room.sendChatroomMessage(new DataPacket<ITextMessage>(ITextMessage.class, txtMessage),
               thisAdapter);
         } catch (RemoteException e) {
-
-          removeLater.add(room);
-
+          removeBrokenAdapter(room);
         }
-      }
-
-      for (IChatroomToChatroomAdapter remove : removeLater) {
-        removeBrokenAdapter(remove);
-      }
-    }).start();
+      }).start();
+    }
   }
 
   /**
@@ -539,36 +534,26 @@ public class Chatroom {
    * adapter for that recipient is declared broken and handled by the
    * <code>removeBrokenAdapter</code> method.
    */
-
   public void sendUnknown() {
+    List<IChatroomToChatroomAdapter> removeLater = new ArrayList<IChatroomToChatroomAdapter>();
 
-    new Thread(() -> {
-      List<IChatroomToChatroomAdapter> removeLater = new ArrayList<IChatroomToChatroomAdapter>();
-
-      for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+    for (IChatroomToChatroomAdapter room : userChatroomAdapters) {
+      new Thread(() -> {
         try {
           room.sendChatroomMessage(new DataPacket<DonaldMessage>(DonaldMessage.class,
               new DonaldMessage()), this.thisAdapter);
-
         } catch (RemoteException e) {
           removeLater.add(room);
-
         }
-      }
-
-      for (IChatroomToChatroomAdapter remove : removeLater) {
-        removeBrokenAdapter(remove);
-      }
-    }).start();
+      }).start();
+    }
   }
-
 
   /**
    * Returns the name of this chatroom.
    * 
    * @return the name of this chatroom
    */
-
   public String toString() {
     return this.chatroomId.toString();
   }

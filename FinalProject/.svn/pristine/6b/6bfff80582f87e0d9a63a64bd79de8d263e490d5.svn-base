@@ -1,0 +1,24 @@
+package yn4_jjc7.game;
+
+import java.util.List;
+
+/**
+ * Generic Team
+ * */
+public interface ITeam {
+
+  /**
+   * Returns the name of the nation in which 
+   * the team will be protecting.
+   * @return
+   */
+  public String getNation();
+  
+  /**
+   * Returns a list containing all the players on
+   * a team.
+   * @return
+   */
+  public List<IPlayer> getTeamMembers();
+  
+}

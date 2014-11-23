@@ -1,0 +1,87 @@
+package yn4_jjc7.client.model.chatroom;
+
+import java.rmi.RemoteException;
+
+import provided.datapacket.DataPacket;
+import common.chatroom.IChatroomID;
+import common.chatroom.IChatroomToChatroomAdapter;
+import common.message.chat.IChatMessage;
+import common.user.IUser;
+
+/**
+ * Concrete implementation of a chatroom to chatroom adapter. This is used to communicate from one
+ * chatroom to another over a remote interface.
+ * 
+ * @author Jayson Carter, Sean Harger
+ *
+ */
+public class ChatroomToChatroomAdapter implements IChatroomToChatroomAdapter {
+
+  /** The serial ID */
+  private static final long serialVersionUID = 4992735721495585909L;
+
+  /** The adapter for the user that this adapter will facilitate communication with */
+  private IUser user;
+  /** The unique identifier for the chatroom that this adapter is communicating to */
+  private IChatroomID chatroomId;
+  /**
+   * The stub used to execute remote methods on the user that this adapter is facilitating
+   * communication with
+   */
+  private IChatroomToChatroomRemote chatroomStub;
+
+  /**
+   * Creates a new chatroom to chatroom adapter.
+   * 
+   * @param user the user adapter of the user who owns the chatroom stub
+   * @param chatroomId the unique identifier for the chatroom
+   * @param chatroomStub the stub used to invoke methods on this chatroom remotely
+   */
+  public ChatroomToChatroomAdapter(IUser user, IChatroomID chatroomId,
+      IChatroomToChatroomRemote chatroomStub) {
+    this.user = user;
+    this.chatroomId = chatroomId;
+    this.chatroomStub = chatroomStub;
+  }
+
+  @Override
+  public IUser getUser() {
+    return this.user;
+  }
+
+  @Override
+  public IChatroomID getChatroomID() {
+    return this.chatroomId;
+  }
+
+  @Override
+  public DataPacket<? extends IChatMessage> sendChatroomMessage(
+      DataPacket<? extends IChatMessage> message, IChatroomToChatroomAdapter sendingAdapter)
+      throws RemoteException {
+    return chatroomStub.sendChatroomMessage(message, sendingAdapter);
+  }
+
+  @Override
+  public int hashCode() {
+    return user.hashCode() + chatroomId.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof IChatroomToChatroomAdapter) {
+      return equals((IChatroomToChatroomAdapter) other);
+    }
+    return false;
+  }
+
+  /**
+   * Compares two chatroom to chatroom adapters for equality. Equality is defined as match between
+   * chatroom identifiers and a user adapter match.
+   * 
+   * @param other the other adapter to compare with
+   * @return true if the adapters match, false otherwise
+   */
+  public boolean equals(IChatroomToChatroomAdapter other) {
+    return this.chatroomId.equals(other.getChatroomID()) && this.user.equals(other.getUser());
+  }
+}

@@ -1,0 +1,8 @@
+package yn4_jjc7.game.model;
+
+/**
+ * Main model for the Missile World game.
+ */
+public class GameModel {
+
+}

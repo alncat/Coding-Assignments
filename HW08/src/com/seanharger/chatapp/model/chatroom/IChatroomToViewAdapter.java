@@ -2,14 +2,12 @@ package com.seanharger.chatapp.model.chatroom;
 
 import java.awt.Component;
 
-
 /**
  * Adapter used by the chatroom to communicate with its personal chatroom view.
  * 
  * @author Jayson Carter, Sean Harger
  *
  */
-
 public interface IChatroomToViewAdapter {
 
   /**
@@ -28,8 +26,6 @@ public interface IChatroomToViewAdapter {
    * Instructs the view to remove this chatroom's view from the main view.
    */
   public void removeChatroom();
-  
-  public void showErrorDialog(String title, String errorMessage);
 
   /** The null adapter */
   public static final IChatroomToViewAdapter NULL_OBJECT = new IChatroomToViewAdapter() {
@@ -49,15 +45,5 @@ public interface IChatroomToViewAdapter {
       
     }
 
-    @Override
-    public void showErrorDialog(String title, String errorMessage) {
-      // TODO Auto-generated method stub
-      
-    }
-
-   
-
   };
-
-  
 }

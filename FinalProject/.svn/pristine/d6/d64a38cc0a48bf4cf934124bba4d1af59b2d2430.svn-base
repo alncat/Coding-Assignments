@@ -1,0 +1,33 @@
+package com.seanharger.chatapp.model.message.connect;
+
+import common.chatroom.IChatroomID;
+import common.message.connect.IRejectRequestMessage;
+
+/**
+ * Concrete wrapper for the <code>IRejectRequestMessage</code>.
+ * 
+ * @author Jayson Carter, Sean Harger
+ *
+ */
+public class RejectRequestMessage implements IRejectRequestMessage {
+
+  /** Serial ID */
+  private static final long serialVersionUID = 1750519355666462766L;
+
+  /** The unique identifier of the chatroom rejecting the invitation. */
+  private IChatroomID chatroomId;
+  
+  /**
+   * Creates a new reject request message with the id of the chatroom that rejected the request.
+   * @param chatroomId the unique id of the chatroom that rejected the message
+   */
+  public RejectRequestMessage(IChatroomID chatroomId) {
+    this.chatroomId = chatroomId;
+  }
+  
+  @Override
+  public IChatroomID getChatroomID() {
+    return this.chatroomId;
+  }
+
+}

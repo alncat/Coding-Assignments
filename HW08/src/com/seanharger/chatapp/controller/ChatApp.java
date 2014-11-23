@@ -73,12 +73,6 @@ public class ChatApp {
             chatroomPanel.addComponent(comp);
           }
 
-          @Override
-          public void showErrorDialog(String title, String errorMessage) {
-            // TODO Auto-generated method stub
-            
-          }
-
         };
       }
 

@@ -1,0 +1,5 @@
+package yn4_jjc7.game.model;
+
+public interface IGameModel2ViewAdapter {
+
+}

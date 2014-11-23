@@ -1,0 +1,795 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.Stack;
+import java.util.Vector;
+import java.util.regex.Pattern;
+
+
+/**
+ * @author Ace
+ *
+ */
+public class schedule {
+
+  // Regular expression for the lines
+  private static final String REGEX = "[=>, \t]";
+
+  // Holds the instructions of program
+  private static LinkedList<Instruction> allocation = new LinkedList<Instruction>();
+
+  // Stack that first takes in the ILOC
+  private static Stack<Instruction> topToBottom = new Stack<Instruction>();
+
+  // Source Registers mapped to Virtual Registers
+  private static HashMap<String, String> SRtoVR = new HashMap<String, String>();
+
+  // Virtual Register number that will be incremented as number of virtual registers increase
+  private static int virutalRegisterNumber = 0;
+
+  // Holds the lines in which the virtual registers are live
+  private static HashMap<String, ArrayList<Integer>> virtualRegisterLineNumbers =
+      new HashMap<String, ArrayList<Integer>>();
+
+  // The dependence graph for the nodes, key is the node with in bound arrows
+  // and value are noding pointing to that value
+  private static HashMap<Integer, ArrayList<Integer>> dependenceEdges =
+      new HashMap<Integer, ArrayList<Integer>>();
+
+  // Contains the nodes (instruction line number) as keys and the weight as values
+  private static HashMap<Integer, Integer> nodeWeights = new HashMap<Integer, Integer>();
+
+  // Functional unit one
+  private static int[] FunUnit1 = {0};
+
+  // Functional unit two
+  private static int[] FunUnit2 = {0};
+  
+  // Schedule instructions by latency weight
+  private static LinkedList<int[]> scheduledInstructions = new LinkedList<int[]>();
+
+  public static void main(String[] args) {
+
+    String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report1.i"};
+     //String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report2.i"};
+     //String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report3.i"};
+     //String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report4.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report5.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report6.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report7.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report8.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report9.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report10.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report11.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report12.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report13.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report14.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report15.i"};
+    // String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report16.i"};
+
+    // inputLine = args;
+    Instruction temp;
+    // Check if the file exists
+    File f = new File(inputFile[0]);
+    if (!f.exists() || f.isDirectory()) {
+      System.out.println("Failure to open '" + inputFile[0] + "' as the input file.");
+      System.exit(0);
+    }
+
+    // Check to see if the parameter -h is present
+    if (hFlag(inputFile)) {
+      System.exit(0);
+    }
+
+
+    // Read each line of the file and parse it
+    openAndRead(inputFile[0]);
+
+    //
+    while (!topToBottom.isEmpty()) {
+      // System.out.println(topToBottom.pop().getLineNumber());
+      temp = assignVirtualRegister(topToBottom.pop());
+      /*
+       * System.out.println("Line Number  \t "+temp.getLineNumber());
+       * System.out.println("Virtual register:  "+ temp.getVROp1() +
+       * "\t Line Number for next use: \t "+temp.getNUOp1());
+       * System.out.println("Virtual register:  "+ temp.getVROp2() +
+       * "\t Line Number for next use: \t "+temp.getNUOp2());
+       * System.out.println("Virtual register:  "+ temp.getVROp3() +
+       * "\t Line Number for next use: \t "+temp.getNUOp3());
+       */
+
+      // Add Instructions to allocation for physical register assignment
+      allocation.add(temp);
+
+    }
+    assignPhysicalRegistersandPrint();
+    for (Integer node : dependenceEdges.keySet()) {
+      System.out.println("Node: " + node + "\t Edges: " + dependenceEdges.get(node).toString());
+    }
+
+
+    // Fill hash table with all the nodes and
+    // initialize their weights to zero
+    for (int j = 0; j < dependenceEdges.size(); j++) {
+      nodeWeights.put(j, 0);
+    }
+    // Critical path value
+    int cp = 0;
+
+    // Opcode latency value
+    int latency = 0;
+
+    // Temp instruction
+    Instruction instruct;
+
+    // Start from the bottom assign values to weights to the nodes
+    int revCount = dependenceEdges.size() - 1;
+    for (int i = 0; i < dependenceEdges.size(); i++) {
+      System.out.println("Value: " + dependenceEdges.get(revCount));
+
+      System.out.println("node number: " + allocation.get(i).getLineNumber());
+      latency = opcodeLatency(allocation.get(i).getTheOpcode());
+      nodeWeights.put(revCount, nodeWeights.get(revCount) + latency);
+      for (Integer inBoundNode : dependenceEdges.get(revCount)) {
+    	  //System.out.println(">>>>>>>>> inBoundNode: " + inBoundNode);
+    	  //System.out.println("The latency before: " + nodeWeights.get(inBoundNode));
+        nodeWeights.put(inBoundNode, nodeWeights.get(inBoundNode) + nodeWeights.get(revCount));
+        //System.out.println("The latency after: " + nodeWeights.get(inBoundNode));
+        //nodeWeights.put(inBoundNode, nodeWeights.get(inBoundNode) + cp);
+      }
+      cp += latency;
+      
+      revCount--;
+    }
+    // print out the latency for each opcode
+    int instructNumber = allocation.size() -1;
+    for (Integer key : nodeWeights.keySet()) {
+      System.out.println("Node: " + key + " OpCode: " +allocation.get(instructNumber).getTheOpcode()+ " \tLatency value: " + nodeWeights.get(key));
+      instructNumber--;
+    }
+
+    // Schedule the instructions
+    for(int z = 0; z < allocation.size()-1; z++){
+    	sortByLatencyWeight(z);	
+    }
+    
+    for(int i = 0; i < allocation.size() -1; i++){
+    	System.out.println(scheduledInstructions.get(i)[0] + "Latency weight: " + nodeWeights.get(scheduledInstructions.get(i)[0]));
+    }
+    
+    int computedInstructions = allocation.size() - 1;
+    Stack<Integer> runInstructions = new Stack<Integer>();
+    for(int x = 0; x < computedInstructions -1; x++){
+    	System.out.println("Getting this node: " + scheduledInstructions.get(x)[0]);
+    	runInstructions.push(scheduledInstructions.get(x)[0]);
+    }
+    int counter = 0;
+    while (computedInstructions > -1) {
+      String strFun1 = "nop";
+      String strFun2 = "nop";
+      if (FunUnit1[0] == 0) {
+        FunUnit1[0] = opcodeLatency(allocation.get(scheduledInstructions.get(counter)[0]).getTheOpcode());
+        strFun1 = formatPrint(allocation.get(scheduledInstructions.get(counter)[0]));
+            /*allocation.get(computedInstructions).getTheOpcode() + " "
+                + allocation.get(computedInstructions).getSROp1() + " , "
+                + allocation.get(computedInstructions).getSROp2() + " => "
+                + allocation.get(computedInstructions).getSROp3();*/
+        counter++;
+        computedInstructions--;
+      }
+      if (FunUnit2[0] == 0 && computedInstructions > -1) {
+        FunUnit2[0] = opcodeLatency(allocation.get(scheduledInstructions.get(counter)[0]).getTheOpcode());
+        strFun2 = formatPrint(allocation.get(scheduledInstructions.get(counter)[0]));
+            /*allocation.get(computedInstructions).getTheOpcode() + " "
+                + allocation.get(computedInstructions).getSROp1() + " , "
+                + allocation.get(computedInstructions).getSROp2() + " => "
+                + allocation.get(computedInstructions).getSROp3();*/
+        counter++;
+        computedInstructions--;
+      }
+
+      if (FunUnit1[0] > 0) {
+        FunUnit1[0] -= 1;
+        // print nop
+      }
+
+      if (FunUnit2[0] > 0) {
+        FunUnit2[0] -= 1;
+      }
+      System.out.println("[ " + strFun1 + " ; " + strFun2 + " ]");
+     // System.out.println(" ");
+    }
+    System.out.println("//finished.");
+  }
+  
+  
+  /**
+   * Sorts all the nodes in order of decreasing latency.
+ * @param node ID number of the node
+ * @return
+ */
+public static void sortByLatencyWeight(int node){
+	int[] nodeArray; 
+	if(scheduledInstructions.size() == 0){
+		nodeArray = new int[1];
+		nodeArray[0] = node;
+		scheduledInstructions.add(nodeArray);
+		return;
+	}
+	for(int i = scheduledInstructions.size()-1; i >= 0 ; i--){
+		// if node at index at i is greater than node continue
+		/*if(nodeWeights.get(scheduledInstructions.get(i)[0]) > nodeWeights.get(node)){
+			//System.out.println(nodeWeights.get(scheduledInstructions.get(i)[0]) +" > "+ nodeWeights.get(node));
+			continue;
+		}*/
+		
+		if(nodeWeights.get(scheduledInstructions.get(i)[0]) >= nodeWeights.get(node)){
+			System.out.println(nodeWeights.get(scheduledInstructions.get(i)[0]) +" <= "+ nodeWeights.get(node));
+			nodeArray = new int[1];
+			nodeArray[0] = node;
+			scheduledInstructions.add(i+1, nodeArray);
+			return;
+		}
+		
+	}
+	// if new low number added it to the head
+	nodeArray = new int[1];
+	nodeArray[0] = node;
+	scheduledInstructions.add(0,nodeArray);
+}
+
+  public static String formatPrint(Instruction instruct) {
+    String operation2PR = instruct.getVROp2();
+    String VROP1 = instruct.getVROp1();
+    if (VROP1.contains("Empty")){
+      VROP1 = instruct.getSROp1();
+    }
+    String VROP2 = instruct.getVROp2();
+    String VROP3 = instruct.getVROp3();
+    if(VROP3.contains("Empty")){
+      VROP3 = instruct.getSROp3();
+    }
+    if (operation2PR.equals("Empty")) {
+      operation2PR = "";
+      return instruct.getTheOpcode() +" " + VROP1 +  " =>" + " "
+          + VROP3;// + "\t // " + VROP1 + " " + VROP2 + " => " + VROP3);
+    } else {
+      return instruct.getTheOpcode() + " "+ instruct.getVROp1() + " , " +  operation2PR + " =>" + " "
+          + VROP3;// + "\t // " + VROP1 + " " + VROP2 + " => " + VROP3);
+    }
+  }
+
+  /**
+   * Looks up the latency for the opcode and returns it value.
+   * 
+   * @return
+   */
+  public static int opcodeLatency(String opcode) {
+    if (opcode.equals("load")) {
+      return 5;
+    }
+    if (opcode.equals("loadI")) {
+      return 1;
+    }
+    if (opcode.equals("store")) {
+      return 5;
+    }
+    if (opcode.equals("add")) {
+      return 1;
+    }
+    if (opcode.equals("sub")) {
+      return 1;
+    }
+    if (opcode.equals("mult")) {
+      return 3;
+    }
+    if (opcode.equals("lshift")) {
+      return 1;
+    }
+    if (opcode.equals("rshift")) {
+      return 1;
+    }
+    if (opcode.equals("output")) {
+      return 1;
+    }
+    if (opcode.equals("nop")) {
+      return 1;
+    }
+    return 0;
+  }
+
+  /**
+   * Fills the hashmap dependenceEdges with the nodes to build a dependence graph.
+   * 
+   * @param node: Instruction
+   */
+  public static void fillDependenceEdges(Instruction node) {
+    // The line number will represent the node (instruction)
+    int lineNum = node.getLineNumber();
+    ArrayList<Integer> newList;
+    int NUOp1 = -1, NUOp2 = -1, NUOp3 = -1;
+
+    if (!dependenceEdges.containsKey(lineNum)) {
+      dependenceEdges.put(lineNum, newList = new ArrayList<Integer>());
+    }
+    // Go through each virtual register for OP1 in the instruction and
+    // add them to the values for the key
+    if (!node.getVROp1().contains("Empty")) {
+      for (Integer nodeInBound : virtualRegisterLineNumbers.get(node.getVROp1())) {
+        if (nodeInBound <= lineNum) {
+          continue;
+        }
+        // If the line number is not in the hash table, add it
+        if (!dependenceEdges.containsKey(nodeInBound)) {
+
+          // Empty arraylist for new keys in dependence graph
+          newList = new ArrayList<Integer>();
+
+          // Add the next use
+          newList.add(lineNum);
+
+          // New entry in hash table
+          dependenceEdges.put(nodeInBound, newList);
+        } else {
+          if (dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1) {
+            dependenceEdges.get(nodeInBound).remove(
+                dependenceEdges.get(nodeInBound).indexOf(lineNum));
+          }
+          dependenceEdges.get(nodeInBound).add(lineNum);
+        }
+      }
+    }
+
+    // Go through each virtual register for OP2 in the instruction and
+    // add them to the values for the key
+    if (!node.getVROp2().contains("Empty")) {
+      for (Integer nodeInBound : virtualRegisterLineNumbers.get(node.getVROp2())) {
+        if (nodeInBound <= lineNum) {
+          continue;
+        }
+        // If the line number is not in the hash table, add it
+        if (!dependenceEdges.containsKey(nodeInBound)) {
+
+          // Empty arraylist for new keys in dependence graph
+          newList = new ArrayList<Integer>();
+
+          // Add the next use
+          newList.add(lineNum);
+
+          // New entry in hash table
+          dependenceEdges.put(nodeInBound, newList);
+        } else {
+          if (dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1) {
+            dependenceEdges.get(nodeInBound).remove(
+                dependenceEdges.get(nodeInBound).indexOf(lineNum));
+          }
+          dependenceEdges.get(nodeInBound).add(lineNum);
+        }
+      }
+    }
+
+    // Go through each virtual register for OP3 in the instruction and
+    // add them to the values for the key
+    if (!node.getVROp3().contains("Empty")) {
+      for (Integer nodeInBound : virtualRegisterLineNumbers.get(node.getVROp3())) {
+        if (nodeInBound <= lineNum) {
+          continue;
+        }
+        // If the line number is not in the hash table, add it
+        if (!dependenceEdges.containsKey(nodeInBound)) {
+
+          // Empty arraylist for new keys in dependence graph
+          newList = new ArrayList<Integer>();
+
+          // Add the next use
+          newList.add(lineNum);
+
+          // New entry in hash table
+          dependenceEdges.put(nodeInBound, newList);
+        } else {
+          if (dependenceEdges.get(nodeInBound).indexOf(lineNum) != -1) {
+            dependenceEdges.get(nodeInBound).remove(
+                dependenceEdges.get(nodeInBound).indexOf(lineNum));
+          }
+          dependenceEdges.get(nodeInBound).add(lineNum);
+        }
+      }
+    }
+
+
+  }
+
+  public static void assignPhysicalRegistersandPrint() {
+    String sr1 = "", sr2 = "", sr3 = "", vr1 = "", vr2 = "", vr3 = "";
+    int programSize = allocation.size() - 1;
+    Instruction instru;
+    for (String key : virtualRegisterLineNumbers.keySet()) {
+      System.out.println(key + virtualRegisterLineNumbers.get(key).toString());
+    }
+    for (int i = programSize; 0 <= i; i--) {
+      // System.out.println(allocation.get(i).getLineNumber());
+      instru = allocation.get(i);
+      fillDependenceEdges(instru);
+      sr1 = instru.getSROp1();
+      sr2 = instru.getSROp2();
+      sr3 = instru.getSROp3();
+      vr1 = instru.getVROp1();
+      vr2 = instru.getVROp2();
+      vr3 = instru.getVROp3();
+      if (sr1.contains("Empty")) {
+        sr1 = "";
+      }
+      if (sr2.contains("Empty")) {
+        sr2 = "";
+      }
+      if (sr3.contains("Empty")) {
+        sr3 = "";
+      }
+      if (vr1.contains("Empty")) {
+        vr1 = "";
+      }
+      if (vr2.contains("Empty")) {
+        vr2 = "";
+      }
+      if (vr3.contains("Empty")) {
+        vr3 = "";
+      }
+      System.out.println(instru.getLineNumber() + " " + instru.getTheOpcode() + "\t" + vr1 + " "
+          + vr2 + "\t" + vr3);// + "\t // "
+      // + "\t" + sr1 + " " + sr2 + "\t" + sr3 + "\t (The source registers)");
+      System.out.println("");
+    }
+  }
+
+  public static Instruction assignVirtualRegister(Instruction modInstruction) {
+    String sourceRegister1 = "Empty", sourceRegister2 = "Empty", sourceRegister3 = "Empty";
+
+    // Make sure that source register 1 is a register
+    if (modInstruction.getSROp1().length() >= 2 && modInstruction.getSROp1().charAt(0) == 'r'
+        && Character.isDigit(modInstruction.getSROp1().charAt(1))) {
+      sourceRegister1 = modInstruction.getSROp1();
+    }
+
+    // Make sure that source register 2 is a register
+    if (modInstruction.getSROp2().length() >= 2 && modInstruction.getSROp2().charAt(0) == 'r'
+        && Character.isDigit(modInstruction.getSROp2().charAt(1))) {
+      sourceRegister2 = modInstruction.getSROp2();
+    }
+
+    // Make sure that source register 3 is a register
+    if (modInstruction.getSROp3().length() >= 2 && modInstruction.getSROp3().charAt(0) == 'r'
+        && Character.isDigit(modInstruction.getSROp3().charAt(1))) {
+      sourceRegister3 = modInstruction.getSROp3();
+    }
+
+
+    // If source register 3 is not in the hash, add it
+    if (!SRtoVR.containsKey(sourceRegister3) && !sourceRegister3.contains("Empty")) {
+
+      SRtoVR.put(sourceRegister3, "VR" + Integer.toString(virutalRegisterNumber));
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp3(SRtoVR.get(sourceRegister3));
+      virutalRegisterNumber++;
+
+    } else if (!sourceRegister3.contains("Empty")) {
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp3(SRtoVR.get(sourceRegister3));
+    }
+
+    // If source register 2 equals source register 3, give source register 2 new a virtual
+    // register
+    if (!sourceRegister2.contains("Empty") && sourceRegister2.contains(sourceRegister3)) {
+      SRtoVR.remove(sourceRegister2);
+      SRtoVR.put(sourceRegister2, "VR" + Integer.toString(virutalRegisterNumber));
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp2(SRtoVR.get(sourceRegister2));
+      virutalRegisterNumber++;
+    }
+
+    // If source register 1 equals source register 3, give source register 1 new a virtual
+    // register
+    if (!sourceRegister1.contains("Empty") && sourceRegister1.contains(sourceRegister3)) {
+      SRtoVR.remove(sourceRegister1);
+      SRtoVR.put(sourceRegister1, "VR" + Integer.toString(virutalRegisterNumber));
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp1(SRtoVR.get(sourceRegister1));
+      virutalRegisterNumber++;
+    }
+
+    // If source register 2 is not in the hash, add it
+    if (!SRtoVR.containsKey(sourceRegister2) && !sourceRegister2.contains("Empty")) {
+      SRtoVR.put(sourceRegister2, "VR" + Integer.toString(virutalRegisterNumber));
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp2(SRtoVR.get(sourceRegister2));
+      virutalRegisterNumber++;
+    } else if (!sourceRegister2.contains("Empty")) {
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp2(SRtoVR.get(sourceRegister2));
+    }
+
+    // If source register 1 is not in the hash, add it
+    if (!SRtoVR.containsKey(sourceRegister1) && !sourceRegister1.contains("Empty")) {
+      SRtoVR.put(sourceRegister1, "VR" + Integer.toString(virutalRegisterNumber));
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp1(SRtoVR.get(sourceRegister1));
+      virutalRegisterNumber++;
+    } else if (!sourceRegister1.contains("Empty")) {
+
+      // Save virtual register to the instruction
+      modInstruction.setVROp1(SRtoVR.get(sourceRegister1));
+      // System.out.println(modInstruction.getVROp1());
+      // System.out.println("//finished.9999999999");
+    }
+
+
+
+    // System.out.println("//finished." + virutalRegisterNumber);
+    /*
+     * System.out.println("//SR1.\t " + modInstruction.getSROp1()); System.out.println("//VR1.\t " +
+     * modInstruction.getVROp1()); System.out.println("//SR2.\t " + modInstruction.getSROp2());
+     * System.out.println("//VR2.\t " + modInstruction.getVROp2()); System.out.println("//SR3.\t " +
+     * modInstruction.getSROp3()); System.out.println("//VR3.\t " + modInstruction.getVROp3());
+     */
+    return assignVirtualRegistersNextUse(modInstruction);
+  }
+
+  public static Instruction assignVirtualRegistersNextUse(Instruction lineInstruction) {
+    ArrayList<Integer> lineNumbersOfVirtualRegisters;
+    int indexOfNextUse;
+
+    // ** Insert the next use for the virtual registers into the instruction */
+    if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp1())
+        && !lineInstruction.getVROp1().contains("Empty")) {
+      // Get it
+      lineNumbersOfVirtualRegisters = virtualRegisterLineNumbers.get(lineInstruction.getVROp1());
+      // Size it
+      indexOfNextUse = lineNumbersOfVirtualRegisters.size() - 1;
+      // Assign it
+      lineInstruction.setNUOp1(Integer.toString(lineNumbersOfVirtualRegisters.get(indexOfNextUse)));
+    }
+
+    if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp2())
+        && !lineInstruction.getVROp2().contains("Empty")) {
+      // Get it
+      lineNumbersOfVirtualRegisters = virtualRegisterLineNumbers.get(lineInstruction.getVROp2());
+      // Size it
+      indexOfNextUse = lineNumbersOfVirtualRegisters.size() - 1;
+      // Assign it
+      lineInstruction.setNUOp2(Integer.toString(lineNumbersOfVirtualRegisters.get(indexOfNextUse)));
+    }
+
+    if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp3())
+        && !lineInstruction.getVROp3().contains("Empty")) {
+      // Get it
+      lineNumbersOfVirtualRegisters = virtualRegisterLineNumbers.get(lineInstruction.getVROp3());
+      // Size it
+      indexOfNextUse = lineNumbersOfVirtualRegisters.size() - 1;
+      // Assign it
+      lineInstruction.setNUOp3(Integer.toString(lineNumbersOfVirtualRegisters.get(indexOfNextUse)));
+    }
+
+    // ** Add the new next use into the virtual register line numbers hash */
+    if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp1())
+        && !lineInstruction.getVROp1().contains("Empty")) {
+      // Get it
+      lineNumbersOfVirtualRegisters = virtualRegisterLineNumbers.get(lineInstruction.getVROp1());
+      // Add it
+      lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+      // Set it
+      virtualRegisterLineNumbers.put(lineInstruction.getVROp1(), lineNumbersOfVirtualRegisters);
+    }
+
+    if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp2())
+        && !lineInstruction.getVROp2().contains("Empty")) {
+      // Get it
+      lineNumbersOfVirtualRegisters = virtualRegisterLineNumbers.get(lineInstruction.getVROp2());
+      // Add it
+      lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+      // Set it
+      virtualRegisterLineNumbers.put(lineInstruction.getVROp2(), lineNumbersOfVirtualRegisters);
+    }
+
+    if (virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp3())
+        && !lineInstruction.getVROp3().contains("Empty")) {
+      // Get it
+      lineNumbersOfVirtualRegisters = virtualRegisterLineNumbers.get(lineInstruction.getVROp3());
+      // Add it
+      lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+      // Set it
+      virtualRegisterLineNumbers.put(lineInstruction.getVROp3(), lineNumbersOfVirtualRegisters);
+    }
+
+    /** If the key does not exist, add it to the virtual register line numbers */
+
+    if (!virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp1())
+        && !lineInstruction.getVROp1().contains("Empty")) {
+
+      // Create new ArrayList
+      lineNumbersOfVirtualRegisters = new ArrayList<Integer>();
+
+      // Add line number to ArrayList
+      lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+
+      // Place virtual register and arrayList into hash
+      virtualRegisterLineNumbers.put(lineInstruction.getVROp1(), lineNumbersOfVirtualRegisters);
+    }
+
+    if (!virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp2())
+        && !lineInstruction.getVROp2().contains("Empty")) {
+
+      // Create new ArrayList
+      lineNumbersOfVirtualRegisters = new ArrayList<Integer>();
+
+      // Add line number to ArrayList
+      lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+
+      // Place virtual register and arrayList into hash
+      virtualRegisterLineNumbers.put(lineInstruction.getVROp2(), lineNumbersOfVirtualRegisters);
+    }
+
+    if (!virtualRegisterLineNumbers.containsKey(lineInstruction.getVROp3())
+        && !lineInstruction.getVROp3().contains("Empty")) {
+
+      // Create new ArrayList
+      lineNumbersOfVirtualRegisters = new ArrayList<Integer>();
+
+      // Add line number to ArrayList
+      lineNumbersOfVirtualRegisters.add(lineInstruction.getLineNumber());
+
+      // Place virtual register and arrayList into hash
+      virtualRegisterLineNumbers.put(lineInstruction.getVROp3(), lineNumbersOfVirtualRegisters);
+    }
+
+    return lineInstruction;
+  }
+
+  /**
+   * Methods prints out all the available options for parameters.
+   * 
+   * @param commandLine
+   * @param exitProgram
+   * @return
+   */
+  public static boolean hFlag(String[] commandLine) {
+    int arrayLen = commandLine.length;
+    for (int i = 0; i < arrayLen; i++) {
+      if (commandLine[i] == "-h") {
+        System.out.println(" ");
+        System.out.println("Command Syntax: " + "\n\t    ./412alloc k filename [-h]\n\n"
+            + "\n Required arguments:" + "\n\t    k     specifies the number of register available"
+            + "\n\t filename  is the pathname (absolute or relative) to the input file\n\n"
+            + "\n Optional flags:" + "\n\t    -h    prints this message" + "");
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Opens up a text file and prints all the characters in the text.
+   * 
+   * @param filename
+   * @return
+   */
+  public static void openAndRead(String filename) {
+
+    Pattern p = Pattern.compile(REGEX);
+    ArrayList<String> parsedItems = new ArrayList<String>();
+    Instruction instruct;
+
+    int countItems, instructionLineNumber = 0;
+
+    String sourceRegister1 = "", sourceRegister2 = "", sourceRegister3 = "";
+
+    try {
+      BufferedReader reader = new BufferedReader(new FileReader(filename));
+      String line;
+      // read in each line from the block
+      while ((line = reader.readLine()) != null) {
+
+        // Skip pass the comment section of the file
+        if (line.contains("/") && line.charAt(0) == '/') {
+          continue;
+        }
+
+
+        // the line in the correct format
+        String[] items = p.split(line);
+        countItems = -1;
+        for (String s : items) {
+          if (s.length() > 0) {
+            parsedItems.add(s.trim());
+            // System.out.println(s);
+            countItems++;
+          }
+        }
+
+
+
+        // Set up a new instruction
+        instruct = new Instruction(instructionLineNumber);
+
+        if (countItems >= 1) {
+
+          // OpCode Memory
+          if (!parsedItems.get(1).substring(0, 1).equals("r")) {
+            // Set the source register
+            sourceRegister3 = parsedItems.get(1);
+
+            instruct.setTheOpcode(parsedItems.get(0));
+            instruct.setSROp3(sourceRegister3);
+          }
+
+        }
+        if (countItems >= 2) {
+
+          // OpCode Memory SR1
+          if (parsedItems.get(2).substring(0, 1).equals("r")) {
+            // Set the source registers
+            sourceRegister1 = parsedItems.get(1);
+            sourceRegister3 = parsedItems.get(2);
+
+            instruct.setTheOpcode(parsedItems.get(0));
+            instruct.setSROp1(sourceRegister1);
+            instruct.setSROp3(sourceRegister3);
+          }
+
+        }
+
+        if (countItems >= 3) {
+
+          // OpCode SR1 SR2 SR3
+          if (parsedItems.get(1).substring(0, 1).equals("r")
+              && parsedItems.get(2).substring(0, 1).equals("r")
+              && parsedItems.get(3).substring(0, 1).equals("r")) {
+
+            // Set the source registers
+            sourceRegister1 = parsedItems.get(1);
+            sourceRegister2 = parsedItems.get(2);
+            sourceRegister3 = parsedItems.get(3);
+
+            instruct.setTheOpcode(parsedItems.get(0));
+            instruct.setSROp1(sourceRegister1);
+            instruct.setSROp2(sourceRegister2);
+            instruct.setSROp3(sourceRegister3);
+            // System.out.println("Full instruction");
+          }
+        }
+
+        // Add the instruction to the program
+        topToBottom.add(instruct);
+
+        // Clear the contents in the vector
+        parsedItems.clear();
+
+        // Increment the number count of lines
+        instructionLineNumber++;
+
+        // Clear the sourceRegisters
+        sourceRegister1 = "";
+        sourceRegister2 = "";
+        sourceRegister3 = "";
+
+        // System.out.println("************** \t end of the line");
+      }
+      reader.close();
+    } catch (Exception e) {
+      System.err.format("Exception occurred trying to read '%s'.", filename);
+      e.printStackTrace();
+    }
+
+  }
+
+}

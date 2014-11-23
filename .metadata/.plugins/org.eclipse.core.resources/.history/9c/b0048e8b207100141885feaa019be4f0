@@ -1,0 +1,11 @@
+package yn4_jjc7.game;
+
+public interface IPlayer {
+
+  public String getUserID();
+  
+  public String getTeam();
+  
+  public String getUserCity();
+  
+}

@@ -1,9 +1,0 @@
-package com.seanharger.chatapp.model.message.connect;
-
-import common.message.connect.IGetChatroomsListMessage;
-
-public class GetChatroomsListMessage implements IGetChatroomsListMessage {
-  
-  private static final long serialVersionUID = 2814103499376057730L;
-
-}
