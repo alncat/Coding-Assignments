@@ -447,30 +447,24 @@ public static void sortByLatencyWeight(int node){
     	if(instru.getTheOpcode().equals("store") ){
     		if(lastStoreIdx != -1){
     		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastStoreIdx) != -1) {
     		dependenceEdges.get(instru.getLineNumber()).remove(
                     dependenceEdges.get(instru.getLineNumber()).indexOf(lastStoreIdx));
-    			}
     		// Add the edge between the two load nodes
     		dependenceEdges.get(instru.getLineNumber()).add(lastStoreIdx);
     		}
     		
     		if(lastLoadIdx != -1){
         		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastLoadIdx) != -1) {
         		dependenceEdges.get(instru.getLineNumber()).remove(
                         dependenceEdges.get(instru.getLineNumber()).indexOf(lastLoadIdx));
-    			}
         		// Add the edge between the two load nodes
         		dependenceEdges.get(instru.getLineNumber()).add(lastLoadIdx);
         		}
     		
     		if(lastOutputIdx != -1){
         		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx) != -1) {
         		dependenceEdges.get(instru.getLineNumber()).remove(
                         dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx));
-    			}
         		// Add the edge between the two load nodes
         		dependenceEdges.get(instru.getLineNumber()).add(lastOutputIdx);
         		}
@@ -482,10 +476,8 @@ public static void sortByLatencyWeight(int node){
     		// Case 2
     		if(lastOutputIdx != -1){
     		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx) != -1) {
     		dependenceEdges.get(instru.getLineNumber()).remove(
                     dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx));
-    			}
     		// Add the edge between the two output nodes
     		dependenceEdges.get(instru.getLineNumber()).add(lastOutputIdx);
     		}

@@ -307,7 +307,7 @@ public static void sortByLatencyWeight(int node){
     int lineNum = node.getLineNumber();
     ArrayList<Integer> newList;
     int NUOp1 = -1, NUOp2 = -1, NUOp3 = -1;
-    //System.out.println("Line number for fill Dependence: " + lineNum);
+
     if (!dependenceEdges.containsKey(lineNum)) {
       dependenceEdges.put(lineNum, newList = new ArrayList<Integer>());
     }
@@ -437,75 +437,6 @@ public static void sortByLatencyWeight(int node){
           + vr2 + "\t" + vr3);// + "\t // "
       // + "\t" + sr1 + " " + sr2 + "\t" + sr3 + "\t (The source registers)");
       System.out.println("");
-    }
-    
-    // Add dependencies among the memory operations
-    for(int j = programSize; 0 <= j; j--){
-    	instru = allocation.get(j);
-    	
-    	 // Case 1 & 3
-    	if(instru.getTheOpcode().equals("store") ){
-    		if(lastStoreIdx != -1){
-    		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastStoreIdx) != -1) {
-    		dependenceEdges.get(instru.getLineNumber()).remove(
-                    dependenceEdges.get(instru.getLineNumber()).indexOf(lastStoreIdx));
-    			}
-    		// Add the edge between the two load nodes
-    		dependenceEdges.get(instru.getLineNumber()).add(lastStoreIdx);
-    		}
-    		
-    		if(lastLoadIdx != -1){
-        		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastLoadIdx) != -1) {
-        		dependenceEdges.get(instru.getLineNumber()).remove(
-                        dependenceEdges.get(instru.getLineNumber()).indexOf(lastLoadIdx));
-    			}
-        		// Add the edge between the two load nodes
-        		dependenceEdges.get(instru.getLineNumber()).add(lastLoadIdx);
-        		}
-    		
-    		if(lastOutputIdx != -1){
-        		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx) != -1) {
-        		dependenceEdges.get(instru.getLineNumber()).remove(
-                        dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx));
-    			}
-        		// Add the edge between the two load nodes
-        		dependenceEdges.get(instru.getLineNumber()).add(lastOutputIdx);
-        		}
-    		
-    	}
-    	
-    	// Case 2 
-    	if(instru.getTheOpcode().equals("output") ){
-    		// Case 2
-    		if(lastOutputIdx != -1){
-    		// Remove any duplicates
-    			if (dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx) != -1) {
-    		dependenceEdges.get(instru.getLineNumber()).remove(
-                    dependenceEdges.get(instru.getLineNumber()).indexOf(lastOutputIdx));
-    			}
-    		// Add the edge between the two output nodes
-    		dependenceEdges.get(instru.getLineNumber()).add(lastOutputIdx);
-    		}
-    		
-    		
-    		
-    	}
-    	
-    	// Update the indices if valid
-    	if(instru.getTheOpcode().equals("load")){
-    		lastLoadIdx = instru.getLineNumber();
-    		continue;
-    	}
-    	if(instru.getTheOpcode().equals("store")){
-    		lastStoreIdx = instru.getLineNumber();
-    		continue;
-    	}
-    	if(instru.getTheOpcode().equals("output")){
-    		lastOutputIdx = instru.getLineNumber();
-    	}
     }
   }
 
