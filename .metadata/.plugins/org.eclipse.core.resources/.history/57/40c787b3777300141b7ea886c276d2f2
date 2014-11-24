@@ -163,11 +163,11 @@ public class schedule {
 		}
 
 		// Schedule the instructions
-		for (int z = 0; z < allocation.size(); z++) {
+		for (int z = 0; z < allocation.size() - 1; z++) {
 			sortByLatencyWeight(z);
 		}
 
-		for (int i = 0; i < allocation.size(); i++) {
+		for (int i = 0; i < allocation.size() - 1; i++) {
 			System.out.println(scheduledInstructions.get(i)[0]
 					+ " Latency weight: "
 					+ nodeWeights.get(scheduledInstructions.get(i)[0]));
@@ -179,10 +179,10 @@ public class schedule {
 			String strFun2 = "nop";
 			if (FunUnit1[0] == 0 && counter > -1) {
 				FunUnit1[0] = opcodeLatency(allocation.get(
-						scheduledInstructions.get(counter)[0] )
+						scheduledInstructions.get(counter)[0] + 1)
 						.getTheOpcode());
 				strFun1 = formatPrint(allocation.get(scheduledInstructions
-						.get(counter)[0] ));
+						.get(counter)[0] + 1));
 				// All long-latency operations (i.e., more than one cycle) are
 				// non-blocking.
 				/*
@@ -199,10 +199,10 @@ public class schedule {
 			}
 			if (FunUnit2[0] == 0 && counter > -1) {
 				FunUnit2[0] = opcodeLatency(allocation.get(
-						scheduledInstructions.get(counter)[0] )
+						scheduledInstructions.get(counter)[0] + 1)
 						.getTheOpcode());
 				strFun2 = formatPrint(allocation.get(scheduledInstructions
-						.get(counter)[0] ));
+						.get(counter)[0] + 1));
 
 				// All long-latency operations (i.e., more than one cycle) are
 				// non-blocking.
@@ -214,7 +214,9 @@ public class schedule {
 				 * scheduledInstructions.get(counter)[0] + 1)
 				 * .getTheOpcode().equals("store")){ FunUnit1[0] = 0; }
 				 */
+
 				counter--;
+
 			}
 
 			if (FunUnit1[0] > 0) {
@@ -240,8 +242,8 @@ public class schedule {
 	 */
 	public static void sortByLatencyWeight(int node) {
 		int[] nodeArray;
-		//System.out.println("Node number being passed in: " + node);
-		//System.out.println("Size of scheduled Instructions: " + scheduledInstructions.size());
+		System.out.println("Node number being passed in: " + node);
+		System.out.println("Size of scheduled Instructions: " + scheduledInstructions.size());
 		if (scheduledInstructions.size() == 0) {
 			nodeArray = new int[1];
 			nodeArray[0] = node;
