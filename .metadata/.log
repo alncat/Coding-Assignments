@@ -5779,3 +5779,165 @@ java.io.FileNotFoundException: /Users/Ace/Documents/workspace/215HWA8/bin/PRNG.c
 	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
 	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SESSION 2014-11-25 09:52:01.869 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-11-25 09:52:10.818
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.yattasolutions.umllab 2 0 2014-11-25 09:52:19.702
+!MESSAGE Unable to configure UML constraint validation
+!STACK 0
+java.lang.ClassNotFoundException: Unable to load synthetic subclass of com.yattasolutions.umllab.validation.f
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:123)
+	at com.yattasolutions.umllab.validation.f.<clinit>(SourceFile:40)
+	at com.yattasolutions.obf.oo.a.earlyStartup(SourceFile:17)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:89)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:67)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$56.run(Workbench.java:2755)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/validation/f__Gen_Configurable has been compiled by a more recent version of the Java Runtime (class file version 0.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at com.yattasolutions.umllab.validation.a$1.adl(SourceFile:109)
+	at com.yattasolutions.umllab.validation.a$1.findClass(SourceFile:91)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
+	... 7 more
+!SESSION 2014-11-25 12:57:45.320 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-11-25 12:57:54.579
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.yattasolutions.umllab 2 0 2014-11-25 12:58:06.366
+!MESSAGE Unable to configure UML constraint validation
+!STACK 0
+java.lang.ClassNotFoundException: Unable to load synthetic subclass of com.yattasolutions.umllab.validation.f
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:123)
+	at com.yattasolutions.umllab.validation.f.<clinit>(SourceFile:40)
+	at com.yattasolutions.obf.oo.a.earlyStartup(SourceFile:17)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:89)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:67)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$56.run(Workbench.java:2755)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/validation/f__Gen_Configurable has been compiled by a more recent version of the Java Runtime (class file version 0.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at com.yattasolutions.umllab.validation.a$1.adl(SourceFile:109)
+	at com.yattasolutions.umllab.validation.a$1.findClass(SourceFile:91)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
+	... 7 more
+
+!ENTRY com.yattasolutions.umllab 2 6 2014-11-26 13:54:45.451
+!MESSAGE Failed to prolong floating license - still trying: java.net.UnknownHostException: academic.yatta.de: unknown error
+!STACK 0
+java.net.UnknownHostException: academic.yatta.de: unknown error
+	at PGONNHBUTEQQXPOG2VCRA4WNOI2DEKAE5NMMPBEB6VY327RLWW64AGOY6TLZQGQDXGRA53P5PGW2HMGWITLUADXJTP7BCU24DFGCJMDUMB227DJG5DKADOZO3ISAW4Y6YCU2WDQSNHKFGEN3WTB2VLNSJ3YCQDRJF4CL5ICH6E5UXCAPCNTPJ5AAFNTLFCWNIL54S3AC24ZQ3KSFSCZF573GZ6E4H744XJDTC2GE76MYW2OFO2PQSTD4HW3XETFXFGAMTNUCYL5XDXCGRX2IKWLJ5B5PPPZ5XMC3TANRYYWZQPS25OC35UGVXKARGYILAT4UQ3E6WX7OZPHTEFBFDE6ZKOEZOPAE54MD3LUBBWTBM4GFG4JFNKKLU6T7EN3J5SWUQMHP5YXZQIMNVZRKXGY7BCMS4CNYQHIYQZP2BP6JITJWPYVEQQP4B762E7HT5K5Q57JO3HYDMMZNU4WNN6IEASOYFHJ3YGZHBC46XQC4OU5KTWSY2ZRAX3M5VIMNXS3YV4FCRRENXFMGVTGJPOICFRRBLQP4JJFZR4E2NRJLKYXCD6QKEQTHGNJJ4IM3GM2Z55MZXY2K3RZJYDCUJ6MOT3YYZRLIIOJ7DVCKWRVOE2HSGYGYM64TPVGPNA42KIBJLQ6GC4M3RN47AY5YSNLQJTIAQEHTVBA2MXAOYFXXTJKJIYTKSKQZHSXTQLUNTIJDZUKL7MODP/Z2L2XFG2476INY456QYY5DA4YC.<unknown>(Unknown Source)
+
+!ENTRY com.yattasolutions.umllab 2 6 2014-11-27 14:51:28.493
+!MESSAGE Failed to prolong floating license - still trying: java.net.UnknownHostException: academic.yatta.de
+!STACK 0
+java.net.UnknownHostException: academic.yatta.de
+	at 67QZ7TWX6TJ4EBM7RPQYYX33HSDRHA2ZENDFKP3DWRLBI54XUWDJWS6VP4JKZ6LZKDFFIJHXDSAEZHVHMPZDXT3PJC3NGR3E64HGEQURNLZCOMM26DXY5PNDXTSHAOLMYERIN6GRA5G5ZGS36AYVL7SLXFDMSHAAHBBM5EXF7Q4DI76DVBBDTFUVMBVLIXRQBWR4S2UDSRNIAKRV7VCCFPYBYRPEXRKFH6IGEQWE67TCDGQ6YFGNQZGRYHUNXQOU5PJ6WMT6J7VZPIJ2LTCF3HEYWEQ55JBT2ZV6P5CIXZZWAGQCOZSVAHMFP2SY2UFKUSBBSECF43RHKZFTPOR6IWLY7FOKFCRHRFYKO4CKW4OU22UC7HNHTAGI56V3O5U4MO2OV3VT7GWHF6T26NVE77WJV5PHPC5MZE7HNQ7B3UYAIIQ23BAJHQXVYIQ6HBZ3J6AZ5SYRJYSBLLSCTMVSMLRGAJOC7A233MA4ZJ6PO6YRBFQVVS2XOIOBJ3SGDQRVLIBFAKQAVG7ZAOSH4FJWS7AT2W3V7YTDLTT4ZWQPFXHDZFRK3GS4LJBAFULPS3QVRSGFQCZCMJOXXHV44UPGM6ZZAAX3D6FAH7WAGN75JVWGXGCC4JMTI6SIU7472LG5/3ERUVQAEO4FZEM2BMASJRBV4PF.<unknown>(Unknown Source)
+!SESSION 2014-11-28 16:36:14.965 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-11-28 16:36:23.019
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.yattasolutions.umllab 2 0 2014-11-28 16:36:32.346
+!MESSAGE Unable to configure UML constraint validation
+!STACK 0
+java.lang.ClassNotFoundException: Unable to load synthetic subclass of com.yattasolutions.umllab.validation.f
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:123)
+	at com.yattasolutions.umllab.validation.f.<clinit>(SourceFile:40)
+	at com.yattasolutions.obf.oo.a.earlyStartup(SourceFile:17)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:89)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:67)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$56.run(Workbench.java:2755)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/validation/f__Gen_Configurable has been compiled by a more recent version of the Java Runtime (class file version 0.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at com.yattasolutions.umllab.validation.a$1.adl(SourceFile:109)
+	at com.yattasolutions.umllab.validation.a$1.findClass(SourceFile:91)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
+	... 7 more
+
+!ENTRY com.yattasolutions.umllab 2 6 2014-11-28 23:11:00.357
+!MESSAGE Failed to prolong floating license - still trying: java.net.UnknownHostException: academic.yatta.de
+!STACK 0
+java.net.UnknownHostException: academic.yatta.de
+	at D7ONEDZTYWU6TGZIEFKBKIFFPFQ3TJDQERN3ACET5NNQHM2FOJS2A2KTSO3SGIGTRHBPWB5YJT3IYXFXJOBGUUA6BJHKWUNDOO5MSOIN7GC552BXVA3ITHWITU4GCYI7VXSK6GYPU5HTIH2SRW5JZJZ66EOB4ZHCZCWKNK62BWCHXXFG3YOGJQLY33JJLM53CWJX7BKLIOOOJHOSQUNHPYTVW557D6MGAW4KNV4UD5CC4W2S4HZHE2DQXIVKEVDKBFOVOLNNUFO3GJNF6ZB53IB44HJTBJBPSOVRO7C5VMFFMFMI45FI2GNHITGX24HHSQDHQCU4EOBE377CKT53HQCG4NBVJ3NGWY4V2WNUWLUS234QH674KDIJKQSHIV4ACEK4LCZ4UCVELXCTS7M6ADJIQ5SKBZ3VDOYBSNBQI2RRHEZVSJCXLGHXUTSAMZT3JJYRNIHTG5YAWRVNEOXVD5LVVMKIGABRSDAMI4375SY3IIQ7HXXHZYAILG6NISNI72SRY37WODK7D77ELUWPKFSEJ6XBWY27RGYFHGRPUL4IXWORI6MU2RM5ZJBMIHFOQ5KPWBG6PBRIAVP5D5TJIJTSM6NQGUNRQRBZOMQ2WGHKY4KAU3SVLKFR3U7UHYHW/FVIBA4NRNIZ4H34Z7ZYWVP4WQD.<unknown>(Unknown Source)
+
+!ENTRY com.yattasolutions.umllab 2 6 2014-11-29 07:54:03.106
+!MESSAGE Failed to prolong floating license - still trying: java.net.UnknownHostException: academic.yatta.de
+!STACK 0
+java.net.UnknownHostException: academic.yatta.de
+	at YJSB3MNHUYP2EV7AIUQWEZ63QJX52OH4YJIWZRSHQ4ZDVY45C5JQIEX6JGN67VXZN7BUYGYOMGZDE5UG6DDIVB4VYZXDS4ULYHIY6QYUSZ37T7DVIR3G6247UED5RX65IYHL6VSN6RKATRUBRH5RXOURMIY45T5QJKDFPLVDSXLHDUOP7A4C2KE4H4WOJO32ZUPBTO2C5WIW7HF5MCBXLV6WEG3YBUA7KT7CDEEWLHAZFD55US3NYBUY6DYNVI2LLF3L4F3DQC442FKIJE4IXXGXCYXFIRQTGVOUWDC5VR5I4WMN4JF2J3FK4SZVLWX2SUJQXFAU6X6XVJFLEOJWQMYCBYECL6QK5W42BQ23DF5N5OCR7TYNYYPQDWKKY65XQ75QYSGAUNNE3KXYOPEV7Z4FBA6XGU3JZS2MZ7R3VLNE33VF4IAZGYXCPSBAOT4S25QV7QLYY5PXT3Z7LMEPESEOWB7CY5Y4W47FUGPOXHGL45D2R7VGUQLHSZER2L6WAXK2IK5L2CMH4QUXKITVEN4UUPPH65WPOPVPQ4XWGUYBCDWKUBFL63X7RQV5KTPLKQXOV2O7NQMT6Y46UTG4VWWWQQTCYHK6TUICLDQATWLGFG235PY6O5VCEVSSWKGX/UI5JM5GWPTUORCD25AIXDS2O7C.<unknown>(Unknown Source)
+
+!ENTRY com.yattasolutions.umllab 2 6 2014-11-29 10:28:39.727
+!MESSAGE Failed to prolong floating license - still trying: java.net.UnknownHostException: academic.yatta.de
+!STACK 0
+java.net.UnknownHostException: academic.yatta.de
+	at CQO5ATD6Y3PAEKX7VRGCSKZH25POE4NAMMSGDGVT3TURWG5HLAMFH7AANWC7XILTHXVZIFW7O64XVKUDVLL3H6RFWFNXXVH3AI5SK7S4GO3JD4FYJLNNP5FZXN3ER2O24Z5MF4ICFY5RDVVDMM42JLNLTH73363VGITWB4C3PLWXBRZZZD2UNODNWFUXAJJWFKM2JQ3JV2VZTFZRN4VTE57JAPJ3U5ZZUEZLOEQHSBRQCJ32J4X3N6IQUZ6FMMZAEQIYB3TO3BXYNT5LBWNIHZ3PNPVKK3OI4U36GMHNKTSQ2LHZ5MLBCBSRZ3JJGVU4TGLGIULXZZVY2HINIFJLSC43DLSYPPXSVU5S4M7PUQI2VTHFMWKLLEAR3KGR5JC6DCLHVCW4DLHE7AMZZGXFEYWILEDO7Y2PGQ2SLKVT76HCOXB4CJMC75RPFUIPWJICHSMZ34VXVNT7YWCRM2BWSLECTBSY53XTUDDGFOLZPKQG5AQDWRMD4OJ2VBDU6WWXIL4BPHQTZ3ORVPKUJDQOFYD4NSMBTO5OCQ6JEDEFS65UXE6AQCZWGQBKZ4CUT2RQ5AEE2OZ6O4ZKZGGJTXIM5PYLD34OJZ2VXSS3D46MGAHI32XH4AI2BABDKMURGWYJ/HS4MJMCY6PKJPG2QEJUVYAI65E.<unknown>(Unknown Source)
+!SESSION 2014-11-29 12:05:55.311 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/Ace/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-11-29 12:06:04.531
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.yattasolutions.umllab 2 0 2014-11-29 12:06:13.867
+!MESSAGE Unable to configure UML constraint validation
+!STACK 0
+java.lang.ClassNotFoundException: Unable to load synthetic subclass of com.yattasolutions.umllab.validation.f
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:123)
+	at com.yattasolutions.umllab.validation.f.<clinit>(SourceFile:40)
+	at com.yattasolutions.obf.oo.a.earlyStartup(SourceFile:17)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:89)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:67)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$56.run(Workbench.java:2755)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.lang.UnsupportedClassVersionError: com/yattasolutions/umllab/validation/f__Gen_Configurable has been compiled by a more recent version of the Java Runtime (class file version 0.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:642)
+	at com.yattasolutions.umllab.validation.a$1.adl(SourceFile:109)
+	at com.yattasolutions.umllab.validation.a$1.findClass(SourceFile:91)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.yattasolutions.umllab.validation.a.R(SourceFile:119)
+	... 7 more

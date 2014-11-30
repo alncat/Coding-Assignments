@@ -40,7 +40,7 @@ public class schedule {
 
 	// Contains the nodes (instruction line number) as keys and the weight as
 	// values
-	private static HashMap<Integer, Integer> nodeWeights = new HashMap<Integer, Integer>();
+	private static HashMap<Integer, Long> nodeWeights = new HashMap<Integer, Long>();
 
 	// Functional unit one
 	private static int[] FunUnit1 = { 0 };
@@ -62,8 +62,8 @@ public class schedule {
 
 	public static void main(String[] args) {
 
-		String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report1.i" };
-		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report2.i"};
+		// String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report1.i"};
+		// String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report2.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report3.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report4.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report5.i"};
@@ -79,7 +79,7 @@ public class schedule {
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report15.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report16.i"};
 
-		// inputLine = args;
+		 String[] inputFile = args;
 		Instruction temp;
 		// Check if the file exists
 		File f = new File(inputFile[0]);
@@ -116,18 +116,53 @@ public class schedule {
 
 		}
 		assignPhysicalRegistersandPrint();
+
 		/*
 		 * for (Integer node : dependenceEdges.keySet()) {
 		 * System.out.println("Node: " + node + "\t Edges: " +
 		 * dependenceEdges.get(node).toString()); }
 		 */
 
+		/*
+		 * for (Integer node : dependenceEdges.keySet()) { for (int i = 0; i <
+		 * dependenceEdges.get(node).size(); i++) {
+		 * System.out.println(dependenceEdges.get(node).get(i) + ": " +
+		 * allocation.get(dependenceEdges.get(node).get(i)) .getTheOpcode() +
+		 * " " + allocation.get(dependenceEdges.get(node).get(i)) .getSROp1() +
+		 * " " + allocation.get(dependenceEdges.get(node).get(i)) .getSROp2() +
+		 * " " + allocation.get(dependenceEdges.get(node).get(i)) .getSROp3() +
+		 * " -> " + node + ": " + allocation.get(node).getTheOpcode() + " " +
+		 * allocation.get(node).getSROp1() + " " +
+		 * allocation.get(node).getSROp1() + " " +
+		 * allocation.get(node).getSROp2() + " " +
+		 * allocation.get(node).getSROp3() + ";"); } }
+		 */
+		/*
+		 * String label = ""; String labelS = "\""; for (Integer node :
+		 * dependenceEdges.keySet()) { for (int i = 0; i <
+		 * dependenceEdges.get(node).size(); i++) { label =
+		 * allocation.get(allocation.size()-1-dependenceEdges.get(node).get(i))
+		 * .getTheOpcode() + " " +
+		 * allocation.get(allocation.size()-1-dependenceEdges.get(node).get(i))
+		 * .getVROp1() + " " +
+		 * allocation.get(allocation.size()-1-dependenceEdges.get(node).get(i))
+		 * .getVROp2() + " " +
+		 * allocation.get(allocation.size()-1-dependenceEdges.get(node).get(i))
+		 * .getVROp3();
+		 * 
+		 * label = formatPrint(allocation.get(allocation.size()-1
+		 * -dependenceEdges.get(node).get(i)));
+		 * System.out.println(dependenceEdges.get(node).get(i) + " -> " + node +
+		 * "[style=bold,label=" +labelS+ label+labelS+"];"); } }
+		 * System.out.println("She said \"Hello!\" to me.");
+		 */
+
 		// Fill hash table with all the nodes and
 		// initialize their weights to zero
 		for (int j = 0; j < dependenceEdges.size(); j++) {
-			nodeWeights.put(j, 0);
+			nodeWeights.put(j, (long) 0);
 		}
-		
+
 		// Opcode latency value
 		int latency = 0;
 
@@ -136,8 +171,8 @@ public class schedule {
 		for (int i = 0; i < dependenceEdges.size(); i++) {
 			// System.out.println("Value: " + dependenceEdges.get(revCount));
 
-			 //System.out.println("node number: " +
-			 //allocation.get(i).getLineNumber());
+			// System.out.println("node number: " +
+			// allocation.get(i).getLineNumber());
 			latency = opcodeLatency(allocation.get(i).getTheOpcode());
 			nodeWeights.put(revCount, nodeWeights.get(revCount) + latency);
 			for (Integer inBoundNode : dependenceEdges.get(revCount)) {
@@ -155,23 +190,32 @@ public class schedule {
 		}
 		// print out the latency for each opcode
 		int instructNumber = allocation.size() - 1;
-		for (Integer key : nodeWeights.keySet()) {
-			System.out.println("Node: " + key + " OpCode: "
-					+ allocation.get(instructNumber).getTheOpcode()
-					+ " \tLatency value: " + nodeWeights.get(key));
-			instructNumber--;
-		}
+		/*
+		 * for (Integer key : nodeWeights.keySet()) {
+		 * System.out.println("Node: " + key + " Instruction: " +
+		 * formatPrint(allocation.get(instructNumber)) + " \tLatency value: " +
+		 * nodeWeights.get(key)); System.out.println(" "); instructNumber--; }
+		 */
+
+		/*
+		 * for (Integer key : nodeWeights.keySet()) { System.out.println(key +
+		 * "  " + formatPrint(allocation.get(instructNumber)) +
+		 * " \t\tLatency value: " + nodeWeights.get(key));
+		 * System.out.println(" "); instructNumber--; }
+		 */
 
 		// Schedule the instructions
 		for (int z = 0; z < allocation.size(); z++) {
 			sortByLatencyWeight(z);
 		}
 
-		for (int i = 0; i < allocation.size(); i++) {
-			System.out.println(scheduledInstructions.get(i)[0]
-					+ " Latency weight: "
-					+ nodeWeights.get(scheduledInstructions.get(i)[0]));
-		}
+		/*
+		 * for (int i = 0; i < allocation.size(); i++) {
+		 * System.out.println(scheduledInstructions.get(i)[0] +
+		 * " Latency weight: " +
+		 * nodeWeights.get(scheduledInstructions.get(i)[0]));
+		 * System.out.println(" "); }
+		 */
 
 		int counter = scheduledInstructions.size() - 1;
 		while (counter > -1) {
@@ -179,10 +223,13 @@ public class schedule {
 			String strFun2 = "nop";
 			if (FunUnit1[0] == 0 && counter > -1) {
 				FunUnit1[0] = opcodeLatency(allocation.get(
-						scheduledInstructions.get(counter)[0] )
-						.getTheOpcode());
+						scheduledInstructions.get(counter)[0]).getTheOpcode());
 				strFun1 = formatPrint(allocation.get(scheduledInstructions
-						.get(counter)[0] ));
+						.get(counter)[0]));
+
+				if (strFun1.contains("Empty")) {
+					strFun1 = "nop";
+				}
 				// All long-latency operations (i.e., more than one cycle) are
 				// non-blocking.
 				/*
@@ -197,24 +244,35 @@ public class schedule {
 				counter--;
 
 			}
-			if (FunUnit2[0] == 0 && counter > -1) {
-				FunUnit2[0] = opcodeLatency(allocation.get(
-						scheduledInstructions.get(counter)[0] )
-						.getTheOpcode());
-				strFun2 = formatPrint(allocation.get(scheduledInstructions
-						.get(counter)[0] ));
 
-				// All long-latency operations (i.e., more than one cycle) are
-				// non-blocking.
-				/*
-				 * if(allocation.get( scheduledInstructions.get(counter)[0] + 1)
-				 * .getTheOpcode().equals("mult") || allocation.get(
-				 * scheduledInstructions.get(counter)[0] + 1)
-				 * .getTheOpcode().equals("load") || allocation.get(
-				 * scheduledInstructions.get(counter)[0] + 1)
-				 * .getTheOpcode().equals("store")){ FunUnit1[0] = 0; }
-				 */
-				counter--;
+			if (FunUnit2[0] == 0 && counter > -1) {
+				if (!allocation.get(scheduledInstructions.get(counter)[0])
+						.getTheOpcode().equals("load")) {
+					FunUnit2[0] = opcodeLatency(allocation.get(
+							scheduledInstructions.get(counter)[0])
+							.getTheOpcode());
+					strFun2 = formatPrint(allocation.get(scheduledInstructions
+							.get(counter)[0]));
+
+					if (strFun2.contains("Empty")) {
+						strFun2 = "nop";
+					}
+
+					// All long-latency operations (i.e., more than one cycle)
+					// are
+					// non-blocking.
+					/*
+					 * if(allocation.get( scheduledInstructions.get(counter)[0]
+					 * + 1) .getTheOpcode().equals("mult") || allocation.get(
+					 * scheduledInstructions.get(counter)[0] + 1)
+					 * .getTheOpcode().equals("load") || allocation.get(
+					 * scheduledInstructions.get(counter)[0] + 1)
+					 * .getTheOpcode().equals("store")){ FunUnit1[0] = 0; }
+					 */
+					counter--;
+				}else{
+					FunUnit1[0] = 0;
+				}
 			}
 
 			if (FunUnit1[0] > 0) {
@@ -226,9 +284,9 @@ public class schedule {
 				FunUnit2[0] -= 1;
 			}
 			System.out.println("[ " + strFun1 + " ; " + strFun2 + " ]");
-			// System.out.println(" ");
+			System.out.println(" ");
 		}
-		System.out.println("//finished.");
+		// System.out.println("//finished.");
 	}
 
 	/**
@@ -240,8 +298,9 @@ public class schedule {
 	 */
 	public static void sortByLatencyWeight(int node) {
 		int[] nodeArray;
-		//System.out.println("Node number being passed in: " + node);
-		//System.out.println("Size of scheduled Instructions: " + scheduledInstructions.size());
+		// System.out.println("Node number being passed in: " + node);
+		// System.out.println("Size of scheduled Instructions: " +
+		// scheduledInstructions.size());
 		if (scheduledInstructions.size() == 0) {
 			nodeArray = new int[1];
 			nodeArray[0] = node;
@@ -269,6 +328,9 @@ public class schedule {
 	public static String formatPrint(Instruction instruct) {
 		String operation2PR = instruct.getVROp2();
 		String VROP1 = instruct.getVROp1();
+		if (instruct.getTheOpcode().contains("output")) {
+			return instruct.getTheOpcode() + " " + instruct.getSROp3();
+		}
 		if (VROP1.contains("Empty")) {
 			VROP1 = instruct.getSROp1();
 		}
@@ -349,7 +411,7 @@ public class schedule {
 		// The line number will represent the node (instruction)
 		int lineNum = node.getLineNumber();
 		ArrayList<Integer> newList;
-		
+
 		// System.out.println("Line number for fill Dependence: " + lineNum);
 		if (!dependenceEdges.containsKey(lineNum)) {
 			dependenceEdges.put(lineNum, newList = new ArrayList<Integer>());
@@ -447,7 +509,7 @@ public class schedule {
 	}
 
 	public static void assignPhysicalRegistersandPrint() {
-		String sr1 = "", sr2 = "", sr3 = "", vr1 = "", vr2 = "", vr3 = "";
+		// String sr1 = "", sr2 = "", sr3 = "", vr1 = "", vr2 = "", vr3 = "";
 		int programSize = allocation.size() - 1;
 		Instruction instru;
 		/*
@@ -459,43 +521,26 @@ public class schedule {
 			// System.out.println(allocation.get(i).getLineNumber());
 			instru = allocation.get(i);
 			fillDependenceEdges(instru);
-			sr1 = instru.getSROp1();
-			sr2 = instru.getSROp2();
-			sr3 = instru.getSROp3();
-			vr1 = instru.getVROp1();
-			vr2 = instru.getVROp2();
-			vr3 = instru.getVROp3();
-			if (sr1.contains("Empty")) {
-				sr1 = "";
-			}
-			if (sr2.contains("Empty")) {
-				sr2 = "";
-			}
-			if (sr3.contains("Empty")) {
-				sr3 = "";
-			}
-			if (vr1.contains("Empty")) {
-				vr1 = "";
-			}
-			if (vr2.contains("Empty")) {
-				vr2 = "";
-			}
-			if (vr3.contains("Empty")) {
-				vr3 = "";
-			}
-			System.out.println(instru.getLineNumber() + " "
-					+ instru.getTheOpcode() + "\t" + vr1 + " " + vr2 + "\t"
-					+ vr3);// + "\t // "
-			// + "\t" + sr1 + " " + sr2 + "\t" + sr3 +
-			// "\t (The source registers)");
-			System.out.println("");
+			/*
+			 * sr1 = instru.getSROp1(); sr2 = instru.getSROp2(); sr3 =
+			 * instru.getSROp3(); vr1 = instru.getVROp1(); vr2 =
+			 * instru.getVROp2(); vr3 = instru.getVROp3(); if
+			 * (sr1.contains("Empty")) { sr1 = ""; } if (sr2.contains("Empty"))
+			 * { sr2 = ""; } if (sr3.contains("Empty")) { sr3 = ""; } if
+			 * (vr1.contains("Empty")) { vr1 = ""; } if (vr2.contains("Empty"))
+			 * { vr2 = ""; } if (vr3.contains("Empty")) { vr3 = ""; }
+			 * System.out.println(instru.getLineNumber() + " " +
+			 * instru.getTheOpcode() + "\t" + vr1 + " " + vr2 + "\t" + vr3);// +
+			 * "\t // " // + "\t" + sr1 + " " + sr2 + "\t" + sr3 + //
+			 * "\t (The source registers)"); System.out.println("");
+			 */
 		}
 
 		// Add dependencies among the memory operations
 		for (int j = programSize; 0 <= j; j--) {
 			instru = allocation.get(j);
-			
-			if(instru.getTheOpcode().equals("load") && lastLoadIdx != -1){
+
+			if (instru.getTheOpcode().equals("load") && lastLoadIdx != -1) {
 				if (dependenceEdges.get(instru.getLineNumber()).indexOf(
 						lastLoadIdx) != -1) {
 					dependenceEdges.get(instru.getLineNumber()).remove(
@@ -503,8 +548,7 @@ public class schedule {
 									.indexOf(lastLoadIdx));
 				}
 				// Add the edge between the two load nodes
-				dependenceEdges.get(instru.getLineNumber())
-						.add(lastLoadIdx);
+				dependenceEdges.get(instru.getLineNumber()).add(lastLoadIdx);
 			}
 
 			// Case 1 & 3
@@ -844,9 +888,8 @@ public class schedule {
 				System.out.println(" ");
 				System.out
 						.println("Command Syntax: "
-								+ "\n\t    ./412alloc k filename [-h]\n\n"
+								+ "\n\t    ./schedule filename [-h]\n\n"
 								+ "\n Required arguments:"
-								+ "\n\t    k     specifies the number of register available"
 								+ "\n\t filename  is the pathname (absolute or relative) to the input file\n\n"
 								+ "\n Optional flags:"
 								+ "\n\t    -h    prints this message" + "");

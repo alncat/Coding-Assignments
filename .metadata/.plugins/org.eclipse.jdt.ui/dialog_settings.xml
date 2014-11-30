@@ -51,11 +51,12 @@
 	</section>
 	<section name="FatJarPackageWizard">
 		<item value="/Users/Ace/Documents/workspace" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="LLgen (1) - 412lab2" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="/Users/Ace/Downloads/lab2/grammars/lab2.jar;*.zip" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="schedule - 412lab3" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="/Users/Ace/Downloads/lab3/schedule.jar.jar;*.zip" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="/Users/Ace/Downloads/lab3/schedule.jar.jar;*.zip"/>
 			<item value="/Users/Ace/Downloads/lab2/grammars/lab2.jar;*.zip"/>
 			<item value="/Users/Ace/Downloads/HolderJar/lab1.jar"/>
 			<item value="/Users/Ace/Downloads/HolderJar/lab1.jar;*.jar;*.zip"/>

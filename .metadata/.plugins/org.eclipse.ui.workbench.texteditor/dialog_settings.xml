@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="System" key="selection"/>
+		<item value="finished" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="System"/>
-			<item value="serial"/>
-			<item value="operation2PR"/>
-			<item value="VR20"/>
-			<item value="VR19"/>
-			<item value="virtualRegisterLineNumbers"/>
-			<item value="VR2"/>
-			<item value="temp"/>
+			<item value="finished"/>
+			<item value="// finish"/>
+			<item value="finish"/>
+			<item value="System.out.println"/>
+			<item value="formatPrint"/>
+			<item value="assignPhysicalRegistersandPrint"/>
+			<item value="system.out.println"/>
+			<item value="sortByLatencyWeight"/>
 		</list>
 		<list key="replacehistory">
 			<item value="membership"/>
@@ -29,7 +29,7 @@
 		<item value="265" key="DIALOG_WIDTH"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="766" key="DIALOG_X_ORIGIN"/>
-		<item value="474" key="DIALOG_Y_ORIGIN"/>
+		<item value="716" key="DIALOG_X_ORIGIN"/>
+		<item value="582" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

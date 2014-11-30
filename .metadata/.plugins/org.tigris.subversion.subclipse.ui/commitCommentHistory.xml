@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CommitComments>	<CommitComment>Updated the Milestone 1.</CommitComment>
+<CommitComments>	<CommitComment>Text file changes.</CommitComment>
+	<CommitComment>Updated the Milestone 1.</CommitComment>
 	<CommitComment>added new serial IDs to ChatAppModel.
 </CommitComment>
 	<CommitComment>Created ITeam and IPlayer.</CommitComment>
@@ -9,5 +10,4 @@
 	<CommitComment>Added hw08</CommitComment>
 	<CommitComment>Added HW08</CommitComment>
 	<CommitComment>Updated txt file.</CommitComment>
-	<CommitComment>Milestone 1 Writeup</CommitComment>
 </CommitComments>
