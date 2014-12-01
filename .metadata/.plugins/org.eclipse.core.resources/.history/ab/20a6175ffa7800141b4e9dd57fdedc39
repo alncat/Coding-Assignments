@@ -76,7 +76,7 @@ public class schedule {
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report8.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report9.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report10.i"};
-		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report11.i"};
+		 String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report11.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report12.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report13.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report14.i"};
@@ -87,7 +87,7 @@ public class schedule {
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report19.i"};
 		//String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report20.i" };
 
-		 String[] inputFile = args;
+		// String[] inputFile = args;
 		Instruction temp;
 
 		readCommandLine(inputFile);

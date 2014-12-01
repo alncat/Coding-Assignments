@@ -85,9 +85,9 @@ public class schedule {
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report17.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report18.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report19.i"};
-		//String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report20.i" };
+		String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report20.i" };
 
-		 String[] inputFile = args;
+		// String[] inputFile = args;
 		Instruction temp;
 
 		readCommandLine(inputFile);
@@ -198,13 +198,13 @@ public class schedule {
 			sortByLatencyWeight(z);
 		}
 
-		
-		 /* for (int i = 0; i < allocation.size(); i++) {
-		  System.out.println(scheduledInstructions.get(i)[0] +
-		  " Latency weight: " +
-		  nodeWeights.get(scheduledInstructions.get(i)[0]));
-		  System.out.println(" "); }*/
-		 
+		/*
+		 * for (int i = 0; i < allocation.size(); i++) {
+		 * System.out.println(scheduledInstructions.get(i)[0] +
+		 * " Latency weight: " +
+		 * nodeWeights.get(scheduledInstructions.get(i)[0]));
+		 * System.out.println(" "); }
+		 */
 
 		int counter = scheduledInstructions.size() - 1;
 		while (counter > -1) {
@@ -241,9 +241,6 @@ public class schedule {
 					if (!allocation
 							.get(scheduledInstructions.get(counter + 1)[0])
 							.getTheOpcode().equals("output")) {
-						if(!allocation
-								.get(scheduledInstructions.get(counter)[0])
-								.getTheOpcode().equals("store")){
 						FunUnit2[0] = opcodeLatency(allocation.get(
 								scheduledInstructions.get(counter)[0])
 								.getTheOpcode());
@@ -254,7 +251,6 @@ public class schedule {
 							strFun2 = "nop";
 						}
 						counter--;
-						}
 					}
 				} else {
 					FunUnit1[0] = 0;

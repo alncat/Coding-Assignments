@@ -60,7 +60,7 @@ public class schedule {
 
 	// Index of the last output
 	private static int lastOutputIdx = -1;
-
+	
 	// Name of the file
 	private static String filePath = "";
 
@@ -82,14 +82,28 @@ public class schedule {
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report14.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report15.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report16.i"};
-		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report17.i"};
+		 String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report17.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report18.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report19.i"};
-		//String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report20.i" };
+		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report20.i"};
 
-		 String[] inputFile = args;
+		// String[] inputFile = args;
 		Instruction temp;
-
+		
+		
+		/*// Check to see if the parameter -h is present
+				if (hFlag(inputFile)) {
+					System.exit(0);
+				}*/
+		
+		/*// Check if the file exists
+		File f = new File(inputFile[0]);
+		if (!f.exists() || f.isDirectory()) {
+			System.out.println("Failure to open '" + inputFile[0]
+					+ "' as the input file.");
+			System.exit(0);
+		}*/
+		
 		readCommandLine(inputFile);
 
 		// Read each line of the file and parse it
@@ -99,6 +113,15 @@ public class schedule {
 		while (!topToBottom.isEmpty()) {
 			// System.out.println(topToBottom.pop().getLineNumber());
 			temp = assignVirtualRegister(topToBottom.pop());
+			/*
+			 * System.out.println("Line Number  \t "+temp.getLineNumber());
+			 * System.out.println("Virtual register:  "+ temp.getVROp1() +
+			 * "\t Line Number for next use: \t "+temp.getNUOp1());
+			 * System.out.println("Virtual register:  "+ temp.getVROp2() +
+			 * "\t Line Number for next use: \t "+temp.getNUOp2());
+			 * System.out.println("Virtual register:  "+ temp.getVROp3() +
+			 * "\t Line Number for next use: \t "+temp.getNUOp3());
+			 */
 
 			// Add Instructions to allocation for physical register assignment
 			allocation.add(temp);
@@ -198,21 +221,19 @@ public class schedule {
 			sortByLatencyWeight(z);
 		}
 
-		
-		 /* for (int i = 0; i < allocation.size(); i++) {
-		  System.out.println(scheduledInstructions.get(i)[0] +
-		  " Latency weight: " +
-		  nodeWeights.get(scheduledInstructions.get(i)[0]));
-		  System.out.println(" "); }*/
-		 
+		/*
+		 * for (int i = 0; i < allocation.size(); i++) {
+		 * System.out.println(scheduledInstructions.get(i)[0] +
+		 * " Latency weight: " +
+		 * nodeWeights.get(scheduledInstructions.get(i)[0]));
+		 * System.out.println(" "); }
+		 */
 
 		int counter = scheduledInstructions.size() - 1;
 		while (counter > -1) {
 			String strFun1 = "nop";
 			String strFun2 = "nop";
 			if (FunUnit1[0] == 0 && counter > -1) {
-				if(!allocation.get(scheduledInstructions.get(counter)[0])
-						.getTheOpcode().equals("mult")){
 				FunUnit1[0] = opcodeLatency(allocation.get(
 						scheduledInstructions.get(counter)[0]).getTheOpcode());
 				strFun1 = formatPrint(allocation.get(scheduledInstructions
@@ -223,62 +244,67 @@ public class schedule {
 				}
 				// All long-latency operations (i.e., more than one cycle) are
 				// non-blocking.
+				/*
+				 * if(allocation.get( scheduledInstructions.get(counter)[0] + 1)
+				 * .getTheOpcode().equals("mult") || allocation.get(
+				 * scheduledInstructions.get(counter)[0] + 1)
+				 * .getTheOpcode().equals("load") || allocation.get(
+				 * scheduledInstructions.get(counter)[0] + 1)
+				 * .getTheOpcode().equals("store")){ FunUnit1[0] = 0; }
+				 */
 
-				
-				 /* if ( allocation
-				  .get(scheduledInstructions.get(counter-1)[0] )
-				  .getTheOpcode().equals("load") || allocation
-				  .get(scheduledInstructions.get(counter-1)[0])
-				  .getTheOpcode().equals("store")) { FunUnit1[0] = 0; }*/
-				 
 				counter--;
-			}
+
 			}
 
 			if (FunUnit2[0] == 0 && counter > -1) {
 				if (!allocation.get(scheduledInstructions.get(counter)[0])
 						.getTheOpcode().equals("load")) {
-					if (!allocation
-							.get(scheduledInstructions.get(counter + 1)[0])
-							.getTheOpcode().equals("output")) {
-						if(!allocation
-								.get(scheduledInstructions.get(counter)[0])
-								.getTheOpcode().equals("store")){
-						FunUnit2[0] = opcodeLatency(allocation.get(
-								scheduledInstructions.get(counter)[0])
-								.getTheOpcode());
-						strFun2 = formatPrint(allocation
-								.get(scheduledInstructions.get(counter)[0]));
+					FunUnit2[0] = opcodeLatency(allocation.get(
+							scheduledInstructions.get(counter)[0])
+							.getTheOpcode());
+					strFun2 = formatPrint(allocation.get(scheduledInstructions
+							.get(counter)[0]));
 
-						if (strFun2.contains("Empty")) {
-							strFun2 = "nop";
-						}
-						counter--;
-						}
+					if (strFun2.contains("Empty")) {
+						strFun2 = "nop";
 					}
-				} else {
+
+					// All long-latency operations (i.e., more than one cycle)
+					// are
+					// non-blocking.
+					/*
+					 * if(allocation.get( scheduledInstructions.get(counter)[0]
+					 * + 1) .getTheOpcode().equals("mult") || allocation.get(
+					 * scheduledInstructions.get(counter)[0] + 1)
+					 * .getTheOpcode().equals("load") || allocation.get(
+					 * scheduledInstructions.get(counter)[0] + 1)
+					 * .getTheOpcode().equals("store")){ FunUnit1[0] = 0; }
+					 */
+					counter--;
+				}else{
 					FunUnit1[0] = 0;
 				}
 			}
 
 			if (FunUnit1[0] > 0) {
 				FunUnit1[0] -= 1;
+				// print nop
 			}
 
 			if (FunUnit2[0] > 0) {
 				FunUnit2[0] -= 1;
 			}
 			System.out.println("[" + strFun1 + "; " + strFun2 + "]");
-
+			
 		}
 		// System.out.println("//finished.");
 	}
 
-	/**
-	 * Finds the file and reads command line parameters for set-up.
+	
+	/** Finds the file and reads command line parameters for set-up.
 	 * 
-	 * @param cmdLine
-	 *            : command line for the program
+	 * @param cmdLine: command line for the program
 	 */
 	public static void readCommandLine(String[] cmdLine) {
 		int numArgs = cmdLine.length;
@@ -290,8 +316,7 @@ public class schedule {
 
 		// Check the command line to see if there are any invalid commands
 		for (int i = 0; i < numArgs; i++) {
-			// Check to see if there is a dash which indicates that it is a
-			// command
+			// Check to see if there is a dash which indicates that it is a command
 			if (cmdLine[i].contains("-") && cmdLine[i].length() == 2) {
 				cmdCount++;
 				// Prints out the acceptable command line arguments
@@ -311,7 +336,7 @@ public class schedule {
 					System.out.println("Invalid command.");
 					System.exit(0);
 				}
-
+				
 			} else {
 				filePath = cmdLine[i];
 				fileCount++;
@@ -319,22 +344,20 @@ public class schedule {
 		}
 
 		// Check to see if more than one file was found
-		if (fileCount != 1 || cmdCount > 1) {
+		if (fileCount != 1 || cmdCount > 1 ) {
 			System.out.println("Invalid file input. Found " + fileCount
 					+ " different file location(s).");
-			System.out.println("And " + cmdCount
-					+ " command line(s) arguments.");
+			System.out.println("And "+ cmdCount + " command line(s) arguments.");
 			System.exit(0);
 		}
 		// Check if the file exists
 		File f = new File(filePath);
 		if (!f.exists() || f.isDirectory()) {
-			System.out.println("Failed to open '" + filePath
-					+ "' as the input file.");
+			System.out.println("Failed to open '" + filePath + "' as the input file.");
 			System.exit(0);
 		}
 	}
-
+	
 	/**
 	 * Sorts all the nodes in order of decreasing latency.
 	 * 

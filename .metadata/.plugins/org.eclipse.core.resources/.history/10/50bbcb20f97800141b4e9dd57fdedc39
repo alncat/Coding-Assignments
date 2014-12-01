@@ -241,9 +241,6 @@ public class schedule {
 					if (!allocation
 							.get(scheduledInstructions.get(counter + 1)[0])
 							.getTheOpcode().equals("output")) {
-						if(!allocation
-								.get(scheduledInstructions.get(counter)[0])
-								.getTheOpcode().equals("store")){
 						FunUnit2[0] = opcodeLatency(allocation.get(
 								scheduledInstructions.get(counter)[0])
 								.getTheOpcode());
@@ -254,7 +251,6 @@ public class schedule {
 							strFun2 = "nop";
 						}
 						counter--;
-						}
 					}
 				} else {
 					FunUnit1[0] = 0;

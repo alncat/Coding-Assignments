@@ -66,7 +66,7 @@ public class schedule {
 
 	public static void main(String[] args) {
 
-		// String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report1.i"};
+		 String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report1.i"};
 		// String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report2.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report3.i"};
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report4.i"};
@@ -87,7 +87,7 @@ public class schedule {
 		// String[] inputFile = {"/Users/Ace/Downloads/lab3/report/report19.i"};
 		//String[] inputFile = { "/Users/Ace/Downloads/lab3/report/report20.i" };
 
-		 String[] inputFile = args;
+		// String[] inputFile = args;
 		Instruction temp;
 
 		readCommandLine(inputFile);
@@ -241,9 +241,6 @@ public class schedule {
 					if (!allocation
 							.get(scheduledInstructions.get(counter + 1)[0])
 							.getTheOpcode().equals("output")) {
-						if(!allocation
-								.get(scheduledInstructions.get(counter)[0])
-								.getTheOpcode().equals("store")){
 						FunUnit2[0] = opcodeLatency(allocation.get(
 								scheduledInstructions.get(counter)[0])
 								.getTheOpcode());
@@ -254,7 +251,6 @@ public class schedule {
 							strFun2 = "nop";
 						}
 						counter--;
-						}
 					}
 				} else {
 					FunUnit1[0] = 0;
