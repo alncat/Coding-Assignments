@@ -1,8 +1,6 @@
 import java.util.*;
 import java.io.*;
-
 import javax.swing.*;
-
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -39,7 +37,7 @@ class ThisMyDocumentDatabase{
   public ThisMyDocumentDatabase(){}
   
   Scanner input = new Scanner(System.in);
-  public void run(String uiHost, UUID uiKey){
+  public void run(){
     //After hit run this is what shows up
     System.out.println("Do you want to:");
     System.out.println("\t(1) Index a new corpus");
