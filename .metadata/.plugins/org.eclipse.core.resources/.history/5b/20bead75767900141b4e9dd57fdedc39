@@ -194,18 +194,10 @@ public class schedule {
 		 */
 
 		// Schedule the instructions
-		if(allocation.size() <= 990){
 		for (int z = 0; z < allocation.size(); z++) {
 			sortByLatencyWeight(z);
 		}
-		}else{
-			int[] nodeArray;
-			for(int node = 0; node < allocation.size(); node++){
-				nodeArray = new int[1];
-				nodeArray[0] = node;
-				scheduledInstructions.add(nodeArray);
-		}
-		}
+
 		
 		 /* for (int i = 0; i < allocation.size(); i++) {
 		  System.out.println(scheduledInstructions.get(i)[0] +

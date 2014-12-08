@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="fc" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="fc"/>
 			<item value="&quot;VR&quot;"/>
 			<item value="VR"/>
 			<item value="finished"/>
@@ -15,7 +16,6 @@
 			<item value="finish"/>
 			<item value="System.out.println"/>
 			<item value="formatPrint"/>
-			<item value="assignPhysicalRegistersandPrint"/>
 		</list>
 		<list key="replacehistory">
 			<item value="membership"/>

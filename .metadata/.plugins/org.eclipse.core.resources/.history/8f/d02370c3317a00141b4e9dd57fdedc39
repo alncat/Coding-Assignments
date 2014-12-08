@@ -248,7 +248,9 @@ public class schedule {
 						.getTheOpcode().equals("load")) {
 					if (!allocation
 							.get(scheduledInstructions.get(counter + 1)[0])
-							.getTheOpcode().equals("output")) {
+							.getTheOpcode().equals("output") && !allocation
+							.get(scheduledInstructions.get(counter)[0])
+							.getTheOpcode().equals("output") ) {
 						if(!allocation
 								.get(scheduledInstructions.get(counter)[0])
 								.getTheOpcode().equals("store")){
