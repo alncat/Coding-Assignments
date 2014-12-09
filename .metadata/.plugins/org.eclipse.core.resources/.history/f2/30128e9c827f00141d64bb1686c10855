@@ -1,0 +1,45 @@
+
+import java.io.*;
+import java.util.*;
+import edu.rice.cs.frigg.library.cramui.*;
+import edu.rice.cs.frigg.library.cramui.stratocoderest.*;
+
+public class FileChooser
+{
+    public static String main(String[] args) throws IOException
+    {
+        String uiHost = args[0];
+        UUID uiKey = UUID.fromString(args[1]);
+        
+        // ensure something exists for user to select
+        new File("/StratoDrive/somedir").mkdir();
+        new File("/StratoDrive/some file.txt").createNewFile();
+        
+        // tell user they will be asked to select a file
+        ModalDialogHtmlMessage messageDialog = new ModalDialogHtmlMessage(uiHost, uiKey, "<i>You will be asked to choose a file.</i>");
+        showDialog(messageDialog);
+        
+        // prompt for file (don't allow directories.  If dir selected, ask again relative to that dir.)
+        File selection = new File("/StratoDrive");
+        while(selection.isDirectory())
+        {
+            ModalDialogFileChooser fileChooser = new ModalDialogFileChooser(uiHost, uiKey, selection);
+            selection = showDialog(fileChooser);
+        }
+        
+        // display selection to user
+        String htmlMessage = "<b>You selected: " + selection.getAbsolutePath() + "</b>";
+        messageDialog = new ModalDialogHtmlMessage(uiHost, uiKey, htmlMessage);
+        showDialog(messageDialog);
+        System.out.println("done.");
+        return "/StratoDrive/"+selection.getAbsolutePath();
+    }
+    
+    private static <T> T showDialog(Showable<T, IOException> dialog) throws IOException
+    {
+        System.out.print("before show.");
+        T result = dialog.show();    
+        System.out.println("\nafter show.\n");
+        return result;
+    }
+}

@@ -55,4 +55,5 @@
 <fullyQualifiedTypeName name="javax.swing.JRootPane"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.Vector"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
 </qualifiedTypeNameHistroy>

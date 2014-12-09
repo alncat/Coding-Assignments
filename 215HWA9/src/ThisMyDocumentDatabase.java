@@ -34,6 +34,7 @@ class ThisMyDocumentDatabase{
   
   private WordMounter secwordCount;
   private SaveComponents saved;
+  private File homeDirectoryFile;
   
   private String[] stopWords = new String[]{ "a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom","but", "by", "call", "can", "cannot", "cant", "co", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven","else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herself", "him", "himself", "his", "how", "however", "hundred", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itself", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myself", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own","part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thickv", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the" };
   public ThisMyDocumentDatabase(){}
@@ -50,34 +51,46 @@ class ThisMyDocumentDatabase{
       if (selection == 1 || selection == 2){
         if (selection == 1){
           System.out.println("Enter the directory where the corpus is located: ");
-          JFileChooser fc = new JFileChooser ();
-          fc.setDialogTitle ("Where is the directory where the corpus is located? ");
-          fc.setFileSelectionMode (JFileChooser.DIRECTORIES_ONLY);
-          fc.showOpenDialog(null);
-          File result = fc.getSelectedFile ();
-          try{
-            String homeDirectory = result.getCanonicalPath();
-            System.out.println(homeDirectory);
-          }catch(IOException E){}
+          //!!!!!!JFileChooser fc = new JFileChooser ();
+        //!!!!!! fc.setDialogTitle ("Where is the directory where the corpus is located? ");
+        //!!!!!!fc.setFileSelectionMode (JFileChooser.DIRECTORIES_ONLY);
+        //!!!!!!fc.showOpenDialog(null);
+          FileChooser fc = new FileChooser();
+        //!!!!!! File result = fc.getSelectedFile ();
+          String[] inputString = new String[2];
+          inputString[0] = uiHost;
+          inputString[1] = uiKey.toString();
+        //!!!!!!File result = fc.main(inputString);
           
+			try {
+				 homeDirectoryFile = fc.main(inputString);
+			} catch (IOException e1) {
+				System.out.println("An error has occurred with the file path...");
+			}
+        //!!!!!! try{
+        //!!!!!!    String homeDirectory = result.getCanonicalPath();
+          //!!!!!!     System.out.println(homeDirectory);
+          //!!!!!!   }catch(IOException E){}
+			System.out.println("The home directory: " + homeDirectoryFile.getName());
+			System.out.println("The length of the file: " + homeDirectoryFile.length() );
           System.out.println("Counting the number of occurs of each word in the corpus...");
           //get all the words
-          File[] fileString = result.listFiles();
+        File[] fileString = new File[0]; //!!!!!!result.listFiles();
           //total number of files
           int totalFiles = fileString.length;
           //loop through each file
-          for(int ithFile = 0; ithFile < totalFiles; ithFile++){
-            File thisFile = fileString[ithFile];
+        //!!!!!! for(int ithFile = 0; ithFile < totalFiles; ithFile++){
+            File thisFile = homeDirectoryFile; //!!!!!!fileString[ithFile];
             
             BufferedReader inputStream = null;
-            PrintWriter outputStream = null;
+            
             try {
               inputStream =
                 new BufferedReader(new FileReader(thisFile.toString()));
-              outputStream =
-                new PrintWriter(new FileWriter("output.txt"));
+              
               String l;
-              while ((l = inputStream.readLine()) != null){
+              while ((l = inputStream.readLine()) != null){//(l = inputStream.readLine()) != null
+            	  l = inputStream.readLine();
                 countChris(l, wordCount);
               }
             }catch(IOException E){} finally {
@@ -86,12 +99,10 @@ class ThisMyDocumentDatabase{
                   inputStream.close();
                 }catch(IOException E){}
               }
-              if (outputStream != null) {
-                outputStream.close();
-              }
+              
             }
             
-          }
+          //!!!!!!}
           int totalUniqueWords = wordCount.uniqueWords();
           System.out.println("Found " + totalUniqueWords + " unique words in the corpus.");
           System.out.println("How many of those words do you want to use to index the docs");
@@ -162,16 +173,15 @@ class ThisMyDocumentDatabase{
             //System.out.println("____________gets here______________");
             // now we create the docs
             for (int i = 0; i < totalFiles; i++) {
-              File thisFile = fileString[i];
+              File thisFile0 = fileString[i];
               //System.out.println("File Number: " + i);
               IDoubleVector wordsInDoc = new SparseDoubleVector(numWordsToIndex, 0.0);
-              BufferedReader inputStream = null;
-              PrintWriter outputStream = null;
+              BufferedReader inputStream0 = null;
+              PrintWriter outputStream0 = null;
               try {
                 inputStream =
                   new BufferedReader(new FileReader(thisFile.toString()));
-                outputStream =
-                  new PrintWriter(new FileWriter("output.txt"));
+                
                 String l;
                 while ((l = inputStream.readLine()) != null){
                   wordsInDoc = countWordInDocument (l, wordsInDoc);
@@ -182,9 +192,7 @@ class ThisMyDocumentDatabase{
                     inputStream.close();
                   }catch(IOException E){}
                 }
-                if (outputStream != null) {
-                  outputStream.close();
-                }
+                
               }
               // choose an initial topic_probs vector
               Dirichlet myDirichlet = new Dirichlet (random, new DirichletParam (new SparseDoubleVector (numTopicsToIndex, 1), 10e-99, 1000));
