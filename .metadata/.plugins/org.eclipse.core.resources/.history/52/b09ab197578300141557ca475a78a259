@@ -1,0 +1,291 @@
+package controller;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import gov.nasa.worldwind.geom.Position;
+import gov.nasa.worldwind.geom.Sphere;
+import gov.nasa.worldwind.layers.RenderableLayer;
+import gov.nasa.worldwind.render.PointPlacemark;
+import gov.nasa.worldwind.render.PointPlacemarkAttributes;
+
+import javax.swing.SwingUtilities;
+
+import view.AppFrame;
+import view.AppStartFrame;
+import view.IAppStart2Controller;
+import view.IView2ModelAdapter;
+import map.IRightClickAction;
+import map.MapLayer;
+import model.MapModel;
+import model.Place;
+import model.IModel2ViewAdapter;
+
+public class MapController {
+	private AppFrame<Place> _view;
+	private MapModel _model;
+	private AppStartFrame appStart;
+	private RenderableLayer layer = new RenderableLayer();
+	private double counter = 1.0;
+	private int clockCounter = 0;
+	private int activeMiss = 0;
+	private PointPlacemark missile;
+	private int theScore = 0;
+	private Random num = new Random();
+	private int theLocationisSet = 0;
+	private ArrayList<PointPlacemark> listOfPlacemarks = new ArrayList<PointPlacemark>();
+
+	/**
+	 * Constructor for the MapController. Creates the view and model and starts
+	 * them.
+	 */
+	public MapController() {
+		for (int i = 0; i < 10; i++) {
+			missile = new PointPlacemark(Position.fromDegrees(
+					(Math.random() * 180) + -90, (Math.random() * 360) + -360));
+			PointPlacemarkAttributes pointAttributeBlue = new PointPlacemarkAttributes();
+			missile.setAttributes(pointAttributeBlue);
+			pointAttributeBlue.setImageColor(Color.green);
+			pointAttributeBlue.setLabelFont(Font.decode("Verdana-Bold-16"));
+			double cal = Math.floor((Math.random() * 360) + -360);
+			double cal2 = Math.floor((Math.random() * 360) + -360);
+			missile.setLabelText(String.valueOf(cal) + " x "
+					+ String.valueOf(cal2));
+			layer.addRenderable(missile);
+			listOfPlacemarks.add(missile);
+		}
+		appStart = new AppStartFrame(new IAppStart2Controller() {
+
+			@Override
+			public void makeMap() {
+				makeMapMVC();
+			}
+
+			@Override
+			public void startMap() {
+				MapController.this.startMap();
+			}
+
+			@Override
+			public void runJob(Runnable runnable) {
+				MapController.this.runJob(runnable);
+			}
+
+		});
+	}
+
+	public void makeMapMVC() {
+		_view = new AppFrame<Place>(new IView2ModelAdapter<Place>() {
+			public void goPlace(Place p) {
+				_view.setPosition(p.getPosition());
+			}
+
+			public void goLatLong(String latitude, String longitude) {
+				try {
+					_view.setPosition(Position.fromDegrees(
+							Double.parseDouble(latitude),
+							Double.parseDouble(longitude), 4000));
+				} catch (Exception e) {
+					System.out.println("Improper latitude, longitude: "
+							+ latitude + ", " + longitude);
+				}
+			}
+		}, new IRightClickAction() {
+			public void apply(Position p) {
+				_model.click(p);
+				if (p.getLatitude().degrees <= missile.getPosition().latitude.degrees + 10.0
+						&& p.getLatitude().degrees >= missile.getPosition().latitude.degrees - 10.0) {
+					if (p.getLongitude().degrees <= missile.getPosition().longitude.degrees + 10.0
+							&& p.getLongitude().degrees >= missile
+									.getPosition().longitude.degrees - 10.0) {
+						theScore++;
+						System.out.println("nailed it! Your current score: "
+								+ theScore);
+						missile.move(Position.fromDegrees((Math.random() * 180)
+								+ -90, (Math.random() * 360) + -360));
+					}
+
+				}
+			}
+		});
+		_model = new MapModel(new IModel2ViewAdapter() {
+			public void addPlace(Place p) {
+				_view.addPlace(p);
+			}
+
+			public void show(MapLayer layer) {
+				_view.addMapLayer(layer);
+			}
+
+			public void hide(MapLayer layer) {
+				_view.removeMapLayer(layer);
+			}
+
+			@Override
+			public void show(RenderableLayer layer) {
+				_view.addMapLayer(layer);
+
+			}
+
+			@Override
+			public void update() {
+				// TODO Auto-generated method stub
+				// System.out.println("the clock is rolling.");
+				/*
+				 * if(clockCounter >= 100){ PointPlacemark pmBlue = new
+				 * PointPlacemark(Position.fromDegrees(0.0+counter, 0.0+counter,
+				 * 1000)); PointPlacemarkAttributes pointAttributeBlue = new
+				 * PointPlacemarkAttributes();
+				 * pmBlue.setAttributes(pointAttributeBlue);
+				 * pointAttributeBlue.setImageColor(Color.green); counter+= 2.0;
+				 * layer.addRenderable(pmBlue); clockCounter = 0; show(layer);
+				 * }else{ clockCounter++; }
+				 */
+
+				if (activeMiss == 0) {
+					show(layer);
+				}
+				if (clockCounter >= 10) {
+					missile.moveTo(Position.fromDegrees(
+							missile.getPosition().latitude.degrees
+									+ num.nextDouble(),
+							missile.getPosition().longitude.degrees
+									+ num.nextDouble()));
+					clockCounter = 0;
+					for (PointPlacemark currentMissile : listOfPlacemarks) {
+						currentMissile.moveTo(
+								currentMissile
+										.getPosition()
+										.interpolate(
+												.5, Position.fromDegrees(
+														currentMissile
+														.getPosition().latitude.degrees,
+												currentMissile
+														.getPosition().longitude.degrees),
+												Position.fromDegrees(34.0500,
+														-118.2500, 40000)
+												));
+					}
+					
+					for (PointPlacemark currentMissile : listOfPlacemarks) {
+						if(currentMissile.getPosition().latitude.degrees >= 34.0500 -5.0 && currentMissile.getPosition().latitude.degrees <= 34.0500 + 5.0 ){
+							if(currentMissile.getPosition().longitude.degrees >= -118.2500 -5.0 && currentMissile.getPosition().longitude.degrees <= -118.2500 + 5.0){
+							layer.removeRenderable(currentMissile);
+							}
+						}
+					}
+
+					if (theLocationisSet != 1) {
+						theLocationisSet = 1;
+						/* Moves the view to los angles */
+						_view.setPosition(Position.fromDegrees(34.0500,
+								-118.2500, 40000)); // .fromDegrees(34.0500,
+													// 118.2500, 4000));
+					}
+				} else {
+					clockCounter++;
+				}
+			}
+
+		});
+	}
+
+	public void startMap() {
+		_view.start();
+		_model.start();
+		missile = new PointPlacemark(Position.fromDegrees(0.0 + counter,
+				0.0 + counter, 1000));
+		PointPlacemarkAttributes pointAttributeBlue = new PointPlacemarkAttributes();
+		missile.setAttributes(pointAttributeBlue);
+		pointAttributeBlue.setImageColor(Color.green);
+		layer.addRenderable(missile);
+
+	}
+
+	public void start() {
+		appStart.start();
+	}
+
+	/**
+	 * Run the given Runnable job on the main thread.
+	 * 
+	 * @param r
+	 *            The Runnable job to run
+	 */
+	public void runJob(Runnable r) {
+		try {
+			bq.put(r); // Put job into the queue, blocking if out of space
+		} catch (InterruptedException e) {
+			System.out
+					.println("runJob(): Exception putting job into blocking queue = "
+							+ e);
+			e.printStackTrace();
+		}
+	}
+
+	private BlockingQueue<Runnable> bq = new LinkedBlockingQueue<Runnable>(5); // May
+																				// want
+																				// larger
+																				// or
+																				// different
+																				// type
+																				// of
+																				// blocking
+																				// queue
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		final MapController[] c = new MapController[1]; // One-element array
+														// trick to get around
+														// the "final"
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() { // Must use
+															// invokeAndWait,
+															// not invokeLater
+															// so that
+															// controller will
+															// be a valid
+															// instance when the
+															// job processing
+															// loop starts
+															// below.
+						public void run() {
+							c[0] = new MapController(); // Controller, incl.
+														// GUI, is constructed
+														// on GUI thread
+							c[0].start(); // Always show the GUI on the GUI
+											// thread.
+						}
+					});
+		} catch (InvocationTargetException | InterruptedException e1) {
+			System.err
+					.println("main(): Exception in instantiating controller = "
+							+ e1);
+			e1.printStackTrace();
+		}
+
+		// Go into infinite loop, waiting for Runnable jobs to perform on the
+		// main thread.
+		while (true) {
+			try {
+				System.out.println("Waiting for main thread jobs..");
+				Runnable r = c[0].bq.take(); // Pull the next available job out
+												// of the queue, otherwise block
+				System.out.println("Found and now running job: " + r);
+				r.run(); // Run the job.
+			} catch (InterruptedException e) {
+				System.err.println("Exception in blocking queue: " + e);
+				e.printStackTrace();
+			}
+		}
+	}
+
+}

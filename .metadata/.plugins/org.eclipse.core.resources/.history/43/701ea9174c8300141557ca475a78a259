@@ -1,0 +1,155 @@
+package model;
+
+import gov.nasa.worldwind.avlist.AVKey;
+import gov.nasa.worldwind.geom.Position;
+import gov.nasa.worldwind.layers.RenderableLayer;
+import gov.nasa.worldwind.render.GlobeAnnotation;
+import gov.nasa.worldwind.render.PointPlacemark;
+import gov.nasa.worldwind.render.PointPlacemarkAttributes;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import javax.swing.Timer;
+
+import map.MapLayer;
+
+public class MapModel {
+	IModel2ViewAdapter _adpt;
+	MapLayer           _layer = new MapLayer();
+	
+	//Creating renderable layer to attach the markers.
+    RenderableLayer layer = new RenderableLayer();
+    PointPlacemark pmBlue;
+    /**
+	 * The time interval between successive repaints of the canvas. (in
+	 * milliseconds)
+	 */
+	private static final int TIME_SLICE = 50;
+	/**
+	 * The timer that repeatedly calls repaint on the canvas every TIME_SLICE
+	 * seconds.
+	 */
+	private final Timer _timer;
+	/**
+	 * The dispatcher that notifies all observable objects (the balls) when the
+	 * GUI asks to.
+	 */
+	private Dispatcher _dispatcher;
+	public MapModel(IModel2ViewAdapter adpt) {
+		_adpt = adpt;
+		_timer = new Timer(TIME_SLICE, (e) -> {
+			_adpt.update();
+		});
+	}
+	
+	/**
+	 * Called by the controller to stop the timer.
+	 * @return 
+	 */	
+	public void stop(){/*End of the game timer.*/
+		_timer.stop();
+	}
+	
+	/**
+	 * Method called by the view to instruct the observer elements to paint.
+	 * Notifies all observing objects which will cause them to
+	 * paint.
+	 * 
+	 * @param g
+	 *            the graphics object to paint the canvas
+	 */
+	public void update(Graphics g) {
+		_dispatcher.notifyAll();
+		}
+	public void click(Position p) {
+		////System.out.println("Mouse clicked at: " + p+" altitude = "+p.getAltitude());/*Somewhat helpful.*/
+		
+		/*PointPlacemarkAttributes pointAttributeBlue = new PointPlacemarkAttributes();
+		pmBlue.setAttributes(pointAttributeBlue);
+		pointAttributeBlue.setImageColor(Color.blue);*/
+		
+		 //layer.addRenderable(pmBlue);
+		 //System.out.println("ououoeaefj");
+		 //_adpt.show(layer);
+		 pmBlue.moveTo(p); //Position.fromDegrees(29.718550+moveThismuch, -95.399068+moveThismuch, 150)
+		 //moveThismuch+= 3.0;
+	}
+	
+	public void start() {
+		Position willy = Position.fromDegrees(29.718550, -95.399068, 150);
+		Position epcot = Position.fromDegrees(28.374454, -81.549363, 1000);
+		Position nyc   = Position.fromDegrees(40.748974, -73.990288, 10000);
+				
+		_adpt.addPlace(new Place("NYC", nyc));
+	
+		_adpt.addPlace(new Place("Epcot Center", epcot));
+		_adpt.addPlace(new Place("Willy", willy));
+		_adpt.addPlace(new Place("Rice", Position.fromDegrees(29.71724, -95.40150, 1000)));
+
+		_layer.addToggleAnnotation("Willy", "Willy Selected!", willy);
+		_layer.addToggleAnnotation("Epcot Center", "Epcot Selected!", epcot, 5000, 1000000);
+		_layer.addAnnotation(new GlobeAnnotation("NYC", nyc));
+		
+
+      
+        
+        //Add the just created polygon to a renderable layer
+		//TODO This works
+        //Creating positions where the placemarkers will be placed.
+        Position pointPosition = Position.fromDegrees(50, 7.5);
+        Position pointPosition2 = Position.fromDegrees(51, 7.5);
+        Position pointPosition3 = Position.fromDegrees(52, 7.5);
+        //Creating markers providing the positions previously defined
+        PointPlacemark pmStandard = new PointPlacemark(pointPosition);
+        PointPlacemark pmRed = new PointPlacemark(pointPosition2);
+         pmBlue = new PointPlacemark(pointPosition3);
+        //Creating new placemark attributes
+        PointPlacemarkAttributes pointAttributeBlue = new PointPlacemarkAttributes();
+        PointPlacemarkAttributes pointAttributeRed = new PointPlacemarkAttributes();
+        //Attaching the placemark attributes to the placemarks.
+        pmRed.setAttributes(pointAttributeRed);
+        pmBlue.setAttributes(pointAttributeBlue);
+        //Changing color of the placemarkers attached to their respective
+        //placemark attribute.
+        pointAttributeRed.setImageColor(Color.red);
+        pointAttributeBlue.setImageColor(Color.blue);
+        //Changing font type, size and setting it to bold.
+        pointAttributeBlue.setLabelFont(Font.decode("Verdana-Bold-22"));
+        //Changing the label text color
+        //pointAttributeBlue.setLabelMaterial(Color.BLACK);
+        //Changing the text scale of the placemark 'pmBlue'
+        //pointAttributeBlue.setLabelScale(1.8);
+        //Setting text label for placemarkers.
+        pmStandard.setLabelText("Standard placemark.");
+        pmBlue.setLabelText("Font: Verdana, Size: 22, Bold.");
+        //Setting up annotation pop-up to be activated with mouse-over
+        //at the placemark 'point2'.
+        pmRed.setValue(AVKey.DISPLAY_NAME, "Text Displayed by mouse-over");
+        
+        //Adding placemarkers to the rederable layer
+        layer.addRenderable(pmStandard);
+        layer.addRenderable(pmRed);
+        layer.addRenderable(pmBlue);
+        //Adding renderable layer to the application.
+        //TODO This works
+		
+        
+		_adpt.show(_layer);
+		_adpt.show(layer);
+		_timer.start();
+		
+	}
+	/**_adpt.addPlace(new Place("Greenwich", Position.fromDegrees(51.477222, 0.0, 1000)));
+	_adpt.addPlace(new Place("Louvre", Position.fromDegrees(48.860930, 2.336461, 1000)));
+	_adpt.addPlace(new Place("London Eye", Position.fromDegrees(51.503367, -0.119968, 1000)));
+	_adpt.addPlace(new Place("Acropolis", Position.fromDegrees(37.971458, 23.726647, 800)));
+	_adpt.addPlace(new Place("Colosseum", Position.fromDegrees(41.890306, 12.492354, 500)));
+	_adpt.addPlace(new Place("Taj Mahal", Position.fromDegrees(27.174932, 78.042144, 1000)));
+	_adpt.addPlace(new Place("Pyramids", Position.fromDegrees(29.976788, 31.134001, 1500)));
+	_adpt.addPlace(new Place("Statue of Liberty", Position.fromDegrees(40.68925, -74.044493, 500)));*/
+	/**	_adpt.addPlace(new Place("Luxor", Position.fromDegrees(36.095568, -115.176033, 1500)));
+	_adpt.addPlace(new Place("Grand Canyon", Position.fromDegrees(36.108091, -113.214912, 90000)));
+	_adpt.addPlace(new Place("Golden Gate", Position.fromDegrees(37.82035, -122.4778804, 5000)));*/
+}
