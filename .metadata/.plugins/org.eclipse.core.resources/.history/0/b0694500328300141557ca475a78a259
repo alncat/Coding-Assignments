@@ -18,7 +18,7 @@ import map.MapLayer;
 public class MapModel {
 	IModel2ViewAdapter _adpt;
 	MapLayer           _layer = new MapLayer();
-	//RenderableLayer Polylayer = new RenderableLayer();
+	RenderableLayer Polylayer = new RenderableLayer();
 	//Creating renderable layer to attach the markers.
     RenderableLayer layer = new RenderableLayer();
     double moveThismuch = 22.1;
@@ -71,7 +71,7 @@ public class MapModel {
 		pointAttributeBlue.setImageColor(Color.blue);
 		
 		 layer.addRenderable(pmBlue);
-		 //System.out.println("ououoeaefj");
+		 System.out.println("ououoeaefj");
 		 _adpt.show(layer);
 		 pmBlue.move(Position.fromDegrees(29.718550+moveThismuch, -95.399068+moveThismuch, 150));
 		 moveThismuch+= 3.0;

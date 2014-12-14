@@ -29,7 +29,6 @@ public class MapController {
 	private AppStartFrame appStart;
 	private RenderableLayer layer = new RenderableLayer();
 	private double counter = 1.0;
-	private int clockCounter = 0;
 	/**
 	 * Constructor for the MapController. Creates the view and model and
 	 * starts them.
@@ -91,18 +90,14 @@ public class MapController {
 			public void update() {
 				// TODO Auto-generated method stub
 				//System.out.println("the clock is rolling.");
-				if(clockCounter >= 100){
 				PointPlacemark pmBlue = new PointPlacemark(Position.fromDegrees(0.0+counter, 0.0+counter, 1000));
 				PointPlacemarkAttributes pointAttributeBlue = new PointPlacemarkAttributes();
 				pmBlue.setAttributes(pointAttributeBlue);
 				pointAttributeBlue.setImageColor(Color.green);
 				counter+= 2.0;
 				 layer.addRenderable(pmBlue);
-				 clockCounter = 0;
+				 
 				show(layer);
-				}else{
-					clockCounter++;
-				}
 			}
 			
 		});

@@ -3,22 +3,27 @@ package model;
 import gov.nasa.worldwind.avlist.AVKey;
 import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.layers.RenderableLayer;
+import gov.nasa.worldwind.render.BasicShapeAttributes;
 import gov.nasa.worldwind.render.GlobeAnnotation;
 import gov.nasa.worldwind.render.PointPlacemark;
 import gov.nasa.worldwind.render.PointPlacemarkAttributes;
+import gov.nasa.worldwind.render.ShapeAttributes;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Polygon;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
 import map.MapLayer;
 
+import com.sun.prism.Material;
+
 public class MapModel {
 	IModel2ViewAdapter _adpt;
 	MapLayer           _layer = new MapLayer();
-	//RenderableLayer Polylayer = new RenderableLayer();
+	RenderableLayer Polylayer = new RenderableLayer();
 	//Creating renderable layer to attach the markers.
     RenderableLayer layer = new RenderableLayer();
     double moveThismuch = 22.1;
@@ -32,11 +37,7 @@ public class MapModel {
 	 * seconds.
 	 */
 	private final Timer _timer;
-	/**
-	 * The dispatcher that notifies all observable objects (the balls) when the
-	 * GUI asks to.
-	 */
-	private Dispatcher _dispatcher;
+	
 	public MapModel(IModel2ViewAdapter adpt) {
 		_adpt = adpt;
 		_timer = new Timer(TIME_SLICE, (e) -> {
@@ -44,25 +45,6 @@ public class MapModel {
 		});
 	}
 	
-	/**
-	 * Called by the controller to stop the timer.
-	 * @return 
-	 */	
-	public void stop(){/*End of the game timer.*/
-		_timer.stop();
-	}
-	
-	/**
-	 * Method called by the view to instruct the observer elements to paint.
-	 * Notifies all observing objects which will cause them to
-	 * paint.
-	 * 
-	 * @param g
-	 *            the graphics object to paint the canvas
-	 */
-	public void update(Graphics g) {
-		_dispatcher.notifyAll();
-		}
 	public void click(Position p) {
 		System.out.println("Mouse clicked at: " + p+" altitude = "+p.getAltitude());
 		PointPlacemark pmBlue = new PointPlacemark(p);
@@ -71,12 +53,13 @@ public class MapModel {
 		pointAttributeBlue.setImageColor(Color.blue);
 		
 		 layer.addRenderable(pmBlue);
-		 //System.out.println("ououoeaefj");
+		 System.out.println("ououoeaefj");
 		 _adpt.show(layer);
 		 pmBlue.move(Position.fromDegrees(29.718550+moveThismuch, -95.399068+moveThismuch, 150));
 		 moveThismuch+= 3.0;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void start() {
 		Position willy = Position.fromDegrees(29.718550, -95.399068, 150);
 		Position epcot = Position.fromDegrees(28.374454, -81.549363, 1000);
@@ -151,7 +134,6 @@ public class MapModel {
         //Polylayer.addRenderable(theDot.getSphere());
 		_adpt.show(_layer);
 		_adpt.show(layer);
-		_timer.start();
 		//_adpt.show(Polylayer);
 	}
 }
