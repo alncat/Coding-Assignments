@@ -91,7 +91,7 @@ public class MapController {
 			public void update() {
 				// TODO Auto-generated method stub
 				//System.out.println("the clock is rolling.");
-				/*if(clockCounter >= 100){
+				if(clockCounter >= 100){
 				PointPlacemark pmBlue = new PointPlacemark(Position.fromDegrees(0.0+counter, 0.0+counter, 1000));
 				PointPlacemarkAttributes pointAttributeBlue = new PointPlacemarkAttributes();
 				pmBlue.setAttributes(pointAttributeBlue);
@@ -102,7 +102,7 @@ public class MapController {
 				show(layer);
 				}else{
 					clockCounter++;
-				}*/
+				}
 			}
 			
 		});
