@@ -1,0 +1,177 @@
+package controller;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JOptionPane;
+
+import view.IView2ModelAdapter;
+import view.MainFrame;
+import model.IModel2ViewAdapter;
+import model.IStrategyFac;
+import model.World;
+import model.paint.IPaintStrategyFac;
+
+/**
+ * Controller for the BallWorld application. Creates a view and models, sets
+ * them up and starts the user interface.
+ * 
+ * @author jjc7, jfe2
+ */
+public class BallWorld {
+	
+	/**
+	 * The view reference for BallWorld. Contains all GUI elements.
+	 */
+	private MainFrame<IStrategyFac, IPaintStrategyFac> _mainFrame;
+	/**
+	 * The model reference for BallWorld. Contains models that represent the
+	 * balls in the view.
+	 */
+	private World _world;
+	
+	/**
+	 * Main method to start the program.
+	 * @param args		program arguments; unused in BallWorld
+	 */
+	public static void main(String[] args) {
+		new BallWorld();
+	}
+	
+	/**
+	 * Constructor for the BallWorld controller. Creates the view and model and
+	 * starts them.
+	 */
+	public BallWorld() {
+		_world = new World(new IModel2ViewAdapter() {
+			@Override
+			/**
+			 * Makes view re-paint everything on it.
+			 */
+			public void update() {
+				_mainFrame.repaint();
+			}
+
+			@Override
+			/**
+			 * Return the canvas on which the balls are painted.
+			 */
+			public Component getCanvas() {
+				return _mainFrame.getCanvas();
+			}
+			
+		});
+	    
+		_mainFrame = new MainFrame<IStrategyFac, IPaintStrategyFac>(
+				new IView2ModelAdapter<IStrategyFac, IPaintStrategyFac>() {
+			@Override
+			/**
+			 * Update the model.
+			 */
+			public void paint(Graphics g) {
+				g.setColor(Color.RED);
+				g.drawOval(200,200,400,400); /*Draws the ovals to make a bull's eye target.*/
+				g.drawOval(250,250,300,300);
+				g.drawOval(300, 300, 200,200);
+				g.drawOval(350, 350, 100, 100);
+				_world.update(g);
+			}
+			
+			@Override
+			/**
+			 * Clears all objects in the model.
+			 */
+			public void reset() {
+				_world.apocalypse();		        
+			}
+
+			@Override
+		    /**
+		     * Returns an IStrategyFac that can instantiate the strategy 
+		     * specified by classname. Returns null if classname is null. The 
+		     * toString() of the returned factory is the classname.
+		     * @param classname  Shortened name of desired strategy 
+		     * @return A factory to make that strategy
+		     */
+			public IStrategyFac addStrategy(String classname) {
+				return _world.makeStrategyFac(classname);
+			}
+
+			@Override
+			/**
+			 * Add a ball to the system with a strategy as given by the given 
+			 * IStrategyFac
+			 * @param selectedItem The fully qualified name of the desired 
+			 * strategy.
+			 */
+			public void makeBall(IStrategyFac selectedItem, IPaintStrategyFac selectedItem2) {
+				if (null != selectedItem && null != selectedItem2)
+					_world.loadBall(selectedItem.make(), selectedItem2.make());
+			}
+
+		    @Override
+		    /**
+		     * Returns an IStrategyFac that can instantiate a MultiStrategy 
+		     * with the two strategies made by the two given IStrategyFac 
+		     * objects. Returns null if either supplied factory is null. The 
+		     * toString() of the returned factory is the toString()'s of the 
+		     * two given factories, concatenated with "-".
+		     * @param selectedItem1 An IStrategyFac for a strategy
+		     * @param selectedItem2 An IStrategyFac for a strategy
+		     * @return An IStrategyFac for the composition of the two strategies
+		     */
+		    public IStrategyFac combineStrategies(IStrategyFac selectedItem1,
+		    		IStrategyFac selectedItem2) {
+		    	return _world.combineStrategyFacs(selectedItem1, 
+		        		   selectedItem2);
+		    }
+
+			@Override
+			/**
+			 * Makes a ball that is capable of switching to other update 
+			 * strategies. Initially makes a ball that goes straight if no 
+			 * switch strategy has been set.
+			 * 
+			 * @param paint The paint strategy factory to use
+			 */
+			public void makeSwitcherBall(IPaintStrategyFac paint) {
+				_world.loadBall(_world.getSwitcherStrategy(), paint.make());
+			}
+
+			@Override
+			/**
+			 * Sets the switcher strategy to selectedItem.
+			 * @param selectedItem - what the switcher strategy will be set to.
+			 */
+			public void switchStrategy(IStrategyFac selectedItem) {
+				_world.switchSwitcherStrategy(selectedItem.make());
+			}
+
+			@Override
+			public IPaintStrategyFac addPaintStrategy(String classname) {
+				return _world.makePaintStrategyFac(classname);
+			}
+		
+		   });
+		       
+		_world.start();
+		_mainFrame.start();
+		
+		//Timer timer = new Timer();
+		//timer.schedule(new RemindTask(), 5*1000);
+		
+	}
+	class RemindTask extends TimerTask {
+	    public void run() {
+	    //  System.out.println("Time's up!");	     
+	      _world.stop();
+	      JOptionPane.showMessageDialog(_mainFrame,
+	    		    "Game has ended.");
+	    }
+	  }
+
+	
+	}

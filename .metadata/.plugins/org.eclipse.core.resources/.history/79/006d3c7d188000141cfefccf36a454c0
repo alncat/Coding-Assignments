@@ -1,0 +1,5 @@
+package model.ball;
+
+public class CCStrategy {
+
+}

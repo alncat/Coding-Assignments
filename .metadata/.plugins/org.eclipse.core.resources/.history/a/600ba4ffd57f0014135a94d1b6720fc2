@@ -1,0 +1,337 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+import javax.swing.JComboBox;
+
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.UIManager;
+import javax.swing.JProgressBar;
+
+/**
+ * Main JFrame for BallWorld.
+ */
+public class MainFrame<TStrategyDropListItem, TPaintDropListItem> extends
+		JFrame {
+
+	/**
+	 * Serial version to avoid warnings.
+	 */
+	private static final long serialVersionUID = -6526871054857853699L;
+	/**
+	 * Adapter to reference the model.
+	 */
+	private IView2ModelAdapter<TStrategyDropListItem, TPaintDropListItem> _model;
+	/**
+	 * The main content pane of the JFrame.
+	 */
+	private JPanel _contentPane;
+	/**
+	 * The panel that contains the controls for this frame.
+	 */
+	private final JPanel _controlPanel = new JPanel();
+	/**
+	 * The panel that contains the canvas to draw the balls onto.
+	 */
+	private final JPanel _canvasPanel = new JPanel() {
+		/**
+		 * Serial version to avoid warnings.
+		 */
+		private static final long serialVersionUID = 7505904830766836252L;/*Sean, we might have an issue with serialization and RMI here.*/
+
+		/**
+		 * Relays a message to the model to paint all of its observing objects.
+		 */
+		protected void paintComponent(Graphics g) {
+			_model.paint(g);
+			if(gameTimer >= 1000){
+				try {
+					Thread.sleep(4000);
+					gameTimer = 0;
+				} catch (InterruptedException e) {
+					System.out.println("Did not sleep");
+				}
+			}
+			progressBar.setValue(gameTimer); /*Repaints the game timer as the game is played.*/
+			gameTimer += 10; /*Adds a tick to the timer.*/
+		}
+	};
+	/**
+	 * The text field used to enter the name of the concrete ball class to
+	 * construct and add to the canvas.
+	 */
+	private final JTextField _textFieldBallType = new JTextField();
+	/**
+	 * The button that triggers the creation of a new ball according to the type
+	 * specified in the top dropdown list.
+	 */
+	private final JButton _btnMakeBall = new JButton("Make ball");
+	/**
+	 * The button that triggers the deletion of all the balls currently on the
+	 * canvas.
+	 */
+	private final JButton _btnClearAll = new JButton("Clear all");
+	/**
+	 * The button that adds a ball specified in the textbox to the dropdown
+	 * list.
+	 */
+	private final JButton _btnAddToList = new JButton("Add to list");
+	/**
+	 * The top dropdown box that many buttons que off of.
+	 */
+	private final JComboBox<TStrategyDropListItem> _list1DL = new JComboBox<TStrategyDropListItem>();
+
+	/**
+	 * The paint drowndown box
+	 */
+	private final JComboBox<TPaintDropListItem> _list3DL = new JComboBox<TPaintDropListItem>();
+	/**
+	 * The switch panel to house the switching and clearing buttons.
+	 */
+	private final JPanel _pnlSwitch = new JPanel();
+	/**
+	 * The panel to house the dropdown lists, make, and combine buttons.
+	 */
+	private final JPanel _pnlMake = new JPanel();
+	/**
+	 * The bottom dropdown list that can be used in combining strategies.
+	 */
+	private final JComboBox<TStrategyDropListItem> _list2DL = new JComboBox<TStrategyDropListItem>();
+	/**
+	 * The combine button that fuses together the two strategies in the dropdown
+	 * lists.
+	 */
+	private final JButton btnCombine = new JButton("Combine!");
+	/**
+	 * The button that creates a switcherBall which can changed to reflect the
+	 * strategy specified in the top dropdown list.
+	 */
+	private final JButton btnMakeSwitcher = new JButton("Make Switcher");
+	/**
+	 * The button that makes all the switcherBalls change to reflect the
+	 * strategy specified in the top dropdown list.
+	 */
+	private final JButton btnSwitch = new JButton("Switch!");
+	/**
+	 * The panel that houses the textfield and add to list button.
+	 */
+	private final JPanel _pnlMovement = new JPanel();
+	private final JPanel _pnlPaint = new JPanel();
+	private final JTextField _textFieldPaintType = new JTextField();
+	private final JButton btnNewButton = new JButton("Add");
+	private final JPanel _pnlClear = new JPanel();
+	private final JProgressBar progressBar = new JProgressBar(0,1000); /*Max of 3000 with increment of 1 runs for 2 minutes 34 seconds*/
+	private int gameTimer = 1; /*Initial value of the game timer. */
+
+	/**
+	 * Initializes the frame and set up the timer.
+	 * 
+	 * @param view2Model
+	 *            , view to model adapter
+	 */
+	public MainFrame(
+			IView2ModelAdapter<TStrategyDropListItem, TPaintDropListItem> view2Model) {
+		_textFieldPaintType
+				.setToolTipText("Input the type of paint strategy to use");
+		_textFieldPaintType.setText("Ball");
+		_textFieldPaintType.setColumns(10);
+		_model = view2Model;
+		initGUI();
+	}
+
+	/**
+	 * Starts the GUI and timer.
+	 */
+	public void start() {
+		setVisible(true);
+	}
+
+	/**
+	 * Return the center canvas panel.
+	 * 
+	 * @return the panel where the balls are painted
+	 */
+	public Component getCanvas() {
+		return _canvasPanel;
+	}
+
+	/**
+	 * Initializes all GUI components.
+	 */
+	private void initGUI() {
+		setTitle("BallWorld");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 780, 400);
+		_contentPane = new JPanel();
+		_contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		_contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(_contentPane);
+		_controlPanel.setBackground(UIManager.getColor("Button.shadow"));
+
+		_contentPane.add(_controlPanel, BorderLayout.NORTH);
+		_controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		_pnlMovement.setBorder(new EmptyBorder(3, 3, 3, 3));
+		_pnlMovement.setBackground(Color.GRAY);
+		_controlPanel.add(_pnlMovement);
+		_pnlMovement.setLayout(new GridLayout(0, 1, 3, 3));
+		
+		_pnlMovement.add(progressBar);
+		_textFieldBallType
+				.setToolTipText("Name of strategy, XXX, from model.ball.XXX");
+		_pnlMovement.add(_textFieldBallType);
+
+		_textFieldBallType.setColumns(15);
+		_textFieldBallType.setText("Straight");
+		_btnAddToList
+				.setToolTipText("Add strategy to both droplists. The rest of the classname is added automatically.");
+		_pnlMovement.add(_btnAddToList);
+		_pnlMake.setBorder(new EmptyBorder(3, 3, 3, 3));
+		_controlPanel.add(_pnlMake);
+		_pnlMake.setBackground(Color.GRAY);
+		_pnlMake.setLayout(new GridLayout(0, 1, 3, 3));
+		_btnMakeBall
+				.setToolTipText("Instantiate a ball with the strategy in the upper droplist.");
+		_pnlMake.add(_btnMakeBall);
+		_btnMakeBall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_model.makeBall(
+						_list1DL.getItemAt(_list1DL.getSelectedIndex()),
+						_list3DL.getItemAt(_list3DL.getSelectedIndex()));
+			}
+		});
+		_pnlMake.add(_list1DL);
+
+		_pnlMake.add(_list2DL);
+		btnCombine
+				.setToolTipText("Combine the selected strategies from both droplists into a single strategy that is added to both droplists.");
+		btnCombine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Take two factories shown on the droplists and
+				// make a combined strategy factory
+				TStrategyDropListItem fac1 = _list1DL.getItemAt(_list1DL
+						.getSelectedIndex());
+				TStrategyDropListItem fac2 = _list2DL.getItemAt(_list2DL
+						.getSelectedIndex());
+				TStrategyDropListItem newFac = _model.combineStrategies(fac1,
+						fac2);
+
+				// Make sure we don't have duplicates in our list
+				for (int i = 0; i < _list1DL.getItemCount(); i++) {
+					if (_list1DL.getItemAt(i).toString()
+							.equals(newFac.toString())) {
+						return;
+					}
+				}
+
+				_list1DL.insertItemAt(newFac, 0);
+				_list2DL.insertItemAt(newFac, 0);
+			}
+		});
+
+		_pnlMake.add(btnCombine);
+		_pnlSwitch.setBorder(new EmptyBorder(3, 3, 3, 3));
+		_controlPanel.add(_pnlSwitch);
+		_pnlSwitch.setBackground(Color.GRAY);
+		btnMakeSwitcher
+				.setToolTipText("Instantiate a ball that can switch strategies.");
+		btnMakeSwitcher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_model.makeSwitcherBall(_list3DL.getItemAt(_list3DL.getSelectedIndex()));
+			}
+		});
+		_pnlSwitch.setLayout(new GridLayout(0, 1, 3, 3));
+
+		_pnlSwitch.add(btnMakeSwitcher);
+		btnSwitch
+				.setToolTipText("Switch the strategy on all switcher balls to the currently selected strategy in the upper droplist.");
+		btnSwitch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_model.switchStrategy(_list1DL.getItemAt(_list1DL
+						.getSelectedIndex()));
+			}
+		});
+
+		_pnlSwitch.add(btnSwitch);
+		_pnlClear.setBorder(new EmptyBorder(3, 3, 3, 3));
+		_pnlClear.setBackground(Color.GRAY);
+
+		_controlPanel.add(_pnlClear);
+		_pnlClear.setLayout(new GridLayout(0, 1, 0, 0));
+		_pnlClear.add(_btnClearAll);
+		_btnClearAll.setToolTipText("Clear all the balls from the screen.");
+
+		_btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_model.reset();
+			}
+		});
+		_pnlPaint.setBackground(Color.GRAY);
+		_pnlPaint.setBorder(new EmptyBorder(3, 3, 3, 3));
+
+		_controlPanel.add(_pnlPaint);
+		_pnlPaint.setLayout(new GridLayout(3, 1, 3, 3));
+
+		_pnlPaint.add(_textFieldPaintType);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TPaintDropListItem o = _model
+						.addPaintStrategy(_textFieldPaintType.getText());
+				if (null == o)
+					return; // just in case
+
+				// Make sure we don't have duplicates in our list
+				for (int i = 0; i < _list3DL.getItemCount(); i++) {
+					if (_list3DL.getItemAt(i).toString().equals(o.toString())) {
+						return;
+					}
+				}
+				_list3DL.insertItemAt(o, 0);
+				_list3DL.setSelectedItem(o);
+			}
+		});
+		btnNewButton
+				.setToolTipText("Add the input paint strategy to the possible paint strategy selection dropdown");
+		_pnlPaint.add(btnNewButton);
+		_list3DL.setToolTipText("Select a paint strategy to follow when making a ball");
+
+		_pnlPaint.add(_list3DL);
+		_btnAddToList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TStrategyDropListItem o = _model.addStrategy(_textFieldBallType
+						.getText());
+				if (null == o)
+					return; // just in case
+
+				// Make sure we don't have duplicates in our list
+				for (int i = 0; i < _list1DL.getItemCount(); i++) {
+					if (_list1DL.getItemAt(i).toString().equals(o.toString())) {
+						return;
+					}
+				}
+				
+				_list1DL.insertItemAt(o, 0);
+				_list2DL.insertItemAt(o, 0);
+				_list2DL.setSelectedItem(o);
+				_list1DL.setSelectedItem(o);
+			}
+		});
+		_canvasPanel.setBackground(Color.WHITE);
+
+		_contentPane.add(_canvasPanel, BorderLayout.CENTER);
+	}
+
+}

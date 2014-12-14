@@ -1,0 +1,5 @@
+package yn4_jjc7.client.model.message.chat.unknown;
+
+public class IAppStart2Controller {
+
+}

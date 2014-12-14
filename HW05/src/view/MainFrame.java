@@ -18,7 +18,6 @@ import javax.swing.JComboBox;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.UIManager;
-import javax.swing.JProgressBar;
 
 /**
  * Main JFrame for BallWorld.
@@ -49,15 +48,13 @@ public class MainFrame<TStrategyDropListItem, TPaintDropListItem> extends
 		/**
 		 * Serial version to avoid warnings.
 		 */
-		private static final long serialVersionUID = 7505904830766836252L;/*Sean, we might have an issue with serialization and RMI here.*/
+		private static final long serialVersionUID = 7505904830766836252L;
 
 		/**
 		 * Relays a message to the model to paint all of its observing objects.
 		 */
 		protected void paintComponent(Graphics g) {
 			_model.paint(g);
-			progressBar.setValue(gameTimer); /*Repaints the game timer as the game is played.*/
-			gameTimer += 1; /*Adds a tick to the timer.*/
 		}
 	};
 	/**
@@ -124,8 +121,6 @@ public class MainFrame<TStrategyDropListItem, TPaintDropListItem> extends
 	private final JTextField _textFieldPaintType = new JTextField();
 	private final JButton btnNewButton = new JButton("Add");
 	private final JPanel _pnlClear = new JPanel();
-	private final JProgressBar progressBar = new JProgressBar(0,3000); /*Max of 3000 with increment of 1 runs for 2 minutes 34 seconds*/
-	private int gameTimer = 1; /*Initial value of the game timer. */
 
 	/**
 	 * Initializes the frame and set up the timer.
@@ -178,8 +173,6 @@ public class MainFrame<TStrategyDropListItem, TPaintDropListItem> extends
 		_pnlMovement.setBackground(Color.GRAY);
 		_controlPanel.add(_pnlMovement);
 		_pnlMovement.setLayout(new GridLayout(0, 1, 3, 3));
-		
-		_pnlMovement.add(progressBar);
 		_textFieldBallType
 				.setToolTipText("Name of strategy, XXX, from model.ball.XXX");
 		_pnlMovement.add(_textFieldBallType);
@@ -312,7 +305,7 @@ public class MainFrame<TStrategyDropListItem, TPaintDropListItem> extends
 						return;
 					}
 				}
-				
+
 				_list1DL.insertItemAt(o, 0);
 				_list2DL.insertItemAt(o, 0);
 				_list2DL.setSelectedItem(o);

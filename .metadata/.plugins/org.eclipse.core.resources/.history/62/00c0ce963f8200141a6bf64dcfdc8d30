@@ -1,0 +1,346 @@
+package model.ball;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.Observable;
+import java.util.Observer;
+
+import model.command.*;
+import model.paint.IPaintStrategy;
+import util.Dispatcher;
+import util.Randomizer;
+
+/**
+ * Abstract representation of a ball. All concrete balls must implement the
+ * updateState method which defines the behavior of the ball.
+ */
+public class Ball implements Observer {
+	/**
+	 * The minimum radius a ball can have.
+	 */
+	private static final int MIN_RADIUS = 5;
+	/**
+	 * The maximum radius a ball can have.
+	 */
+	private static final int MAX_RADIUS = 40;
+
+	/**
+	 * The minimum velocity that a ball can have.
+	 */
+	private static final int MIN_VELOCITY = -10;
+	/**
+	 * The maximum velocity that a ball can have.
+	 */
+	private static final int MAX_VELOCITY = 10;
+
+	/**
+	 * The containing component that this ball is drawn on.
+	 */
+	private Component _viewContainer;
+	/**
+	 * The location of this ball. Location is defined as the center of the ball.
+	 */
+	private Point _location;
+	/**
+	 * The velocity vector for this ball.
+	 */
+	private Point _velocity;
+
+	/**
+	 * The radius of this ball.
+	 */
+	private int _radius;
+	/**
+	 * The color of this ball.
+	 */
+	private Color _color;
+	/**
+	 * The movement strategy of the ball.
+	 */
+	private IUpdateStrategy _strategy;
+	/**
+	 * The paint strategy of the ball
+	 */
+	private IPaintStrategy _paintStrategy;
+	
+	/**
+	 * The interact strategy of the ball. Initially does nothing.
+	 */
+	private IInteractStrategy _interactStrategy = new IInteractStrategy(){
+
+		@Override
+		public void interact(Ball context, Ball target, Dispatcher disp) {
+		}
+		
+	};
+	
+
+	/**
+	 * Constructor for a Ball. Initial location, velocity and color are all
+	 * randomly decided.
+	 * 
+	 * @param component
+	 *            the containing component that this ball is drawn on
+	 * @param iUpdateStrategy
+	 *            the strategy the ball will be updated with
+	 * @param paint
+	 *            the paint strategy the ball will be painted with
+	 */
+	public Ball(Component component, IUpdateStrategy iUpdateStrategy,
+			IPaintStrategy paint) {
+		_radius = Randomizer.Singleton.randomInt(MIN_RADIUS, MAX_RADIUS);
+		_color = Randomizer.Singleton.randomColor();
+
+		int xLocation = Randomizer.Singleton.randomInt(_radius,
+				component.getWidth() - _radius);
+		int yLocation = Randomizer.Singleton.randomInt(_radius,
+				component.getHeight() - _radius);
+
+		int xVelocity = Randomizer.Singleton.randomInt(MIN_VELOCITY,
+				MAX_VELOCITY);
+		int yVelocity = Randomizer.Singleton.randomInt(MIN_VELOCITY,
+				MAX_VELOCITY);
+
+		_viewContainer = component;
+		_location = new Point(xLocation, yLocation);
+		_velocity = new Point(xVelocity, yVelocity);
+
+		_strategy = iUpdateStrategy;
+		_strategy.init(this);
+		
+		_paintStrategy = paint;
+		_paintStrategy.init(this);
+	}
+
+	/**
+	 * Returns the canvas
+	 * 
+	 * @return The component to which the ball is painted
+	 */
+	public Component getCanvas() {
+		return _viewContainer;
+	}
+
+	/**
+	 * Returns the current location of this ball.
+	 * 
+	 * @return the current location of this ball
+	 */
+	public Point getLocation() {
+		return _location;
+	}
+
+	/**
+	 * Sets the location of this ball to the specified location.
+	 * 
+	 * @param location
+	 *            the new location for this ball
+	 */
+	/*public void setLocation(Point location) {
+		this._location = location;
+	}*/
+
+	/**
+	 * Returns the ball's paint strategy
+	 * 
+	 * @return The paint strategy of the ball
+	 */
+	public IPaintStrategy getPaintStrategy() {
+		return _paintStrategy;
+	}
+
+	/**
+	 * Returns the current velocity vector of this ball.
+	 * 
+	 * @return the current velocity vector of this ball
+	 */
+	public Point getVelocity() {
+		return _velocity;
+	}
+
+	/**
+	 * Sets the velocity of this ball to the specified velocity vector.
+	 * 
+	 * @param velocity
+	 *            the new velocity for this ball
+	 */
+	public void setVelocity(Point velocity) {
+		this._velocity = velocity;
+	}
+
+	/**
+	 * Sets the radius of this ball to the specified value.
+	 * 
+	 * @param radius
+	 *            the new radius for this ball
+	 */
+	protected void setRadius(int radius) {
+		this._radius = radius;
+	}
+
+	/**
+	 * Returns the current radius of this ball.
+	 * 
+	 * @return the current radius of this ball
+	 */
+	public int getRadius() {
+		return this._radius;
+	}
+
+	/**
+	 * Returns the Maximum allowed radius.
+	 * 
+	 * @return the max radius of a ball
+	 */
+	public static int getMaxRadius() {
+		return MAX_RADIUS;
+	}
+
+	/**
+	 * Returns the minimum allowed radius
+	 * 
+	 * @return the min radius of a ball
+	 */
+	public static int getMinRadius() {
+		return MIN_RADIUS;
+	}
+
+	/**
+	 * Gets the color of the ball
+	 * 
+	 * @return the ball's color
+	 */
+	public Color getColor() {
+		return this._color;
+	}
+
+	/**
+	 * Returns the maximum allowed velocity
+	 * 
+	 * @return the max velocity of a ball
+	 */
+	public static int getMaxVelocity() {
+		return MAX_VELOCITY;
+	}
+
+	/**
+	 * Returns the minimum allowed velocity
+	 * 
+	 * @return the min velocity of a ball
+	 */
+	public static int getMinVelocity() {
+		return MIN_VELOCITY;
+	}
+
+	/**
+	 * Returns the ball's update strategy
+	 * 
+	 * @return The ball's update strategy
+	 */
+	public IUpdateStrategy getUpdateStrategy() {
+		return _strategy;
+	}
+	
+	/**
+	 * Returns the ball's interact strategy
+	 * @return
+	 */
+	public IInteractStrategy getInteractStrategy(){
+		return _interactStrategy;
+	}
+	
+	/**
+	 * Sets the ball's interact strategy
+	 * @param newStrat
+	 */
+	public void setInteractStrategy(IInteractStrategy newStrat){
+		_interactStrategy = newStrat;
+	}
+
+	/**
+	 * Sets the color of the ball
+	 * 
+	 * @param color
+	 *            color of the ball
+	 */
+	protected void setColor(Color color) {
+		_color = color;
+	}
+
+	/**
+	 * Translates the balls location by a given x and y value
+	 * 
+	 * @param x
+	 *            The distance to translate on the x-axis
+	 * @param y
+	 *            The distance to translate on the y-axis
+	 */
+	public void translate(int x, int y) {
+		_location.translate(x, y);
+	}
+
+	/**
+	 * Called by the Dispatcher within the World model. Applies the given
+	 * command to the ball.
+	 */
+	public void update(Observable o, Object cmd) {
+		((IBallCmd) cmd).apply(this, (Dispatcher) o);
+	}
+
+	/**
+	 * Detects if a ball has bounced off a wall and adjusts the velocities
+	 * appropriately to simulate a bounce.
+	 */
+	public void bounce() {
+
+		// Ball has hit right wall
+		if (_location.x >= _viewContainer.getWidth() - _radius) {
+			_velocity.x = _velocity.x * -1;
+			_location.x = _location.x - 2
+					* (_location.x - _viewContainer.getWidth() + _radius);
+		}
+		// Ball has hit left wall
+		else if (_location.x <= _radius) {
+			_velocity.x = _velocity.x * -1;
+			_location.x = _location.x + 2 * (_location.x * -1 + _radius);
+		}
+		// Ball has hit top wall
+		else if (_location.y <= _radius) {
+			_velocity.y = _velocity.y * -1;
+			_location.y = _location.y + 2 * (_location.y * -1 + _radius);
+		}
+		// Ball has hit bottom wall
+		else if (_location.y >= _viewContainer.getHeight() - _radius) {
+			_velocity.y = _velocity.y * -1;
+			_location.y = _location.y - 2
+					* (_location.y - _viewContainer.getHeight() + _radius);
+		}
+
+	}
+
+	/**
+	 * Paints this ball using the specified graphics object.
+	 * 
+	 * @param g
+	 *            the graphics object to help paint the ball given to us by the
+	 *            view
+	 */
+	public void paint(Graphics g) {
+		g.setColor(_color);
+		_paintStrategy.paint(g, this);
+	}
+	
+	/**
+	 * Calls the ball's interact strategy on the context, target, and dispatcher
+	 * @param target
+	 * 		The target ball to interact with
+	 * @param disp
+	 * 		The dispatcher
+	 */
+	public void interactWith(Ball target, Dispatcher disp){
+		_interactStrategy.interact(this, target, disp);
+	}
+
+}

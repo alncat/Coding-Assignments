@@ -1,0 +1,55 @@
+package yn4_jjc7.client.model.message.chat.unknown;
+
+import java.awt.Component;
+import java.awt.Window;
+
+import javax.swing.SwingUtilities;
+
+import map.MapPanel;
+import provided.datapacket.ADataPacketAlgoCmd;
+import provided.datapacket.DataPacket;
+import common.ICmd2ModelAdapter;
+import common.chatroom.IChatroomAdapter;
+import common.message.NullMessage;
+import common.message.chat.IChatMessage;
+
+/**
+ * TODO comments
+ */
+public class MapAlgo
+		extends ADataPacketAlgoCmd<DataPacket<? extends IChatMessage>, Object, IChatroomAdapter> {
+
+	/** Serial ID */
+	private static final long serialVersionUID = 858596597081344949L;
+
+	/** The adapter that this unkown message uses to interact with the system it is installed on */
+	private transient ICmd2ModelAdapter cmd2ModelAdpt;
+
+	public MapAlgo(ICmd2ModelAdapter cmd2ModelAdpt) {
+		this.cmd2ModelAdpt = cmd2ModelAdpt;
+	}
+
+	@Override
+	public DataPacket<? extends IChatMessage> apply(Class<?> index, DataPacket<Object> host,
+			IChatroomAdapter... params) {
+		cmd2ModelAdpt.append("Displaying map");
+
+		//MapPanel mapPanel = new MapPanel();
+		GameMessage hh = new GameMessage();
+		AppFrame theMod = new AppFrame(null, null);
+		//SwingUtilities.invokeLater(() -> mapPanel.start()); // Runs on different thread, allows resizing and repainting
+		
+		Window window = cmd2ModelAdpt.addComponentAsWindow( , "Map"); // as window
+		window.setSize(800, 800);//800,600
+
+//		cmd2ModelAdpt.addComponent(mapPanel, "Map"); // as component
+
+		return new DataPacket<NullMessage>(NullMessage.class, NullMessage.SINGLETON);
+	}
+
+	@Override
+	public void setCmd2ModelAdpt(ICmd2ModelAdapter cmd2ModelAdpt) {
+		this.cmd2ModelAdpt = cmd2ModelAdpt;
+	}
+
+}

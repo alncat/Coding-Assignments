@@ -1,0 +1,389 @@
+package model;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.Timer;
+
+import util.Dispatcher;
+import model.ball.Ball;
+import model.ball.IUpdateStrategy;
+import model.ball.MultiStrategy;
+import model.ball.SwitcherStrategy;
+import model.command.IBallCmd;
+import model.paint.IPaintStrategy;
+import model.paint.IPaintStrategyFac;
+
+/**
+ * The model for BallWorld. Contains references to all the observer objects that
+ * will be painted onto the world. Notifies these observers when the GUI asks
+ * to.
+ */
+public class World {
+	/**
+	 * The adapter to communicated with the view.
+	 */
+	private IModel2ViewAdapter _view;
+	/**
+	 * The dispatcher that notifies all observable objects (the balls) when the
+	 * GUI asks to.
+	 */
+	private Dispatcher _dispatcher;
+	/**
+	 * The time interval between successive repaints of the canvas. (in
+	 * milliseconds)
+	 */
+	private static final int TIME_SLICE = 50;
+	/**
+	 * The timer that repeatedly calls repaint on the canvas every TIME_SLICE
+	 * seconds.
+	 */
+	private final Timer _timer;
+	/**
+	 * The strategy balls who can switch update strategies will be switched to.
+	 * Initially set to StraightStrategy.
+	 */
+	private SwitcherStrategy _switcher = new SwitcherStrategy();
+
+	/**
+	 * A factory for a beeping error strategy that beeps the speaker every 25
+	 * updates. Either use the _errorStrategyFac variable directly if you need a
+	 * factory that makes an error strategy, or call _errorStrategyFac.make() to
+	 * create an instance of a beeping error strategy.
+	 */
+	private IStrategyFac _errorStrategyFac = new IStrategyFac() {
+		@Override
+		/**
+		 * Make the beeping error strategy
+		 * @return  An instance of a beeping error strategy
+		 */
+		public IUpdateStrategy make() {
+			return new IUpdateStrategy() {
+				private int count = 0; // update counter
+
+				@Override
+				/**
+				 * Beep the speaker every 25 updates
+				 */
+				public void updateState(Ball context, Dispatcher disp) {
+					if (25 < count++) {
+						java.awt.Toolkit.getDefaultToolkit().beep();
+						count = 0;
+					}
+				}
+
+				@Override
+				public void init(Ball ball) {
+					
+				}
+			};
+		}
+	};
+	
+	/**
+	 * A factory for an error paint strategy that paints a still red circle.
+	 */
+	private IPaintStrategyFac _errorPaintStrategyFac = new IPaintStrategyFac(){
+
+		@Override
+		public IPaintStrategy make() {
+			return new IPaintStrategy(){
+
+				@Override
+				public void paint(Graphics g, Ball host) {
+					// Paints a still red circle at 200,200
+					g.setColor(Color.RED);
+					g.drawOval(200,200,400,400);
+				}
+
+				@Override
+				public void init(Ball host) {
+				}
+				
+			};
+		}
+		
+	};
+
+	/**
+	 * Constructor for the world model.
+	 * 
+	 * @param model2View
+	 *            the adapter reference to communicate with the view
+	 */
+	public World(IModel2ViewAdapter model2View) {
+		_view = model2View;
+		_dispatcher = new Dispatcher();
+		_timer = new Timer(TIME_SLICE, (e) -> {
+			_view.update();
+		});
+		
+	}
+
+	/**
+	 * Called by the controller to start the timer.
+	 * @return 
+	 */
+	public void start() {
+		_timer.start();
+	}
+
+	/**
+	 * Creates a ball with given update strategy and add ball to dispatcher.
+	 * 
+	 * @param strategy
+	 *            the update strategy of ball
+	 * @param paint
+	 *            the painting strategy of ball
+	 */
+	public void loadBall(IUpdateStrategy strategy, IPaintStrategy paint) {
+		_dispatcher.addObserver(new Ball(_view.getCanvas(), strategy, paint));
+	}
+
+	/**
+	 * Wipes out all objects from the world.
+	 */
+	public void apocalypse() {
+		_dispatcher.deleteObservers();
+	}
+
+	/**
+	 * Method called by the view to instruct the observer elements to paint.
+	 * Notifies all observing objects (the balls) which will cause them to
+	 * paint.
+	 * 
+	 * @param g
+	 *            the graphics object to paint the canvas
+	 */
+	public void update(Graphics g) {
+		_dispatcher.notifyAll(new IBallCmd() {
+			public void apply(Ball context, Dispatcher disp) {
+				context.getUpdateStrategy().updateState(context, disp);
+				context.translate(context.getVelocity().x,
+						context.getVelocity().y);
+				context.bounce();
+				context.paint(g);
+				// context.getPaintStrategy().paint(g,context);
+			}
+		});
+	}
+
+	/**
+	 * Loads a strategy by the given className. If a the className cannot be
+	 * matched with any existing strategies, an error strategy that beeps will
+	 * be returned.
+	 * 
+	 * @param className
+	 *            , String, full or abbreviated name for the strategy
+	 * @return updateStrategy, IUpdateStrategy
+	 */
+	public IUpdateStrategy loadStrategy(String className) {
+		try {
+			Object[] args = new Object[] {};
+			java.lang.reflect.Constructor<?> cs[] = Class.forName(className)
+					.getConstructors(); // get all the constructors
+			java.lang.reflect.Constructor<?> c = null;
+			for (int i = 0; i < cs.length; i++) {
+				/*
+				 * find the first constructor with the right number of input
+				 * parameters
+				 */
+				if (args.length == (cs[i]).getParameterTypes().length) {
+					c = cs[i];
+					break;
+				}
+			}
+			return (IUpdateStrategy) c.newInstance(args);
+		} catch (Exception ex) {
+			System.err.println("Class " + className
+					+ " failed to load. \nException = \n" + ex);
+			ex.printStackTrace(); // print the stack trace to help in debugging.
+			return _errorStrategyFac.make();
+		}
+	}
+
+	/**
+	 * Loads a paint strategy by the given className. If a the className cannot
+	 * be matched with any existing strategies, an error strategy that beeps
+	 * will be returned.
+	 * 
+	 * @param className
+	 *            , String, full or abbreviated name for the strategy
+	 * @return updateStrategy, IUpdateStrategy
+	 */
+	public IPaintStrategy loadPaintStrategy(String className) {
+		try {
+			Object[] args = new Object[] {};
+			java.lang.reflect.Constructor<?> cs[] = Class.forName(className)
+					.getConstructors(); // get all the constructors
+			java.lang.reflect.Constructor<?> c = null;
+			for (int i = 0; i < cs.length; i++) {
+				/*
+				 * find the first constructor with the right number of input
+				 * parameters
+				 */
+				if (args.length == (cs[i]).getParameterTypes().length) {
+					c = cs[i];
+					break;
+				}
+			}
+			return (IPaintStrategy) c.newInstance(args);
+		} catch (Exception ex) {
+			System.err.println("Class " + className
+					+ " failed to load. \nException = \n" + ex);
+			ex.printStackTrace(); // print the stack trace to help in debugging.
+			return _errorPaintStrategyFac.make();
+		}
+	}
+
+	/**
+	 * Returns an IStrategyFac that can instantiate the strategy specified by
+	 * classname. Returns a factory for a beeping error strategy if classname is
+	 * null. The toString() of the returned factory is the classname.
+	 * 
+	 * @param classname
+	 *            full or abbreviated name of desired strategy
+	 * @return A factory to make that strategy
+	 */
+	public IStrategyFac makeStrategyFac(final String classname) {
+		if (null == classname)
+			return _errorStrategyFac;
+		return new IStrategyFac() {
+			/**
+			 * Instantiate a strategy corresponding to the given class name.
+			 * 
+			 * @return An IUpdateStrategy instance
+			 */
+			public IUpdateStrategy make() {
+				return loadStrategy(fixName(classname));
+			}
+
+			/**
+			 * Return the given class name string
+			 */
+			public String toString() {
+				return classname;
+			}
+		};
+	}
+
+	/**
+	 * Returns an IPaintStrategyFac that can instantiate the strategy specified
+	 * by classname. The toString() of the returned factory is the classname.
+	 * 
+	 * @param classname
+	 *            full or abbreviated name of desired strategy
+	 * @return A factory to make that paint strategy
+	 */
+	public IPaintStrategyFac makePaintStrategyFac(final String classname) {
+		if (null == classname) {
+			System.out.println("Paint Strategy " + classname + " failed to be made by factory.");
+			return _errorPaintStrategyFac;
+		}
+		return new IPaintStrategyFac() {
+			/**
+			 * Instantiate a paint strategy corresponding to the given class
+			 * name.
+			 * 
+			 * @return An IPaintStrategy instance
+			 */
+			public IPaintStrategy make() {
+				return loadPaintStrategy(fixPaintName(classname));
+			}
+
+			/**
+			 * Return the given class name string
+			 */
+			public String toString() {
+				return classname;
+			}
+		};
+	}
+
+	/**
+	 * Returns an IStrategyFac that can instantiate a MultiStrategy with the two
+	 * strategies made by the two given IStrategyFac objects. Returns null if
+	 * either supplied factory is null. The toString() of the returned factory
+	 * is the toString()'s of the two given factories, concatenated with "-". If
+	 * either factory is null, then a factory for a beeping error strategy is
+	 * returned.
+	 * 
+	 * @param stratFac1
+	 *            An IStrategyFac for a strategy
+	 * @param stratFac2
+	 *            An IStrategyFac for a strategy
+	 * @return An IStrategyFac for the composition of the two strategies
+	 */
+	public IStrategyFac combineStrategyFacs(final IStrategyFac stratFac1,
+			final IStrategyFac stratFac2) {
+		if (null == stratFac1 || null == stratFac2)
+			return _errorStrategyFac;
+		return new IStrategyFac() {
+			/**
+			 * Instantiate a new MultiStrategy with the strategies from the
+			 * given strategy factories
+			 * 
+			 * @return A MultiStrategy instance
+			 */
+			public IUpdateStrategy make() {
+				return new MultiStrategy(stratFac1.make(), stratFac2.make());
+			}
+
+			/**
+			 * Return a string that is the toString()'s of the given strategy
+			 * factories concatenated with a "-"
+			 */
+			public String toString() {
+				return stratFac1.toString() + "-" + stratFac2.toString();
+			}
+		};
+	}
+
+	/**
+	 * Returns the strategy that switcher balls should switch to. Initially
+	 * StraightStrategy.
+	 * 
+	 * @return switcher strategy.
+	 */
+	public SwitcherStrategy getSwitcherStrategy() {
+		return _switcher;
+	}
+
+	/**
+	 * Switch the switcher balls to the given update strategy. Also sets the
+	 * switch strategy to given strategy.
+	 * 
+	 * @param strat
+	 *            a strategy that switcher balls will be switched to.
+	 */
+	public void switchSwitcherStrategy(IUpdateStrategy strat) {
+		_switcher.setStrategy(strat);
+	}
+
+	/**
+	 * Completes the strategy class name by adding package name in the front and
+	 * "Strategy" at the end. If package name is already included in the string,
+	 * then do nothing to the string, which is assumed to be the full name.
+	 * 
+	 * @param name
+	 *            , the full or abbreviated name of a strategy class.
+	 * @return full name, String, the full name of a strategy class.
+	 */
+	private String fixName(String name) {
+		if (name.contains("model.ball."))
+			return name;
+		return "model.ball." + name + "Strategy";
+	}
+
+	/**
+	 * Completes the paint strategy class name. If it is already a full name,
+	 * then does nothing to the name
+	 * @param name The name to be fixed
+	 * @return The fixed name
+	 */
+	private String fixPaintName(String name) {
+		if (name.contains("model.paint"))
+			return name;
+		return "model.paint." + name + "PaintStrategy";
+	}
+}

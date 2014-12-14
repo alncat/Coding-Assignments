@@ -1,0 +1,30 @@
+package model;
+import gov.nasa.worldwind.animation.*;
+import gov.nasa.worldwind.geom.Position;
+import gov.nasa.worldwind.geom.Sphere;
+import gov.nasa.worldwind.geom.Vec4;
+
+public class Dots {
+	private String   _name;
+	private Position _pos;
+	private Sphere ssPhere;
+	
+	public Dots(String name, Position pos){
+		_name = name;
+		_pos = pos;
+		ssPhere = new Sphere(new Vec4(888.0), 999.0);
+	}
+	
+	public Position getPosition() {
+		return _pos;
+	}
+	
+	public String toString() {
+		return _name;
+	}
+	
+	public Sphere getSphere(){
+		return ssPhere;
+	}
+
+}

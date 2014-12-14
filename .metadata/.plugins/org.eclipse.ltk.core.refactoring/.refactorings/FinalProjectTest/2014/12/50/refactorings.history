@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;yn4_jjc7.client.model.message.chat.unknown.PolygonExample&apos; to &apos;GameMessage&apos;&#x0A;- Original project: &apos;FinalProjectTest&apos;&#x0A;- Original element: &apos;yn4_jjc7.client.model.message.chat.unknown.PolygonExample&apos;&#x0A;- Renamed element: &apos;yn4_jjc7.client.model.message.chat.unknown.GameMessage&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;PolygonExample&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;yn4_jjc7.client.model.message.chat.unknown{PolygonExample.java[PolygonExample" matchStrategy="1" name="GameMessage" qualified="false" references="true" similarDeclarations="false" stamp="1418485786198" textual="false" version="1.0"/>
+</session>
